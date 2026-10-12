@@ -6,6 +6,7 @@ import shutil
 
 import pandas as pd
 import pytest
+import yaml
 from openpyxl import load_workbook
 
 from norway_gas_routing import operational as op, routing_sources as sources
@@ -72,6 +73,10 @@ def test_full_network_mock_solve_and_genuine_missing_month_failure(repo_root,tmp
         shutil.copytree(repo_root/directory,tmp_path/directory)
     (tmp_path/'scripts/run').mkdir(parents=True)
     shutil.copyfile(repo_root/'scripts/run/run_routing.py',tmp_path/'scripts/run/run_routing.py')
+    run_path=tmp_path/'config/run.yaml'
+    request=yaml.safe_load(run_path.read_text())
+    request.update(mode='historical_reconstruction',start='2024-01',end='2024-12',origin=None,capacity_scenario='baseline')
+    run_path.write_text(yaml.safe_dump(request))
     contract=sources.source_contract(tmp_path)
     calls=[]
     ea=response_factory(contract,calls)

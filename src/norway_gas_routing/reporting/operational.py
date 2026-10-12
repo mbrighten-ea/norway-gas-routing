@@ -14,7 +14,7 @@ from openpyxl.chart import BarChart, Reference
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
-from ..operational import save_csv
+from ..operational import save_csv, save_current_forecast_table
 from ..routing import DESTINATIONS, draw_network
 from .assessment import STYLE, artifact_links, table
 from .data import COLORS, GROUPS
@@ -47,6 +47,8 @@ def result_tables(inputs, results, manifest):
             unclassified_supply_bcm=float(inputs['supply'].at[month, 'UNMAPPED']) if inputs else None,
             solver_status=manifest['status'])
         rows.append(row)
+        if manifest['settings']['mode']=='current_forecast':
+            row['forecast_origin']=manifest['settings']['origin']
         for group, countries in GROUPS.items():
             actual = inputs['actual_comparisons'].at[month, group] if inputs and 'actual_comparisons' in inputs else None
             compatible = actual is not None and pd.notna(actual) and group not in {'DK', 'Baltic Pipe'}
@@ -56,7 +58,8 @@ def result_tables(inputs, results, manifest):
                 ea_actual_bcm=actual, ea_legacy_forecast_bcm=None,
                 model_minus_actual_bcm=modelled-actual if result and compatible else None,
                 model_minus_ea_forecast_bcm=None,
-                status=inputs['comparison_status'][group] if inputs and 'comparison_status' in inputs else
+                status='Unavailable: prospective run does not retrieve actuals or score forecasts' if manifest['settings']['mode']=='current_forecast' else
+                    inputs['comparison_status'][group] if inputs and 'comparison_status' in inputs else
                     'Unavailable: synthetic run has no EA references' if manifest['settings']['input_source']=='synthetic_demo'
                     else 'Unavailable: complete fresh SID inputs and compatible comparison definitions required'))
         for arc in manifest['network']['arcs']:
@@ -163,18 +166,25 @@ def write_workbook(path, frames, manifest):
 
 def report_run(output, manifest, inputs, results, inventory, network):
     monthly, comparisons, arcs = result_tables(inputs, results, manifest)
-    save_csv(monthly, output/'results.csv')
-    save_csv(comparisons, output/'details/comparisons.csv')
-    save_csv(arcs, output/'details/network_flows.csv')
+    def save_delivery(frame,path):
+        return save_current_forecast_table(frame,path,manifest['settings']) if manifest['settings']['mode']=='current_forecast' else save_csv(frame,path)
+    save_delivery(monthly, output/'results.csv')
+    save_delivery(comparisons, output/'details/comparisons.csv')
+    save_delivery(arcs, output/'details/network_flows.csv')
     diagnostics = pd.read_csv(output/'details/solver_checks.csv')
     if diagnostics.empty:
         diagnostics = pd.DataFrame([dict(check='Optimisation', status=manifest['status'],
             action=manifest['blocker'] or 'Not requested: validation-only does not construct or solve an LP.')])
     capacities = inputs['capacity_monthly'] if inputs else pd.DataFrame([dict(status='Unavailable: preparation blocked; no capacity inputs consumed')])
     preferences = pd.DataFrame([dict(destination=d, share=inputs['preferences'][d]) for d in DESTINATIONS]) if inputs else pd.DataFrame([dict(status='Unavailable: preparation blocked')])
+    forecast=manifest['settings']['mode']=='current_forecast'
+    definitions=[(key,'Prospective only: no actuals or scores; historical date guards and 2026 holdout remain locked.' if forecast and key=='Evaluation' else value) for key,value in DEFINITIONS]
+    forecast_guide=[('Forecast origin (UTC)',manifest['settings']['origin']),
+        ('Delivery horizon',manifest['settings']['start']+' to '+manifest['settings']['end']+'; '+str(manifest['settings']['horizon_months'])+' monthly deliveries'),
+        ('Prospective assumptions',manifest['settings']['capacity_scenario']+'; physical approvals pending for EA inputs; synthetic fixtures are manufactured')] if forecast else []
     guide = pd.DataFrame([('Run identity', manifest['run_id']), ('Git commit', manifest['git']['commit']),
         ('Action required', manifest['blocker'] or 'Open Monthly flows; read definitions below before using results.'),
-        *DEFINITIONS], columns=['item', 'meaning'])
+        *forecast_guide,*definitions], columns=['item', 'meaning'])
     frames = {'Read me': guide, 'Monthly flows': monthly, 'Comparisons': comparisons,
         'Capacities': capacities, 'Network flows': arcs, 'Preferences': preferences,
         'Input sources': inventory, 'Settings': pd.DataFrame(list(manifest['settings'].items()), columns=['setting', 'value']),
@@ -206,7 +216,7 @@ def report_run(output, manifest, inputs, results, inventory, network):
         content += '<p class="note">Action required: '+escape(manifest['blocker'])+'</p>'
     content += table(guide)+table(monthly)+table(comparisons)
     if results:
-        content += '<img alt="Synthetic monthly flows" src="details/monthly_flows.png"><img alt="Solved synthetic network" src="details/network_flows.png">'
+        content += '<img alt="Monthly flows snapshot" src="details/monthly_flows.png"><img alt="Solved network snapshot" src="details/network_flows.png">'
     else:
         content += '<img alt="Unsolved topology" src="details/network_topology.png">'
     content += artifact_links(output)

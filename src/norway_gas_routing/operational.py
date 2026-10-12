@@ -1,8 +1,8 @@
 """Local orchestration: configuration, input gates, solve, then analyst reporting.
 
 Synthetic demonstration is explicit and cannot act as a fallback for EA inputs.
-An origin is part of the interface for future walk-forward runs, not a forecast
-implementation. No cached numerical input reader is called by this module.
+Current forecasts have bounded origins/deliveries and explicit physical-input
+gates. No cached numerical input reader or walk-forward engine is called here.
 """
 from copy import deepcopy
 from datetime import datetime, timezone
@@ -57,8 +57,8 @@ def load_run_config(root, path):
         raise RunBlocked('Invalid run YAML: '+str(exc)+'; fix the indicated line in '+str(path)) from exc
     keys = {'model', 'registry', 'evaluation', 'mode', 'input_source', 'start',
             'end', 'origin', 'solver', 'capacity_scenario', 'price_enabled'}
-    check_keys(request, 'run configuration', keys)
-    if not isinstance(request['mode'], str) or request['mode'] not in {'historical_reconstruction', 'retrospective_forecast', 'latest_forecast'}:
+    check_keys(request, 'run configuration', keys, {'horizon_months'})
+    if not isinstance(request['mode'], str) or request['mode'] not in {'historical_reconstruction', 'retrospective_forecast', 'latest_forecast', 'current_forecast'}:
         raise RunBlocked('Unsupported mode. Use historical_reconstruction; forecast modes require a verified origin bundle.')
     if not isinstance(request['input_source'], str) or request['input_source'] not in {'fresh_sid', 'synthetic_demo'}:
         raise RunBlocked('Unsupported input_source. Use fresh_sid or explicit synthetic_demo; cached/frozen inputs are not authorised.')
@@ -66,7 +66,14 @@ def load_run_config(root, path):
         raise RunBlocked('price_enabled must be a YAML boolean.')
     if request['price_enabled']:
         raise RunBlocked('Experimental price routing is not exposed in Milestone A. Set price_enabled: false; use the separately authorised price experiment.')
-    if request['capacity_scenario'] != 'baseline':
+    current=request['mode']=='current_forecast'
+    if not isinstance(request['capacity_scenario'],str):
+        raise RunBlocked('capacity_scenario must be a named string.')
+    if current and request['capacity_scenario'] not in {'baseline_prospective','synthetic_fixture'}:
+        raise RunBlocked('Current forecast requires explicit baseline_prospective (approval pending) or synthetic_fixture capacity scenario.')
+    if current and ((request['input_source']=='synthetic_demo') != (request['capacity_scenario']=='synthetic_fixture')):
+        raise RunBlocked('synthetic_fixture capacities require synthetic_demo inputs, and vice versa; never mix manufactured and EA inputs.')
+    if not current and request['capacity_scenario'] != 'baseline':
         raise RunBlocked('Milestone A supports baseline capacity only. Sensitivity assumptions need their separately authorised command.')
     if request['solver'] is not None and not isinstance(request['solver'], str):
         raise RunBlocked('solver must be an installed solver name or null.')
@@ -77,18 +84,27 @@ def load_run_config(root, path):
         raise RunBlocked('Use config/evaluation.yaml: the locked evaluation policy cannot be replaced.')
     load_policy(policy_path)
     model, registry = load_config(model_path, registry_path)
+    if current:
+        from .forecast_inputs import forecast_window
+        request['horizon_months']=request.get('horizon_months',12)
+        request['origin'],months=forecast_window(request['origin'],request['horizon_months'])
+        for name,value in [('start',str(months.min())),('end',str(months.max()))]:
+            if request[name] is not None and request[name]!=value:
+                raise RunBlocked('Current forecast '+name+' must be null or '+value+'; deliveries derive from origin and horizon_months.')
+            request[name]=value
     for name in ('start', 'end'):
         value = request[name]
         if not isinstance(value, str) or len(value) != 7 or str(pd.Period(value, 'M')) != value:
             raise RunBlocked(name+' must be a quoted YYYY-MM month.')
     if request['start'] > request['end']:
         raise RunBlocked('start must precede or equal end.')
-    check_dates([request['start'], request['end']], 'analysis')
+    if not current:
+        check_dates([request['start'], request['end']], 'analysis')
     if request['origin'] is not None:
         origin = pd.Timestamp(request['origin'])
         if pd.isna(origin):
             raise RunBlocked('origin must be a valid explicit timestamp.')
-        check_dates([origin], 'read')
+        if not current: check_dates([origin], 'read')
         if pd.Period(request['start'], 'M') <= pd.Period(origin.tz_localize(None) if origin.tzinfo else origin, 'M'):
             raise RunBlocked('Forecast targets must follow the origin; revised values cannot substitute for origin forecasts.')
     if request['mode'] == 'historical_reconstruction' and request['origin'] is not None:
@@ -142,6 +158,19 @@ def input_inventory(model, registry, request):
 
 def prepare_run_inputs(root, model, registry, request):
     """Return the existing monthly table contract; never substitute another mode."""
+    if request['mode']=='current_forecast':
+        if request['input_source']=='synthetic_demo':
+            inputs=synthetic_inputs(model)
+            inputs['provenance'][0].update(kind='synthetic_forecast_fixture',asof=request['origin'])
+            inputs['provenance'][0]['transformation']+='; fixture LNG 0.2 bcm/month; national equals pipeline source sum plus fixture LNG, never EA observations'
+            inputs['reconciliation']=pd.DataFrame(dict(
+                national_production_bcm=inputs['supply'].sum(axis=1)+.2,
+                snohvit_bcm=.2,pipeline_supply_bcm=inputs['supply'].sum(axis=1),
+                mapped_supply_bcm=inputs['supply'].drop(columns='UNMAPPED').sum(axis=1),
+                unmapped_supply_bcm=inputs['supply'].UNMAPPED))
+            return inputs
+        from .forecast_inputs import prepare_current_inputs
+        return prepare_current_inputs(root,model,registry,request)
     if request['mode'] != 'historical_reconstruction':
         raise RunBlocked('Forecast mode unavailable: identify every component SID and verify origin Snøhvit, Kollsnes maintenance, capacity effectiveness and training release dates. Supply a complete origin bundle before implementing forecast preparation; no revised fallback.')
     if request['input_source'] == 'fresh_sid':
@@ -186,7 +215,12 @@ def synthetic_inputs(model):
 def validate_prepared_inputs(inputs, network, request):
     """Validation boundary also usable by a future one-target-month adapter."""
     months = pd.period_range(request['start'], request['end'], freq='M')
-    check_dates(months, 'analysis')
+    if request['mode']=='current_forecast':
+        from .forecast_inputs import forecast_window
+        _,expected=forecast_window(request['origin'],request['horizon_months'])
+        if not months.equals(expected): raise RunBlocked('Current forecast deliveries differ from origin/horizon contract.')
+    else:
+        check_dates(months, 'analysis')
     if not inputs['months'].equals(months):
         raise RunBlocked('Prepared target months do not match the run request.')
     sources = {n for n, e in network['nodes'].items() if e['kind'] == 'source'}
@@ -235,21 +269,48 @@ def git_identity(root):
         raise RunBlocked('Cannot record Git identity; run inside the authorised Git checkout: '+str(exc)) from exc
 
 
-def save_csv(frame, path, *, monthly_index=False):
+def csv_frame(frame, monthly_index=False):
     frame = frame.copy()
     if monthly_index:
         frame = frame.rename_axis('month').reset_index()
     for col in frame:
         if isinstance(frame[col].dtype, pd.PeriodDtype):
             frame[col] = frame[col].dt.to_timestamp()
+    return frame
+
+
+def save_csv(frame, path, *, monthly_index=False):
+    frame=csv_frame(frame,monthly_index)
     check_table(frame)
     frame.to_csv(path, index=False, encoding='utf-8-sig', date_format='%Y-%m-%d', float_format='%.17g')
+
+
+def save_current_forecast_table(frame,path,request,*,monthly_index=False):
+    """Export declared prospective delivery tables, never historical actuals.
+
+    A separate publication contract; historical save_csv/check_table are unchanged.
+    Numeric operational inputs remain gated by preparation and fixture provenance.
+    """
+    from .forecast_inputs import forecast_window
+    if request['mode']!='current_forecast': raise RunBlocked('Prospective table export requires current_forecast.')
+    _,months=forecast_window(request['origin'],request['horizon_months'])
+    if request['start']!=str(months.min()) or request['end']!=str(months.max()):
+        raise RunBlocked('Prospective export window differs from declared forecast horizon.')
+    frame=csv_frame(frame,monthly_index)
+    for column in ('month','target_month','date','calendar_date','timestamp'):
+        if column in frame:
+            dates=pd.DatetimeIndex(pd.to_datetime(frame[column],utc=True)).tz_localize(None)
+            if dates.hasnans or (dates<months.min().start_time).any() or (dates>months.max().end_time).any():
+                raise RunBlocked('Prospective export contains dates outside its delivery contract; locked actuals cannot be exported.')
+    frame.to_csv(path,index=False,encoding='utf-8-sig',date_format='%Y-%m-%d',float_format='%.17g')
 
 
 def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_name=None):
     """Return (package directory, process exit code); failed runs stay traceable."""
     root = Path(root).resolve()
     request, model, registry, config_path = load_run_config(root, config)
+    def save_target(frame,path,**kwargs):
+        return save_current_forecast_table(frame,path,request,**kwargs) if request['mode']=='current_forecast' else save_csv(frame,path,**kwargs)
     if solver_name:
         request['solver'] = solver_name
     network = network_definition(model['routing'])
@@ -264,7 +325,8 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
     prepared.mkdir()
     manifest = dict(schema_version=1, run_id=run_id, run_at_utc=datetime.now(timezone.utc).isoformat(),
         status='PREPARING', phase='preparation', blocker=None, settings=request,
-        analysis_type='SYNTHETIC DEMONSTRATION — not EA data or a forecast' if request['input_source']=='synthetic_demo' else 'Latest revised reconstruction',
+        analysis_type=('SYNTHETIC CURRENT-FORECAST WORKFLOW — manufactured data, not an EA forecast' if request['input_source']=='synthetic_demo' else 'Current forecast — pending approved physical inputs') if request['mode']=='current_forecast' else
+            'SYNTHETIC DEMONSTRATION — not EA data or a forecast' if request['input_source']=='synthetic_demo' else 'Latest revised reconstruction',
         asof=request['origin'], unit='bcm/month', git=identity,
         config_sha256={str(p.relative_to(root)): digest(p) for p in [config_path,
             local_path(root, request['model']), local_path(root, request['registry']), local_path(root, request['evaluation'])]},
@@ -272,6 +334,8 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
         network=network, inputs=[], solver=None, holdout_scored=False,
         interpreter=sys.executable, package_versions={name: version(name) for name in
             ['pandas', 'pulp', 'openpyxl', 'matplotlib', 'networkx', 'PyYAML']})
+    if request['mode']=='current_forecast':
+        manifest.update(operational_forecast_available=False,physical_supply_contract='Pending physical-design approval; fixtures are demonstration only')
     manifest['code_sha256']['scripts/run/run_routing.py'] = digest(root/'scripts/run/run_routing.py')
     # Preserve dirty code itself, not only a hash which cannot reconstruct it.
     code = provenance/'code'
@@ -289,7 +353,11 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
     if request['input_source'] == 'fresh_sid':
         from .routing_sources import source_requirements, CONTRACT, MAPPING_LEDGER
         try:
-            inventory, _, _ = source_requirements(root, model, registry)
+            if request['mode']=='current_forecast':
+                from .forecast_inputs import forecast_requirements
+                inventory,_,_=forecast_requirements(root,model,registry,request)
+            else:
+                inventory, _, _ = source_requirements(root, model, registry)
             inventory['start'], inventory['end'] = request['start'], request['end']
             mask = inventory.classification.eq('essential_training')
             inventory.loc[mask, 'start'] = model['routing']['baseline_start']
@@ -323,16 +391,17 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
                 raw_unit='mcm/day' if name == 'capacities' else unit, model_unit=unit,
                 transformation=inputs['provenance'][0]['transformation'],
                 status='SYNTHETIC — manufactured, not provider data', source='operational.synthetic_inputs',
-                origin=None, metadata_file='provenance/source_metadata.json') for name, frame, unit in [
+                origin=request['origin'] if request['mode']=='current_forecast' else None, metadata_file='provenance/source_metadata.json') for name, frame, unit in [
                     ('source_supply', inputs['supply'], 'bcm/month'),
                     ('capacities', inputs['capacities'], 'bcm/month'),
                     ('training_observations', inputs['training_observations'], 'bcm/month')]])
         for key in ['supply', 'capacities', 'training_observations']:
-            save_csv(inputs[key], prepared/(key+'.csv'), monthly_index=True)
+            writer=save_csv if key=='training_observations' else save_target
+            writer(inputs[key], prepared/(key+'.csv'), monthly_index=True)
         for key in ['capacity_daily', 'capacity_monthly']:
-            save_csv(inputs[key], prepared/(key+'.csv'))
+            save_target(inputs[key], prepared/(key+'.csv'))
         if 'reconciliation' in inputs:
-            save_csv(inputs['reconciliation'], prepared/'reconciliation.csv', monthly_index=True)
+            save_target(inputs['reconciliation'], prepared/'reconciliation.csv', monthly_index=True)
         if 'actual_comparisons' in inputs:
             save_csv(inputs['actual_comparisons'], prepared/'actual_comparisons.csv', monthly_index=True)
             write_json(prepared/'comparison_status.json', inputs['comparison_status'])
@@ -346,12 +415,28 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
                 inventory.at[index, 'model_ready_file'] = file.relative_to(output).as_posix()
                 inventory.at[index, 'sha256'] = digest(file)
                 inventory.at[index, 'raw_file'] = 'provenance/inputs/capacity_daily.csv' if key == 'capacities' else file.relative_to(output).as_posix()
-        manifest['evaluation'] = reconstruction_evaluation(root, inputs, model['routing'], run_id)
+        if request['mode']=='current_forecast':
+            manifest['evaluation']=dict(split=load_policy(),experiment_id=run_id,analysis_mode='current_forecast',
+                forecast_origin=request['origin'],target_start=request['start'],target_end=request['end'],
+                period_role='prospective workflow; no scoring',holdout_loaded=False,holdout_scored=False,
+                model_parameters=dict(historical_routing_shares=inputs['preferences'],price_response=dict(enabled=False),
+                    training_start=model['routing']['baseline_start'],training_end=model['routing']['baseline_end'],
+                    training_vintage_status='Synthetic fixture; no EA forecast claim'))
+        else:
+            manifest['evaluation'] = reconstruction_evaluation(root, inputs, model['routing'], run_id)
         if request['input_source'] == 'synthetic_demo':
             manifest['evaluation']['model_parameters']['training_vintage_status'] = 'synthetic fixture; not observed training data'
         parameters = manifest['evaluation']['model_parameters']
         manifest['evaluation']['parameters_sha256'] = hashlib.sha256(json.dumps(parameters, sort_keys=True, default=str).encode()).hexdigest()
-        validate_manifest(manifest)
+        if request['mode']=='current_forecast':
+            # Current real inputs cannot reach this phase without the pending
+            # physical contract implementation. Never weaken historical validators.
+            if request['input_source']!='synthetic_demo':
+                raise RunBlocked('Approved complete physical forecast adapter required; no partial EA vector can be solved.')
+            if any(r.get('kind')!='synthetic_forecast_fixture' for r in inputs['provenance']):
+                raise RunBlocked('Mixed/unlabelled forecast fixture provenance.')
+        else:
+            validate_manifest(manifest)
         if validate_only:
             manifest['status'] = 'VALIDATED_ONLY'
         else:
@@ -363,6 +448,8 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
         if (provenance/'source_metadata.json').exists():
             manifest['inputs'] = json.loads((provenance/'source_metadata.json').read_text(encoding='utf-8'))
     if request['input_source'] == 'fresh_sid' and manifest['inputs']:
+        if request['mode']=='current_forecast' and any(r.get('metadata',{}).get('_mock_sid_response') for r in manifest['inputs']):
+            manifest['analysis_type']='MOCK CURRENT-FORECAST INPUT CHECK — manufactured responses, not an operational EA forecast'
         rows = [{**{k:v for k,v in r.items() if k not in {'metadata', 'registry'}},
                  'metadata_file': 'provenance/source_metadata.json'} for r in manifest['inputs']]
         inventory = pd.concat([inventory, pd.DataFrame(rows)], ignore_index=True)
@@ -370,7 +457,7 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
     if not (provenance/'source_metadata.json').exists():
         write_json(provenance/'source_metadata.json', {'status': 'Unavailable: no numerical inputs consumed', 'blocker': manifest['blocker']})
     write_json(provenance/'solver_results.json', results)
-    save_csv(checks, details/'solver_checks.csv')
+    save_target(checks, details/'solver_checks.csv')
     write_json(provenance/'run_manifest.json', manifest)
     from .reporting.operational import report_run
     try:

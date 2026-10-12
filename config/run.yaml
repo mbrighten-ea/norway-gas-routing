@@ -2,12 +2,21 @@
 model: config/model.yaml
 registry: config/data_series.csv
 evaluation: config/evaluation.yaml
-mode: historical_reconstruction
+mode: current_forecast
 input_source: fresh_sid
 # Explicit opt-in demonstration: change input_source to synthetic_demo.
-start: '2024-01'
-end: '2024-12'
+# Current forecasts derive deliveries from origin and horizon; do not put actual
+# delivery months here. Historical reconstruction: mode historical_reconstruction,
+# start '2024-01', end '2024-12', origin null, capacity_scenario baseline.
+start: null
+end: null
+# null captures this execution's UTC origin; explicit current-month timestamp
+# selects the same prospective @asof state for all candidate sources.
 origin: null
+horizon_months: 12
 solver: HiGHS
-capacity_scenario: baseline
+# Proposed constant canonical capacities + signed Kollsnes plan. This label
+# does not approve their prospective use; real forecasts stay explicitly blocked.
+# synthetic_demo requires capacity_scenario synthetic_fixture.
+capacity_scenario: baseline_prospective
 price_enabled: false

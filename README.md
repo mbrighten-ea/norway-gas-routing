@@ -4,13 +4,15 @@ Monthly Norwegian pipeline gas routing to UK, France, Belgium, Netherlands,
 Germany, Denmark and Poland. The historical reconstruction solves with HiGHS;
 forecast validity and production readiness remain unresolved.
 
-## Milestone A operator guide
+## Operational operator guide
 
 Use `config/run.yaml` as the single run request. Its repository-relative paths
 reference the canonical model, registry and locked evaluation policy without
-duplicating network/source mappings. Set quoted `start`/`end` months and the
-installed `solver`. Price-free `historical_reconstruction` and `baseline` capacity
-are the only operational model selections in this milestone.
+duplicating network/source mappings. The default is `current_forecast`, with
+`origin: null`, `horizon_months: 12`, `start: null`, `end: null`,
+`input_source: fresh_sid`, `capacity_scenario: baseline_prospective` and
+`price_enabled: false`. It retrieves/checks candidates, then reports the pending
+physical-input decisions; it cannot yet issue a complete EA routing forecast.
 
 From this repository, prepare the local process environment once:
 
@@ -34,7 +36,29 @@ without constructing an LP, checking solver availability or optimising.
 Exit 0 means complete or validated-only; exit 2 means blocked/failed. Configuration
 errors stop before package creation. Later failures retain an explanatory package.
 
-**B2 closed:** the default command completes the real-data 2024 reconstruction.
+**Current forecast settings:** null origin records this execution's UTC timestamp;
+an explicit quoted timestamp within the current UTC month selects that same
+`@asof` state for every candidate source. Future origins and older replay origins
+are rejected. Deliveries start with the next complete calendar month: currently
+November 2026–October 2027. Set integer `horizon_months` (default 12; maximum 60,
+also bounded by December 2030); start/end must stay null or match the resolved
+window. Changing horizon does not fill missing source months.
+
+The sixteen identified field forecasts and national total are monthly bcm.
+Snøhvit is retrieved unchanged pending forecast-unit/vintage confirmation.
+The proposed capacity scenario holds canonical technical envelopes constant and
+uses the signed Kollsnes plan once; the label does not constitute approval.
+Future actuals/comparison scores are never requested. Excel records origin,
+deliveries, assumptions, source checks and explicit unavailable flow results.
+`provenance/forecast_requirements.csv` lists every affected field/node;
+`forecast_blockers.json` separates source failures from physical decisions.
+The [F2 supply-contract decision](evidence/inputs/forecast_viability_f1/current_forecast_supply_contract.md)
+documents direct node-feed, reduced-scope and residual-split alternatives. No
+arbitrary national/non-flex allocation or partial real-data LP is implemented.
+
+**Historical reconstruction:** set mode to `historical_reconstruction`, start to
+`'2024-01'`, end to `'2024-12'`, origin to null and capacity_scenario to `baseline`.
+Use the same command and validation flag. B2 completed the real-data 2024 run.
 All 46 NPD identities are registered; Hanz's absent January/February alone are
 explicit structural zeros justified by its 20 April 2024 production start. March's
 returned zero and all later observations remain unchanged. The raw response and
@@ -64,7 +88,8 @@ capacities and the locked holdout are unchanged. A live full-model 2024
 reconstruction has been demonstrated; it is revised history, not a forecast.
 
 For an offline demonstration, copy `config/run.yaml` to a repository-local
-`.scratch/demo-run.yaml`, change only `input_source` to `synthetic_demo`, and pass
+`.scratch/demo-run.yaml`, change `input_source` to `synthetic_demo` and
+`capacity_scenario` to `synthetic_fixture` for current mode, and pass
 that path to the same command. This explicitly manufactures supply, capacity and
 earlier training fixtures on the existing network. Every output says SYNTHETIC;
 it is neither an EA reconstruction nor a forecast. No actual/legacy values or
@@ -108,11 +133,12 @@ Troubleshooting: inspect “Action required”, workbook Diagnostics and the man
 blocker. Missing mappings need source review; empty/incompatible vintages must stop
 the future adapter. A missing solver needs an approved installed backend. Permission
 errors need the workspace path/ACL/file-lock diagnosis. No environment/package
-change is automatic. Forecast modes, price routing, dates after 2025 and the 2026
-holdout remain blocked. `origin` is reserved for future one-month-ahead evaluation;
-no forecasting or walk-forward scoring is implemented. A future adapter must
-supply exact target-month tables and pass `validate_forecast_inputs` with complete
-independently verified origin evidence.
+change is automatic. Current mode permits only bounded prospective forecast
+deliveries and matching-origin forecast responses; ordinary historical reads,
+exports, fitting and scoring still reject dates after 2025 and the locked holdout.
+Current real-data optimisation remains blocked on the explicit supply/units/
+capacity decisions, with original responses retained. Historical replay and
+walk-forward scoring are not implemented; their origin-bundle guards remain.
 
 ## Git baseline
 

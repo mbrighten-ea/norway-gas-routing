@@ -35,6 +35,10 @@ def mock_workspace(repo_root, tmp_path, monkeypatch):
     model['routing']['assets'] = {a:e for a,e in model['routing']['assets'].items() if a in assets}
     model['routing'].update(start='2024-01', end='2024-12')
     (tmp_path/'config/model.yaml').write_text(yaml.safe_dump(model, sort_keys=False), encoding='utf-8')
+    run_path=tmp_path/'config/run.yaml'
+    request=yaml.safe_load(run_path.read_text())
+    request.update(mode='historical_reconstruction',start='2024-01',end='2024-12',origin=None,capacity_scenario='baseline')
+    run_path.write_text(yaml.safe_dump(request))
     contract = sources.source_contract(tmp_path)
     contract['network'] = {k:model['routing'][k] for k in ['nodes', 'arcs']}
     contract['capacity_assumptions'] = model['routing']['assets']

@@ -1,5 +1,39 @@
 # Current implementation state
 
+## F2 rolling current forecast workflow — 12 October 2026
+
+Branch `feature/current-forecast-f2` from verified `ab07f65`; one worker.
+`config/run.yaml` now defaults to a 12-month current forecast request. Null origin
+captures UTC execution time; explicit current-month origins use same-origin
+`@asof` metadata/points. Future deliveries are separated from all historical
+read/fit/score/export guards; no generic unlock, actual-as-forecast or holdout access.
+
+Live November 2026–October 2027 validation retrieved 19 sources with no coverage
+failures: sixteen field forecasts and national monthly bcm, twelve native Snøhvit
+months (conversion approval pending), and 365 signed daily Kollsnes plan points.
+`outputs/routing_runs/20261012T145039391075Z_40ff1f36/` is BLOCKED_INPUTS:
+no partial supply vector or LP. [Physical contract review](evidence/inputs/forecast_viability_f1/current_forecast_supply_contract.md)
+finds no approved decomposition of national/non-flex into five affected nodes.
+46 additional fields need a forecast or explicit node-feed contract, Snøhvit's
+forecast basis/vintage needs confirmation, and future capacities/maintenance
+scope need approval. Individual discovery/certification was not repeated.
+
+Synthetic 12-month CLI workflow is OPTIMAL at
+`outputs/routing_runs/20261012T145249435605Z_686418fd/`, explicitly manufactured,
+not an EA forecast. Supply/LNG/residual balances, feasibility/capacity residuals,
+nine-sheet Excel, CSV/charts/HTML, raw provenance and package hashes checked.
+Validation-only stays unsolved and non-overwriting packages remain intact.
+Historical reconstruction settings and functionality are retained; canonical
+physical mappings, source registry, model capacities and evaluation policy unchanged.
+
+Validation: 329 regression checks passed, then 28 focused checks after adding
+malformed-origin/scenario cases; current-mode failure propagation covers
+coverage, units, actual lifecycle, origins, negative/nonfinite values and missing
+archive responses, plus locked/out-of-window exports. Restart: inspect Git state,
+review source-contract alternatives with physical design, then implement only the
+approved complete-source/units/capacity preparation. Current real-data forecasting
+is not operational; no historical replay or price logic was introduced.
+
 ## B2 closure and F1 — 12 October 2026
 
 Branch `feature/b2-closure-forecast-viability-f1` from verified `9390691`.

@@ -147,7 +147,7 @@ def get_registered_frame(identifiers, start='MIN', end='MAX', *, max_points=-1,
     return frame, pd.DataFrame.from_dict(records, orient='index')
 
 
-def get_prospective_forecast(identifier, start, end, *, registry=None, client=None):
+def get_prospective_forecast(identifier, start, end, *, registry=None, client=None, origin=None):
     """Inspect latest future forecast points only, without unlocking actuals.
 
     Separate from historical retrieval/evaluation. Metadata is checked before
@@ -166,16 +166,32 @@ def get_prospective_forecast(identifier, start, end, *, registry=None, client=No
     info = series_info(identifier,registry=registry)
     _retrievable(info)
     client = sj._client(client)
-    metadata = sj.get_metadata(info['sid'],client=client)
+    query='sid="'+info['sid'].removeprefix('sid=')+'"'
+    if origin is not None:
+        timestamp=pd.to_datetime(origin,utc=True)
+        now=pd.Timestamp.now(tz='UTC')
+        if pd.isna(timestamp) or timestamp<now.normalize().replace(day=1) or timestamp>now:
+            raise ValueError('Current forecast origin must be within this UTC month and no later than now; historical replay is separate.')
+        origin=timestamp.floor('s').isoformat()
+        query+='@asof:'+timestamp.floor('s').strftime('%Y-%m-%dT%H:%M:%S')
+    metadata = sj.get_metadata(query if origin else info['sid'],client=client)
     boundary = metadata.get('forecast_start_date')
     if (metadata.get('lifecycle_stage')!='forecast' or not boundary
             or pd.isna(pd.Timestamp(boundary)) or pd.Timestamp(boundary).to_period('M')>first.to_period('M')):
         raise ValueError(identifier+': genuine forecast segment not established; no prospective point retrieval.')
-    values = client.get_points_from_sid_into_series(info['sid'],str(first.date()),str(last.date()),-1)
+    if origin:
+        frame=client.sj.get_df(query=query,fields=None,max_points=-1,df=str(first.date()),dt=str(last.date()))
+        if frame.empty:
+            raise ValueError(identifier+': no prospective forecast values at the configured origin; no latest fallback.')
+        if not {'dt','val'}.issubset(frame.columns):
+            raise ValueError(identifier+': unexpected prospective archive schema.')
+        values=pd.Series(frame.val.to_numpy(),index=pd.DatetimeIndex(pd.to_datetime(frame.dt,utc=True)),name=identifier)
+    else:
+        values = client.get_points_from_sid_into_series(info['sid'],str(first.date()),str(last.date()),-1)
     dates = pd.DatetimeIndex(values.index)
     plain = dates.tz_convert('UTC').tz_localize(None) if dates.tz is not None else dates
     if plain.hasnans or not plain.is_unique or (plain<first).any() or (plain>last).any():
         raise ValueError(identifier+': provider returned duplicate/out-of-bounds forecast dates; no use or persistence.')
     return dict(registry=info,metadata=metadata,values=values,
-                query='sid="'+info['sid'].removeprefix('sid=')+'"',asof=None,
+                query=query,asof=origin,
                 access_mode='prospective_forecast_inspection',delivery_start=str(first.date()),delivery_end=str(last.date()))

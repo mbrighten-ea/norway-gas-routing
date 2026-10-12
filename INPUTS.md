@@ -1,5 +1,32 @@
 # Input and data contract
 
+## F2 current forecast contract
+
+`current_forecast` derives a rolling next-complete-calendar-month delivery window
+from a captured/configured UTC origin and `horizon_months` (default 12). Origins
+must be in the current UTC month, no later than execution; horizon ends by 2030.
+`get_prospective_forecast(..., origin=...)` queries metadata and points using the
+same exact `@asof` state, with forecast lifecycle/boundary checks before point I/O.
+There is no latest fallback for empty origin responses. Raw IDs, units, forecast
+start, returned origin, retrieval time and hashes precede analytical validation.
+Monthly fields require exact first-of-month coverage; maintenance exact daily
+coverage. No filling, clipping, actual-as-forecast or node allocation occurs.
+
+The real adapter checks sixteen known fields, national total, Snøhvit and Kollsnes
+maintenance, then fails on the [specific unapproved physical contract](evidence/inputs/forecast_viability_f1/current_forecast_supply_contract.md).
+Historical NPD identities are not future forecasts. Snøhvit remains native raw
+rate pending conversion/vintage approval. `baseline_prospective` is a proposed
+constant-capacity/one signed maintenance scenario, not approval. An analyst cannot
+promote the partial vector by changing config flags; complete approved preparation
+must be implemented before real forecast LP construction.
+
+`synthetic_demo` with `synthetic_fixture` exercises the complete future table,
+solver and report contract, explicitly manufactured rather than EA. Future
+delivery export uses a separate origin/horizon-checked function, while ordinary
+historical export, read, fit and score guards are unchanged. Current packages do
+not retrieve future actuals or compute forecast scores. Historical walk-forward,
+commercial calibration and locked 2026 observations remain outside this mode.
+
 ## Milestone A operational contract
 
 B2 NPD historical leaves use the exact known

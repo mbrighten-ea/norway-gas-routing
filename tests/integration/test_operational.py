@@ -29,7 +29,8 @@ def workspace(repo_root, tmp_path):
 def configure(root, **changes):
     path = root/'config/run.yaml'
     request = yaml.safe_load(path.read_text(encoding='utf-8-sig'))
-    request.update(input_source='synthetic_demo', end='2024-02')
+    request.update(mode='historical_reconstruction',capacity_scenario='baseline',origin=None,
+                   input_source='synthetic_demo',start='2024-01',end='2024-02')
     request.update(changes)
     path.write_text(yaml.safe_dump(request), encoding='utf-8')
     return request
