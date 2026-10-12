@@ -95,13 +95,8 @@ def test_complete_available_sid_coverage_still_blocks_unapproved_supply(workspac
     output,code=op.execute_run(workspace,validate_only=True)
     assert code==2
     manifest=json.loads((output/'provenance/run_manifest.json').read_text())
-    assert 'Complete 2024 production ledger failed' in manifest['blocker']
-    assert '41 components' in manifest['blocker'] and 'TRYM' in manifest['blocker']
-    assert (output/'provenance/production_population.csv').is_file()
-    assert (output/'provenance/provisional_capacity_monthly.csv').is_file()
-    inventory=pd.read_csv(output/'input_sources.csv')
-    assert inventory.classification.eq('essential_population').sum()==69
-    assert inventory.loc[inventory.classification.eq('essential_population'),'start'].eq('2024-01').all()
+    assert '46 additional fields' in manifest['blocker']
+    assert 'KARSTO_FEED: 16' in manifest['blocker'] and 'EKOFISK_FEED: 7' in manifest['blocker']
     assert len(manifest['inputs'])==19 and all(r['sha256'] for r in manifest['inputs'])
     assert not (output/'provenance/inputs/supply.csv').exists()
     assert pd.read_csv(output/'results.csv').total_exports_bcm.isna().all()

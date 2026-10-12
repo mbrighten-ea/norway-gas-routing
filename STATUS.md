@@ -1,46 +1,5 @@
 # Current implementation state
 
-## F2.2 complete-population gate and provisional capacities — 12 October 2026
-
-Branch `feature/reconciled-supply-f22` from verified `81114aa`; one worker.
-[Full findings and 132-component ledger](evidence/inputs/reconciled_supply_f22/README.md)
-replace the old 46-only forecast blocker. Fresh 2024 queries validated all original
-62 fields, national and historical Snøhvit, plus 28 additional components.
-The 69 candidates have 61 exact NPD identities: 28 complete, 27 confirmed empty,
-six partial; eight unmatched project/discovery components. Provisional classification
-holds 65 candidates as UNMAPPED (class 5), four group/calculation candidates as
-unresolved class 2; no new entry node or outside-boundary assumption was embedded.
-The partial annual discrepancy is 0.020453 bcm, principally explained by Trym's
-returned November/December observations; missing months remain unavailable.
-Brage/Tune/Trym attribution and signed Vilje accounting remain specific questions.
-The complete historical gate did not pass; no annual weights or allocation logic
-were activated, and no source-backed country forecast or routing sensitivity ran.
-
-Core's revised annual-2024 allocation is recorded as conditional approval, not the
-older 46-only five-node weights. Backend checks complete ownership, explicit
-UNMAPPED, historical coverage and certification before any forecast activation.
-The approved 19-envelope scenarios are supported: Kollsnes 143 central / 156
-sensitivity, maintenance once, unknown availability elsewhere. The live derate
-reaches 156 mcm/day on thirteen September 2027 days, incompatible with 143 without
-an additional reference/maintenance decision; 156 prepares monthly capacities.
-Prospective Snøhvit values exceed national production under their reported bcm
-label; conversion/vintage remains rejected and the historical guard is unchanged.
-
-Live validation packages (both BLOCKED_INPUTS, no LP, all flow cells unavailable):
-`outputs/routing_runs/20261012T172125088253Z_0e170c57/` (143),
-`outputs/routing_runs/20261012T172306930302Z_a9d6e057/` (156).
-Nine-sheet Excel, HTML, 12-month CSVs, source records and 83/85 package hashes
-verified. All 567 regression checks passed; one existing pandas deprecation warning.
-The old registry migration test was corrected narrowly for B2's exact 46 reviewed
-active sources; no registry row, physical topology or solver objective changed.
-
-Restart: resolve the 41 incomplete component coverage/membership cases without
-missing-to-zero substitutions, certify the Brage/Tune/Trym/Vilje boundaries and
-complete identity, establish compatible prospective Snøhvit, then freeze complete
-2024 weights and implement the approved allocation. Resolve 143-reference derate
-compatibility before central-case execution. Holdout and historical replay remain
-locked/unsupported as before. Existing raw/evidence/output work is preserved.
-
 ## Priority 0 production forecast trace — 12 October 2026
 
 Branch `feature/production-forecast-lineage` from `993675a`; one worker.

@@ -20,18 +20,6 @@ mechanism. Numerical assumptions are not inferred from missing data.
 
 ## Supply and network
 
-F2.2 (user instruction, 12 October 2026): approve provisionally an allocation of
-the national forecast remainder, after sixteen explicit fields and compatible
-Snøhvit, using frozen annual-2024 shares from the **complete reconciled** population.
-Include all eligible mapped components; retain outside-boundary and UNMAPPED
-shares separately. Approval is conditional on the complete historical ledger
-passing; it does not approve the older five-node/46-field-only weights or allow
-unknown production to enter convenient nodes. No weights have been frozen.
-Approve the existing 19 envelopes, Kollsnes 143 mcm/day central and 156 sensitivity,
-signed maintenance once, and disclosure of other unknown future availability.
-Keep topology and price-free objective unchanged. Forecast units/vintages and
-historical component ownership remain source-validation requirements.
-
 B2 closure (user's conditional authorisation, verified 12 October 2026): Hanz's
 missing January/February 2024 are structural pre-production zeros, specifically
 supported by the Directorate's production start of 20 April 2024 and the

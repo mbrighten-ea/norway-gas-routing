@@ -1,5 +1,4 @@
 import csv
-import json
 
 import pytest
 
@@ -73,22 +72,12 @@ def test_key_migration_preserves_all_source_metadata(repo_root):
     series_mapping = {row['old_key']: row['key'] for row in rows(repo_root / 'evidence/inputs/series_key_shortening.csv')}
     def current_key(key):
         return series_mapping.get(key, price_mapping.get(key, key))
-    # The migration snapshot is frozen. B2 activated exactly the reviewed NPD
-    # leaves; other later discoveries remain inactive references.
-    contract=json.loads((repo_root/'evidence/inputs/routing_sources_b1/verified_sources.json').read_text())
-    activated={entry['key'] for entry in contract['historical_components'].values()}
-    assert len(activated)==46
+    # The migration snapshot is frozen; later source discoveries may append
+    # inactive references without changing any migrated row or its order.
     assert len(before) == len(crosswalk) <= len(after)
-    assert activated.issubset({row['key'] for row in after[len(before):]})
     for appended in after[len(before):]:
-        if appended['key'] in activated:
-            spec=contract['sources'][appended['key']]
-            assert spec['provider_contract']=='npd_historical' and appended['sid']==spec['sid']
-            assert appended['model_role']=='supply'
-            assert appended['required_level']=='required'
-        else:
-            assert appended['model_role'] == 'reference_only'
-            assert appended['required_level'] == 'optional'
+        assert appended['model_role'] == 'reference_only'
+        assert appended['required_level'] == 'optional'
     assert 'custom_id' not in after[0]
     for old, new, link in zip(before, after, crosswalk):
         assert new['key'] == current_key(old['custom_id']) == link['key']

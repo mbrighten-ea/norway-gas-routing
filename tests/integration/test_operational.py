@@ -21,8 +21,6 @@ def workspace(repo_root, tmp_path):
     for directory in ['config', 'src/norway_gas_routing']:
         shutil.copytree(repo_root/directory, tmp_path/directory)
     shutil.copytree(repo_root/'evidence/inputs/routing_sources_b1', tmp_path/'evidence/inputs/routing_sources_b1')
-    for directory in ['production_forecast_lineage','reconciled_supply_f22']:
-        shutil.copytree(repo_root/'evidence/inputs'/directory,tmp_path/'evidence/inputs'/directory)
     (tmp_path/'scripts/run').mkdir(parents=True)
     shutil.copyfile(repo_root/'scripts/run/run_routing.py', tmp_path/'scripts/run/run_routing.py')
     return tmp_path
