@@ -1,5 +1,32 @@
 # Capacity adapter and optional scenarios
 
+## Completed one-off 2024 sensitivity, 12 October 2026
+
+The user authorised read-only use of independently hash-verified frozen 2024
+prepared inputs for offline capacity sensitivities only. This supersedes the
+pending sourcing decision below solely for this completed experiment. Normal
+fresh-SID requirements and origin-matched validation requirements are unchanged.
+
+[Results, charts and CSVs](../../archive/20261012-02_capacity-sensitivity/report.html)
+retain all eight scenarios. Baseline replay agrees within 4.99581e-10 bcm.
+Exports rise from 117.0831345 to 117.5843625 bcm with assumed Kollsnes 144.5,
+and to 119.377524 bcm with assumed 156. Unrouted gas falls from 2.7412485 to
+2.2400205 and 0.446859 bcm respectively. UNMAPPED is unchanged at 0.446859.
+The 156 case removes 2.2943895 bcm mapped disposal; Kollsnes throughput increases
+by the same amount. Its annual utilisation falls from 99.9943% to 95.4864%,
+and binding months from eleven to zero. Annual destination changes are UK
++2.12638858, Belgium +0.41321509 and France -0.24521417 bcm; DE/NL/DK/PL
+are unchanged within numerical precision under fixed baseline preferences.
+Kårstø throughput remains 24.328211 bcm, and 97 adds no export benefit.
+Autumn endpoint and combined scenarios match the 156 case in 2024.
+
+Evidence-backed mode retains baseline because no public candidate passes all
+gates. These are hypothetical dry-boundary plant assumptions, not verified
+engineering corrections, actual exports or forecast improvements. Kollsnes
+commissioning/maintenance compatibility, Kårstø rich/dry equivalence and dated
+point-capacity conversions remain unresolved. No defaults changed, no 2025 run
+was made and the 2026 holdout remains locked. 242 relevant tests passed.
+
 The public database is now connected to a read-only model-facing candidate layer.
 The default remains `config/model.yaml` and the existing preparation arithmetic.
 **No public capacity is eligible to replace a historical model limit yet.**

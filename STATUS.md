@@ -1,5 +1,21 @@
 # Current implementation state
 
+## Frozen 2024 capacity comparison - 12 October 2026
+
+Completed on `capacity/frozen-2024-sensitivity` from `0f923b3`. The user's
+one-off exception covers verified frozen 2024 inputs solely for this offline
+model-to-model comparison; normal fresh-SID and forecast-origin rules remain.
+Baseline replay maximum difference is 4.99581e-10 bcm. All eight scenarios ran:
+Kollsnes 144.5/156 assumptions add 0.501228/2.2943895 bcm exports; the 156 case
+removes mapped disposal, leaving 0.446859 bcm UNMAPPED. Kårstø 97 and evidence-backed
+mode do not change exports. No public conversion or default capacity is activated.
+242 relevant tests passed. Fixed the inactive contract's hash check to recognise
+only the already approved configuration rename; unrelated changes still fail.
+Results, charts and provenance: [capacity comparison](archive/20261012-02_capacity-sensitivity/report.html).
+Next action is modeller review of plant-boundary/maintenance assumptions and
+dated ENTSOG conversion evidence, not automatic promotion or further frozen runs.
+Existing archives, registry, 2025 guards and locked 2026 holdout are preserved.
+
 ## Source structure - 12 October 2026
 
 Branch `refactor/project-structure` groups capacity components under

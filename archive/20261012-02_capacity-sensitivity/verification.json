@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "protected_files_checked": 907,
+  "frozen_input_hashes": {
+    "outputs/reconstruction/provenance/inputs/source_supply.csv": "a3926f8750c32c8ac37e7e80f3ad00d9ada495d8d90861ae447f56330458746c",
+    "outputs/reconstruction/provenance/inputs/monthly_capacities.csv": "4429fccbd4ada5e31ec5d2e6f573ba09abfa0e1e21ddee1a06c913a04235bab1",
+    "outputs/reconstruction/provenance/inputs/daily_capacities.csv": "66017ea7f9ba883b0f7f777e8f5194fcd47c6d3285983bd281947258adb0edcd",
+    "outputs/reconstruction/provenance/run_manifest.json": "66ed754489e5ca7f514f5e82447a5244ad5cfacf8722398e3b4fa9a052a5920e"
+  },
+  "baseline_max_difference_bcm": 4.995809460561773e-10,
+  "model_semantics_unchanged": true,
+  "public_database_unchanged": true,
+  "registry_unchanged": true,
+  "evaluation_unchanged": true,
+  "saved_results_and_archives_unchanged": true,
+  "mass_balance_max_bcm": 2.08166817117e-15,
+  "capacity_violation_max_bcm": 2.22044604925e-16,
+  "tests_passed": 242,
+  "holdout_loaded": false,
+  "holdout_scored": false,
+  "base_commit": "0f923b3a1bb2f54140dc9fe0043486ae79535495",
+  "branch": "capacity/frozen-2024-sensitivity",
+  "authorization_scope": "One-off read-only verified frozen 2024 inputs solely for offline capacity sensitivities",
+  "no_operational_or_origin_validation_exception": true,
+  "initial_test_failure": "Legacy inactive contract hash rejected approved section rename; fixed exact migration pair; 242 checks passed"
+}

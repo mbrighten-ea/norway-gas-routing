@@ -69,3 +69,29 @@ def test_retained_history_lineage_and_no_volume_comparison():
     assert all(r['dk_record_ids'] and r['pl_record_ids'] and r['dk_revisions'] and r['pl_revisions'] for r in differences)
     assert all(r['vintage_status']=='latest_revised_origin_unverified' for r in differences)
     assert all(r['gas_day_end']>r['gas_day_start'] for r in differences)
+
+
+@pytest.mark.parametrize('change', ['capacity', 'migration_hash', 'missing_migration'])
+def test_structure_migration_does_not_accept_other_changes(tmp_path, change):
+    import shutil
+    for name in ['config/model.yaml', 'evidence/inputs/project_structure_migration.json']:
+        target = tmp_path/name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT/name, target)
+    contract = json.loads(CONTRACT.read_text(encoding='utf-8'))
+    contract['input_sha256'] = {'config/model.yaml': contract['input_sha256']['config/model.yaml']}
+    path = tmp_path/'contract.json'
+    path.write_text(json.dumps(contract), encoding='utf-8')
+    migration_path = tmp_path/'evidence/inputs/project_structure_migration.json'
+    if change == 'capacity':
+        model = yaml.safe_load((tmp_path/'config/model.yaml').read_text(encoding='utf-8'))
+        model['routing']['assets']['KOLLSNES_EXPORT']['mcm_d'] = 156.
+        (tmp_path/'config/model.yaml').write_text(yaml.safe_dump(model), encoding='utf-8')
+    elif change == 'migration_hash':
+        migration = json.loads(migration_path.read_text(encoding='utf-8'))
+        migration['model_config']['before_sha256'] = '0'*64
+        migration_path.write_text(json.dumps(migration), encoding='utf-8')
+    else:
+        migration_path.unlink()
+    with pytest.raises(ValueError, match='Proposal input changed'):
+        inspect_contract(tmp_path, path)

@@ -1,0 +1,60 @@
+{
+  "run_at": "2026-10-12T09:59:45.631533+00:00",
+  "analysis": "authorised frozen-input model-to-model capacity sensitivity",
+  "authorization_reference": "User 2026-10-12: one-off verified frozen 2024 inputs solely for offline capacity sensitivity comparisons",
+  "scenarios": [
+    "baseline",
+    "evidence-backed",
+    "kollsnes-144.5",
+    "kollsnes-156",
+    "kollsnes-autumn-early",
+    "kollsnes-autumn-late",
+    "karsto-97-proxy",
+    "kollsnes-156-karsto-97-proxy"
+  ],
+  "years": [
+    2024
+  ],
+  "solver": "HiGHS",
+  "objective": "unchanged maximum exports; minimum L1; minimum worst fractional shortfall",
+  "input_sha256": {
+    "outputs/reconstruction/provenance/inputs/source_supply.csv": "a3926f8750c32c8ac37e7e80f3ad00d9ada495d8d90861ae447f56330458746c",
+    "outputs/reconstruction/provenance/inputs/monthly_capacities.csv": "4429fccbd4ada5e31ec5d2e6f573ba09abfa0e1e21ddee1a06c913a04235bab1",
+    "outputs/reconstruction/provenance/inputs/daily_capacities.csv": "66017ea7f9ba883b0f7f777e8f5194fcd47c6d3285983bd281947258adb0edcd",
+    "outputs/reconstruction/provenance/run_manifest.json": "66ed754489e5ca7f514f5e82447a5244ad5cfacf8722398e3b4fa9a052a5920e"
+  },
+  "config_sha256": "63bc15456e12c7189fb12ccdea95d1ae3e17fbb116f943a63c9b4e43725440c6",
+  "policy": {
+    "training": {
+      "end": "2024-12",
+      "information_cutoff": "2024-12-31T23:59:59Z"
+    },
+    "validation": {
+      "start": "2025-01",
+      "end": "2025-12"
+    },
+    "holdout": {
+      "start": "2026-01",
+      "end": "2026-09",
+      "locked": true,
+      "frozen_model": null,
+      "approval": null
+    },
+    "price_response_enabled": false,
+    "config_sha256": "68314ab1e8ab12d9ae072f8873d534ea76750bfe2eb7cea6660877c0025bfd63"
+  },
+  "holdout_loaded": false,
+  "holdout_scored": false,
+  "price_response": false,
+  "public_capacity_replacements": 0,
+  "baseline_max_difference_bcm": 4.995809460561773e-10,
+  "caveat_2025": "Explicit saved official-net-production diagnostic; monthly equivalent maintenance is not reconstructed daily availability",
+  "code_sha256": {
+    "scripts/run/run_capacity_scenarios.py": "6c6550fea6319fdc6409fabe13aa1da15ea047b2666af25058d78e85c8ae3ff8",
+    "src/norway_gas_routing/routing.py": "bfa3bfc7a96c713341bf325f290aba732c2bc504b0dc39ce5f2fe8bafae3cc59",
+    "src/norway_gas_routing/routing_inputs.py": "21286d459741d5f89ec8d6d7b490f40cfe6cf4f66f56303052ba5d5a5682f8da",
+    "src/norway_gas_routing/capacity/inputs.py": "9652a95e1827da47beb851477f91eebecb7fddbdca31e4e0ac37ead3013b3e4c",
+    "src/norway_gas_routing/capacity/conversion.py": "2dbad9fa06f84cb8f07dad8be1ccdeb1de8ee8be6a24698471ef2ed0f50204ce",
+    "src/norway_gas_routing/capacity/constraints.py": "b84409869e653bf414595fdfd394ee34deef55b2c34ca301faa14d9bcb461f75"
+  }
+}

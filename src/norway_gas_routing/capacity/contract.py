@@ -70,7 +70,18 @@ def inspect_contract(root, contract_path):
     if not database.is_relative_to(root):
         raise ValueError('Database must be in this repository')
     for name, expected in contract['input_sha256'].items():
-        if hashlib.sha256((root/name).read_bytes()).hexdigest() != expected:
+        actual = hashlib.sha256((root/name).read_bytes()).hexdigest()
+        if actual == expected:
+            continue
+        # The approved structure migration renamed only the configuration section.
+        # Keep the original contract immutable and accept only its recorded pair.
+        if name == 'config/model.yaml':
+            migration_path = root/'evidence/inputs/project_structure_migration.json'
+            if migration_path.is_file():
+                migration = json.loads(migration_path.read_bytes())['model_config']
+                if expected == migration['before_sha256'] and actual == migration['after_sha256']:
+                    continue
+        if actual != expected:
             raise ValueError('Proposal input changed; re-audit required: '+name)
     with sqlite3.connect(database.as_uri()+'?mode=ro', uri=True) as db:
         validate_contract(contract, model, db)
