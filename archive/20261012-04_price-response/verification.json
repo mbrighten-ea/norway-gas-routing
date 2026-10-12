@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "combinations": 672,
+  "tests_passed": 209,
+  "baseline_replay_max_bcm": 4.969802347432051e-12,
+  "stage1_max_export_change_bcm": 0.0,
+  "combined_stage2_preservation_max_bcm": 9.947598300641403e-14,
+  "independently_recomputed_objective_error": 2.8421709430404007e-13,
+  "mass_balance_max_bcm": 7.7715611723761e-15,
+  "capacity_violation_max_bcm": 8.08464406532039e-13,
+  "protected_legacy_files_checked": 932,
+  "completed_capacity_archive_unchanged": true,
+  "default_config_registry_policy_unchanged": true,
+  "holdout_loaded": false,
+  "holdout_scored": false,
+  "validation_claim": false,
+  "branch": "experiment/price-response-2024",
+  "base_commit": "e0f524dc689dbe80837064c7c4e6e3ab282cafe1",
+  "render_code_sha256": "ea58ec88b06641f55c48004aab9788b20d3361e8e3476a3b38f8e5685af30916",
+  "charts": "PNG visually inspected; SVG parsed; numerical noise below 1e-9 bcm displayed as zero only",
+  "qualification": "Within-DE/NL shifts are not separately price identified; grouped reallocation excludes that internal contribution"
+}

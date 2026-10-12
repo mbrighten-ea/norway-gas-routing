@@ -1,5 +1,32 @@
 # Current implementation state
 
+## Optional price-response comparison - 12 October 2026
+
+Completed on `experiment/price-response-2024`, based on `e0f524d`. The user
+explicitly extended frozen 2024 supply/preferences use to this offline price
+experiment and approved common quote-date means, same-date ECB conversion and
+TTF as a single DE/NL pool proxy. Prices were queried afresh for 2024 only.
+Stage 1 fixes maximum exports; Stage 2 balances L1 preferences against spreads;
+Stage 3 preserves that combined optimum. Zero follows the original solve path.
+BE/DK/PL have no price coefficient but can move indirectly.
+
+All 672 month/capacity/strength/shock combinations completed; 209 relevant
+tests passed. Zero reproduces both price-free capacity cases within 1e-9 bcm.
+At 143, observed prices shift UK +0.942437, FR -1.355652 and BE +0.413215 bcm/year;
+at assumed 156, UK +0.597724 and FR -0.597724. DE/NL pool totals are unchanged.
+Low/medium/high pooled responses coincide for these observations: positive
+weights resolve existing L1 ties. Within-pool allocations are not separately
+price-identified. Exports remain 117.0831345/119.377524 bcm respectively.
+
+[Report/CSV/charts](archive/20261012-04_price-response/report.html) and
+[method](evidence/inputs/price_response_experiment.md) retain provenance and
+capacity-versus-price decomposition. Coefficients are illustrative, not fitted;
+no forecast validation or revenue claim. Kollsnes dry/maintenance definitions,
+UK route limits and collapsed commercial boundaries remain material uncertainties.
+Next: modeller review of tie sensitivity, pool proxy and physical/commercial
+boundaries before any further approved experiment. No automatic calibration,
+promotion, 2025 evaluation or holdout access. Defaults and old results preserved.
+
 ## Frozen 2024 capacity comparison - 12 October 2026
 
 Completed on `capacity/frozen-2024-sensitivity` from `0f923b3`. The user's

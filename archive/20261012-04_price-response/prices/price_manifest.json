@@ -1,0 +1,64 @@
+{
+  "retrieved_at": "2026-10-12T10:25:52.815074+00:00",
+  "start": "2024-01-01",
+  "end": "2024-12-31",
+  "sources": [
+    {
+      "key": "nbp_day_ahead",
+      "sid": "teams\\external_data\\reuters\\ng_cash_price\\trgbnbpd1",
+      "raw_unit": "p_therm",
+      "metadata": {
+        "unit": "p_therm",
+        "frequency": "daily",
+        "name": null,
+        "description": "TRPC Natural Gas NBP Day 1",
+        "lifecycle_stage": "actual"
+      }
+    },
+    {
+      "key": "peg_day_ahead",
+      "sid": "teams\\external_data\\reuters\\ng_cash_price\\trfrpegd1",
+      "raw_unit": "eur_MWh",
+      "metadata": {
+        "unit": "eur_MWh",
+        "frequency": "daily",
+        "name": null,
+        "description": "TRPC Natural Gas PEG Day 1",
+        "lifecycle_stage": "actual"
+      }
+    },
+    {
+      "key": "ttf_day_ahead",
+      "sid": "teams\\external_data\\reuters\\ng_cash_price\\trnlttfd1",
+      "raw_unit": "eur_MWh",
+      "metadata": {
+        "unit": "eur_MWh",
+        "frequency": "daily",
+        "name": null,
+        "description": "TRPC Natural Gas TTF Day 1",
+        "lifecycle_stage": "actual"
+      }
+    },
+    {
+      "key": "eur_gbp",
+      "sid": "ECB_exchange_rates\\euro_to_gbp",
+      "raw_unit": "GBP per EUR; source identity and ECB convention",
+      "metadata": {
+        "unit": null,
+        "frequency": "daily",
+        "name": null,
+        "description": "Exchange rate between Euros and euro_to_gbp"
+      }
+    }
+  ],
+  "query_policy": "Fresh exact SID values and metadata; no cache or workbook fallback",
+  "fx_convention": "Same-date GBP per EUR; NBP pence/therm /100 /0.0293071 /FX",
+  "aggregation": "Common observed quote dates; arithmetic monthly means; no fill or delivery weights",
+  "pool_proxy": "TTF; identical DE/NL incentive",
+  "feature_scale_eur_mwh": 10.0,
+  "caveat": "Empirical realised-price reconstruction, not revenue, netback or forecast validation",
+  "references": [
+    "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
+    "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/829953/BEIS_OPRED_Offshore_ESOS_Phase_2_Guidance_September_2019.pdf"
+  ]
+}

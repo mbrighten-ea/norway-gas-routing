@@ -158,30 +158,54 @@ def available_solver(name=None):
     return selected, pulp.getSolver(selected, msg=False)
 
 
-def solve_month(built, solver, *, preference_tiebreak=True):
-    """Maximise exports, minimise L1 deviations, then share tied shortfalls.
+def solve_month(built, solver, *, preference_tiebreak=True,
+                price_spreads=None, responsiveness=0., price_scale_eur_mwh=10.):
+    """Maximise exports, balance L1/optional spread incentives, then share shortfalls.
 
     The last stage preserves both earlier optima. It minimises the largest
     fractional shortfall against a positive earlier-share target, so an L1
     tie cannot arbitrarily starve a small destination. Zero-share destinations
     remain feasible, and no destination is given a hard delivery forecast.
+    Nonzero empirical responsiveness preserves the combined Stage 2 optimum,
+    not the old minimum L1 optimum. Zero follows the original solve path exactly.
+    Spreads are EUR/MWh divided by an explicit fixed scale; no bcm-to-energy
+    revenue conversion or transport cost is assumed.
     """
+    if isinstance(responsiveness, bool) or not math.isfinite(responsiveness) or responsiveness < 0:
+        raise ValueError('Responsiveness must be finite and nonnegative')
+    if not math.isfinite(price_scale_eur_mwh) or price_scale_eur_mwh <= 0:
+        raise ValueError('Price scale must be finite and positive')
+    if price_spreads is not None:
+        if set(price_spreads) != {'UK', 'FR', 'DE_NL'} or not all(math.isfinite(v) for v in price_spreads.values()):
+            raise ValueError('Exactly finite UK, FR and shared DE_NL spreads required')
+    elif responsiveness:
+        raise ValueError('Nonzero responsiveness requires explicit price spreads')
+    # Empirical preference incentive, in bcm-equivalent objective units; not revenue.
+    # DE and NL receive identical coefficients, never separate market incentives.
+    price_score = pulp.lpSum([])
+    if responsiveness:
+        weights = {'UK': price_spreads['UK'], 'FR': price_spreads['FR'],
+                   'DE': price_spreads['DE_NL'], 'NL': price_spreads['DE_NL']}
+        price_score = pulp.lpSum(built['destinations'][d] * v / price_scale_eur_mwh
+                                for d, v in weights.items())
+    combined = built['deviation'] - responsiveness * price_score if responsiveness else built['deviation']
     problem = built["problem"]
     first_stats = problem.solve(solver)
     if first_stats.status != pulp.LpSolveStatus.Optimal:
         raise RuntimeError("Maximum-export solve failed: " + first_stats.status_str)
     minimum_unrouted = pulp.value(built["unrouted"])
     problem += built["unrouted"] == minimum_unrouted, "fix_maximum_exports"
-    problem.setObjective(built["deviation"])
+    problem.setObjective(combined)
     second_stats = problem.solve(solver)
     if second_stats.status != pulp.LpSolveStatus.Optimal:
         raise RuntimeError("Baseline-preference solve failed: " + second_stats.status_str)
     minimum_deviation = float(pulp.value(built["deviation"]))
+    stage2_optimum = float(pulp.value(combined))
     third_stats = None
     maximum_shortfall = None
     exports = built["total_supply"] - minimum_unrouted
     if preference_tiebreak and exports > 0:
-        problem += built["deviation"] == minimum_deviation, "fix_baseline_deviation"
+        problem += combined == stage2_optimum, ("fix_combined_stage2" if responsiveness else "fix_baseline_deviation")
         worst = problem.add_variable("worst_fractional_shortfall", lowBound=0)
         for destination, share in built["preferences"].items():
             if share > 0:
@@ -196,6 +220,10 @@ def solve_month(built, solver, *, preference_tiebreak=True):
             "destinations": {k: float(v.varValue) for k, v in built["destinations"].items()},
             "unrouted": float(pulp.value(built["unrouted"])),
             "minimum_baseline_deviation_bcm": minimum_deviation,
+            "stage2_optimum_bcm_equivalent": stage2_optimum,
+            "stage2_final_bcm_equivalent": float(pulp.value(combined)),
+            "responsiveness": responsiveness,
+            "price_scale_eur_mwh": price_scale_eur_mwh,
             "maximum_fractional_shortfall": maximum_shortfall,
             "solve_statistics": {"maximum_exports": first_stats.toDict(),
                                  "baseline_preferences": second_stats.toDict(),

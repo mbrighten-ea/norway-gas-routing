@@ -1,0 +1,53 @@
+{
+  "created_at": "2026-10-12T10:26:05.463939+00:00",
+  "analysis": "2024 realised-price offline empirical sensitivity",
+  "authorization_reference": "User 2026-10-12 approved extension of verified frozen 2024 supply and fixed preferences to this offline price experiment, common quote-date means, same-date GBP-per-EUR conversion and TTF DE/NL pool proxy",
+  "years": [
+    2024
+  ],
+  "strengths": {
+    "zero": 0.0,
+    "low": 0.25,
+    "medium": 1.0,
+    "high": 4.0
+  },
+  "feature_scale_eur_mwh": 10.0,
+  "input_sha256": {
+    "outputs/reconstruction/provenance/inputs/source_supply.csv": "a3926f8750c32c8ac37e7e80f3ad00d9ada495d8d90861ae447f56330458746c",
+    "outputs/reconstruction/provenance/inputs/monthly_capacities.csv": "4429fccbd4ada5e31ec5d2e6f573ba09abfa0e1e21ddee1a06c913a04235bab1",
+    "outputs/reconstruction/provenance/inputs/daily_capacities.csv": "66017ea7f9ba883b0f7f777e8f5194fcd47c6d3285983bd281947258adb0edcd",
+    "outputs/reconstruction/provenance/run_manifest.json": "66ed754489e5ca7f514f5e82447a5244ad5cfacf8722398e3b4fa9a052a5920e"
+  },
+  "config_sha256": "63bc15456e12c7189fb12ccdea95d1ae3e17fbb116f943a63c9b4e43725440c6",
+  "policy_sha256": "68314ab1e8ab12d9ae072f8873d534ea76750bfe2eb7cea6660877c0025bfd63",
+  "registry_sha256": "9398b60b69b8d35a394c2f8e81513c1a4d4bd7d00f2082257f3c4233bd8ba314",
+  "solver": "HiGHS",
+  "baseline_max_difference_bcm": 4.9658055445434e-12,
+  "stage2": "L1 allocation deviation - lambda * sum(spread/10 EUR per MWh * destination bcm)",
+  "stage3": "Minimum worst fractional shortfall preserving Stage 1 and combined Stage 2 optima",
+  "active_price_markets": [
+    "UK",
+    "FR",
+    "DE_NL"
+  ],
+  "neutral_markets": [
+    "BE",
+    "DK",
+    "PL"
+  ],
+  "synthetic_shocks_eur_mwh": [
+    -20,
+    20
+  ],
+  "calibrated": false,
+  "forecast_validation": false,
+  "holdout_loaded": false,
+  "holdout_scored": false,
+  "capacity_default_changed": false,
+  "capacity_caveat": "156 dry-boundary assumption; signed maintenance applied once; no verified engineering upgrade schedule",
+  "code_sha256": {
+    "src/norway_gas_routing/routing.py": "3d39f699f74f977a0aaa50671c722665fa17757a4b4580a95987ec7a98d9e662",
+    "src/norway_gas_routing/price_response.py": "5455c3473f20822fd1cadd291a1d6aeaac80f62773bdc8dcaa6bf27c2142d135",
+    "scripts/run/run_price_response.py": "70d1ecdc08cb54bd93911d327890b56142a0c15aac0b38c064eac9515dcded88"
+  }
+}
