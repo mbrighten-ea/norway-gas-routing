@@ -1,0 +1,27 @@
+{
+  "workbooks": [
+    {
+      "path": "data\\raw\\legacy\\Norwegian production model.xlsx",
+      "sha256": "4aaff5eaaa96d2e6d47ef94a8cf5a9abf5822fcbcabfd4c661e1cd8e29fd4686",
+      "status": "Original ZIP readable"
+    },
+    {
+      "path": "data\\raw\\legacy\\Norwegian flows model.xlsx",
+      "sha256": "aca7f248f41ad4f69156fb67e87f6f3560b336f5b1a26c8ed3f9d1be86577296",
+      "status": "In-memory ZIP directory recovery; 92 entries pass CRC; original untouched"
+    }
+  ],
+  "forecast_window": "2026-10..2030-12",
+  "observations_read": "Only workbook prospective caches and directly retrieved prospective SID points; no 2026 Jan-Sep actual values",
+  "formulas_recalculated": false,
+  "workbooks_saved": false,
+  "solver_calls": 0,
+  "accounting_implemented": false,
+  "weights_computed": false,
+  "source_metadata": "data/raw/production_forecast_lineage/20261012T162110454555Z/source_metadata.json",
+  "origin": "2026-10-12T16:21:12+00:00",
+  "component_count": 131,
+  "lng_components": 1,
+  "registered_field_forecasts": 16,
+  "additional_historical_mapped_fields": 46
+}

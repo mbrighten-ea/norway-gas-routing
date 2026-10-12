@@ -1,5 +1,26 @@
 # Current implementation state
 
+## Priority 0 production forecast trace — 12 October 2026
+
+Branch `feature/production-forecast-lineage` from `993675a`; one worker.
+[Read-only lineage findings](evidence/inputs/production_forecast_lineage/README.md)
+correct the F2 sourcing interpretation: all 46 additional historical mapped fields
+have workbook forward calculations, although standalone published forecast SIDs
+were not identified. IB:IS is sixteen fields plus two overlapping aggregates.
+NON-FLEXIBLE = TOTAL W SNOHVIT - Troll - Oseberg; both national/non-flex include
+Snøhvit, while HH and HM/gassco_total already exclude it. Saved forward identities
+and fresh aggregate SID identities reconcile over 51 months to rounding precision.
+No accounting logic, weights, solver run or workbook changes were made.
+
+Specific remaining issues: Hanz forward blanks January–June 2027; Visund Sor blank
+October 2026 and resulting lag-seed concern; coherent expanded source exports or
+fresh-source reproduction of existing formulas; Snøhvit export basis/vintage;
+duplicate Rev deduction in upstream gassco formula; prospective capacity scope.
+Restart: use the component/formula ledgers before implementing the existing
+forecast aggregation, resolve those specific gaps, and use Core provisional
+historical shares only for production genuinely lacking a usable forward forecast.
+Do not combine workbook caches and fresh SID forecasts as operational inputs.
+
 ## F2 rolling current forecast workflow — 12 October 2026
 
 Branch `feature/current-forecast-f2` from verified `ab07f65`; one worker.

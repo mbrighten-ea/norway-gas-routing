@@ -1,5 +1,15 @@
 # F2 current forecast supply contract — physical-design decision
 
+**12 October Priority 0 correction:** the [production formula trace](../production_forecast_lineage/README.md)
+establishes forward calculations for all 46 additional mapped fields. The review
+below records the earlier published-SID gap, not absence of a forecast methodology.
+Prefer integrating the existing component calculations through a coherent fresh
+source/export contract before considering residual allocation. NON-FLEXIBLE
+overlaps fourteen registered fields and includes Snøhvit; national, HH and
+gassco_total have distinct accounting boundaries. Specific forward gaps and the
+duplicate Rev deduction are documented in the new trace. No accounting changes
+have yet been implemented.
+
 Reviewed from `ab07f65`, accepted decisions, canonical model, F1 matrices and
 existing forecast architecture. No repeated field-discovery search, workbook
 numerical ingestion, allocation fit or physical mapping change.

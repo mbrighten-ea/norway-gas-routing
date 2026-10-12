@@ -1,0 +1,9 @@
+{
+  "live_nonflex_identity_max_error_bcm": 3.552713678800501e-15,
+  "live_months": 51,
+  "nonflex_identity_error_bcm": 8.88178419700125e-16,
+  "lng_bridge_error_bcm": 0.0,
+  "total_components_error_bcm": 3.552713678800501e-15,
+  "gassco_bridge_error_bcm": 3.552713678800501e-15,
+  "workbook_hashes_unchanged": true
+}
