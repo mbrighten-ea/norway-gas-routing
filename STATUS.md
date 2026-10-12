@@ -9,10 +9,12 @@ behaviour changed. The obsolete staged `config/sids.py` was empty; its blob and 
 original index are preserved in `.scratch/git-initialisation/`. Validation: 192
 synthetic tests passed with one existing pandas warning; Python syntax and credential
 scans passed. The existing DECISIONS.md EOF blank line is preserved.
-Publication remains pending explicit approval for `origin`
-(`https://github.com/mbrighten-ea/norway-gas-routing.git`). Restart: inspect `git log -1`
-and the staged/working-tree state, recheck remote refs, then publish only to an
-explicitly approved branch. Do not resume the modelling tasks below.
+Initial commit: `4a951cab437a53adce54240a8c4c70d688126440` on `main`. User approved
+publication to `origin/main` (`https://github.com/mbrighten-ea/norway-gas-routing.git`)
+on 12 October 2026. Repository-local file work needs no further approval; writes
+outside this repository are prohibited. Restart: inspect `git log -1` and the
+staged/working-tree state, then verify `origin/main` against the local commit.
+Do not resume the modelling tasks below.
 
 Updated 9 October 2026. HiGHS solves the latest-revised 2024 reconstruction.
 Production readiness and genuine out-of-sample new-model evaluation remain open.
