@@ -1,0 +1,14 @@
+# Fixed, user-approved chronological protocol. There is no routine unlock flag.
+training:
+  end: '2024-12'
+  information_cutoff: '2024-12-31T23:59:59Z'
+validation:
+  start: '2025-01'
+  end: '2025-12'
+holdout:
+  start: '2026-01'
+  end: '2026-09'
+  locked: true
+  frozen_model: null
+  approval: null
+price_response_enabled: false

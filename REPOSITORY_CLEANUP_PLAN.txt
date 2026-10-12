@@ -1,0 +1,457 @@
+NORWAY GAS ROUTING - REPOSITORY AND OUTPUT CLEANUP PLAN
+Final file sweep: 9 October 2026
+Status: implemented; final audit and verification recorded in the cleanup milestone.
+
+1. PURPOSE, AUTHORITY AND HANDOFF
+
+This is the single current cleanup plan, prepared after the latest POC refinement
+run. It supersedes the preliminary structure previously recorded in STATUS.md.
+The user subsequently authorised the repository cleanup. This includes the
+planned local reorganisation and retirement of redundant temporary artifacts;
+it does not authorise commits, environment changes or new modelling decisions.
+Preserve all source data and Git state. Unknown/inaccessible content is retained.
+
+Future agents: AGENTS.md contains the compact implemented structure and file gate.
+This long plan is optional migration history, not routine required context.
+Record current evidence/blockers in STATUS.md; update this plan
+if an agreed structural choice changes. README describes the implemented layout
+and supported commands; INPUTS describes data contracts; DECISIONS records accepted
+modelling choices. Do not create another competing cleanup plan.
+
+Use one worker and only this repository. Preserve existing work and Git index.
+All Python commands must use:
+C:\Users\martell.brighten\Documents\repos\.envs\env1.0\python.exe
+Do not change the shared environment, model equations, input boundaries, routing,
+tie-break, scores, forecast vintage rules or approval status as part of cleanup.
+
+2. FINAL SWEEP FINDINGS
+
+Read-only enumeration covered the repository root and config, data, diagnostics,
+ea_legacy, notebooks, outputs, scripts, src, tests and .agent. Git internals were
+excluded. No nested AGENTS.md was found in the searched working directories.
+Counts are observed files, including placeholders/caches where stated; they are
+not a count of useful outputs. No model run or test suite was rerun for this plan.
+
+  config:       3 files (active model, series registry and README).
+  data:         417 files, approximately 21.1 MB.
+                413 in raw/series_audit and its follow-up directories;
+                2 directly in raw; one placeholder each in interim/processed.
+  diagnostics:  36 audit/investigation/proposal files, approximately 3.0 MB.
+  ea_legacy:    3 workbooks, approximately 192.2 MB.
+  notebooks:    one empty placeholder.
+  outputs:      155 files, approximately 8.5 MB:
+                  benchmark: 26 files plus 72 raw responses;
+                  current poc: 9 main, 7 inputs and 15 diagnostics = 31;
+                  first-solve snapshot: 22;
+                  calibration: 2 TO_FIT placeholders;
+                  forecasts/diagnostics: one empty placeholder each.
+  scripts:      24 Python scripts plus one cached file.
+  src:          13 Python source files plus nine cached files.
+  tests:        10 test modules, conftest.py and one placeholder;
+                five additional cached files.
+  .agent:       689 files, approximately 35.8 MB, in test/temp directories.
+
+Access gaps: .pytest_cache, .pytest_tmp and pytest-of-martell.brighten could not
+be enumerated because access was denied. Their apparent zero file counts do not
+mean empty. Do not delete, change ACLs or claim a complete inventory of them.
+Diagnose exact paths/attributes/ACLs before any authorised cleanup. Previously
+confirmed config/data_series.csv Windows error 32 is a file lock; preserve the
+workspace procedure and ask for the holding application to release it if needed.
+
+Git has no committed revision. Existing index state is AD config/sids.py (staged
+addition with working file absent), and most work is untracked. Obtain a reviewed
+baseline/backup before physical migration; do not commit or stage automatically.
+Current .gitignore covers common Python/pytest artifacts but not .agent; define
+retention before changing ignore rules.
+
+Latest run distinction:
+- outputs/poc is the refined latest-revised 2024 reconstruction. Saved verification
+  reports 117.0831345 bcm exports, 2.7412485 bcm unrouted and 0.446859 bcm
+  unclassified. STATUS records 177 passing tests. These are existing recorded
+  results, not fresh verification by the cleanup sweep.
+- outputs/benchmark contains the earlier archived forecast evaluation AND the
+  original first-solve reconstruction. Its reconstruction is not the refined
+  model. Retain assessment/code/input identity; never silently relabel it current.
+- outputs/poc_first_solve preserves the original results, code and configuration.
+  The nested outputs and exposed src tree arose from copying root-relative paths.
+  They are reproducibility evidence, not interchangeable duplicate active code.
+- Genuine out-of-sample new-model evaluation and production readiness remain
+  unresolved. Cleanup must preserve the latest limitations in STATUS and reports.
+
+3. PROPOSED LEAN STRUCTURE
+
+  norway-gas-routing/
+    AGENTS.md                     Operating rules and plan discovery pointer
+    README.md                     Current commands and reader entry points
+    INPUTS.md                     Data contracts
+    DECISIONS.md                  Accepted modelling decisions
+    STATUS.md                     Current state, unresolved choices, progress
+    REPOSITORY_CLEANUP_PLAN.txt    This agreed/proposed structure and file gate
+    pyproject.toml, .gitignore
+    config/                       Active configuration only
+    src/norway_gas_routing/        Active reusable application/model code
+    scripts/
+      run/                        Supported reconstruction/benchmark drivers
+      verify/                     Checks of saved results/provenance
+      audit/                      Maintained source/input investigation tools
+    tests/
+      conftest.py                 Shared synthetic fixture setup
+      unit/                       Individual calculations and validation rules
+      integration/                Synthetic workflows and component interactions
+      fixtures/                   Small shared synthetic input files, if needed
+    data/
+      raw/                        Authoritative retained source inputs
+        legacy/                   Original workbooks, unchanged
+        series_audit/             Existing source responses and audit retrievals
+      processed/                  Prepared inputs genuinely reused across runs
+    evidence/
+      inputs/                     Reusable audit findings, definitions, crosswalks
+      legacy/                     Workbook investigations/recovery evidence
+    outputs/
+      README.md                   Index linking current successful assessments
+      reconstruction/
+        report.html               Main report, plain-language keys and charts
+        results.csv               Main monthly destination/scenario results
+        details/                  Numerical checks, charts and technical tables
+        provenance/               Manifest, configuration and run input evidence
+      benchmark/
+        report.html               Archived forecast evaluation and its context
+        results.csv               Comparisons by method, origin and grouping
+        details/
+        provenance/
+    archive/
+      first-solve/
+        report.md                 Frozen original explanation
+        results.csv               Frozen destination results
+        details/                  Remaining original result and input files
+        snapshot.zip              Original code/config/hash ledger at original paths
+        manifest.json             Original-to-new path map and content identities
+      maintenance/                Retired scripts and superseded evidence
+    .scratch/                     Ignored temporary runs, tests, caches and experiments
+
+Create folders only when needed. A future approved calibration, forecast or
+scenario assessment uses outputs/<assessment>/ with the same four-part contract;
+do not precreate empty products. Keep notebooks/interim only if a real workflow
+uses them. Do not add layers merely to organise one file. Package structure within
+src remains unchanged unless a separate need justifies a code refactor.
+
+Keep current successful assessments at stable outputs/reconstruction/ and
+outputs/benchmark/ paths. Temporary experiments use
+.scratch/runs/YYYYMMDD-NN_short-description/ (for example,
+20261009-01_source-accounting, 20261009-02_capacity-review,
+20261009-03_baseline-routing). Use date and sequence for uniqueness and describe
+what changed or was tested, not the outcome. Never overwrite an experiment.
+Retained meaningful experiments/milestones use the same descriptive names under
+archive/. Discover important archives from outputs/README.md. Do not create a
+permanent folder for every routine run or introduce a run-management framework.
+Detailed IDs, UTC timestamps, input vintages and configurations belong in
+manifests. Forecast origin, target period and execution time are separate fields.
+
+4. RELEVANCE GATE FOR EVERY NEW DURABLE FILE
+
+Apply these questions before creating or retaining a file. This is a normal
+engineering check, not a permission request for every routine artifact.
+
+A. Purpose: which user need, decision, calculation, regression or provenance
+   requirement does it support? Give a concrete answer.
+B. Consumer: which reader, report, command or test uses it? Important historical
+   decisions and irreplaceable evidence also qualify without an active consumer.
+C. Duplication: does an authoritative artifact already serve that purpose? Extend
+   or replace that artifact instead of adding an overlapping copy.
+D. Retention: must bytes be preserved, or can the file be deterministically
+   regenerated from retained inputs/code? Regenerable intermediates are temporary
+   by default; compact reader-facing results and key checks can still be retained.
+E. Placement: route by purpose using the rules below, not by its creator's name.
+F. Lifecycle: active, retained evidence, frozen milestone or temporary? State when
+   replacement/retirement is appropriate. Do not delete by age automatically.
+G. New category: can existing roles accommodate it? Material new top-level roles
+   require agreement and an update to this plan before creation.
+
+Outcomes: keep active; consolidate; retain evidence; archive; keep temporary; or
+propose removal. A removal decision is not deletion approval.
+
+Routing rules:
+  Reusable calculation/application logic -> src/norway_gas_routing/
+  Supported execution driver             -> scripts/run/
+  Saved-artifact verification            -> scripts/verify/
+  Repeatable input investigation         -> scripts/audit/
+  Code behaviour/regression check        -> tests/unit/ or tests/integration/
+  Shared synthetic test input            -> tests/fixtures/
+  Authoritative reusable source input    -> data/raw/
+  Reusable prepared input                -> data/processed/
+  Durable input definition/investigation -> evidence/inputs/ or evidence/legacy/
+  Main run explanation/results           -> outputs/<assessment>/ report/results
+  Run-specific scores/flows/checks        -> outputs/<assessment>/details/
+  Run-specific raw vintages/config       -> outputs/<assessment>/provenance/
+  Frozen milestone/retired material      -> archive/
+  Trial, test output, cache/intermediate -> .scratch/
+
+Use one authoritative input/evidence copy. Link to its repository-relative path
+and hash it from run provenance. A deliberately frozen reproduction snapshot is
+the exception. Do not rewrite source bytes, silently overwrite archives or remove
+evidence because the creating script has been retired.
+
+5. OUTPUT CONSOLIDATION AND LATEST-FILE MAPPING
+
+Reader interface: outputs/README.md -> one report and one results CSV per
+assessment. Include charts in reports via local relative links to details/.
+No chart, score dump or raw response needs to be a top-level result file.
+
+Current reconstruction mapping:
+  poc/SUMMARY.md + poc/diagnostics/SUMMARY.md -> one reconstruction report;
+  destination_flows.csv + relevant monthly_comparisons.csv columns -> results.csv;
+  legacy_comparison.csv -> derive from the canonical comparison table when possible;
+  network_flows.csv/png, network_topology.png -> details;
+  representative_month.lp -> details (solver debugging);
+  network_definition.yaml, run_manifest.json and inputs/* -> provenance;
+  source_capacity_checks/input_reconciliation -> link from report; keep one copy.
+
+All 15 current diagnostic files are covered:
+  before_after_wape.png, monthly_destination_comparison.png -> report-linked charts;
+  metrics.csv -> report headline scores with full table in details;
+  monthly_comparisons.csv -> canonical results source, extra groupings in details;
+  scenario_totals.csv -> report scenario summary and retained detail;
+  monthly_asset_utilisation.csv, asset_utilisation_summary.csv -> details; surface
+    only key binding assets in report;
+  monthly_baseline_deviations.csv -> details (preference/allocation explanation);
+  first_solve_optimal_face.csv -> details (equal-optimum allocation evidence);
+  monthly_supply_boundaries.csv -> details (alternative accounting scopes);
+  unclassified_field_months.csv, unclassified_fields_annual.csv -> details;
+  field_transport_evidence.json -> evidence/inputs if reusable, referenced/hashed
+    from this run's provenance; retain the frozen original snapshot copy;
+  verification.json -> provenance with report check summary;
+  SUMMARY.md -> merged into main report, original retained in the milestone snapshot.
+
+Benchmark mapping:
+  SUMMARY and forecast/reconstruction charts -> report, clearly label original
+    reconstruction as a first-solve historical assessment;
+  comparisons.csv -> canonical results source;
+  metrics.csv, matched_forecast_comparisons/metrics -> details; derive matched
+    tables from one canonical dataset where practical;
+  model_reconstruction.csv, validated_arcs.csv, node_balances.csv, asset_checks.csv,
+    validated_network_flows.png, validation.json -> original-assessment details;
+  forecast_verification, asof_coverage, seasonal_training_vintages, SID catalog,
+    historical_actuals, retrieval/run manifests, verification and raw/*.json ->
+    provenance (reference a reusable authoritative input if already retained);
+  production_field_crosswalk and original unclassified field/reconciliation/route
+    tables -> original-assessment details or reusable evidence, with identity kept.
+Do not replace the original residual ledger with refined classifications: the
+diagnosis consumes the original ledger to explain the change.
+
+Main results use explicit assessment_type, run_id, case/method, origin/vintage,
+target_month, grouping_level, destination, units and status fields as appropriate.
+Use a documented grain and unique key; do not sum overlapping five-group,
+seven-destination and Nybro totals. Missing values are explicit, never zero-fill.
+Retain alternative boundaries and ablation cases as labelled cases, not competing
+unexplained main files. If a new assessment genuinely needs a second table grain,
+keep it in details and document why; do not force unrelated data into one CSV.
+
+Chart/readability requirements:
+  legacy_asof -> Legacy forecast - <forecast origin date>;
+  seasonal_asof -> Historical seasonal baseline;
+  latest EA proxy -> EA reference - latest revised.
+Explain baseline July/August gaps, both forecast origins, bcm/month and destination
+grouping. UK=United Kingdom; FR+BE=France/Belgium; NL+DE=Netherlands/Germany;
+Baltic Pipe=Poland delivery; DK=Danish net offtake, excluding Poland transit.
+The new model is not a line in the original forecast chart.
+Headline metrics: matched-month WAPE, MAE, signed bias and number of months;
+share errors and unmatched coverage remain in details. Define positive bias as
+overprediction. Describe revised EA values as proxies, not independently verified
+physical deliveries. Reconstruction reports show supply, exports, unrouted and
+unclassified volumes, checks and unresolved limitations before accuracy claims.
+
+6. SCRIPTS - PROPOSED CLASSIFICATION OF ALL 24
+
+Supported run candidates -> scripts/run/:
+  run_poc.py                    Current reconstruction driver; consider a plain
+                                run_reconstruction name when references migrate.
+  build_initial_benchmark.py     Existing initial benchmark replay; it currently
+                                depends on active config/code, so freeze its
+                                original context or gate incompatibility before
+                                advertising it as repeatable initial replay.
+
+Saved-result verification -> scripts/verify/:
+  verify_initial_benchmark.py    Preserve original snapshot-based verification.
+  diagnose_poc_routing.py        Maintained scenario/ablation/consistency analysis;
+                                keep model work in src and document this script's
+                                combined analysis/verification purpose.
+
+Maintained investigation candidates -> scripts/audit/:
+  assess_destination_readiness.py, build_series_audit.py,
+  check_primary_core_evidence.py, inspect_benchmark_inputs.py,
+  inspect_core_contracts.py, inspect_field_routes.py, inspect_legacy_poc.py,
+  retrieve_series_audit.py, source_remaining_inputs.py,
+  trace_production_vintages.py, update_sourcing_inventory.py.
+Review consumers/overlap and consolidate before committing these destinations.
+Existing code may require retained data/live services; cleanup validation uses
+cached inputs and does not authorise rerunning external retrievals.
+
+Retirement/consolidation candidates -> archive/maintenance/:
+  add_custom_series_labels.py, complete_series_registry.py,
+  migrate_series_keys.py, select_dashboard_prices.py, shorten_price_keys.py,
+  shorten_series_keys.py, tidy_series_metadata.py, update_audited_registry.py.
+These are candidates, not approved deletions. The last script already guards
+against running the retired legacy audit reconstruction after key migration.
+Preserve crosswalks, original registries and evidence used by current tests/code.
+
+  preserve_first_poc.py: archive its original milestone-specific implementation;
+  retain a simple maintained snapshot command only if repeated milestone capture
+  is needed. Original hash identities must remain verifiable.
+
+Script acceptance: named active consumer, repeatable purpose, documented command,
+inputs, outputs, side effects and failure behaviour. Avoid several scripts that
+perform successive edits to the same registry. Archive once-completed migrations;
+do not replay them to validate cleanup. Reusable logic belongs in src. Avoid a
+new script-registration framework; a small README command table is sufficient.
+
+7. TESTS - STRUCTURE AND RELEVANCE
+
+Proposed unit focus:
+  test_capacity.py: calendar capacity, signed derates and constraint checks.
+  test_config.py: schema/reference validation (separate workflow cases if needed).
+  test_data.py: transformations, units, reconciliation and missing inputs.
+  test_data_functions.py: retrieval wrapper behaviour with mocked clients.
+  test_project_data.py: registry lookup/selection and mocked project retrieval.
+  test_series_audit.py: audit classification/validation, synthetic inputs.
+
+Proposed integration focus:
+  test_poc.py: synthetic network solve and workflow interactions; keep small
+    calculation tests in unit only when splitting improves navigation.
+  test_initial_benchmark.py: synthetic vintage gates, scoring and output workflow.
+  test_poc_diagnostics.py: scenario/tie-break/diagnostic consistency.
+  test_custom_series_labels.py: registry/evidence identity and migration contracts;
+    review repository-backed cases individually, keeping meaningful contracts.
+
+Do not mechanically move whole modules when they mix these purposes. Preserve
+coverage, consolidate duplicated cases, keep independent expected values and
+regressions for actual failures. Do not add tests that merely echo implementation
+or check incidental filenames. Necessary path/manifest contract tests are valid.
+
+Keep conftest.py at tests root. Shared fixtures are small and synthetic; generate
+tiny temporary fixtures with tmp_path instead of retaining many files. Tests must
+not depend on live EA services, a developer's absolute path or current run outputs.
+Repository reference checks may read intentional durable configuration/crosswalks.
+Do not use real raw workbooks as ordinary test fixtures.
+
+Migration hazards: tests/conftest.py and test_poc_diagnostics.py calculate the
+repository root using parents[1]; moved modules need corrected root resolution.
+test_initial_benchmark.py imports the script at its present location. Scripts also
+use parents[1] and sys.path setup; update together when adding a scripts subfolder.
+Use simple explicit root resolution rather than a new abstraction layer.
+
+All generated test files/caches belong to .scratch/tests or .scratch/cache, using
+repository-local TEMP/TMP and PYTHONDONTWRITEBYTECODE=1 under workspace rules.
+Retain compact validation evidence in the appropriate provenance only for a
+retained run. Do not keep every pytest invocation as a durable .agent folder.
+
+8. ARCHIVE, INPUT EVIDENCE AND SAFE LIFECYCLE
+
+Move first-solve results to archive/first-solve without exposed project-root
+outputs/src/scripts/config trees. ZIP original code/config plus original hash
+ledger using original relative paths. Keep hashes for relocated result files in
+manifest.json with original_path, new_path, sha256 and role. Original ledger stays
+unchanged. Archive verification must read ZIP members or mapped result paths.
+
+preserve_first_poc.py, diagnose_poc_routing.py and verify_initial_benchmark.py
+depend on the current archive layout. The diagnosis also reads the benchmark's
+original field ledger. Update these dependencies before removing old paths.
+Retain input/preference/network snapshots to explain first-solve versus refined
+results. A hash alone does not reproduce input bytes.
+
+Move ea_legacy workbooks to data/raw/legacy only with all references updated and
+hashes unchanged. Preserve the damaged flows workbook and recovery evidence.
+Keep 413 raw audit/retrieval files as retained source evidence pending an explicit
+duplicate/dependency review; volume of files alone is not grounds for deletion.
+Map the 36 diagnostics individually: reusable audit/crosswalk/gap evidence into
+evidence/inputs; legacy cell/review/recovery evidence into evidence/legacy;
+superseded proposals/diffs into archive/maintenance after checking consumers.
+TO_FIT calibration placeholders are not results: preserve as retired scaffolding
+or replace with real outputs only under an approved calibration workflow.
+
+Git/retention proposal: track source, config, documentation, synthetic tests and
+small durable reference evidence. Ignore scratch/caches/regenerable intermediates.
+Choose an approved backup/versioned storage location for large/sensitive source
+files and frozen runs before excluding them. Do not add Git LFS, remote storage or
+publication automatically. Keep a retention location and reason in run manifests.
+
+Failed-run handling: write a coherent candidate assessment into .scratch/runs;
+verify required files/checks, then promote it to the current assessment directory
+using a reviewed replacement procedure. Never overwrite files one at a time while
+leaving stale files from an earlier run. On failure leave the last successful
+assessment/index untouched and record failure in scratch. Preserve failure logs
+only when needed for an investigation. Archive important current results before
+replacement, with approval where required by repository rules.
+
+No automatic age-based deletion. Review temporary/obsolete content by purpose.
+Access-denied and locked files remain explicit blockers, not deletion candidates
+that can be bypassed through another tool or elevated retries.
+
+9. IMPLEMENTATION PHASES AND REVIEW POINTS
+
+Phase 0 - agree this plan. Decide retention storage, script support/retirement and
+the reviewed Git/backup baseline. No model methodology is approved by this plan.
+
+Phase 1 - exact migration inventory. Refresh the sweep if another run has occurred.
+Create one temporary source-to-destination map with hashes, roles, consumers and
+retention action; preserve it in archive provenance when migration completes.
+Reconcile inaccessible paths separately. Review exact moves and proposed removals.
+
+Phase 2 - first-solve/archive and output contracts. Preserve the latest successful
+results before replacement. Build reports/results from saved files; reorganise
+archive with original hashes; update all writers, readers, manifests and links.
+Do not rerun a current-config benchmark into the original assessment by accident.
+
+Phase 3 - scripts/tests/evidence. Move only reviewed active commands, correct root
+resolution/imports, consolidate overlap, retain durable crosswalks and update all
+config evidence references. Migrate original workbooks without editing bytes.
+
+Phase 4 - verification. Compare retained hashes and exact saved numerical tables
+at their existing precision/tolerances. Check scenario labels, matched months,
+negative observations, missing baseline months, balances/capacities and reports.
+Run affected synthetic tests; run the full suite when imports/root discovery move.
+Use the approved interpreter and cached data. Validate all local links/commands.
+Do not treat pre-cleanup recorded 177 passing tests as post-migration verification.
+
+Phase 5 - documentation and controlled retirement. Update README to the actual
+successful solver/current assessment state, supported command table and output
+index. STATUS owns progress/blockers; this file owns structure/routing policy.
+Only after checks pass, request approval for the exact destructive removal list.
+No blanket deletion of old folders, untracked files or caches.
+
+10. ACCEPTANCE AND CURRENT PROGRESS
+
+Complete when:
+- Readers find current assessments from outputs/README, open one clear report and
+  obtain one main table per assessment, without browsing technical evidence.
+- Original benchmark/first-solve and refined reconstruction are unambiguous.
+- No exposed nested archive outputs or competing active src tree remains.
+- All supported commands, imports, tests, manifest/evidence links still work.
+- Results and irreplaceable bytes match preserved pre-migration baselines.
+- Every retained file has a purpose, placement and lifecycle; new files use gate 4.
+- Required tests pass after migration and failed runs cannot replace good results.
+- Access gaps and remaining modelling choices remain explicit; no permissions or
+  shared-environment changes were used to work around a blocker.
+
+Implementation record (9 October 2026):
+- 222 files relocated with byte checks; active outputs expose report/results plus
+  details/provenance. First-solve archive is archive/20261008-01_first-solve;
+  pre-cleanup context/code/results are archive/20261009-01_repository-cleanup.
+- Meaningful source evidence remains; 19 superseded loose files were frozen in
+  the snapshot, the obsolete full benchmark replay driver was retired, and its
+  exact tested scoring/vintage functions now live in src/benchmark.py.
+- Nine completed maintenance scripts and TO_FIT scaffolding are ZIP members, not
+  loose active files/folders. Empty placeholders and known generated caches were
+  removed; 689 old .agent files were confirmed disposable and removed.
+- Scripts are grouped by run/verify/audit; tests by unit/integration. No unused
+  fixtures, processed, interim or notebook directories were retained.
+- Current successful assessments stay at stable paths. Both cached-data drivers
+  were exercised in temporary named experiments; numerical destination, arc,
+  scenario and score tables matched exactly. Current successful results stayed
+  unchanged. Temporary verification experiments do not become permanent archives.
+- Full synthetic tests and hash/local-link/layout checks are recorded in the
+  milestone verification.json. Git state/source data/configuration are preserved;
+  no packages, commits, staging, remote operations or model methodology changed.
+- .pytest_cache, .pytest_tmp and pytest-of-martell.brighten remain inaccessible
+  and untouched. Their unknown contents are an explicit remaining cleanup limit.
+The numbered design sections describe the agreed migration proposal; implemented
+roles and commands in README/AGENTS take precedence over old candidate lists.

@@ -1,0 +1,194 @@
+{
+  "version": "capacity-contract-v1",
+  "status": "proposal_only",
+  "enabled": false,
+  "database": "archive/20261009-17_public-capacity-database/database/capacity.sqlite",
+  "window": [
+    "2023-01-01",
+    "2025-12-31"
+  ],
+  "model_path": "config/model.yaml",
+  "interpretation": "Published point technical capacity; not upstream engineering availability",
+  "policies": {
+    "missing": "unknown; no zero substitution or carry-forward beyond supported validity",
+    "zero": "preserve genuine reported zero; not proof of a physical outage",
+    "revisions": "retain original IDs, intervals and revision timestamps; latest_revised_origin_unverified; first publication unknown",
+    "commercial": "Firm Available is commercial_available; excluded from this proposal",
+    "restrictions": "no maintenance deductions; require independent boundary and non-duplication evidence",
+    "gas_day": "06:00 Europe/Brussels to next local 06:00, half-open; preserve 23/24/25 hours",
+    "monthly": "sum quantities by source gas-day START labels; no extra duration multiplication; incomplete totals unknown",
+    "model_month": "calendar-month alignment requires separate approval; do not silently equate gas-day and calendar months",
+    "approval": "separate physical mapping, conversion and integration approval required; validator cannot enable proposal"
+  },
+  "shared_constraints": {
+    "upstream": {
+      "asset": "EUROPIPE_II",
+      "includes": [
+        "DE",
+        "DK",
+        "PL"
+      ]
+    },
+    "north_sea_entry": {
+      "arc": "NORTH_SEA_ENTRY",
+      "includes": [
+        "DK",
+        "PL"
+      ]
+    },
+    "faxe": {
+      "arcs": [
+        "BALTIC_PIPE",
+        "PL_DELIVERY"
+      ],
+      "includes": [
+        "PL"
+      ],
+      "combination": "separate_serial_inequalities_never_sum"
+    }
+  },
+  "rejected_relationships": [
+    {
+      "observation": "point:north_sea_technical",
+      "target": "EUROPIPE_II",
+      "reason": "branch receiving limit excludes German offtake; not full upstream pipe rating"
+    },
+    {
+      "observation": "point:faxe_dk_technical",
+      "target": "NORTH_SEA_ENTRY",
+      "reason": "Polish route only; excludes Danish offtake"
+    },
+    {
+      "observation": "point:faxe_pl_technical",
+      "target": "NORTH_SEA_ENTRY",
+      "reason": "Polish receipt only; excludes Danish offtake"
+    },
+    {
+      "observation": "sum_of_three_points",
+      "target": "any_capacity",
+      "reason": "shared upstream and serial downstream bounds are not additive"
+    }
+  ],
+  "mappings": [
+    {
+      "database_asset": "point:north_sea_technical",
+      "operator": "DK-TSO-0001",
+      "point": "ITP-00630",
+      "direction": "entry",
+      "candidate_arc": "NORTH_SEA_ENTRY",
+      "existing_model_asset": "NORTH_SEA_ENTRY",
+      "existing_constraint": "asset:NORTH_SEA_ENTRY",
+      "proposed_constraint": "published_point:DK-TSO-0001:ITP-00630:entry",
+      "physical_boundary": "Norwegian EP II branch entry to Danish upstream pipeline; upstream of Nybro exit and Danish transmission",
+      "applicability": "EUROPIPE_II_SPLIT -> DANISH_TRANSIT; DK plus onward PL subset",
+      "point_identity_match": "exact",
+      "model_constraint_match": "partial",
+      "status": "conditional",
+      "replace_existing": false,
+      "intended_role": "additional_point_upper_bound_after_approval; diagnostic_now",
+      "category": "point_technical",
+      "original_unit": "kWh/d",
+      "diagnostic_unit": "GWh/source_gas_day",
+      "effective_dates": "per database ratings.valid_from/valid_to and daily gas-day records only; not backdated snapshots",
+      "physical_evidence": [
+        "dk_upstream",
+        "dk_calculations"
+      ],
+      "evidence_confidence": "high point/corridor identity; incomplete engineering/volume equivalence",
+      "conversion": {
+        "approved": false,
+        "capacity_basis_kwh_per_model_m3": null,
+        "required": [
+          "operator-specific dated capacity-basis gross calorific value",
+          "gross/net and combustion reference compatibility",
+          "source dry volume temperature/pressure/compressibility basis",
+          "approved model bcm volume reference",
+          "gas-day versus model calendar-month alignment",
+          "whole-system co-use, fuel/linepack and Norway-subset applicability"
+        ],
+        "output_bcm": null
+      }
+    },
+    {
+      "database_asset": "point:faxe_dk_technical",
+      "operator": "DK-TSO-0001",
+      "point": "ITP-10009",
+      "direction": "exit",
+      "candidate_arc": "BALTIC_PIPE",
+      "existing_model_asset": "BALTIC_PIPE",
+      "existing_constraint": "asset:BALTIC_PIPE",
+      "proposed_constraint": "published_point:DK-TSO-0001:ITP-10009:exit",
+      "physical_boundary": "Energinet exit at Faxe toward Polish transmission; downstream of Danish network/compressor",
+      "applicability": "DANISH_TRANSIT -> FAXE; collapsed corridor versus a border point",
+      "point_identity_match": "exact",
+      "model_constraint_match": "partial",
+      "status": "conditional",
+      "replace_existing": false,
+      "intended_role": "additional_point_upper_bound_after_approval; diagnostic_now",
+      "category": "point_technical",
+      "original_unit": "kWh/d",
+      "diagnostic_unit": "GWh/source_gas_day",
+      "effective_dates": "per database ratings.valid_from/valid_to and daily gas-day records only; not backdated snapshots",
+      "physical_evidence": [
+        "joint_mdar2023",
+        "dk_calculations"
+      ],
+      "evidence_confidence": "high point/corridor identity; incomplete engineering/volume equivalence",
+      "conversion": {
+        "approved": false,
+        "capacity_basis_kwh_per_model_m3": null,
+        "required": [
+          "operator-specific dated capacity-basis gross calorific value",
+          "gross/net and combustion reference compatibility",
+          "source dry volume temperature/pressure/compressibility basis",
+          "approved model bcm volume reference",
+          "gas-day versus model calendar-month alignment",
+          "whole-system co-use, fuel/linepack and Norway-subset applicability"
+        ],
+        "output_bcm": null
+      }
+    },
+    {
+      "database_asset": "point:faxe_pl_technical",
+      "operator": "PL-TSO-0002",
+      "point": "ITP-10009",
+      "direction": "entry",
+      "candidate_arc": "PL_DELIVERY",
+      "existing_model_asset": "BALTIC_PIPE",
+      "existing_constraint": null,
+      "proposed_constraint": "published_point:PL-TSO-0002:ITP-10009:entry",
+      "physical_boundary": "GAZ-SYSTEM receipt at Faxe from Denmark; Polish side of the same interconnection",
+      "applicability": "FAXE -> PL; border receipt versus aggregated country delivery",
+      "point_identity_match": "exact",
+      "model_constraint_match": "partial",
+      "status": "conditional",
+      "replace_existing": false,
+      "intended_role": "additional_point_upper_bound_after_approval; diagnostic_now",
+      "category": "point_technical",
+      "original_unit": "kWh/d",
+      "diagnostic_unit": "GWh/source_gas_day",
+      "effective_dates": "per database ratings.valid_from/valid_to and daily gas-day records only; not backdated snapshots",
+      "physical_evidence": [
+        "joint_mdar2023"
+      ],
+      "evidence_confidence": "high point/corridor identity; incomplete engineering/volume equivalence",
+      "conversion": {
+        "approved": false,
+        "capacity_basis_kwh_per_model_m3": null,
+        "required": [
+          "operator-specific dated capacity-basis gross calorific value",
+          "gross/net and combustion reference compatibility",
+          "source dry volume temperature/pressure/compressibility basis",
+          "approved model bcm volume reference",
+          "gas-day versus model calendar-month alignment",
+          "whole-system co-use, fuel/linepack and Norway-subset applicability"
+        ],
+        "output_bcm": null
+      }
+    }
+  ],
+  "input_sha256": {
+    "archive/20261009-17_public-capacity-database/database/capacity.sqlite": "5e6e2b14c76a0afb94aa487e316c617f37fd78f95f117d96ec30232b180721a4",
+    "config/model.yaml": "34ea3d716fd167f93778f9a37c3d1a882a4180d616b6f5c45b2ec24f3e419799"
+  }
+}

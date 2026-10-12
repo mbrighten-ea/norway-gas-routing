@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest_tmp/
+*.egg-info/
+build/
+dist/
+.scratch/
+.agent/
+pytest-of-*/
+
+# Local credentials and machine-specific environments.
+.env
+.env.*
+!.env.example
+!.env.sample
+.venv/
+venv/
+*.key
+*.p12
+*.pfx
+credentials.json

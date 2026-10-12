@@ -1,0 +1,386 @@
+[
+  {
+    "column": "ES",
+    "field": "TYRIHANS",
+    "url": "https://www.norskpetroleum.no/en/facts/field/tyrihans/",
+    "retrieved_at_utc": "2026-10-09T09:32:44.151689+00:00",
+    "transport": "The well stream is sent to the Kristin platform for processing. Gas is exported from Kristin via the Åsgard Transport System (ÅTS) to the Kårstø terminal, while oil and condensate are transported by pipeline to the storage ship Åsgard C for export on shuttle tankers.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "EZ",
+    "field": "VEGA",
+    "url": "https://www.norskpetroleum.no/en/facts/field/vega/",
+    "retrieved_at_utc": "2026-10-09T09:32:44.154391+00:00",
+    "transport": "The well stream is sent to the Gjøa field for processing. Oil and condensate are transported from Gjøa to the Troll Oil Pipeline II for further transport to the Mongstad terminal. The rich gas is exported to the Far North Liquids and Associated Gas System (FLAGS) on the British continental shelf for further transport to St Fergus in the UK.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "FO",
+    "field": "JOHAN SVERDRUP",
+    "url": "https://www.norskpetroleum.no/en/facts/field/johan-sverdrup/",
+    "retrieved_at_utc": "2026-10-09T09:32:44.157236+00:00",
+    "transport": "Stabilised oil is exported from the riser platform through a new oil export pipeline that is connected to existing underground storage caverns at the Mongstad terminal. The gas is exported from the riser platform to the Kårstø terminal through a new pipeline connected to Statpipe.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "DB",
+    "field": "GJØA",
+    "url": "https://www.norskpetroleum.no/en/facts/field/gjoa/",
+    "retrieved_at_utc": "2026-10-09T09:32:44.159213+00:00",
+    "transport": "Stabilised oil is exported by pipeline connected to Troll Oil Pipeline II, for further transport to the Mongstad terminal. Rich gas is exported via the Far North Liquids and Associated Gas System (FLAGS) on the UK continental shelf, for further processing at the St Fergus terminal in the UK.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "FY",
+    "field": "TOMMELITEN A",
+    "url": "https://www.norskpetroleum.no/en/facts/field/tommeliten-a/",
+    "retrieved_at_utc": "2026-10-09T09:32:45.559103+00:00",
+    "transport": "The well stream is transported to Ekofisk Centre by pipelines. Oil and gas are routed to export pipelines via the processing facility at Ekofisk to Teesside in the UK and to Emden in Germany.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "CV",
+    "field": "FRAM",
+    "url": "https://www.norskpetroleum.no/en/facts/field/fram/",
+    "retrieved_at_utc": "2026-10-09T09:32:45.672867+00:00",
+    "transport": "The well stream is transported to the Troll C platform for processing. The oil is transported further through the Troll Oil Pipeline II to the Mongstad terminal, and the gas is exported via the Troll A platform to the Kollsnes terminal.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "FU",
+    "field": "DUVA",
+    "url": "https://www.norskpetroleum.no/en/facts/field/duva/",
+    "retrieved_at_utc": "2026-10-09T09:32:46.539309+00:00",
+    "transport": "The well stream is routed to the Gjøa platform for processing and export. The oil is transported further through the Troll Oil Pipeline II to the Mongstad terminal, and the gas is exported via the Far North Liquids and Associated Gas System (FLAGS) pipeline to St Fergus in the UK.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "DF",
+    "field": "GUDRUN",
+    "url": "https://www.norskpetroleum.no/en/facts/field/gudrun/",
+    "retrieved_at_utc": "2026-10-09T09:32:46.608898+00:00",
+    "transport": "Unstable oil and rich gas are transported in separate pipelines to the Sleipner A facility for further processing. Dry gas is exported via Gassled (Area D) to the market, while oil is transported to the Kårstø terminal.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "CG",
+    "field": "ALVHEIM",
+    "url": "https://www.norskpetroleum.no/en/facts/field/alvheim/",
+    "retrieved_at_utc": "2026-10-09T09:32:46.985911+00:00",
+    "transport": "The oil is stabilised and stored on the Alvheim FPSO before it is exported by tankers. Processed rich gas is transported by pipeline from Alvheim to the Scottish Area Gas Evacuation (SAGE) pipeline on the UK continental shelf.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "DR",
+    "field": "MIKKEL",
+    "url": "https://www.norskpetroleum.no/en/facts/field/mikkel/",
+    "retrieved_at_utc": "2026-10-09T09:32:47.000267+00:00",
+    "transport": "The well stream from Mikkel is combined with the well stream from the Midgard deposit and routed via the Åsgard Subsea Compressor to the Åsgard B facility for processing. The condensate is separated from the gas and stabilised before being shipped together with condensate from the Åsgard field. The condensate is sold as oil. The rich gas is transported via the Åsgard Transport System (ÅTS) to the Kårstø terminal for separation of the natural gas liquids (NGL). The dry gas is transported from Kårstø to continental Europe via the Europipe II pipeline.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "EH",
+    "field": "STATFJORD",
+    "url": "https://www.norskpetroleum.no/en/facts/field/statfjord/",
+    "retrieved_at_utc": "2026-10-09T09:32:47.649080+00:00",
+    "transport": "Stabilised oil is stored in storage cells at each facility. Oil is loaded onto tankers from one of the two oil-loading systems on the field. Since 2007, gas is exported through Tampen Link, and routed via the Far North Liquids and Gas System (FLAGS) pipeline to the UK. The UK licensees route their share of the gas through the FLAGS pipeline from Statfjord B to St Fergus in the UK.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "EW",
+    "field": "VALEMON",
+    "url": "https://www.norskpetroleum.no/en/facts/field/valemon/",
+    "retrieved_at_utc": "2026-10-09T09:32:47.687889+00:00",
+    "transport": "The wellstream is transported to Kvitebjørn for processing. Rich gas is transported through the Kvitebjørn Gas Pipeline to the Kollsnes terminal, while condensate is transported in a pipeline tied to the Troll Oil Pipeline II and further to the Mongstad terminal. Until mid-2023, the gas was exported to Heimdal.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "CF",
+    "field": "ALVE",
+    "url": "https://www.norskpetroleum.no/en/facts/field/alve/",
+    "retrieved_at_utc": "2026-10-09T09:32:48.135736+00:00",
+    "transport": "The oil is offloaded from the Norne FPSO and the gas is transported via the Norne pipeline to the Åsgard Transport System (ÅTS) and further to the Kårstø terminal for export.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "DW",
+    "field": "NJORD",
+    "url": "https://www.norskpetroleum.no/en/facts/field/njord/",
+    "retrieved_at_utc": "2026-10-09T09:32:48.172614+00:00",
+    "transport": "Produced oil is transported by pipeline to the storage vessel Njord Bravo, and further by tankers to the market. Gas from the field is exported through a 40-kilometre pipeline connected to the Åsgard Transport System (ÅTS) and further to the Kårstø terminal.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "FT",
+    "field": "ÆRFUGL NORD",
+    "url": "https://www.norskpetroleum.no/en/facts/field/aerfugl-nord/",
+    "retrieved_at_utc": "2026-10-09T09:32:48.806205+00:00",
+    "transport": "The well stream is transported to the Skarv FPSO for processing. The condensate is offloaded to shuttle tankers, while the gas is transported to the Kårstø terminal in an 80-kilometre pipeline connected to the Åsgard Transport System (ÅTS).",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "EX",
+    "field": "VALHALL",
+    "url": "https://www.norskpetroleum.no/en/facts/field/valhall/",
+    "retrieved_at_utc": "2026-10-09T09:32:48.820903+00:00",
+    "transport": "Oil and NGL (Natural Gas Liquids) are routed via pipeline to the Ekofisk field and further to Teesside in the UK. Gas is sent via Norpipe to Emden in Germany.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "DQ",
+    "field": "MARULK",
+    "url": "https://www.norskpetroleum.no/en/facts/field/marulk/",
+    "retrieved_at_utc": "2026-10-09T09:32:49.254410+00:00",
+    "transport": "The well stream is sent to the Norne FPSO for processing. The gas is then transported via the Åsgard Transport System (ÅTS) to the Kårstø terminal.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "FL",
+    "field": "IVAR AASEN",
+    "url": "https://www.norskpetroleum.no/en/facts/field/ivar-aasen/",
+    "retrieved_at_utc": "2026-10-09T09:32:49.281478+00:00",
+    "transport": "Oil and gas are transported to the Edvard Grieg platform for final processing. The oil is exported by pipeline to the Grane Oil Pipeline, which is connected to the Sture terminal. The gas is exported in a separate pipeline to the Scottish Area Gas Evacuation (SAGE) system in the UK.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "CL",
+    "field": "BRAGE",
+    "url": "https://www.norskpetroleum.no/en/facts/field/brage/",
+    "retrieved_at_utc": "2026-10-09T09:32:49.844632+00:00",
+    "transport": "The oil is transported by pipeline to the Oseberg field and further through the Oseberg Transport System (OTS) pipeline to the Sture terminal. A gas pipeline is tied-back to Statpipe.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "CO",
+    "field": "DRAUGEN",
+    "url": "https://www.norskpetroleum.no/en/facts/field/draugen/",
+    "retrieved_at_utc": "2026-10-09T09:32:49.885300+00:00",
+    "transport": "The oil is offloaded via a floating loading-buoy and exported by tankers. The gas is transported via the Åsgard Transport System (ÅTS) to the Kårstø terminal.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "ER",
+    "field": "TUNE",
+    "url": "https://www.norskpetroleum.no/en/facts/field/tune/",
+    "retrieved_at_utc": "2026-10-09T09:32:50.364980+00:00",
+    "transport": "The well stream from Tune is transported in pipelines to the Oseberg Field Centre, where the condensate is separated and transported to the Sture terminal through the Oseberg Transport System (OTS). Gas from Tune is injected in the Oseberg field, while the licensees can export a corresponding volume of sales gas from Oseberg.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "CQ",
+    "field": "EDVARD GRIEG",
+    "url": "https://www.norskpetroleum.no/en/facts/field/edvard-grieg/",
+    "retrieved_at_utc": "2026-10-09T09:32:50.378522+00:00",
+    "transport": "The oil is exported by pipeline to the Grane Oil Pipeline, which is connected to the Sture terminal. The gas is exported in a separate pipeline to the Scottish Area Gas Evacuation (SAGE) system in the UK.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "EJ",
+    "field": "STATFJORD ØST",
+    "url": "https://www.norskpetroleum.no/en/facts/field/statfjord-ost/",
+    "retrieved_at_utc": "2026-10-09T09:32:50.948005+00:00",
+    "transport": "The well stream is transported in two pipelines to the Statfjord C facility for processing, storage and export. Statfjord Øst, Statfjord Nord and Sygna have a shared process module on Statfjord C. Oil is loaded onto tankers and gas is exported through Tampen Link and the Far North Liquids and Gas System (FLAGS) pipeline to the UK.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "EM",
+    "field": "SOLVEIG",
+    "url": "https://www.norskpetroleum.no/en/facts/field/solveig/",
+    "retrieved_at_utc": "2026-10-09T09:32:50.963779+00:00",
+    "transport": "The well stream is transported via the Edvard Grieg field and onward by pipeline to the Sture terminal. The gas is exported via the Scottish Area Gas Evacuation (SAGE) infrastructure to the St Fergus terminal in the UK.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "FE",
+    "field": "VISUND SØR",
+    "url": "https://www.norskpetroleum.no/en/facts/field/visund-sor/",
+    "retrieved_at_utc": "2026-10-09T09:32:51.422591+00:00",
+    "transport": "The well stream is transported to Gullfaks C for processing and export.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "FV",
+    "field": "NOVA",
+    "url": "https://www.norskpetroleum.no/en/facts/field/nova/",
+    "retrieved_at_utc": "2026-10-09T09:32:51.501586+00:00",
+    "transport": "The well stream is routed to the Gjøa platform for processing and export. The oil is transported further through the Troll Oil Pipeline II to the Mongstad terminal, and the gas is exported via the Far North Liquids and Associated Gas System (FLAGS) pipeline to St Fergus in the UK.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "GI",
+    "field": "HANZ",
+    "url": "https://www.norskpetroleum.no/en/facts/field/hanz/",
+    "retrieved_at_utc": "2026-10-09T09:32:52.025961+00:00",
+    "transport": "After initial processing on the Ivar Aasen field, the well stream is transported to the Edvard Grieg field for final processing and export.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "DG",
+    "field": "GUNGNE",
+    "url": "https://www.norskpetroleum.no/en/facts/field/gungne/",
+    "retrieved_at_utc": "2026-10-09T09:32:52.042549+00:00",
+    "transport": "The well stream from Gungne is processed at the Sleipner A facility. Sales gas is exported from Sleipner A via Gassled (Area D) to the market. Unstable condensate is transported in a pipeline to the Kårstø terminal.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "FQ",
+    "field": "UTGARD",
+    "url": "https://www.norskpetroleum.no/en/facts/field/utgard/",
+    "retrieved_at_utc": "2026-10-09T09:32:52.503652+00:00",
+    "transport": "The well stream from the Utgard field is processed at the Sleipner T facility. The sales gas is exported via Gassled (Area D). The unstable oil is transported by pipeline via Sleipner A to the Kårstø terminal for further processing and export.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "FN",
+    "field": "MARIA",
+    "url": "https://www.norskpetroleum.no/en/facts/field/maria/",
+    "retrieved_at_utc": "2026-10-09T09:32:52.635208+00:00",
+    "transport": "The well stream is routed to the Kristin platform for processing and further export together with the gas and oil from the Kristin and Tyrihans fields. Stabilised oil is transported from Kristin to Åsgard C and further offloaded to shuttle tankers. The rich gas is sent via the Åsgard Transport System (ÅTS) to the Kårstø terminal, where NGL and condensate is extracted.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "DT",
+    "field": "MORVIN",
+    "url": "https://www.norskpetroleum.no/en/facts/field/morvin/",
+    "retrieved_at_utc": "2026-10-09T09:32:53.194800+00:00",
+    "transport": "The well stream from Morvin is transported by a heated, 20-kilometre pipeline to the Åsgard B facility for processing. The condensate is separated from the gas and stabilised before being shipped together with condensate from the Åsgard field. The condensate is sold as oil. The rich gas is transported via the Åsgard Transport System (ÅTS) to the Kårstø terminal for separation of the natural gas liquids (NGL). The dry gas is transported from Kårstø to continental Europe via the Europipe II pipeline.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "EP",
+    "field": "TORDIS",
+    "url": "https://www.norskpetroleum.no/en/facts/field/tordis/",
+    "retrieved_at_utc": "2026-10-09T09:32:53.201510+00:00",
+    "transport": "The well stream from Tordis is transported via two pipelines to the Gullfaks C facility for processing. The oil is exported by tankers, while the gas is exported via Gassled A to the Kårstø terminal.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "DI",
+    "field": "HOD",
+    "url": "https://www.norskpetroleum.no/en/facts/field/hod/",
+    "retrieved_at_utc": "2026-10-09T09:32:54.898047+00:00",
+    "transport": "Oil and gas are transported in a shared pipeline to the Valhall field for further processing. Transport of oil and NGL from Valhall is routed via pipeline to the Ekofisk Centre and further to Teesside in the UK. Gas from Valhall is sent via Norpipe to Emden in Germany.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "FX",
+    "field": "FENJA",
+    "url": "https://www.norskpetroleum.no/en/facts/field/fenja/",
+    "retrieved_at_utc": "2026-10-09T09:32:55.690941+00:00",
+    "transport": "The well stream is routed by pipeline to the Njord A facility for processing. The oil is stored at the Njord B facility and transferred to shuttle tankers. The gas is exported via Åsgard Transport System (ÅTS).",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "DK",
+    "field": "HYME",
+    "url": "https://www.norskpetroleum.no/en/facts/field/hyme/",
+    "retrieved_at_utc": "2026-10-09T09:32:55.777485+00:00",
+    "transport": "The well stream is transported to the Njord field and processed on the Njord A platform. The Njord facilities are used for both oil and gas export.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "ED",
+    "field": "SIGYN",
+    "url": "https://www.norskpetroleum.no/en/facts/field/sigyn/",
+    "retrieved_at_utc": "2026-10-09T09:32:55.779817+00:00",
+    "transport": "The well stream is sent through two pipelines to the Sleipner A facility. Sales gas is exported from Sleipner A via Gassled (Area D). Unstable oil is exported by pipeline to the Kårstø terminal for final processing.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "FW",
+    "field": "BAUGE",
+    "url": "https://www.norskpetroleum.no/en/facts/field/bauge/",
+    "retrieved_at_utc": "2026-10-09T09:32:58.620939+00:00",
+    "transport": "The well stream is transported to the Njord A platform for processing. Produced oil is transported by pipeline to the storage vessel Njord B, and further by tankers to the market. Gas from the field is exported by pipeline via the Åsgard Transport System (ÅTS) and further to the Kårstø terminal.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "EI",
+    "field": "STATFJORD NORD",
+    "url": "https://www.norskpetroleum.no/en/facts/field/statfjord-nord/",
+    "retrieved_at_utc": "2026-10-09T09:32:58.903772+00:00",
+    "transport": "The well stream is transported in two pipelines to the Statfjord C facility for processing, storage and export. The fields Statfjord Nord, Statfjord Øst and Sygna have a shared process module on Statfjord C. Oil is loaded onto tankers and gas is exported through Tampen Link and the Far North Liquids and Gas System (FLAGS) pipeline to the UK.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "CK",
+    "field": "BØYLA",
+    "url": "https://www.norskpetroleum.no/en/facts/field/boyla/",
+    "retrieved_at_utc": "2026-10-09T09:32:59.189107+00:00",
+    "transport": "The well stream is transported by pipeline to the Alvheim FPSO, where the oil is stabilised and stored before it is exported by tankers. Processed rich gas is transported by pipeline from Alvheim to the Scottish Area Gas Evacuation (SAGE) pipeline on the UK continental shelf.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "EQ",
+    "field": "TRYM",
+    "url": "https://www.norskpetroleum.no/en/facts/field/trym/",
+    "retrieved_at_utc": "2026-10-09T09:32:59.202185+00:00",
+    "transport": "The well stream is processed on the Harald facility for further transport through the Danish pipeline system via the Tyra field.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "FF",
+    "field": "VOLUND",
+    "url": "https://www.norskpetroleum.no/en/facts/field/volund/",
+    "retrieved_at_utc": "2026-10-09T09:33:00.582273+00:00",
+    "transport": "The well stream is routed by pipeline to the Alvheim FPSO. The oil is offloaded to shuttle tankers, and the associated gas is transported to the Scottish Area Gas Evacuation (SAGE) pipeline system and further to St Fergus in the UK.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "FM",
+    "field": "SINDRE",
+    "url": "https://www.norskpetroleum.no/en/facts/field/sindre/",
+    "retrieved_at_utc": "2026-10-09T09:33:00.798315+00:00",
+    "transport": "The well stream from Sindre is processed together with the production from the Gimle field at the Gullfaks C facility, and transported further with oil and gas from the Gullfaks field.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "FS",
+    "field": "SKOGUL",
+    "url": "https://www.norskpetroleum.no/en/facts/field/skogul/",
+    "retrieved_at_utc": "2026-10-09T09:33:01.771972+00:00",
+    "transport": "The well stream from Skogul is routed by pipeline via the Vilje field to the Alvheim FPSO.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "EB",
+    "field": "REV",
+    "url": "https://www.norskpetroleum.no/en/facts/field/rev/",
+    "retrieved_at_utc": "2026-10-09T09:33:01.809308+00:00",
+    "transport": "The well stream is routed through a 10-kilometre pipeline to the Armada field in the UK sector and further to the Teesside terminal for final processing. The condensate is sold as stabilised crude oil.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "FD",
+    "field": "VILJE",
+    "url": "https://www.norskpetroleum.no/en/facts/field/vilje/",
+    "retrieved_at_utc": "2026-10-09T09:33:01.843267+00:00",
+    "transport": "The well stream is routed by pipeline to the Alvheim FPSO, where the oil is offloaded to shuttle tankers. The gas is transported by pipeline from Alvheim to the Scottish Area Gas Evacuation (SAGE) pipeline in the UK sector.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "DL",
+    "field": "ISLAY",
+    "url": "https://www.norskpetroleum.no/en/facts/field/islay/",
+    "retrieved_at_utc": "2026-10-09T09:33:01.917192+00:00",
+    "transport": "Production is routed via the Forvie-Alwyn pipeline to the British Alwyn field for separation. The gas is exported via the Frigg UK Pipeline (FUKA) to the Shell-Esso Gas and Liquids (SEGAL) terminal at St Fergus in the UK, whereas the liquids are exported to the Sullom Voe terminal in the Shetland Islands.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "AQ",
+    "field": "HEIDRUN",
+    "url": "https://www.norskpetroleum.no/en/facts/field/heidrun/",
+    "retrieved_at_utc": "2026-10-09T09:33:02.981457+00:00",
+    "transport": "The oil is exported via the Heidrun B FSU onto tankers and shipped to the market. The gas is exported via Haltenpipe to the Tjeldbergodden terminal and via the Åsgard Transport System (ÅTS) to the Kårstø terminal. The Dvalin gas is exported via Polarled to the Nyhamna terminal.",
+    "status": "verified current primary description; check historical applicability"
+  },
+  {
+    "column": "AN",
+    "field": "GULLFAKS SOR",
+    "url": "https://www.norskpetroleum.no/en/facts/field/gullfaks-sor/",
+    "retrieved_at_utc": "2026-10-09T09:33:03.103281+00:00",
+    "transport": "The oil is transported to the Gullfaks A facility for processing, storage and further transport by tankers. Rich gas is processed on Gullfaks C and exported through Statpipe to the Kårstø-terminal.",
+    "status": "verified current primary description; check historical applicability"
+  }
+]
