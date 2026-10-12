@@ -1,5 +1,40 @@
 # Current implementation state
 
+## Operational backend Milestone A - 12 October 2026
+
+Implemented on `feature/operational-milestone-a` from verified `4acf8e9`.
+`config/run.yaml` and `scripts/run/run_routing.py --config ... [--validate-only]`
+separate preparation/validation, optimisation and Excel-first reporting. Each
+invocation creates a unique `outputs/routing_runs/<run_id>/` with no baseline
+promotion. Exact prepared inputs, original/resolved configuration, source/code
+metadata, hashes, solver results and Git identity are retained. See README's
+operator guide and INPUTS's operational contract for usage and schemas.
+
+Explicit synthetic demonstration solves the existing seven-sink network and
+produces nine labelled Excel sheets, a native chart, CSVs, PNG/SVG, HTML and
+provenance. Validation-only performs no LP construction or solver discovery.
+Missing EA comparisons remain visibly unavailable. Workflow, workbook numeric
+reconciliation, hashes, failure packages, config errors, non-overwrite behaviour,
+single-target-month shape and existing solver/vintage/reporting regressions are
+covered by synthetic tests; no live retrieval or frozen-input replay is used.
+Validation: 20 workflow tests and 229 existing regressions passed; all nine
+worksheet previews were reviewed, and a twelve-month CLI demo reconciled Excel
+to CSV and every manifest file hash. Supported-input validation stops with the
+documented missing-SID inventory rather than consuming retained data.
+
+Fresh-SID real runs still stop before retrieval: 46 workbook-only component
+references have no reviewed SID mappings. Forecast modes, price routing and
+non-baseline capacities are not exposed by this command. Future one-month-ahead
+preparation needs complete independently verified origin evidence and the existing
+forecast validator; revised observations cannot substitute. Historical guards,
+2026 holdout, canonical assumptions and saved assessments are unchanged.
+
+Restart: inspect branch/HEAD/status, then use README's single command with an
+explicit synthetic configuration for an offline demonstration. Next real-data
+implementation requires reviewed missing SID mappings and source/vintage semantics;
+no previous frozen-input exception is broadened. Generated demo packages remain
+local; only task code/config/docs/tests belong in the commit.
+
 ## Optional price-response comparison - 12 October 2026
 
 Completed on `experiment/price-response-2024`, based on `e0f524d`. The user

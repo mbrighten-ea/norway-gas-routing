@@ -4,6 +4,83 @@ Monthly Norwegian pipeline gas routing to UK, France, Belgium, Netherlands,
 Germany, Denmark and Poland. The historical reconstruction solves with HiGHS;
 forecast validity and production readiness remain unresolved.
 
+## Milestone A operator guide
+
+Use `config/run.yaml` as the single run request. Its repository-relative paths
+reference the canonical model, registry and locked evaluation policy without
+duplicating network/source mappings. Set quoted `start`/`end` months and the
+installed `solver`. Price-free `historical_reconstruction` and `baseline` capacity
+are the only operational model selections in this milestone.
+
+From this repository, prepare the local process environment once:
+
+```powershell
+New-Item -ItemType Directory -Force .scratch/tmp | Out-Null
+$env:PYTHONDONTWRITEBYTECODE = '1'
+$env:TEMP = (Resolve-Path '.scratch/tmp').Path
+$env:TMP = $env:TEMP
+$env:MPLCONFIGDIR = Join-Path $env:TEMP 'matplotlib'
+```
+
+The single execution command is:
+
+```powershell
+& 'C:\Users\martell.brighten\Documents\repos\.envs\env1.0\python.exe' scripts/run/run_routing.py --config config/run.yaml
+```
+
+Append `--validate-only` to prepare/check inputs and write an unsolved package
+without constructing an LP, checking solver availability or optimising.
+`--solver HiGHS` optionally overrides the configured installed solver.
+Exit 0 means complete or validated-only; exit 2 means blocked/failed. Configuration
+errors stop before package creation. Later failures retain an explanatory package.
+
+**Current real-data blocker:** `input_source: fresh_sid` deliberately stops before
+retrieval. The existing adapter needs 46 workbook-only component references whose
+SID mappings remain unresolved. The default command writes a required-source
+inventory and actionable blocker; it never loads cached workbook observations.
+No previous frozen-input permission is extended. Once mappings and semantics are
+reviewed, a fresh-SID adapter must supply the same monthly input contract and pass
+the existing gates before a real run becomes available.
+
+For an offline demonstration, copy `config/run.yaml` to a repository-local
+`.scratch/demo-run.yaml`, change only `input_source` to `synthetic_demo`, and pass
+that path to the same command. This explicitly manufactures supply, capacity and
+earlier training fixtures on the existing network. Every output says SYNTHETIC;
+it is neither an EA reconstruction nor a forecast. No actual/legacy values or
+forecast scores are invented.
+
+Each invocation reserves a new `outputs/routing_runs/<UTC timestamp>_<unique id>/`;
+existing packages, reconstructions and archives are never promoted or overwritten.
+Open **results.xlsx** first. Read me defines every sheet and boundary; monthly
+destination flows, group comparisons, capacities, arc flows, preferences, source
+inventory, settings and diagnostics follow. The workbook is a typed numeric/date
+snapshot with filters, frozen headers and a monthly flow chart after a solve.
+Editing it does not rerun the optimiser. “Unavailable” means missing, unsolved or
+incompatible, never assumed zero. EA actuals and forecasts remain unavailable in
+synthetic packages. Future real comparisons must retain original groups, origins
+and historical-segment checks; Poland/Nybro and signed Danish net values cannot
+score gross physical exports.
+
+`results.csv` is one target month with seven destination bcm columns, exports,
+supply, disposal and status. `details/` contains comparison/arc CSVs, independent
+solver checks and charts; `report.html` explains the package. `input_sources.csv`
+identifies required/consumed sources, dates, units and transformations.
+`provenance/inputs/` retains exact prepared tables and preferences. Provenance also
+contains source metadata, resolved settings, original code/configuration
+snapshots, solver results/statistics and Git identity. `run_manifest.json` hashes
+every package file except itself. CSV snapshots use 17 significant digits; Excel
+shows six decimal places while retaining numeric precision.
+
+Troubleshooting: inspect “Action required”, workbook Diagnostics and the manifest
+blocker. Missing mappings need source review; empty/incompatible vintages must stop
+the future adapter. A missing solver needs an approved installed backend. Permission
+errors need the workspace path/ACL/file-lock diagnosis. No environment/package
+change is automatic. Forecast modes, price routing, dates after 2025 and the 2026
+holdout remain blocked. `origin` is reserved for future one-month-ahead evaluation;
+no forecasting or walk-forward scoring is implemented. A future adapter must
+supply exact target-month tables and pass `validate_forecast_inputs` with complete
+independently verified origin evidence.
+
 ## Git baseline
 
 The initial baseline retains code, tests, configuration, instructions and selected
@@ -13,10 +90,12 @@ the Git baseline. Links to those retained artifacts require the original local
 workspace. Tests that consume retained historical evidence need those local files;
 synthetic tests do not authorise new model runs or live data retrieval.
 
-**Current sourcing rule:** new runs must query EA/Shooju SIDs directly each time;
-workbooks are formula/SID references only. The older cached-input reconstruction
-and reporting commands below are retained for context and are not approved for
-new data-consuming runs until migrated. Existing outputs remain available.
+**Current sourcing rule:** new real-data runs must query EA/Shooju SIDs directly
+each time; workbooks are formula/SID references only. The operational command
+blocks incomplete real-source preparation. Older cached diagnostic commands are
+retained for context and need separate explicit authorisation. The visual-report
+command now uses fresh SID references; saved model results remain historical
+evidence. Existing outputs remain available.
 Historical retrieval is supported by
 `project_data.get_registered_series(key, start, end, asof='2024-12-31T23:59:59Z')`.
 Missing SIDs/origin values stop the affected run; there is no workbook fallback.
@@ -65,7 +144,7 @@ Supported commands (append to that interpreter):
 
 | Command | Purpose |
 |---|---|
-| `scripts/run/run_routing.py --solver HiGHS` | Cached-input reconstruction; promotes only a successful staged result |
+| `scripts/run/run_routing.py --config config/run.yaml` | Unique Excel-first operational package; explicit fresh-SID blocker; synthetic demonstration available |
 | `scripts/run/run_snohvit_sensitivity.py` | Explicit full-year 2025 official/selected Snøhvit diagnostics in a new named experiment; no baseline promotion |
 | `scripts/run/run_routing_flexibility.py` | Individual physical destination min/max at fixed 2025 stage-1 exports; no preference or price objective |
 | `scripts/verify/diagnose_routing.py` | Cached before/after scenarios and physical/scoring checks |

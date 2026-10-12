@@ -1,5 +1,30 @@
 # Input and data contract
 
+## Milestone A operational contract
+
+`config/run.yaml` references the canonical files and requests exact target months,
+mode, origin and price-free baseline. `operational.prepare_run_inputs` separates
+preparation from `operational.optimise` and `reporting.operational.report_run`.
+The fresh-SID adapter is blocked by missing component mappings; the retained
+`routing_inputs.prepare_inputs` is never called by the operational command.
+`synthetic_demo` is explicitly manufactured, never a cached-input exception.
+
+Preparation returns `months` (monthly PeriodIndex), `supply` (month × every source
+node, bcm), `capacities` (month × every asset, bcm), daily/monthly capacity tables,
+seven `preferences` summing to one, earlier `training_observations`, excluded
+training months and source provenance. Missing, nonfinite, negative or mismatched
+model inputs fail before LP construction. Single-month requests are compatible
+with a future walk-forward adapter, but forecasts remain unsupported until the
+complete existing origin-vintage validator can be satisfied.
+
+`results.csv` is one target month with seven `*_volume_bcm` fields, exports,
+unrouted/unclassified supply, pipeline supply and status. Network flow detail is
+month × arc; comparison detail is month × original five-group definition. Missing
+EA references/errors remain blank CSV numbers and visibly “Unavailable” in Excel.
+Excel reports saved calculations; it does not implement an alternative model.
+Provenance preserves exact model-ready inputs, source metadata, resolved settings,
+solver results, code/configuration snapshots, hashes and Git identity.
+
 ## Direct SID sourcing
 
 User instruction of 9 October 2026 supersedes the older cached-input commands:

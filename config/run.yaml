@@ -1,0 +1,13 @@
+# Paths are relative to the repository, not the current shell directory.
+model: config/model.yaml
+registry: config/data_series.csv
+evaluation: config/evaluation.yaml
+mode: historical_reconstruction
+input_source: fresh_sid
+# Explicit opt-in demonstration: change input_source to synthetic_demo.
+start: '2024-01'
+end: '2024-12'
+origin: null
+solver: HiGHS
+capacity_scenario: baseline
+price_enabled: false
