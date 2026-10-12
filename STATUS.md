@@ -3,6 +3,15 @@
 ## F2.2 complete-population gate and provisional capacities — 12 October 2026
 
 Branch `feature/reconciled-supply-f22` from verified `81114aa`; one worker.
+Final implementation is isolated in `.scratch/worktrees/f22/`: a concurrent task
+switched the shared checkout to `investigation/ea-legacy-forecast-horizon` during
+validation. Misplaced task commit `26d74e5` was copied as `524ee59` onto this branch
+directly from `81114aa`, then reverted locally on the investigation branch with
+`abaa299`. Its tree matches the concurrent task's `5cdc04b` exactly; no history
+was rewritten or investigation commit pushed. Tests/code/configuration are
+identical between the verified implementation and this isolated copy. Raw audit
+evidence and demonstration packages remain in the shared repository paths below;
+their manifests preserve the actual execution Git identity and code snapshots.
 [Full findings and 132-component ledger](evidence/inputs/reconciled_supply_f22/README.md)
 replace the old 46-only forecast blocker. Fresh 2024 queries validated all original
 62 fields, national and historical Snøhvit, plus 28 additional components.
