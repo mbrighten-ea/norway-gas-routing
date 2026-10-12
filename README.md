@@ -34,13 +34,26 @@ without constructing an LP, checking solver availability or optimising.
 Exit 0 means complete or validated-only; exit 2 means blocked/failed. Configuration
 errors stop before package creation. Later failures retain an explanatory package.
 
-**Current real-data blocker:** `input_source: fresh_sid` deliberately stops before
-retrieval. The existing adapter needs 46 workbook-only component references whose
-SID mappings remain unresolved. The default command writes a required-source
-inventory and actionable blocker; it never loads cached workbook observations.
-No previous frozen-input permission is extended. Once mappings and semantics are
-reviewed, a fresh-SID adapter must supply the same monthly input contract and pass
-the existing gates before a real run becomes available.
+**B1 real-data status:** `fresh_sid` now has a directly queried, validated historical
+adapter for the existing selected contracts. The full configured model still stops
+before retrieval on 46 essential component mappings. The [source-mapping ledger
+and audit](evidence/inputs/routing_sources_b1/README.md) distinguish verified existing
+IDs, unverified discovery candidates, derived identities and optional comparisons.
+Zero new component mappings were independently verified. The default command
+writes the exact blockers into its Excel/source inventory and never substitutes
+workbook observations, zeros, aggregate production or frozen inputs. Removing
+components or changing the topology cannot bypass this gate.
+
+When all required mappings are reviewed, the adapter queries EA/Shooju through
+the existing helper, validates source identity, units/frequency, complete dates,
+historical/forecast boundaries, signs and production import cohort, and retains
+original responses and metadata before preparing model inputs. Incorrect essential
+inputs stop optimisation with a failure package. Optional current comparisons are
+queried separately; their failures remain visibly unavailable. Earlier observations
+required for static preferences are essential and cannot use current outcomes.
+Price-free routing, Snøhvit's historical conversion guard, existing provisional
+capacities and the locked holdout are unchanged. No live source-backed full-model
+reconstruction has been demonstrated; offline mock tests are not live evidence.
 
 For an offline demonstration, copy `config/run.yaml` to a repository-local
 `.scratch/demo-run.yaml`, change only `input_source` to `synthetic_demo`, and pass
@@ -60,6 +73,18 @@ incompatible, never assumed zero. EA actuals and forecasts remain unavailable in
 synthetic packages. Future real comparisons must retain original groups, origins
 and historical-segment checks; Poland/Nybro and signed Danish net values cannot
 score gross physical exports.
+
+For SID inputs, `provenance/raw/` contains exact returned observations, and
+`source_metadata.json` retains query bounds, timestamps, raw/reported units,
+transformations, provider vintages and validation status, including rejected
+responses. The reviewed source contract and mapping ledger are copied into the
+package. Compatible actual allocation proxies may appear alongside model flows;
+forecast references remain unavailable. Failed optional queries never supply
+training inputs or zero comparisons. Tests label manufactured SID responses as
+MOCK, and use a fixture-specific topology/contract rather than altering the live
+model. Run focused offline integration checks with the workspace interpreter and
+`-m pytest tests/integration/test_fresh_routing_inputs.py` using the documented
+repository-local temporary environment.
 
 `results.csv` is one target month with seven destination bcm columns, exports,
 supply, disposal and status. `details/` contains comparison/arc CSVs, independent

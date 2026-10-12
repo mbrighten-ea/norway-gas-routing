@@ -145,8 +145,8 @@ def prepare_run_inputs(root, model, registry, request):
     if request['mode'] != 'historical_reconstruction':
         raise RunBlocked('Forecast mode unavailable: identify every component SID and verify origin Snøhvit, Kollsnes maintenance, capacity effectiveness and training release dates. Supply a complete origin bundle before implementing forecast preparation; no revised fallback.')
     if request['input_source'] == 'fresh_sid':
-        missing = sum(len(n.get('workbook_columns', [])) for n in model['routing']['nodes'].values())
-        raise RunBlocked(f'Fresh-SID preparation unavailable: {missing} workbook-only component references still lack reviewed SID mappings. See input_sources.csv. Identify/approve these mappings and migrate the input adapter; cached workbooks and previous frozen-input exceptions cannot be used.')
+        from .routing_inputs import prepare_fresh_inputs
+        return prepare_fresh_inputs(root, model, registry, provenance_dir=request.get('_provenance_dir'))
     return synthetic_inputs(model)
 
 
@@ -285,11 +285,37 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
         target.write_bytes((root/name).read_bytes())
     (provenance/'resolved_settings.yaml').write_text(yaml.safe_dump(dict(run=request, model=model), sort_keys=False), encoding='utf-8')
     inventory = input_inventory(model, registry, request)
+    inventory_error = None
+    if request['input_source'] == 'fresh_sid':
+        from .routing_sources import source_requirements, CONTRACT, MAPPING_LEDGER
+        try:
+            inventory, _, _ = source_requirements(root, model, registry)
+            inventory['start'], inventory['end'] = request['start'], request['end']
+            mask = inventory.classification.eq('essential_training')
+            inventory.loc[mask, 'start'] = model['routing']['baseline_start']
+            inventory.loc[mask, 'end'] = model['routing']['baseline_end']
+        except (ValueError, OSError) as error:
+            inventory_error = str(error)
+        for name in [CONTRACT, MAPPING_LEDGER]:
+            target = provenance/name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            if (root/name).is_file():
+                target.write_bytes((root/name).read_bytes())
+            else:
+                inventory_error = 'Reviewed source evidence missing: '+name+'. Restore the committed evidence; never infer replacement mappings.'
     inputs, results, checks = None, {}, pd.DataFrame(columns=['month', 'max_mass_balance_residual_bcm', 'max_capacity_violation_bcm'])
     try:
-        inputs = prepare_run_inputs(root, model, registry, request)
+        if inventory_error:
+            raise RunBlocked(inventory_error)
+        preparation_request = {**request, '_provenance_dir': provenance}
+        inputs = prepare_run_inputs(root, model, registry, preparation_request)
         validate_prepared_inputs(inputs, network, request)
         manifest['inputs'] = inputs['provenance']
+        metadata = [r['metadata'] for r in inputs['provenance'] if r.get('metadata')]
+        if any(m.get('_mock_sid_response') is True for m in metadata):
+            if not all(m.get('_mock_sid_response') is True for m in metadata):
+                raise RunBlocked('Mixed mock/live responses cannot be presented as real data.')
+            manifest['analysis_type'] = 'MOCK SID DEMONSTRATION — manufactured responses, not live EA observations'
         if request['input_source'] == 'synthetic_demo':
             # Replace unresolved real-source inventory with exactly what was consumed.
             inventory = pd.DataFrame([dict(key=name, identifier='synthetic_demo_v1:'+name,
@@ -305,6 +331,11 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
             save_csv(inputs[key], prepared/(key+'.csv'), monthly_index=True)
         for key in ['capacity_daily', 'capacity_monthly']:
             save_csv(inputs[key], prepared/(key+'.csv'))
+        if 'reconciliation' in inputs:
+            save_csv(inputs['reconciliation'], prepared/'reconciliation.csv', monthly_index=True)
+        if 'actual_comparisons' in inputs:
+            save_csv(inputs['actual_comparisons'], prepared/'actual_comparisons.csv', monthly_index=True)
+            write_json(prepared/'comparison_status.json', inputs['comparison_status'])
         write_json(prepared/'preferences.json', inputs['preferences'])
         write_json(provenance/'source_metadata.json', inputs['provenance'])
         if request['input_source'] == 'synthetic_demo':
@@ -329,6 +360,12 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
             manifest.update(status='OPTIMAL', solver=selected)
     except (ValueError, RuntimeError, OSError) as exc:
         manifest.update(status='BLOCKED_INPUTS' if manifest['phase']=='preparation' else 'FAILED_OPTIMISATION', blocker=str(exc))
+        if (provenance/'source_metadata.json').exists():
+            manifest['inputs'] = json.loads((provenance/'source_metadata.json').read_text(encoding='utf-8'))
+    if request['input_source'] == 'fresh_sid' and manifest['inputs']:
+        rows = [{**{k:v for k,v in r.items() if k not in {'metadata', 'registry'}},
+                 'metadata_file': 'provenance/source_metadata.json'} for r in manifest['inputs']]
+        inventory = pd.concat([inventory, pd.DataFrame(rows)], ignore_index=True)
     save_csv(inventory, output/'input_sources.csv')
     if not (provenance/'source_metadata.json').exists():
         write_json(provenance/'source_metadata.json', {'status': 'Unavailable: no numerical inputs consumed', 'blocker': manifest['blocker']})

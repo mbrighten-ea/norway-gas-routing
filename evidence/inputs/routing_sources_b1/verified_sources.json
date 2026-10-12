@@ -1,0 +1,986 @@
+{
+  "schema_version": 1,
+  "scope": "Existing selected contracts only; no discovered candidate is approved",
+  "component_columns": {
+    "troll_prod": "L",
+    "kvitebjorn_prod": "AZ",
+    "visund_prod": "BU",
+    "ormen_lange_prod": "BI",
+    "aasta_hansteen_prod": "AC",
+    "dvalin_prod": "BX",
+    "asgard_prod": "AF",
+    "gullfaks_sor_prod": "AN",
+    "heidrun_prod": "AQ",
+    "kristin_prod": "AW",
+    "norne_prod": "BF",
+    "skarv_prod": "BL",
+    "oseberg_prod": "Q",
+    "sleipner_prod": "BP",
+    "gina_krog_prod": "AI",
+    "martin_linge_prod": "BC"
+  },
+  "component_groups": {
+    "troll_prod": "KOLLSNES",
+    "kvitebjorn_prod": "KOLLSNES",
+    "visund_prod": "KOLLSNES",
+    "ormen_lange_prod": "NYHAMNA",
+    "aasta_hansteen_prod": "NYHAMNA",
+    "dvalin_prod": "NYHAMNA",
+    "asgard_prod": "KARSTO",
+    "gullfaks_sor_prod": "KARSTO",
+    "heidrun_prod": "KARSTO",
+    "kristin_prod": "KARSTO",
+    "norne_prod": "KARSTO",
+    "skarv_prod": "KARSTO",
+    "oseberg_prod": "OSEBERG_HEIMDAL",
+    "sleipner_prod": "SLEIPNER",
+    "gina_krog_prod": "SLEIPNER",
+    "martin_linge_prod": "UK_DIRECT"
+  },
+  "source_groups": {
+    "KOLLSNES": [
+      "troll_prod",
+      "kvitebjorn_prod",
+      "visund_prod"
+    ],
+    "NYHAMNA": [
+      "ormen_lange_prod",
+      "aasta_hansteen_prod",
+      "dvalin_prod"
+    ],
+    "KARSTO": [
+      "asgard_prod",
+      "gullfaks_sor_prod",
+      "heidrun_prod",
+      "kristin_prod",
+      "norne_prod",
+      "skarv_prod"
+    ],
+    "OSEBERG_HEIMDAL": [
+      "oseberg_prod"
+    ],
+    "SLEIPNER": [
+      "sleipner_prod",
+      "gina_krog_prod"
+    ],
+    "UK_DIRECT": [
+      "martin_linge_prod"
+    ],
+    "DE_DIRECT": [],
+    "OTHER_RESIDUAL": [
+      "norway_nonflex_prod"
+    ]
+  },
+  "network": {
+    "nodes": {
+      "KOLLSNES_FEED": {
+        "kind": "source",
+        "source_group": "KOLLSNES",
+        "workbook_columns": [
+          "CV",
+          "EW"
+        ],
+        "position": [
+          0,
+          8
+        ],
+        "label": "Kollsnes fields incl Fram / Valemon"
+      },
+      "NYHAMNA_FEED": {
+        "kind": "source",
+        "source_group": "NYHAMNA",
+        "position": [
+          0,
+          12
+        ],
+        "label": "Nyhamna fields"
+      },
+      "KARSTO_FEED": {
+        "kind": "source",
+        "source_group": "KARSTO",
+        "workbook_columns": [
+          "ES",
+          "FO",
+          "DR",
+          "CF",
+          "DW",
+          "FT",
+          "DQ",
+          "CO",
+          "FE",
+          "FN",
+          "DT",
+          "EP",
+          "FX",
+          "DK",
+          "FW",
+          "FM"
+        ],
+        "position": [
+          0,
+          4
+        ],
+        "label": "Karsto fields incl omitted satellites"
+      },
+      "OSEBERG": {
+        "kind": "source",
+        "source_group": "OSEBERG_HEIMDAL",
+        "position": [
+          0,
+          10
+        ],
+        "label": "Oseberg"
+      },
+      "SLEIPNER": {
+        "kind": "source",
+        "source_group": "SLEIPNER",
+        "workbook_columns": [
+          "DF",
+          "DG",
+          "FQ",
+          "ED"
+        ],
+        "position": [
+          3,
+          6
+        ],
+        "label": "Sleipner fields incl Gudrun"
+      },
+      "UK_DIRECT": {
+        "kind": "source",
+        "source_group": "UK_DIRECT",
+        "workbook_columns": [
+          "EZ",
+          "DB",
+          "FU",
+          "CG",
+          "EH",
+          "FL",
+          "CQ",
+          "EJ",
+          "EM",
+          "FV",
+          "GI",
+          "EI",
+          "CK",
+          "FF",
+          "FS",
+          "EB",
+          "DL"
+        ],
+        "position": [
+          8,
+          14
+        ],
+        "label": "Direct UK FLAGS / SAGE / FUKA / Armada"
+      },
+      "EKOFISK_FEED": {
+        "kind": "source",
+        "workbook_columns": [
+          "CR",
+          "CS",
+          "CT",
+          "EO",
+          "FY",
+          "EX",
+          "DI"
+        ],
+        "position": [
+          0,
+          0
+        ],
+        "label": "Ekofisk / Valhall gas incl Tommeliten A"
+      },
+      "UNMAPPED": {
+        "kind": "source",
+        "residual": true,
+        "position": [
+          0,
+          -3
+        ],
+        "label": "Unclassified net production"
+      },
+      "KOLLSNES": {
+        "kind": "junction",
+        "position": [
+          2,
+          8
+        ],
+        "label": "Kollsnes dry export"
+      },
+      "NYHAMNA": {
+        "kind": "junction",
+        "position": [
+          2,
+          12
+        ],
+        "label": "Nyhamna"
+      },
+      "KARSTO": {
+        "kind": "junction",
+        "position": [
+          2,
+          4
+        ],
+        "label": "Karsto shared processing"
+      },
+      "HEIMDAL_BYPASS": {
+        "kind": "junction",
+        "position": [
+          3,
+          10
+        ],
+        "label": "Heimdal bypass"
+      },
+      "CORE": {
+        "kind": "junction",
+        "position": [
+          5,
+          8
+        ],
+        "label": "Sleipner / Draupner core"
+      },
+      "EUROPIPE_II_SPLIT": {
+        "kind": "junction",
+        "position": [
+          5,
+          4
+        ],
+        "label": "Shared Europipe II"
+      },
+      "EKOFISK": {
+        "kind": "junction",
+        "position": [
+          7,
+          3
+        ],
+        "label": "Ekofisk / Norpipe junction"
+      },
+      "EMDEN_POOL": {
+        "kind": "junction",
+        "position": [
+          8,
+          6
+        ],
+        "label": "DE / NL landing pool"
+      },
+      "DANISH_TRANSIT": {
+        "kind": "junction",
+        "position": [
+          8,
+          1
+        ],
+        "label": "North Sea Entry / Nybro transit"
+      },
+      "FAXE": {
+        "kind": "junction",
+        "position": [
+          10,
+          0
+        ],
+        "label": "Faxe / Baltic Pipe"
+      },
+      "UK": {
+        "kind": "destination",
+        "position": [
+          12,
+          12
+        ],
+        "label": "UK"
+      },
+      "FR": {
+        "kind": "destination",
+        "position": [
+          12,
+          10
+        ],
+        "label": "France"
+      },
+      "BE": {
+        "kind": "destination",
+        "position": [
+          12,
+          8
+        ],
+        "label": "Belgium"
+      },
+      "NL": {
+        "kind": "destination",
+        "position": [
+          12,
+          6
+        ],
+        "label": "Netherlands"
+      },
+      "DE": {
+        "kind": "destination",
+        "position": [
+          12,
+          4
+        ],
+        "label": "Germany"
+      },
+      "DK": {
+        "kind": "destination",
+        "position": [
+          12,
+          2
+        ],
+        "label": "Denmark"
+      },
+      "PL": {
+        "kind": "destination",
+        "position": [
+          12,
+          0
+        ],
+        "label": "Poland"
+      },
+      "UNROUTED": {
+        "kind": "unrouted",
+        "position": [
+          12,
+          -3
+        ],
+        "label": "Unrouted supply (accounting)"
+      }
+    },
+    "arcs": [
+      {
+        "id": "KOLLSNES_PROCESSING",
+        "from": "KOLLSNES_FEED",
+        "to": "KOLLSNES",
+        "asset": "KOLLSNES_EXPORT"
+      },
+      {
+        "id": "NYHAMNA_PROCESSING",
+        "from": "NYHAMNA_FEED",
+        "to": "NYHAMNA",
+        "asset": "NYHAMNA_EXPORT"
+      },
+      {
+        "id": "KARSTO_PROCESSING",
+        "from": "KARSTO_FEED",
+        "to": "KARSTO",
+        "asset": "KARSTO_PROCESSING"
+      },
+      {
+        "id": "OGT",
+        "from": "OSEBERG",
+        "to": "HEIMDAL_BYPASS",
+        "asset": "OGT"
+      },
+      {
+        "id": "HEIMDAL_STATPIPE",
+        "from": "HEIMDAL_BYPASS",
+        "to": "CORE",
+        "asset": "HEIMDAL_STATPIPE"
+      },
+      {
+        "id": "VESTERLED",
+        "from": "HEIMDAL_BYPASS",
+        "to": "UK",
+        "asset": "VESTERLED"
+      },
+      {
+        "id": "LANGELED_NORTH",
+        "from": "NYHAMNA",
+        "to": "CORE",
+        "asset": "LANGELED_NORTH"
+      },
+      {
+        "id": "ZEEPIPE_IIA",
+        "from": "KOLLSNES",
+        "to": "CORE",
+        "asset": "ZEEPIPE_IIA"
+      },
+      {
+        "id": "ZEEPIPE_IIB",
+        "from": "KOLLSNES",
+        "to": "CORE",
+        "asset": "ZEEPIPE_IIB"
+      },
+      {
+        "id": "KARSTO_STATPIPE",
+        "from": "KARSTO",
+        "to": "CORE",
+        "asset": "KARSTO_STATPIPE"
+      },
+      {
+        "id": "EUROPIPE_II",
+        "from": "KARSTO",
+        "to": "EUROPIPE_II_SPLIT",
+        "asset": "EUROPIPE_II"
+      },
+      {
+        "id": "EUROPIPE_II_DORNUM",
+        "from": "EUROPIPE_II_SPLIT",
+        "to": "EMDEN_POOL",
+        "asset": null
+      },
+      {
+        "id": "NORTH_SEA_ENTRY",
+        "from": "EUROPIPE_II_SPLIT",
+        "to": "DANISH_TRANSIT",
+        "asset": "NORTH_SEA_ENTRY"
+      },
+      {
+        "id": "DK_OFFTAKE",
+        "from": "DANISH_TRANSIT",
+        "to": "DK",
+        "asset": null
+      },
+      {
+        "id": "BALTIC_PIPE",
+        "from": "DANISH_TRANSIT",
+        "to": "FAXE",
+        "asset": "BALTIC_PIPE"
+      },
+      {
+        "id": "PL_DELIVERY",
+        "from": "FAXE",
+        "to": "PL",
+        "asset": null
+      },
+      {
+        "id": "SLEIPNER_CORE",
+        "from": "SLEIPNER",
+        "to": "CORE",
+        "asset": null
+      },
+      {
+        "id": "LANGELED_SOUTH",
+        "from": "CORE",
+        "to": "UK",
+        "asset": "LANGELED_SOUTH"
+      },
+      {
+        "id": "EUROPIPE_I",
+        "from": "CORE",
+        "to": "EMDEN_POOL",
+        "asset": "EUROPIPE_I"
+      },
+      {
+        "id": "CORE_EKOFISK",
+        "from": "CORE",
+        "to": "EKOFISK",
+        "asset": "DRAUPNER_EKOFISK_STATPIPE"
+      },
+      {
+        "id": "EKOFISK_INJECTION",
+        "from": "EKOFISK_FEED",
+        "to": "EKOFISK",
+        "asset": null
+      },
+      {
+        "id": "NORPIPE",
+        "from": "EKOFISK",
+        "to": "EMDEN_POOL",
+        "asset": "NORPIPE"
+      },
+      {
+        "id": "ZEEPIPE_EXPORT",
+        "from": "CORE",
+        "to": "BE",
+        "asset": "ZEEPIPE_EXPORT"
+      },
+      {
+        "id": "FRANPIPE",
+        "from": "CORE",
+        "to": "FR",
+        "asset": "FRANPIPE"
+      },
+      {
+        "id": "NL_ALLOCATION_PROXY",
+        "from": "EMDEN_POOL",
+        "to": "NL",
+        "asset": null
+      },
+      {
+        "id": "DE_ALLOCATION_PROXY",
+        "from": "EMDEN_POOL",
+        "to": "DE",
+        "asset": null
+      },
+      {
+        "id": "UK_DIRECT_PROXY",
+        "from": "UK_DIRECT",
+        "to": "UK",
+        "asset": null
+      }
+    ]
+  },
+  "capacity_assumptions": {
+    "KOLLSNES_EXPORT": {
+      "mcm_d": 143.0,
+      "source": "plant_definitions",
+      "maintenance_series": "kollsnes_maint_d"
+    },
+    "NYHAMNA_EXPORT": {
+      "mcm_d": 84.0,
+      "source": "nyhamna"
+    },
+    "KARSTO_PROCESSING": {
+      "mcm_d": 95.0,
+      "source": "plant_definitions"
+    },
+    "OGT": {
+      "mcm_d": 35.0,
+      "source": "gassco_map_2024"
+    },
+    "HEIMDAL_STATPIPE": {
+      "mcm_d": 35.0,
+      "source": "gassco_map_2024"
+    },
+    "KARSTO_STATPIPE": {
+      "mcm_d": 12.0,
+      "source": "gassco_map_2024"
+    },
+    "DRAUPNER_EKOFISK_STATPIPE": {
+      "mcm_d": 32.4,
+      "source": "gassco_map_2024"
+    },
+    "LANGELED_NORTH": {
+      "mcm_d": 74.7,
+      "source": "gassco_map_2024"
+    },
+    "LANGELED_SOUTH": {
+      "mcm_d": 73.8,
+      "source": "gassco_map_2024"
+    },
+    "ZEEPIPE_IIA": {
+      "mcm_d": 77.0,
+      "source": "gassco_map_2024"
+    },
+    "ZEEPIPE_IIB": {
+      "mcm_d": 80.0,
+      "source": "gassco_map_2024"
+    },
+    "EUROPIPE_I": {
+      "mcm_d": 48.0,
+      "source": "gassco_map_2024"
+    },
+    "EUROPIPE_II": {
+      "mcm_d": 73.5,
+      "source": "gassco_map_2024"
+    },
+    "NORPIPE": {
+      "mcm_d": 34.0,
+      "source": "gassco_map_2024"
+    },
+    "VESTERLED": {
+      "mcm_d": 35.0,
+      "source": "gassco_map_2024"
+    },
+    "ZEEPIPE_EXPORT": {
+      "mcm_d": 42.2,
+      "source": "gassco_map_2024"
+    },
+    "FRANPIPE": {
+      "mcm_d": 54.2,
+      "source": "gassco_map_2024"
+    },
+    "NORTH_SEA_ENTRY": {
+      "mcm_d": 27.4,
+      "source": "north_sea_entry"
+    },
+    "BALTIC_PIPE": {
+      "annual_bcm": 10.0,
+      "source": "baltic_pipe"
+    }
+  },
+  "sources": {
+    "troll_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Troll_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/1c3fb7454e152d83.json",
+      "source_metadata_sha256": "d49167d43d1cc46f5cdb95148d78116426e68ffdee9f7e12575d1ae166d4a05f",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "kvitebjorn_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Kvitebjorn_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/fe4fe4174a6e38db.json",
+      "source_metadata_sha256": "cdc060110a3435fd801b75a231437b2c1982d5563557db2446b5edb2704a4de8",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "visund_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Visund_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/b1d54853c5ff887b.json",
+      "source_metadata_sha256": "18b6c7cb575d7cd7c5563ac3e00d0842b684a092b39c7d80ebd367b7c3aa7ab5",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "ormen_lange_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Ormen_Lange_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/8977fc3acaf6e491.json",
+      "source_metadata_sha256": "56a1f0d07f86c0f64ddcfc2b524174fb144afd72534f2ae2486afdf172a1b036",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "aasta_hansteen_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Aasta_Hansteen_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/ebd6826a62af1251.json",
+      "source_metadata_sha256": "3517c797eb67e442c8b71a728a44e80d3cb2b563834e477b8f3558930bb1644c",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "dvalin_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Dvalin_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/e3cab8b62b4a36ac.json",
+      "source_metadata_sha256": "69ffd50577b9f2b8342b39b9fc4678a6a5577f5552a58971e9174b7e6bd79299",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "asgard_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Asgard_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/51fd89b299d62640.json",
+      "source_metadata_sha256": "3d3c6c2f052e5b0c041708f0b748b6fe2669c86c1a763fe5b4e72042f140b938",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "gullfaks_sor_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Gullfaks_Sor_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/168f9037311e3911.json",
+      "source_metadata_sha256": "a5f71a98dcba450c88e1dec1b69f0f10f05a1b1f6d56077ae34247bd71cb8dd6",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "heidrun_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Heidrun_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/c88f7df0932eeca4.json",
+      "source_metadata_sha256": "4db218e8dd3b10c1541e41779c43ade131537862f2639fc5a2b7035365b02278",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "kristin_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Kristin_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/ba6518eb1b55b9fc.json",
+      "source_metadata_sha256": "5899998159c525f461ac7693ffef8fc5ce8efcba02e054e398e494355949e803",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "norne_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Norne_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/acd9e8e75946321a.json",
+      "source_metadata_sha256": "3f4417bc6a351e1543904e77aeb4835aaed1976c36cd235d2990cb5cba3f4ea0",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "skarv_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Skarv_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/e10262ed4c676519.json",
+      "source_metadata_sha256": "28f02f4808e5dfc059e9a17f87de131892cf781f4ecacc96f6da41116ca48515",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "oseberg_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Oseberg_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/c74d5882f6b5008e.json",
+      "source_metadata_sha256": "13e5cc7d69d04e54c03df76a5d7b8275ecb339587548a6e9bcaea202dd530e15",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "sleipner_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Sleipner_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/e623aa5b7047eec6.json",
+      "source_metadata_sha256": "e4e4375fdefd778a5cda64b285e03bd8e3f58993efa91823b8906b8daf3df4ff",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "gina_krog_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Gina_Krog_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/1cc0930fdc186fe7.json",
+      "source_metadata_sha256": "fbbf54040eee5b0b452dbe837dac63c1d4d45e007d2c068be9b111469a34a253",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "martin_linge_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Martin_Linge_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/d3eeddcf33426097.json",
+      "source_metadata_sha256": "c5075aee53c2190dac9732ca7241ba5f0e73e5d7780da5350b9ff6f940d28cb5",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "norway_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "reconciliation",
+      "source_metadata_file": "data/raw/series_audit/6d7d3ff77f9ec74d.json",
+      "source_metadata_sha256": "d32b357eae07e22868e79c29d4e92a022924035321f9d5a9a669338e17a3bffb",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "snohvit_net_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Snohvit_field",
+      "category": "production",
+      "raw_unit": "mcm_d",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "lng_exclusion",
+      "source_metadata_file": "data/raw/series_audit/c7bd429750611a2b.json",
+      "source_metadata_sha256": "4a04edf36895204ef02362ea0ea1b43b1663ce969079ab2d10b490b103b00c95",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Reported bcm is a historical monthly-average mcm/day; approved conversion only through July 2025"
+    },
+    "kollsnes_maint_d": {
+      "sid": "teams\\natural_gas\\EUR\\daily_NO\\NO_maintenance_Kollsnes",
+      "category": "maintenance",
+      "raw_unit": "mcm_d",
+      "metadata_unit": "mcm_d",
+      "frequency": "daily",
+      "source_file": "Maintenance calculator.xlsx",
+      "registry_role": "capacity_constraint",
+      "source_metadata_file": "data/raw/series_audit/0e250f0efcd9a07b.json",
+      "source_metadata_sha256": "da6c93511659533daa9ae0336f0c4ad8fa1d28a702e82550f290d759e85c8d0d",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "uk_flow_qa": {
+      "sid": "teams\\natural_gas\\EUR\\NO\\gassco_UK",
+      "category": "historical_flows",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian flows model.xlsx",
+      "registry_role": "benchmark_only",
+      "source_metadata_file": "data/raw/series_audit/cada0a7c51b3ec94.json",
+      "source_metadata_sha256": "7e4c3b54a07e5bf0ff18d4fcd2e8b042512ba84d2a152b3cfb088e38e7767dfe",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "fr_flow_qa": {
+      "sid": "teams\\natural_gas\\EUR\\NO\\gassco_FR",
+      "category": "historical_flows",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian flows model.xlsx",
+      "registry_role": "benchmark_only",
+      "source_metadata_file": "data/raw/series_audit/0690959815677d5f.json",
+      "source_metadata_sha256": "81d480232b60068c50aa60ab883167ed5372e481f7972fc7bcf2826962f1f3c2",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "be_flow_qa": {
+      "sid": "teams\\natural_gas\\EUR\\NO\\gassco_BE",
+      "category": "historical_flows",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian flows model.xlsx",
+      "registry_role": "benchmark_only",
+      "source_metadata_file": "data/raw/series_audit/18c22dfbfe9daf52.json",
+      "source_metadata_sha256": "e11e463f1b3bd7783e0ee8f1e1869d055024f94f8f8cddfe19087cf77796a5f7",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "nl_flow_qa": {
+      "sid": "teams\\natural_gas\\EUR\\NO\\gassco_NL",
+      "category": "historical_flows",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian flows model.xlsx",
+      "registry_role": "benchmark_only",
+      "source_metadata_file": "data/raw/series_audit/8d3515a75799a519.json",
+      "source_metadata_sha256": "d3cbad17f7d63df61d791c923462246bb5c62b4c78865f4a9809ae930f734ee4",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "de_flow_qa": {
+      "sid": "teams\\natural_gas\\EUR\\NO\\gassco_DE",
+      "category": "historical_flows",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian flows model.xlsx",
+      "registry_role": "benchmark_only",
+      "source_metadata_file": "data/raw/series_audit/0435a2dd1c1f7af5.json",
+      "source_metadata_sha256": "a35e26ca8adcc5a67f05ecce18a2768ea0dd0a20d3aae117add927b0f45fdf96",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "dk_flow_qa": {
+      "sid": "teams\\natural_gas\\EUR\\NO\\gassco_DK",
+      "category": "historical_flows",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian flows model.xlsx",
+      "registry_role": "benchmark_only",
+      "source_metadata_file": "data/raw/series_audit/c06dace726eeb7ba.json",
+      "source_metadata_sha256": "565f3e461d58e4bb9017858189161989ebb40705e94117859ec77f48b6ce4e55",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "pl_flow_qa": {
+      "sid": "teams\\natural_gas\\EUR\\NO\\gassco_PL",
+      "category": "historical_flows",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian flows model.xlsx",
+      "registry_role": "benchmark_only",
+      "source_metadata_file": "data/raw/series_audit/2f38e4873b780d84.json",
+      "source_metadata_sha256": "ef2166e0da909bde715a53fdfcf8c838c243a15b9b12a3c7ca6c55a9ada43148",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "fr_be_flow_qa": {
+      "sid": "teams\\natural_gas\\EUR\\NO\\gassco_FR_and_BE",
+      "category": "historical_flows",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian flows model.xlsx",
+      "registry_role": "benchmark_only",
+      "source_metadata_file": "data/raw/series_audit/0154a2800e65af12.json",
+      "source_metadata_sha256": "8bd99f10f9e04528e67ec7d76b32fc6d1726d5dfaff0c18f9a218c18b5eb2385",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "nl_de_flow_qa": {
+      "sid": "teams\\natural_gas\\EUR\\NO\\gassco_NL_and_DE",
+      "category": "historical_flows",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian flows model.xlsx",
+      "registry_role": "benchmark_only",
+      "source_metadata_file": "data/raw/series_audit/d07c568ad4ee17f8.json",
+      "source_metadata_sha256": "62deb1e3b069b0be59adad3aa6f55a4cbc04e9919ac62a7ee8ecea5ed0834b2d",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    }
+  }
+}

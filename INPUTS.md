@@ -5,7 +5,8 @@
 `config/run.yaml` references the canonical files and requests exact target months,
 mode, origin and price-free baseline. `operational.prepare_run_inputs` separates
 preparation from `operational.optimise` and `reporting.operational.report_run`.
-The fresh-SID adapter is blocked by missing component mappings; the retained
+`routing_inputs.prepare_fresh_inputs` provides fresh historical preparation, but
+the full model is blocked by 46 essential component mappings. The retained cached
 `routing_inputs.prepare_inputs` is never called by the operational command.
 `synthetic_demo` is explicitly manufactured, never a cached-input exception.
 
@@ -24,6 +25,36 @@ EA references/errors remain blank CSV numbers and visibly “Unavailable” in E
 Excel reports saved calculations; it does not implement an alternative model.
 Provenance preserves exact model-ready inputs, source metadata, resolved settings,
 solver results, code/configuration snapshots, hashes and Git identity.
+
+## B1 source integration
+
+The [B1 ledger](evidence/inputs/routing_sources_b1/README.md) traces all 46 references.
+All are essential distinct field leaves; none may be dropped or replaced by zero.
+Exact discovered Directorate IDs remain unverified candidates, never mappings.
+The reviewed evidence contract pins 28 existing selected registry IDs and their
+units, roles, memberships, source-file identities, topology and baseline capacities.
+No registry status, source allocation or numerical assumption was changed.
+
+The fresh adapter requires complete unique monthly first-day observations and
+complete naive/UTC midnight daily maintenance. It neither resamples nor fills;
+unknown timezones fail. Source metadata must identify the historical segment;
+origin responses, forecast segments and inconsistent production import cohorts
+are rejected. This is an explicitly revised reconstruction, not verified
+information available at a past origin. Raw points retain their original signed
+values and units before analytical validation. National minus signed Snøhvit
+minus mapped components defines UNMAPPED; aggregates are never added again.
+Snøhvit's established historical rate conversion stops at July 2025. Unchanged
+provisional engineering envelopes and signed maintenance arithmetic are reused.
+
+Seven earlier allocation series are essential for preferences. Five current EA
+group references are optional and queried separately; failures become unavailable,
+not zero or training substitutes. Original groups are retained without country
+disaggregation. DK signed net and Poland-labelled Nybro entry remain incompatible
+gross-export comparisons even if their source points are available. No forecast
+comparisons or new scoring are implemented. Exact returned points, provider
+metadata, query bounds, retrieval time, effective/reported units, transformation,
+hashes and rejection reasons survive in package provenance. Source-map gates run
+before connection; full-model missing mappings therefore trigger no live request.
 
 ## Direct SID sourcing
 

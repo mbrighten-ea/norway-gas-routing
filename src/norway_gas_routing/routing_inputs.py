@@ -69,6 +69,106 @@ def diagnostic_snohvit_values(months, values, scenario):
     return values
 
 
+def prepare_fresh_inputs(root, model, registry, *, provenance_dir=None, client=None):
+    """Fresh historical SID preparation; missing essential mappings stop before I/O.
+
+    The reviewed contracts cover existing selected inputs only. Workbook formula
+    lineage cannot authorise a discovered SID or a new field allocation. Optional
+    current comparisons never substitute for earlier preference observations.
+    """
+    from .data_functions import connect_shooju
+    from .routing_sources import source_requirements, retrieve_checked, OPTIONAL_GROUPS
+    from .reporting.sids import monthly_reference
+    settings = model['routing']
+    months = pd.period_range(settings['start'], settings['end'], freq='M')
+    training = pd.period_range(settings['baseline_start'], settings['baseline_end'], freq='M')
+    check_dates(months, 'analysis')
+    check_dates(training, 'fit')
+    if months.empty or training.empty or training.max() >= months.min():
+        raise ValueError('Nonempty earlier training and later target months are required.')
+    if months.max() > pd.Period('2025-07', 'M'):
+        raise ValueError('Snohvit actual conversion validated only through July 2025 for this routing model')
+    requirements, components, contract = source_requirements(root, model, registry)
+    blocked = requirements.loc[requirements.blocked & requirements.classification.str.startswith('essential')]
+    if len(blocked):
+        names = ', '.join(blocked.key)
+        reasons = '; '.join(blocked.status.head(3))
+        raise ValueError(f'Fresh-SID preparation blocked: {len(blocked)} essential inputs unresolved: {names}. {reasons}. See input_sources.csv and evidence/inputs/routing_sources_b1/routing_source_mapping.csv. Independently verify canonical SID mappings; no workbook or frozen-input fallback.')
+    # Detect aliases of one SID before retrieval/aggregation, not after solving.
+    selected_keys = [key for keys in components.values() for key in keys]
+    selected_sids = [registry.at[key, 'sid'].removeprefix('sid=') for key in selected_keys]
+    if len(set(selected_sids)) != len(selected_sids):
+        raise ValueError('Duplicate production SID across source components; cannot double count.')
+    client = connect_shooju() if client is None else client
+    records = []
+    def get(key, periods):
+        dates = periods.to_timestamp()
+        return retrieve_checked(root, key, dates, registry, contract, records, provenance_dir, client=client).set_axis(periods)
+    supply = pd.DataFrame(index=months)
+    for node, keys in components.items():
+        fields = pd.DataFrame({key: get(key, months) for key in keys})
+        finite_nonnegative(fields.to_numpy().ravel(), node+' field production')
+        supply[node] = fields.sum(axis=1)
+    total = get('norway_prod', months)
+    finite_nonnegative(total, 'national production')
+    # Preserve the independently checked historical unit-label exception and sign.
+    snohvit = get('snohvit_net_prod', months) * pd.Series(months.days_in_month/1000, index=months)
+    supply['UNMAPPED'] = total-snohvit-supply.sum(axis=1)
+    finite_nonnegative(supply.to_numpy().ravel(), 'source/residual supply; verify aggregate boundaries')
+    # Same production import cohort when provider snapshot IDs are supplied.
+    cohort = {r['metadata'].get('api_obj', {}).get('snap_shooju_job_id') for r in records
+              if r['key'] in selected_keys+['norway_prod']}
+    if len(cohort-{None}) > 1:
+        raise ValueError('Mixed production import vintages; retrieve a consistent national/component cohort. No silent revised substitution.')
+    observations = pd.DataFrame({d: get(d.lower()+'_flow_qa', training) for d in DESTINATIONS})
+    preferences, excluded = historical_preferences(observations)
+    capacities, daily_rows, monthly_rows = {}, [], []
+    days = pd.date_range(months.min().start_time, months.max().end_time.normalize())
+    for asset, entry in settings['assets'].items():
+        if entry.get('technical_series_file'):
+            raise ValueError(asset+': a local capacity schedule is not a verified fresh SID; review its sourcing separately.')
+        if 'mcm_d' not in entry and 'annual_bcm' not in entry:
+            raise ValueError(asset+': missing technical capacity assumption; do not assume zero.')
+        rate = entry['mcm_d'] if 'mcm_d' in entry else entry['annual_bcm']*1000/365
+        records.append(dict(key=asset, category='technical_capacity', status='EXISTING_PROVISIONAL_ASSUMPTION',
+            source_config='provenance/resolved_settings.yaml:model.routing.assets.'+asset,
+            source_url=settings['capacity_sources'][entry['source']], technical_capacity=entry,
+            sha256=hashlib.sha256(json.dumps(entry, sort_keys=True).encode()).hexdigest(),
+            unit='mcm/day' if 'mcm_d' in entry else 'bcm/year', target_unit='bcm/month',
+            target_months=months.astype(str).tolist(), asof=None, available_at=None, effective_at=None,
+            transformation='Calendar-day sum of existing technical rate minus signed derate / 1000; annual rate uses 365-day envelope',
+            vintage_status='Existing baseline assumption; historical effectiveness/volume-basis compatibility unverified'))
+        technical = pd.Series([rate], index=pd.DatetimeIndex([months.min().start_time]))
+        derate = retrieve_checked(root, entry['maintenance_series'], days, registry, contract, records,
+            provenance_dir, client=client) if entry.get('maintenance_series') else None
+        monthly, daily = monthly_available_capacity(technical, months, derate)
+        capacities[asset] = monthly.available_capacity_bcm
+        daily_rows.append(daily.rename_axis('date').reset_index().assign(asset=asset))
+        monthly_rows.append(monthly.rename_axis('month').reset_index().assign(asset=asset))
+    # Preserve source records, including optional rejected responses. No exception
+    # in this section can authorise a substitute or block valid physical inputs.
+    comparisons, optional_status = {}, {}
+    for group, key in OPTIONAL_GROUPS.items():
+        try:
+            series = get(key, months)
+            response = {'metadata': records[-1]['metadata'], 'values': series.set_axis(months.to_timestamp())}
+            monthly_reference(response, months.astype(str).tolist())
+            comparisons[group] = series
+            optional_status[group] = 'EA revised historical allocation proxy' if group not in {'DK', 'Baltic Pipe'} else 'Incompatible gross-export definition; reference retained as signed net/Nybro context only'
+        except (ValueError, OSError, KeyError) as error:
+            comparisons[group] = pd.Series(float('nan'), index=months)
+            optional_status[group] = 'Unavailable: '+str(error)
+    return dict(months=months, supply=supply, capacities=pd.DataFrame(capacities),
+        capacity_daily=pd.concat(daily_rows, ignore_index=True),
+        capacity_monthly=pd.concat(monthly_rows, ignore_index=True),
+        training_observations=observations, preferences=preferences, excluded_training_months=excluded,
+        provenance=records, input_inventory=requirements,
+        actual_comparisons=pd.DataFrame(comparisons), comparison_status=optional_status,
+        reconciliation=pd.DataFrame(dict(national_production_bcm=total, snohvit_bcm=snohvit,
+            pipeline_supply_bcm=total-snohvit, mapped_supply_bcm=supply.drop(columns='UNMAPPED').sum(axis=1),
+            unmapped_supply_bcm=supply.UNMAPPED)))
+
+
 def prepare_inputs(root, model, registry, *, analysis_mode='historical_reconstruction',
                    diagnostic_snohvit_bcm=None, diagnostic_scenario=None,
                    capacity_scenario='baseline'):

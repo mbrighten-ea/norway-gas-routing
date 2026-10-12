@@ -1,0 +1,23 @@
+{
+  "scope": "Formula/identifier-only 2024 lineage; no observations, live queries or solver",
+  "essential": 46,
+  "derived_or_redundant": 0,
+  "optional_among_46": 0,
+  "verified_new_mappings": 0,
+  "per_node": {
+    "KOLLSNES_FEED": 2,
+    "KARSTO_FEED": 16,
+    "SLEIPNER": 4,
+    "UK_DIRECT": 17,
+    "EKOFISK_FEED": 7
+  },
+  "discovery_candidates": 46,
+  "source_sha256": {
+    "data/raw/legacy/Norwegian production model.xlsx": "4aaff5eaaa96d2e6d47ef94a8cf5a9abf5822fcbcabfd4c661e1cd8e29fd4686",
+    "evidence/inputs/network_forecast_unverified_discovery.csv": "4773653d48af62e98b985e253dbcfadc1ec5bbb3f7adee0b44b873fc1714841d",
+    "config/model.yaml": "63bc15456e12c7189fb12ccdea95d1ae3e17fbb116f943a63c9b4e43725440c6",
+    "config/data_series.csv": "9398b60b69b8d35a394c2f8e81513c1a4d4bd7d00f2082257f3c4233bd8ba314",
+    "scripts/audit/audit_routing_sources.py": "741db810fe7689824e9efa41e77d14cbf40af8144622a3ce2bbe742f8a9da6ee"
+  },
+  "ledger_sha256": "3f6f9922ca466853aa79b4cf3f0e6318b99f1d8d9ba0b43c090804fb794a3c86"
+}

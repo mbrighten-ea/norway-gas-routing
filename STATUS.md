@@ -1,5 +1,39 @@
 # Current implementation state
 
+## Real-data input integration B1 - 12 October 2026
+
+Implemented on `feature/real-data-input-b1` from verified `0de2ba4`.
+[Formula-only source audit and ledger](evidence/inputs/routing_sources_b1/README.md)
+classify all 46 workbook leaves as essential: Kollsnes 2, Karsto 16, Sleipner 4,
+UK-direct 17 and Ekofisk 7. Each has an existing exact Directorate discovery
+candidate, but none has a verified canonical EA mapping. Zero new mappings or
+registry/status changes. No workbook observations or reserved-period values used.
+
+`routing_inputs.prepare_fresh_inputs` uses existing direct SID interfaces and a
+reviewed evidence contract for 28 already selected IDs. It validates canonical
+identity, exact monthly/daily coverage, units, historical segments, signed LNG and
+maintenance, production import cohorts, physical residuals and unchanged source
+memberships/topology/capacities. It saves original responses before analytical
+validation; bad essential data never reaches an LP. Optional current comparison
+failures remain unavailable and separate from essential earlier training. DK/PL
+gross-export errors and all forecast comparisons remain withheld. Milestone A's
+CLI, validation-only, unique Excel/CSV/chart/HTML packages and hashes are preserved.
+
+Offline tests exercise successful preparation/solve/reporting using manufactured
+SID responses and an explicitly reduced fixture-only topology/contract; this does
+not approve dropping any full-model inputs. Existing synthetic/solver/vintage/
+reporting tests pass: 289 total, with all 46 source/workflow integration checks
+passing again after final provenance changes. Mock Excel comparisons and source
+inventory previews were reviewed. Default 2024 validation produces a BLOCKED_INPUTS package
+identifying all 46 dependencies before any service connection. No live retrieval,
+frozen-input replay, source reallocation, price/evaluation change or holdout access.
+
+Restart: inspect branch/HEAD/status; run the README command with `--validate-only`
+to inspect the blocker inventory. Real-data execution is **not operational** until
+all essential component identities, monthly semantics and aggregate/vintage
+equivalence are independently verified and reviewed into canonical mappings and
+the evidence contract. Existing outputs, source evidence and assumptions remain.
+
 ## Operational backend Milestone A - 12 October 2026
 
 Implemented on `feature/operational-milestone-a` from verified `4acf8e9`.

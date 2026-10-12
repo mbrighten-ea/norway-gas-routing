@@ -20,6 +20,7 @@ def workspace(repo_root, tmp_path):
     # never retained raw data; Git identity uses this real checkout's identity.
     for directory in ['config', 'src/norway_gas_routing']:
         shutil.copytree(repo_root/directory, tmp_path/directory)
+    shutil.copytree(repo_root/'evidence/inputs/routing_sources_b1', tmp_path/'evidence/inputs/routing_sources_b1')
     (tmp_path/'scripts/run').mkdir(parents=True)
     shutil.copyfile(repo_root/'scripts/run/run_routing.py', tmp_path/'scripts/run/run_routing.py')
     return tmp_path
@@ -92,7 +93,7 @@ def test_validate_only_never_builds_lp_or_retrieves(workspace, monkeypatch):
 @pytest.mark.parametrize('changes,message', [
     ({'mode': 'retrospective_forecast', 'origin': '2023-12-31T23:59:59Z'}, 'complete origin bundle'),
     ({'mode': 'latest_forecast'}, 'Forecast mode unavailable'),
-    ({'input_source': 'fresh_sid'}, '46 workbook-only'),
+    ({'input_source': 'fresh_sid'}, '46 essential inputs unresolved'),
 ])
 def test_blocked_modes_have_actionable_packages(workspace, changes, message):
     configure(workspace, **changes)

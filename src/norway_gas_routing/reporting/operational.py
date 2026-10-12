@@ -26,7 +26,7 @@ DEFINITIONS = [
     ('Comparisons', 'One month/group. UK; FR+BE; NL+DE; Baltic Pipe (PL); DK. These overlap country rows and must not be added to them. Unavailable references and errors are missing, never zero.'),
     ('Network flows', 'One month/arc, including explicit disposal arcs. Arc flows can be nonunique. DE/NL are landing-pool allocation proxies; these are not observed nominations.'),
     ('Diagnostics', 'Independent solver mass balance/capacity residuals in bcm; not forecast accuracy. Unrouted gas is accounting disposal, not demonstrated curtailment.'),
-    ('Input sources', 'Every consumed manufactured input or required real source, with identifier, dates, units, transformation and availability status. Exact tables and source metadata are under provenance/inputs and provenance/source_metadata.json.'),
+    ('Input sources', 'Every required or consumed source and explicit assumption, with identifier, dates, units, transformation and availability status. Exact tables and source metadata are under provenance/inputs and provenance/source_metadata.json.'),
     ('Preferences', 'Static soft routing shares from earlier complete nonnegative seven-destination baskets; capacity constraints can force rerouting. Price-free objective: maximum exports, minimum L1 deviation, then smallest worst fractional shortfall.'),
     ('Settings', 'Resolved run request. Canonical model, registry, fixed evaluation policy and source code snapshots are in provenance; manifest records hashes and Git identity.'),
     ('Missing values', 'Unavailable means not retrieved, unsupported, incompatible or unsolved. It is never an assumed zero. Synthetic references are not invented.'),
@@ -48,11 +48,16 @@ def result_tables(inputs, results, manifest):
             solver_status=manifest['status'])
         rows.append(row)
         for group, countries in GROUPS.items():
+            actual = inputs['actual_comparisons'].at[month, group] if inputs and 'actual_comparisons' in inputs else None
+            compatible = actual is not None and pd.notna(actual) and group not in {'DK', 'Baltic Pipe'}
+            modelled = sum(result['destinations'][d] for d in countries) if result else None
             comparisons.append(dict(month=month.start_time, group=group, unit='bcm/month',
-                model_bcm=sum(result['destinations'][d] for d in countries) if result else None,
-                ea_actual_bcm=None, ea_legacy_forecast_bcm=None, model_minus_actual_bcm=None,
+                model_bcm=modelled,
+                ea_actual_bcm=actual, ea_legacy_forecast_bcm=None,
+                model_minus_actual_bcm=modelled-actual if result and compatible else None,
                 model_minus_ea_forecast_bcm=None,
-                status='Unavailable: synthetic run has no EA references' if manifest['settings']['input_source']=='synthetic_demo'
+                status=inputs['comparison_status'][group] if inputs and 'comparison_status' in inputs else
+                    'Unavailable: synthetic run has no EA references' if manifest['settings']['input_source']=='synthetic_demo'
                     else 'Unavailable: complete fresh SID inputs and compatible comparison definitions required'))
         for arc in manifest['network']['arcs']:
             asset = arc['asset']
@@ -133,7 +138,7 @@ def write_workbook(path, frames, manifest):
     if manifest['status']=='OPTIMAL':
         sheet = book['Monthly flows']
         chart = BarChart()
-        chart.title = 'Monthly routed destination volumes — synthetic demonstration'
+        chart.title = 'Monthly routed destination volumes — '+manifest['analysis_type']
         chart.type = 'col'
         chart.grouping = 'stacked'
         chart.overlap = 100
@@ -178,7 +183,7 @@ def report_run(output, manifest, inputs, results, inventory, network):
     if results:
         month = inputs['months'][0]
         draw_network(network, output/'details/network_flows.png', capacities=inputs['capacities'].loc[month].to_dict(),
-            result=results[str(month)], title=f'SYNTHETIC demonstration: {month} monthly flows (bcm)')
+            result=results[str(month)], title=f'{manifest["analysis_type"]}: {month} monthly flows (bcm)')
         import matplotlib
         matplotlib.use('Agg')
         import matplotlib.pyplot as plt
@@ -186,7 +191,7 @@ def report_run(output, manifest, inputs, results, inventory, network):
         plotted = monthly.set_index(monthly.month.dt.to_period('M').astype(str))[[d+'_volume_bcm' for d in DESTINATIONS]]
         plotted.rename(columns={d+'_volume_bcm': d for d in DESTINATIONS}).plot.bar(
             stacked=True, ax=ax, color=[COLORS[d] for d in DESTINATIONS], rot=45)
-        ax.set(title='SYNTHETIC demonstration — monthly destination volumes', ylabel='bcm/month', xlabel='Target month')
+        ax.set(title=manifest['analysis_type']+' — monthly destination volumes', ylabel='bcm/month', xlabel='Target month')
         ax.legend(loc='upper left', bbox_to_anchor=(1.01, 1))
         fig.tight_layout()
         fig.savefig(output/'details/monthly_flows.png', dpi=140)
