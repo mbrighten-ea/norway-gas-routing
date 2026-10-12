@@ -19,8 +19,11 @@ UNMAPPED residual; negative residuals fail rather than changing source allocatio
 mode, origin and price-free baseline. `operational.prepare_run_inputs` separates
 preparation from `operational.optimise` and `reporting.operational.report_run`.
 `routing_inputs.prepare_fresh_inputs` provides fresh historical preparation, but
-all 46 NPD field mappings are active; full-year 2024 is blocked specifically by
-Hanz's absent January and February observations. The retained cached
+all 46 NPD field mappings are active and full-year 2024 passes. Hanz's absent
+January/February are explicit pre-production structural zeros, supported by its
+20 April 2024 start date; March's source zero is retained. The raw response is
+unchanged and the rule/evidence are recorded and snapshotted. Contradictory
+pre-production values or missing other months/fields fail. The retained cached
 `routing_inputs.prepare_inputs` is never called by the operational command.
 `synthetic_demo` is explicitly manufactured, never a cached-input exception.
 

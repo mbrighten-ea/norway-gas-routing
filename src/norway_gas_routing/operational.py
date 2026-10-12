@@ -296,7 +296,7 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
             inventory.loc[mask, 'end'] = model['routing']['baseline_end']
         except (ValueError, OSError) as error:
             inventory_error = str(error)
-        for name in [CONTRACT, MAPPING_LEDGER]:
+        for name in [CONTRACT, MAPPING_LEDGER, 'evidence/inputs/routing_sources_b1/hanz_preproduction.json']:
             target = provenance/name
             target.parent.mkdir(parents=True, exist_ok=True)
             if (root/name).is_file():

@@ -145,3 +145,37 @@ def get_registered_frame(identifiers, start='MIN', end='MAX', *, max_points=-1,
                                 start, end, max_points=max_points, client=client)
     check_dates(frame.index, 'read')
     return frame, pd.DataFrame.from_dict(records, orient='index')
+
+
+def get_prospective_forecast(identifier, start, end, *, registry=None, client=None):
+    """Inspect latest future forecast points only, without unlocking actuals.
+
+    Separate from historical retrieval/evaluation. Metadata is checked before
+    point I/O; absolute delivery bounds start no earlier than the current month
+    or October 2026, and end by December 2030. No model activation or scoring.
+    """
+    import pandas as pd
+    from .evaluation import load_policy
+    load_policy()
+    first, last = pd.Timestamp(start), pd.Timestamp(end)
+    floor = max(pd.Timestamp.now(tz='UTC').tz_localize(None).to_period('M').start_time,
+                pd.Timestamp('2026-10-01'))
+    if (pd.isna(first) or pd.isna(last) or first.tz is not None or last.tz is not None
+            or first<floor or last>pd.Timestamp('2030-12-31') or first>last):
+        raise ValueError('Prospective forecast inspection requires current-month-or-later absolute bounds through 2030; locked actuals excluded.')
+    info = series_info(identifier,registry=registry)
+    _retrievable(info)
+    client = sj._client(client)
+    metadata = sj.get_metadata(info['sid'],client=client)
+    boundary = metadata.get('forecast_start_date')
+    if (metadata.get('lifecycle_stage')!='forecast' or not boundary
+            or pd.isna(pd.Timestamp(boundary)) or pd.Timestamp(boundary).to_period('M')>first.to_period('M')):
+        raise ValueError(identifier+': genuine forecast segment not established; no prospective point retrieval.')
+    values = client.get_points_from_sid_into_series(info['sid'],str(first.date()),str(last.date()),-1)
+    dates = pd.DatetimeIndex(values.index)
+    plain = dates.tz_convert('UTC').tz_localize(None) if dates.tz is not None else dates
+    if plain.hasnans or not plain.is_unique or (plain<first).any() or (plain>last).any():
+        raise ValueError(identifier+': provider returned duplicate/out-of-bounds forecast dates; no use or persistence.')
+    return dict(registry=info,metadata=metadata,values=values,
+                query='sid="'+info['sid'].removeprefix('sid=')+'"',asof=None,
+                access_mode='prospective_forecast_inspection',delivery_start=str(first.date()),delivery_end=str(last.date()))

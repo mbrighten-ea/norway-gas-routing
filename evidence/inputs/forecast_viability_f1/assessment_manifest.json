@@ -1,0 +1,35 @@
+{
+  "assessment_date": "2026-10-12",
+  "base_commit": "9390691",
+  "source_assessments": [
+    "outputs\\forecast_viability\\20261012T140857075092Z_7b67eff5",
+    "outputs\\forecast_viability\\20261012T141526634087Z_af0ce765"
+  ],
+  "source_provenance": [
+    "outputs\\forecast_viability\\20261012T140857075092Z_7b67eff5\\provenance\\run_manifest.json",
+    "outputs\\forecast_viability\\20261012T141526634087Z_af0ce765\\provenance\\run_manifest.json"
+  ],
+  "reconstruction": "outputs/routing_runs/20261012T141200162824Z_fa3c46c3",
+  "holdout_loaded": false,
+  "holdout_scored": false,
+  "forecast_solver_calls": 0,
+  "original_issuance_dates_verified": 0,
+  "complete_historical_origin_bundles": 0,
+  "source_manifest_sha256": {
+    "outputs\\forecast_viability\\20261012T140857075092Z_7b67eff5\\provenance\\run_manifest.json": "9550a91a2bc6647843e6741206cc9e2a893cbf345f359b45e2fdea2be461f163",
+    "outputs\\forecast_viability\\20261012T141526634087Z_af0ce765\\provenance\\run_manifest.json": "792ef421ca8345c197fabbdad09d92fd7fdf0305fb523436945ab0aeff84d8c2"
+  },
+  "findings_sha256": {
+    "actual_comparison_coverage.csv": "95ffdd70ea4d6284a01f676fe27816510421a12055a57a501c9efe284e2b40bb",
+    "current_forecast_coverage.csv": "b9b8ec3e08bd311e0f84cebdbbd90cd3046acd2ffd5fcb1f40a663006383601b",
+    "field_forecast_mapping.csv": "548cd0d5ce09f1a4d61265ebc80ec655eee6aca0613c412c83e7d60724fdb133",
+    "README.md": "c6cf802207bdab4f97cfa13bf966056ee8db77ea6aeebbe49126b5f046eb6349",
+    "single_origin_coverage.csv": "d43e89df60c95963b36262c1b32e860f42562907cae5f0a5d574c654f9103a7c",
+    "walk_forward_2024_coverage.csv": "058b75ae43fe48034ac2a9970571bae188be94cef97a8f9a0d3e888b3bb5856f"
+  },
+  "report_generation_code_sha256": {
+    "scripts/audit/assess_forecast_viability.py": "52979b46588fa0bd219d64c1a97c24a0fdfff62baba1f5ccadc631f3ec8366b7",
+    "src/norway_gas_routing/project_data.py": "38367b85aad85efa486f89e6854ea04fd3c3e10d334a24ddd0b3d7fa29f5cdc6",
+    "src/norway_gas_routing/routing_sources.py": "c9f8b92631791939cc53660504f4eab7292d4a29237095d8ed49ae27a0982448"
+  }
+}

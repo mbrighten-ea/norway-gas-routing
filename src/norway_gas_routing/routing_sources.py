@@ -197,6 +197,18 @@ def verify_response(key, response, spec, dates, frequency):
         actual = actual.tz_localize(None)
     if not actual.equals(actual.normalize()) or (frequency=='monthly' and not actual.equals(actual.to_period('M').to_timestamp())):
         raise ValueError(key+': expected midnight '+frequency+' observation dates.')
+    rule = spec.get('structural_zeros')
+    if rule:
+        if (key!='hanz_net_actual' or spec['sid']!=r'NPD\monthly_by_field\marketed_production\hanz\gas-saleable'
+                or rule.get('months')!=['2024-01','2024-02'] or rule.get('production_start')!='2024-04-20'
+                or not rule.get('evidence') or spec.get('provider_contract')!='npd_historical'):
+            raise ValueError(key+': invalid Hanz-only structural-zero contract.')
+        prestart = actual.to_period('M').isin(pd.period_range('2024-01','2024-03',freq='M'))
+        if pd.to_numeric(values.iloc[prestart],errors='raise').ne(0).any():
+            raise ValueError(key+': source contradicts verified Hanz pre-production zero; review evidence.')
+        missing = dates.difference(actual).intersection(pd.to_datetime(['2024-01-01','2024-02-01']))
+        values = pd.concat([pd.Series(values.to_numpy(),index=actual),pd.Series(0.,index=missing)])
+        actual = values.index
     if not actual.sort_values().equals(dates):
         missing = dates.difference(actual)
         extra = actual.difference(dates)
@@ -254,6 +266,12 @@ def retrieve_checked(root, key, dates, registry, contract, records, provenance_d
             record['raw_file'] = file.relative_to(out.parent).as_posix()
             record['sha256'] = hashlib.sha256(file.read_bytes()).hexdigest()
         normal = verify_response(key, response, spec, dates, spec['frequency'])
+        if spec.get('structural_zeros'):
+            supplied = pd.DatetimeIndex(values.index).tz_localize(None)
+            added = normal.index.difference(supplied)
+            record['structural_zero_rule'] = spec['structural_zeros']
+            record['structural_zero_dates'] = added.astype(str).tolist()
+            record['transformation'] += '; Hanz-only pre-production structural zeros: '+', '.join(added.astype(str))
         record['status'] = 'VERIFIED_HISTORICAL_RESPONSE'
         return normal
     except (ValueError, OSError, KeyError) as exc:

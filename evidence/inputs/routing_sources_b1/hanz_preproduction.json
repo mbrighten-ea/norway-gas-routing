@@ -1,0 +1,13 @@
+{
+  "field": "HANZ",
+  "npdid": "25307278",
+  "production_start": "2024-04-20",
+  "structural_zero_months": ["2024-01", "2024-02"],
+  "unit": "bcm/month",
+  "verified_on": "2026-10-12",
+  "authoritative_url": "https://factpages.sodir.no/en/field/PageView/All/25307278",
+  "evidence": "Directorate activity history: Producing from 20.04.2024; approved for production through 19.04.2024. Aker BP Q1 transcript independently states production began on 20 April.",
+  "corroborating_url": "https://akerbp.com/wp-content/uploads/2024/04/2024-q1-transcript.pdf",
+  "march_observation": "B2 directly returned March 2024 gas-saleable = 0 bcm; closure run must query it fresh and retain it unchanged.",
+  "scope": "Hanz January-February 2024 only; no missing-to-zero generalisation, no forecast or vintage exception. Contradictory pre-production observations fail."
+}

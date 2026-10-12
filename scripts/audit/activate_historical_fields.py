@@ -56,6 +56,8 @@ def activate(apply=False, references=None, start='2024-01', end='2024-12'):
             npd_field=slug, npd_field_label=row.field, raw_unit='bcm', metadata_unit='bcm',
             frequency='monthly', registry_role='supply', status='Historical identity/units/coverage validated on direct response',
             evidence=MAPPING_LEDGER, verified_history_start=start, verified_history_end=end)
+        if contract['sources'].get(key,{}).get('structural_zeros'):
+            spec['structural_zeros']=contract['sources'][key]['structural_zeros']
         info={col:'' for col in registry.columns}
         info.update(sid=sid, description=row.field+' historical marketed gas production',
             custom_description='Monthly NPD net saleable gas production for '+row.field+' in bcm; existing '+row.node+' mapping.',
@@ -90,6 +92,9 @@ def activate(apply=False, references=None, start='2024-01', end='2024-12'):
             ledger.at[index,'retrieved_at']=record['retrieved_at']
             ledger.at[index,'mapping_status']='activated_historical' if len(months)==12 else 'registered_partial_2024_coverage'
             ledger.at[index,'availability']='Direct '+start+' to '+end+' query: '+str(len(months))+' finite nonnegative monthly observations; unqueried/absent months are not zero; queried fresh every run'
+            if record.get('structural_zero_dates'):
+                ledger.at[index,'mapping_status']='activated_historical_structural_preproduction_zeros'
+                ledger.at[index,'availability']='Exact source observations plus Hanz-only structural zeros for '+', '.join(record['structural_zero_dates'])+'; evidence '+spec['structural_zeros']['evidence']
             ledger.at[index,'raw_unit']='bcm (API monthly volume)'
             ledger.at[index,'source_unit']='bcm / bill Sm3; marketed net saleable gas'
             ledger.at[index,'transformation']='Use monthly bcm directly; worksheet bcm / days * 1000 and old adapter reversal cancel'

@@ -1808,7 +1808,17 @@
       "verified_history_end": "2024-12",
       "source_metadata_file": "data/raw/npd_activation/20261012T132403213368Z_a58347a4/source_metadata.json",
       "source_response_sha256": "8d121ca3955abca7e9b5b485b334d99755ae669c0a1a795b228333f0166c5d01",
-      "validated_at": "2026-10-12T13:24:04.309829+00:00"
+      "validated_at": "2026-10-12T13:24:04.309829+00:00",
+      "structural_zeros": {
+        "months": [
+          "2024-01",
+          "2024-02"
+        ],
+        "production_start": "2024-04-20",
+        "evidence": "evidence/inputs/routing_sources_b1/hanz_preproduction.json",
+        "source_url": "https://factpages.sodir.no/en/field/PageView/All/25307278",
+        "reason": "Absent January-February 2024 precede verified production start; March returned zero is not replaced."
+      }
     }
   },
   "historical_components": {

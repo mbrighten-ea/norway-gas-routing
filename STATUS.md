@@ -1,5 +1,44 @@
 # Current implementation state
 
+## B2 closure and F1 — 12 October 2026
+
+Branch `feature/b2-closure-forecast-viability-f1` from verified `9390691`.
+Hanz production began 20 April 2024 (Directorate and operator evidence).
+Only missing January/February become explicit structural zeros; fresh March is
+0 bcm. Raw observations are unchanged, rules are snapshotted, contradictions
+fail. Full source-backed 2024 is OPTIMAL for all twelve months:
+`outputs/routing_runs/20261012T141200162824Z_fa3c46c3/`.
+Exports 117.0831345 bcm; max mass residual 1.776e-15 bcm; capacity violation zero.
+Excel worksheets, charts, supply identities, Hanz provenance and hashes checked.
+
+[F1 readiness and matrices](evidence/inputs/forecast_viability_f1/README.md)
+record 51/51 prospective months through 2030 for sixteen EA fields and national
+total; all 46 historical NPD leaves still lack identified forecast counterparts.
+Selected Snøhvit ends December 2029; Kollsnes returns 1553 daily plan points,
+but future capacities remain scenario assumptions. Prospective forecast inspection
+is a separate bounded metadata-gated path; normal historical/evaluation gates
+and the January–September 2026 holdout were not changed or accessed.
+
+National and original five-group EA forecast archives recovered at all twelve
+2024 month-end cutoffs. Original issuance dates remain unknown; import-job dates
+are recorded separately. At the first origin all sixteen selected EA fields pass;
+selected Snøhvit and maintenance return no origin values throughout 2024. Legacy
+Snøhvit returns all twelve deliveries at the first origin but requires rate/cohort
+review before selection. Full 2023 training at that origin crosses the forecast
+boundary. No complete routing-origin bundle or forecast score exists. Revised
+actuals for three EA allocation groups are compatible; DK/PL scoring withheld.
+Three EEX curves return no first-origin values; other forward-price vintages remain
+unverified and are not required by the price-free model.
+
+Checks: 311 regression tests passed, then 24 focused checks after Hanz
+reactivation coverage was added. Existing untracked evidence/outputs preserved.
+Restart: verify Git state; resolve identified field/LNG/maintenance sources and
+approve forecast capacity scenarios, original-issuance versus service-cutoff
+comparison protocol, and origin-safe training rule before implementing either
+forecast mode. No aggregate splitting, backdating or frozen-input exception.
+
+Earlier sections below retain the pre-closure state.
+
 ## Historical NPD input activation B2 — 12 October 2026
 
 Implemented on `feature/historical-npd-input-b2` from verified `be294be`.

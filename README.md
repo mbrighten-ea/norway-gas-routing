@@ -34,15 +34,23 @@ without constructing an LP, checking solver availability or optimising.
 Exit 0 means complete or validated-only; exit 2 means blocked/failed. Configuration
 errors stop before package creation. Later failures retain an explanatory package.
 
-**B2 real-data status:** all 46 known NPD field identifiers are registered from
-direct EA/Shooju responses. 45 have complete January–December 2024 coverage;
-Hanz returns March–December only. The full-year command therefore stops with
-`hanz_net_actual: ... missing 2024-01-01, 2024-02-01`. Inspect `results.xlsx`
-(Read me, Input sources, Diagnostics) and `provenance/source_metadata.json` in
-the printed run directory. Missing observations are never zero-filled or replaced
-by workbook numbers. Restore genuine source coverage before retrying; changing
-the field membership or topology cannot bypass the guard. The [source ledger](evidence/inputs/routing_sources_b1/README.md)
-records identities, returned units, transformations, coverage and evidence hashes.
+**B2 closed:** the default command completes the real-data 2024 reconstruction.
+All 46 NPD identities are registered; Hanz's absent January/February alone are
+explicit structural zeros justified by its 20 April 2024 production start. March's
+returned zero and all later observations remain unchanged. The raw response and
+[Hanz evidence](evidence/inputs/routing_sources_b1/hanz_preproduction.json) are
+retained in provenance. Other missing observations fail; no workbook substitution
+or general missing-to-zero rule applies. Inspect `results.xlsx` (Read me, Input
+sources, Diagnostics) and `provenance/source_metadata.json` in the printed package.
+The [source ledger](evidence/inputs/routing_sources_b1/README.md) records identities,
+units, transformations, coverage and hashes.
+
+**F1 forecast readiness:** current and historical forecast execution remain
+blocked by specific source/vintage dependencies, not a blanket SID certification
+gate. See the [readiness report and 2024 monthly matrix](evidence/inputs/forecast_viability_f1/README.md).
+`scripts/audit/assess_forecast_viability.py` and `--supplement` inspect bounded
+forecasts/archives without solving or scoring. Prospective inspection has its own
+forecast-only access path; historical guards and the 2026 holdout stay locked.
 
 On every fresh run, the adapter queries EA/Shooju through
 the existing helper, validates source identity, units/frequency, complete dates,
@@ -52,8 +60,8 @@ inputs stop optimisation with a failure package. Optional current comparisons ar
 queried separately; their failures remain visibly unavailable. Earlier observations
 required for static preferences are essential and cannot use current outcomes.
 Price-free routing, Snøhvit's historical conversion guard, existing provisional
-capacities and the locked holdout are unchanged. No live source-backed full-model
-reconstruction has been demonstrated; offline mock tests are not live evidence.
+capacities and the locked holdout are unchanged. A live full-model 2024
+reconstruction has been demonstrated; it is revised history, not a forecast.
 
 For an offline demonstration, copy `config/run.yaml` to a repository-local
 `.scratch/demo-run.yaml`, change only `input_source` to `synthetic_demo`, and pass

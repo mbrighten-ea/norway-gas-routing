@@ -14,7 +14,7 @@ from test_fresh_routing_inputs import response_factory
 
 
 def npd_response(spec, dates):
-    return dict(registry=dict(key=spec['npd_field']+'_net_actual', sid=spec['sid']),
+    response = dict(registry=dict(key=spec['npd_field']+'_net_actual', sid=spec['sid']),
         asof=None, values=pd.Series(.01, index=dates), metadata=dict(
             unit='bcm', frequency='monthly', lifecycle_stage='actual',
             series_id=spec['sid'], row_level='field', country_iso='NO',
@@ -24,6 +24,9 @@ def npd_response(spec, dates):
             source_url='https://factpages.npd.no/en/field/TableView/Production/Saleable',
             source_obj=dict(aspect='gas-saleable', units='bill Sm3', discovery_field_name=spec['npd_field_label']),
             _mock_sid_response=True))
+    if spec['npd_field']=='hanz':
+        response['values'].loc[dates<pd.Timestamp('2024-04-01')]=0.
+    return response
 
 
 @pytest.fixture
@@ -77,7 +80,7 @@ def test_full_network_mock_solve_and_genuine_missing_month_failure(repo_root,tmp
         spec=contract['sources'][key]
         if spec.get('provider_contract')=='npd_historical':
             response=npd_response(spec,pd.date_range(start,end,freq='MS'))
-            if missing and key=='hanz_net_actual': response['values']=response['values'].iloc[2:]
+            if missing and key=='hanz_net_actual': response['values']=response['values'].drop(pd.Timestamp('2024-04-01'))
             return response
         response=ea(key,start,end,**kwargs)
         if key in contract['component_columns']: response['values'][:]=.01
@@ -90,7 +93,8 @@ def test_full_network_mock_solve_and_genuine_missing_month_failure(repo_root,tmp
     assert manifest['status']=='OPTIMAL' and 'MOCK SID' in manifest['analysis_type']
     assert sum(r['category']=='production_npd' for r in manifest['inputs'])==46
     supply=pd.read_csv(output/'provenance/inputs/supply.csv',index_col=0)
-    assert (supply.drop(columns='UNMAPPED').sum(axis=1)-.62).abs().max()<1e-10
+    expected=pd.Series([.61]*3+[.62]*9,index=supply.index)
+    assert (supply.drop(columns='UNMAPPED').sum(axis=1)-expected).abs().max()<1e-10
     results=pd.read_csv(output/'results.csv')
     assert (results.total_exports_bcm+results.unrouted_supply_bcm-results.pipeline_supply_proxy_bcm).abs().max()<1e-7
     assert len(load_workbook(output/'results.xlsx').sheetnames)==9
@@ -101,7 +105,7 @@ def test_full_network_mock_solve_and_genuine_missing_month_failure(repo_root,tmp
     failed,code=op.execute_run(tmp_path)
     assert code==2
     failure=json.loads((failed/'provenance/run_manifest.json').read_text())
-    assert 'hanz_net_actual' in failure['blocker'] and '2024-02-01' in failure['blocker']
+    assert 'hanz_net_actual' in failure['blocker'] and '2024-04-01' in failure['blocker']
     record=next(r for r in failure['inputs'] if r['key']=='hanz_net_actual')
     assert record['status']=='REJECTED' and (failed/record['raw_file']).is_file()
 
@@ -120,12 +124,14 @@ def test_unmapped_or_duplicate_historical_component(repo_root,monkeypatch,tmp_pa
         sources.source_requirements(tmp_path,model,registry)
 
 
-def test_activation_preserves_registry_and_validates_full_configuration(repo_root,tmp_path,monkeypatch):
+@pytest.mark.parametrize('reference,field',[('CV','fram'),('GI','hanz')])
+def test_activation_preserves_registry_and_validates_full_configuration(repo_root,tmp_path,monkeypatch,reference,field):
     for directory in ['config','evidence/inputs/routing_sources_b1']:
         shutil.copytree(repo_root/directory,tmp_path/directory)
     registry_path=tmp_path/'config/data_series.csv'
     lines=registry_path.read_bytes().splitlines(keepends=True)
-    original=b''.join(line for line in lines if not line.startswith(b'fram_net_actual,'))
+    key=field+'_net_actual'
+    original=b''.join(line for line in lines if not line.startswith((key+',').encode()))
     registry_path.write_bytes(original)
     loader=importlib.util.spec_from_file_location('activation',repo_root/'scripts/audit/activate_historical_fields.py')
     module=importlib.util.module_from_spec(loader)
@@ -134,14 +140,36 @@ def test_activation_preserves_registry_and_validates_full_configuration(repo_roo
     monkeypatch.setattr(module,'connect_shooju',lambda:object())
     def retrieve(key,start,end,**kwargs):
         spec=sources.source_contract(repo_root)['sources'][key]
-        return npd_response(spec,pd.date_range(start,end,freq='MS'))
+        response=npd_response(spec,pd.date_range(start,end,freq='MS'))
+        if field=='hanz': response['values']=response['values'].iloc[2:]
+        return response
     monkeypatch.setattr(sources,'get_registered_series',retrieve)
-    assert module.activate(True,['CV'])==0
+    assert module.activate(True,[reference])==0
     assert registry_path.read_bytes().startswith(original)
     _,registry=load_config(tmp_path/'config/model.yaml',registry_path)
-    assert registry.at['fram_net_actual','asset']==''
-    assert registry.at['fram_net_actual','sid'].endswith('fram\\gas-saleable')
-    assert module.activate(True,['CV'])==0  # Recheck must not append a duplicate.
+    assert registry.at[key,'asset']==''
+    assert registry.at[key,'sid'].endswith(field+'\\gas-saleable')
+    assert module.activate(True,[reference])==0  # Recheck must not append a duplicate.
     assert len(registry_path.read_bytes().splitlines())==len(original.splitlines())+1
     with pytest.raises(ValueError,match='within January-December 2024'):
-        module.activate(False,['CV'],start='2026-01',end='2026-09')
+        module.activate(False,[reference],start='2026-01',end='2026-09')
+
+
+def test_hanz_structural_zeros_are_specific_and_preserve_source_observations(repo_root):
+    contract=sources.source_contract(repo_root)
+    spec=contract['sources']['hanz_net_actual']
+    dates=pd.date_range('2024-01-01','2024-12-01',freq='MS')
+    response=npd_response(spec,dates)
+    response['values']=response['values'].iloc[2:]
+    original=response['values'].copy()
+    result=sources.verify_response('hanz_net_actual',response,spec,dates,'monthly')
+    assert result.iloc[:3].eq(0).all()
+    pd.testing.assert_series_equal(response['values'],original)
+    response['values'].iloc[0]=.1
+    with pytest.raises(ValueError,match='contradicts'):
+        sources.verify_response('hanz_net_actual',response,spec,dates,'monthly')
+    other=contract['sources']['fram_net_actual']
+    response=npd_response(other,dates)
+    response['values']=response['values'].iloc[2:]
+    with pytest.raises(ValueError,match='missing 2024-01-01, 2024-02-01'):
+        sources.verify_response('fram_net_actual',response,other,dates,'monthly')

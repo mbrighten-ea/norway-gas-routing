@@ -20,6 +20,13 @@ mechanism. Numerical assumptions are not inferred from missing data.
 
 ## Supply and network
 
+B2 closure (user's conditional authorisation, verified 12 October 2026): Hanz's
+missing January/February 2024 are structural pre-production zeros, specifically
+supported by the Directorate's production start of 20 April 2024 and the
+operator's Q1 transcript. Preserve the returned March zero and all raw data;
+reject contradictory pre-start observations. This rule applies to this field and
+these two months only. See [evidence](evidence/inputs/routing_sources_b1/hanz_preproduction.json).
+
 Data sourcing rule confirmed by the user, 9 October 2026: every new run queries
 EA/Shooju SIDs directly. Forecast replay uses the same forecast-origin `@asof`
 for production and legacy destination forecasts. Workbooks are formula/SID

@@ -1,5 +1,18 @@
 # B1 routing-source audit and integration gate
 
+## B2 closure — 12 October 2026
+
+The default fresh-SID 2024 reconstruction now solves all twelve months.
+Hanz January/February are explicitly justified pre-production zeros (production
+start 20 April 2024); its returned March zero remains unchanged. The
+[narrow evidence/rule](hanz_preproduction.json) is copied into each operational
+package and every applied zero is recorded separately from raw observations.
+All other missing months/fields still fail. The ledger's current Hanz row links
+the successful fresh run and response hash. Forecast viability is assessed
+[separately](../forecast_viability_f1/README.md); NPD actuals are not forecasts.
+
+The activation/B1 sections below describe the preceding audit states.
+
 ## B2 activation update — 12 October 2026
 
 The ledger and `verified_sources.json` now include direct-response checks of all
