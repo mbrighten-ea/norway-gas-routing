@@ -8,9 +8,9 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from norway_gas_routing.visual_data import (COUNTRIES, aggregate_groups, annual_comparison,
+from norway_gas_routing.reporting.data import (COUNTRIES, aggregate_groups, annual_comparison,
     comparison, dated_csv, period_map, safe_percent, shares, strict_sum, validate_run)
-from norway_gas_routing.visual_legacy import NS, SUFFIX, cached_cell, load_retained_forecast, selected_sheet, workbook_bytes
+from norway_gas_routing.reporting.legacy import NS, SUFFIX, cached_cell, load_retained_forecast, selected_sheet, workbook_bytes
 
 
 def solution():

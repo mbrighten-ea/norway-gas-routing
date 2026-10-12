@@ -22,14 +22,14 @@ import pulp
 import yaml
 
 from norway_gas_routing.config import load_config
-from norway_gas_routing.poc import (DESTINATIONS, available_solver, build_month,
+from norway_gas_routing.routing import (DESTINATIONS, available_solver, build_month,
                                    solve_month, validate_solution)
-from norway_gas_routing.poc_inputs import prepare_inputs, file_hash
+from norway_gas_routing.routing_inputs import prepare_inputs, file_hash
 import shutil
 sys.path.insert(0, str(ROOT / "scripts/run"))
-from run_poc import save_csv
+from run_routing import save_csv
 from norway_gas_routing.artifacts import (new_experiment, publish_assessment, first_solve_file, verify_first_solve, original_bytes)
-from norway_gas_routing.reporting import render_report
+from norway_gas_routing.reporting.assessment import render_report
 from norway_gas_routing.evaluation import check_table, check_dates, reconstruction_evaluation
 
 OUT = ROOT / "outputs/reconstruction/details"
@@ -173,7 +173,7 @@ def main():
     OUT = candidate / "details"
     model, registry = load_config(ROOT / "config/model.yaml", ROOT / "config/data_series.csv")
     inputs = prepare_inputs(ROOT, model, registry)
-    settings = model["poc"]
+    settings = model["routing"]
     network = yaml.safe_load((ROOT / "outputs/reconstruction/provenance/network_definition.yaml").read_text())
     old_network = yaml.safe_load((first_solve_file(ROOT, "outputs/poc/network_definition.yaml")).read_text())
     original = read_months(first_solve_file(ROOT, "outputs/poc/destination_flows.csv"))
@@ -337,7 +337,7 @@ def write_summary(metric, totals, assets, annual, trace, face, observations, pre
     t = totals.set_index("case")
     m = metric.set_index(["case", "destination"])
     before, after = t.loc["first_solve"], t.loc["refined_broader_boundary"]
-    lines = ["# Targeted diagnosis of the first solved POC", "",
+    lines = ["# Targeted diagnosis of the first solved routing model", "",
         "2024 latest-revised historical reconstruction. The EA destination observations are allocation proxies with unresolved export-boundary compatibility. These scores are not out-of-sample forecast results.", "",
         "## Changes and results", "",
         "Confirmed omitted net fields extend the existing feeds. Direct UK gas stays on the separate supply-bounded proxy, never entering Kollsnes or Karsto. The total Norway-minus-Snohvit envelope, capacities, signed maintenance and 2023 shares are unchanged. No 2024 actual destinations enter the optimisation.", "",
@@ -373,7 +373,7 @@ def write_summary(metric, totals, assets, annual, trace, face, observations, pre
         "## Remaining decisions", "",
         "Lead modeller decisions remain: the production/target export boundary, measured Heidrun domestic share, Brage Statpipe entry, Tune sale-gas treatment, Trym attribution, matching capacity/maintenance bases and direct route limits. No choice is embedded for unresolved rows. Seasonal preferences and price responsiveness are not added.", "",
         "Files: `metrics.csv` includes WAPE, MAE, bias and destination-share errors; `monthly_comparisons.csv` includes all seven destinations plus legacy pairs and Nybro DK+PL; `scenario_totals.csv` separates source and tie-break effects; `monthly_asset_utilisation.csv` reports every binding month; `monthly_baseline_deviations.csv` exposes targets and equal L1 weights. The updated diagrams are one directory above. The complete first solve and its implementation are preserved in `../../poc_first_solve/`. Initial archived-vintage forecasting benchmarks remain unchanged in `../../benchmark/`.", "",
-        "Replay with the approved interpreter: `scripts/run/run_poc.py --solver HiGHS`, then `scripts/verify/diagnose_poc_routing.py`. Route evidence was retrieved once using only the residual fields; no SID discovery, helper edits, legacy edits or package installation.", ""]
+        "Replay with the approved interpreter: `scripts/run/run_routing.py --solver HiGHS`, then `scripts/verify/diagnose_routing.py`. Route evidence was retrieved once using only the residual fields; no SID discovery, helper edits, legacy edits or package installation.", ""]
     negative_dk = observations.loc[observations.DK.lt(0), "DK"]
     if len(negative_dk):
         at = lines.index("## Denmark / Poland and routing") + 2

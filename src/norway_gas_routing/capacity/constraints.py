@@ -4,7 +4,7 @@ Not called for the currently blocked public ENTSOG candidates.
 """
 import math
 
-from .capacity_contract import IDENTITIES
+from .contract import IDENTITIES
 
 
 def add_reviewed_point_bounds(built, rows):

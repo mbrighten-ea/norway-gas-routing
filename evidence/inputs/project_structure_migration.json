@@ -1,0 +1,31 @@
+{
+  "purpose": "Approved source-layout and routing-name migration; no model values changed. Preserve frozen evidence and persisted database identifiers.",
+  "model_config": {
+    "before_sha256": "34ea3d716fd167f93778f9a37c3d1a882a4180d616b6f5c45b2ec24f3e419799",
+    "after_sha256": "63bc15456e12c7189fb12ccdea95d1ae3e17fbb116f943a63c9b4e43725440c6",
+    "change": "Rename poc section to routing; numerical configuration and other sections identical."
+  },
+  "paths": {
+    "src/norway_gas_routing/poc.py": "src/norway_gas_routing/routing.py",
+    "src/norway_gas_routing/poc_inputs.py": "src/norway_gas_routing/routing_inputs.py",
+    "src/norway_gas_routing/capacity_constraints.py": "src/norway_gas_routing/capacity/constraints.py",
+    "src/norway_gas_routing/capacity_contract.py": "src/norway_gas_routing/capacity/contract.py",
+    "src/norway_gas_routing/capacity_conversion.py": "src/norway_gas_routing/capacity/conversion.py",
+    "src/norway_gas_routing/capacity_inputs.py": "src/norway_gas_routing/capacity/inputs.py",
+    "src/norway_gas_routing/public_capacity.py": "src/norway_gas_routing/capacity/public.py",
+    "src/norway_gas_routing/maintenance.py": "src/norway_gas_routing/capacity/maintenance.py",
+    "src/norway_gas_routing/reporting.py": "src/norway_gas_routing/reporting/assessment.py",
+    "src/norway_gas_routing/visual_data.py": "src/norway_gas_routing/reporting/data.py",
+    "src/norway_gas_routing/visual_figures.py": "src/norway_gas_routing/reporting/figures.py",
+    "src/norway_gas_routing/visual_legacy.py": "src/norway_gas_routing/reporting/legacy.py",
+    "src/norway_gas_routing/visual_report.py": "src/norway_gas_routing/reporting/dashboard.py",
+    "src/norway_gas_routing/visual_sids.py": "src/norway_gas_routing/reporting/sids.py",
+    "src/norway_gas_routing/forecast_horizons.py": "src/norway_gas_routing/reporting/horizons.py",
+    "src/norway_gas_routing/visual_dashboard.html": "src/norway_gas_routing/reporting/dashboard.html",
+    "scripts/run/run_poc.py": "scripts/run/run_routing.py",
+    "scripts/verify/diagnose_poc_routing.py": "scripts/verify/diagnose_routing.py",
+    "scripts/audit/inspect_legacy_poc.py": "scripts/audit/inspect_legacy_workbook.py",
+    "tests/integration/test_poc.py": "tests/integration/test_routing.py",
+    "tests/integration/test_poc_diagnostics.py": "tests/integration/test_routing_diagnostics.py"
+  }
+}

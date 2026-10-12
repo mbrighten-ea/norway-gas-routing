@@ -5,10 +5,10 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from .data_functions import connect_shooju
-from .evaluation import check_dates
-from .visual_data import GROUPS, NAMES, safe_percent
-from .visual_sids import load_sid_reference
+from ..data_functions import connect_shooju
+from ..evaluation import check_dates
+from .data import GROUPS, NAMES, safe_percent
+from .sids import load_sid_reference
 
 
 def horizon_rows(source, origin):
@@ -118,7 +118,7 @@ def export_horizon_figures(frame,one,output):
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     from matplotlib.colors import ListedColormap
-    from .visual_data import COLORS
+    from .data import COLORS
     fig,axes=plt.subplots(3,2,figsize=(16,12))
     fig.subplots_adjust(top=.9,bottom=.08,hspace=.48,wspace=.2)
     origins=sorted(frame.origin.unique())

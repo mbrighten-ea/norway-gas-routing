@@ -17,8 +17,8 @@ from norway_gas_routing.artifacts import new_experiment
 from norway_gas_routing.benchmark import GROUPS
 from norway_gas_routing.config import load_config
 from norway_gas_routing.evaluation import check_table, load_policy, read_parquet
-from norway_gas_routing.poc import DESTINATIONS, available_solver, build_month, network_definition, solve_month, validate_solution
-from norway_gas_routing.poc_inputs import prepare_inputs
+from norway_gas_routing.routing import DESTINATIONS, available_solver, build_month, network_definition, solve_month, validate_solution
+from norway_gas_routing.routing_inputs import prepare_inputs
 
 MONTHS = pd.period_range('2025-01', '2025-12', freq='M')
 SCENARIOS = ('official-net-production', 'selected-series-mixed-vintage')
@@ -134,7 +134,7 @@ def main():
     assert prior['baseline_2024_matches_existing_within_bcm'] == 1e-9
     model, registry = load_config(ROOT / 'config/model.yaml', ROOT / 'config/data_series.csv')
     candidate = deepcopy(model)
-    candidate['poc'].update(start='2025-01', end='2025-12')
+    candidate['routing'].update(start='2025-01', end='2025-12')
     audit = pd.read_csv(ROOT / 'evidence/inputs/data_series_audit.csv').set_index('sid')
     record = audit.loc[registry.at['snohvit_net_prod', 'sid']]
     raw, metadata = ROOT / record.raw_file, ROOT / record.metadata_file
@@ -149,7 +149,7 @@ def main():
         'selected_minus_official_bcm': selected - official,
         'selected_source_forecast': MONTHS >= pd.Period('2025-10', freq='M')}).rename_axis('month').reset_index()
     save(source_comparison, run, 'snohvit_inputs.csv')
-    network = network_definition(candidate['poc'])
+    network = network_definition(candidate['routing'])
     solver_name, solver = available_solver('HiGHS')
     prepared, tables, summaries = {}, {}, {}
     for scenario, values in zip(SCENARIOS, (official, selected)):
@@ -197,7 +197,7 @@ def main():
     group_delta.columns = ['selected_minus_official_' + name for name in group_delta.columns]
     save(group_delta.rename_axis('month').reset_index(), run, 'five_group_changes.csv')
     baseline = prepare_inputs(ROOT, model, registry)
-    replay = solve(baseline, network_definition(model['poc']), '2024-baseline-replay', solver)[0]
+    replay = solve(baseline, network_definition(model['routing']), '2024-baseline-replay', solver)[0]
     saved = pd.read_csv(ROOT / 'outputs/reconstruction/results.csv').set_index('month')
     for row in replay.itertuples():
         old = saved.loc[str(row.month.start_time.date())]
@@ -227,7 +227,7 @@ def main():
         'baseline_2024_matches_within_bcm': 1e-9, 'ordinary_guard_preserved': True,
         'protected_sha256': protected, 'preservation_verified': True,
         'code_sha256': {p.relative_to(ROOT).as_posix(): sha(p) for p in (Path(__file__),
-            ROOT / 'src/norway_gas_routing/poc_inputs.py', ROOT / 'src/norway_gas_routing/poc.py')}}
+            ROOT / 'src/norway_gas_routing/routing_inputs.py', ROOT / 'src/norway_gas_routing/routing.py')}}
     (run / 'manifest.json').write_text(json.dumps(manifest, indent=2, default=str) + '\n', encoding='utf-8')
     print(json.dumps({'run': str(run), 'summaries': summaries}, indent=2))
     print(scores.loc[scores.destination.eq('ALL'), ['scenario', 'level', 'matched_months', 'WAPE_pct', 'MAE_bcm_per_cell', 'signed_bias_bcm_per_cell']].to_string(index=False))

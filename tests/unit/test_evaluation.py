@@ -8,9 +8,11 @@ import pytest
 from norway_gas_routing.evaluation import (EvaluationError, check_dates, load_policy,
     read_parquet, request_bounds, validate_forecast_inputs, validate_manifest,
     reconstruction_evaluation)
-from norway_gas_routing.poc import DESTINATIONS, historical_preferences
-from norway_gas_routing import benchmark, project_data, reporting
-from norway_gas_routing.poc_inputs import prepare_inputs, technical_capacity_points
+from norway_gas_routing.routing import DESTINATIONS, historical_preferences
+from norway_gas_routing import benchmark
+from norway_gas_routing import project_data
+from norway_gas_routing.reporting import assessment as reporting
+from norway_gas_routing.routing_inputs import prepare_inputs, technical_capacity_points
 from norway_gas_routing.series_audit import profile, compare_series
 from norway_gas_routing.series_audit import forecast_coverage
 
@@ -238,11 +240,11 @@ def test_holdout_cannot_be_scored_profiled_or_plotted(tmp_path, monkeypatch):
     assert not (tmp_path / 'details').exists()
 
 
-def test_poc_rejects_future_or_forecast_before_input_io():
+def test_routing_rejects_future_or_forecast_before_input_io():
     with pytest.raises(EvaluationError, match='reconstruction only'):
         prepare_inputs(None, {}, None, analysis_mode='retrospective_forecast')
     with pytest.raises(EvaluationError, match='locked'):
-        prepare_inputs(None, {'poc': {'start': '2026-01', 'end': '2026-09',
+        prepare_inputs(None, {'routing': {'start': '2026-01', 'end': '2026-09',
             'baseline_start': '2023-01', 'baseline_end': '2023-12'}}, None)
 
 

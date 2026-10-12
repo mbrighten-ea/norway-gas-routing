@@ -8,11 +8,11 @@ import pandas as pd
 from plotly.offline import get_plotlyjs
 from plotly.utils import PlotlyJSONEncoder
 
-from .visual_data import (COUNTRIES, GROUPS, actual_error_summary, annual_comparison, comparison, load_run,
+from .data import (COUNTRIES, GROUPS, actual_error_summary, annual_comparison, comparison, load_run,
                           period_map, sha, shares, strict_sum)
-from .visual_sids import load_sid_reference
-from .data_functions import connect_shooju
-from .visual_figures import (annual_figure, capacity_figure, difference_figure,
+from .sids import load_sid_reference
+from ..data_functions import connect_shooju
+from .figures import (annual_figure, capacity_figure, difference_figure,
     monthly_figure, network_figure, shares_figure, static_exports, supply_figure, totals_figure)
 
 
@@ -199,7 +199,7 @@ def build_package(root, run_specs, output, legacy_sources, workbook=None, start=
             'source_hashes': r['source_hashes']} for r in runs],
         'legacy_sources': [{k: s[k] for k in ['id', 'label', 'kind', 'vintage', 'source_hashes', 'notes']} for s in legacy],
         'actual_source': {k: actuals[k] for k in ['id', 'label', 'kind', 'vintage', 'source_hashes', 'notes']},
-        'reporting_code_sha256': {p.name: sha(p) for p in Path(__file__).parent.glob('visual_*') if p.is_file()},
+        'reporting_code_sha256': {p.name: sha(p) for p in Path(__file__).parent.glob('*') if p.is_file() and p.suffix in {'.py', '.html'}},
         'sid_queries': len(actuals['responses'])+sum(len(s['responses']) for s in legacy),
         'sourcing': 'Fresh direct EA/Shooju values and metadata on every run; no workbook/cache fallback',
         'routing_forecast_available': False, 'solver_calls': 0, 'holdout_loaded': False, 'holdout_scored': False,
@@ -219,7 +219,7 @@ def build_package(root, run_specs, output, legacy_sources, workbook=None, start=
         # Preserve missing values as JSON null in the optional dashboard.
         payload = re.sub(r'(?<![\w"])NaN(?![\w"])', 'null', payload)
         payload = payload.replace('</', '<\\/')
-        template = (Path(__file__).parent/'visual_dashboard.html').read_text(encoding='utf-8')
+        template = (Path(__file__).parent/'dashboard.html').read_text(encoding='utf-8')
         report = template.replace('__PLOTLY_JS__', get_plotlyjs()).replace('__REPORT_DATA__', payload)
         (output/'report.html').write_text(report, encoding='utf-8')
     verification_md = ['# Routing visualisation verification', '', 'PASS: saved-solution reconciliations at 2e-8 bcm tolerance.',

@@ -5,12 +5,12 @@ This folder has two canonical configuration files.
 1. `data_series.csv` - the only sourcing registry. Fill SIDs/status for raw production, physical exits, prices and maintenance/availability series here. Rows marked `TODO` are the data-sourcing queue.
 2. `model.yaml` - the model definition. It contains source aggregation, junctions, assets, arcs, markets, derived-series formulae, reconciliation rules, solver controls and calibration settings.
 
-The `poc` section is the executable seven-destination historical network. Its
+The `routing` section is the executable seven-destination historical network. Its
 provisional sourced capacities, nodes/arcs and 2023/2024 baseline/run windows are
 separate from the retained six-market foundation above it. The driver exports
 the actual LP network to `outputs/reconstruction/provenance/network_definition.yaml`; that file is
 generated evidence, not a third canonical configuration. Plots use exactly the
-same definitions. Optional `technical_series_file` on a POC asset accepts a
+same definitions. Optional `technical_series_file` on a routing model asset accepts a
 repository-local CSV with `date,technical_capacity_mcm_d`; it is forward-filled
 on calendar days without backward filling. Maintenance must remain complete.
 

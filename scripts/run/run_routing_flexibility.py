@@ -19,8 +19,8 @@ from openpyxl.utils.cell import column_index_from_string
 from norway_gas_routing.artifacts import new_experiment
 from norway_gas_routing.config import load_config
 from norway_gas_routing.evaluation import check_dates, load_policy
-from norway_gas_routing.poc import DESTINATIONS, available_solver, build_month, finite_nonnegative, network_definition, solve_month, validate_solution
-from norway_gas_routing.poc_inputs import prepare_inputs
+from norway_gas_routing.routing import DESTINATIONS, available_solver, build_month, finite_nonnegative, network_definition, solve_month, validate_solution
+from norway_gas_routing.routing_inputs import prepare_inputs
 from run_snohvit_sensitivity import official_snohvit, save
 
 
@@ -82,7 +82,7 @@ def envelopes(network, supply, capacities, solver):
 def residual_fields(model, months):
     """Known cached field contributions; unreconciled remainder stays explicit."""
     ledger = pd.read_csv(ROOT / 'outputs/benchmark/details/unclassified_field_components.csv').drop_duplicates('column')
-    mapped = {c for entry in model['poc']['nodes'].values() for c in entry.get('workbook_columns', [])}
+    mapped = {c for entry in model['routing']['nodes'].values() for c in entry.get('workbook_columns', [])}
     evidence = {row['column']: row for row in json.loads((ROOT / 'evidence/inputs/field_transport_evidence.json').read_text(encoding='utf-8'))}
     unassigned = ledger.loc[~ledger.column.isin(mapped)]
     book = load_workbook(ROOT / 'data/raw/legacy/Norwegian production model.xlsx', read_only=True, data_only=True, keep_links=False)
@@ -129,13 +129,13 @@ def main():
     protected = {p.relative_to(ROOT).as_posix(): sha(p) for p in paths if p.exists()}
     model, registry = load_config(ROOT / 'config/model.yaml', ROOT / 'config/data_series.csv')
     candidate = deepcopy(model)
-    candidate['poc'].update(start='2025-01', end='2025-12')
+    candidate['routing'].update(start='2025-01', end='2025-12')
     primary = ROOT / 'data/raw/series_audit/snohvit_sodir_primary_20261008.html'
     inputs = prepare_inputs(ROOT, candidate, registry, analysis_mode='snohvit_sensitivity',
                             diagnostic_scenario='official-net-production', diagnostic_snohvit_bcm=official_snohvit(primary))
     check_dates(inputs['months'], 'analysis')
     check_dates(inputs['training_observations'].index, 'fit')
-    network = network_definition(candidate['poc'])
+    network = network_definition(candidate['routing'])
     solver_name, solver = available_solver('HiGHS')
     existing = pd.read_csv(ROOT / 'archive/20261009-13_snohvit-sensitivity/monthly_seven_countries.csv')
     existing = existing.loc[existing.scenario.eq('official-net-production')].set_index('month')
@@ -219,8 +219,8 @@ def main():
     replay = []
     for month in baseline_inputs['months']:
         supply, cap = baseline_inputs['supply'].loc[month].to_dict(), baseline_inputs['capacities'].loc[month].to_dict()
-        result = solve_month(build_month(network_definition(model['poc']), supply, cap, baseline_inputs['preferences'], str(month)), solver)
-        all_checks.append(validate_solution(network_definition(model['poc']), supply, cap, result))
+        result = solve_month(build_month(network_definition(model['routing']), supply, cap, baseline_inputs['preferences'], str(month)), solver)
+        all_checks.append(validate_solution(network_definition(model['routing']), supply, cap, result))
         old = reference.loc[str(month.start_time.date())]
         for d in DESTINATIONS:
             assert abs(result['destinations'][d] - old[d + '_volume_bcm']) <= 1e-9
@@ -240,8 +240,8 @@ def main():
         'max_capacity_violation_bcm': max(c['max_capacity_violation_bcm'] for c in all_checks),
         'baseline_2024_matches_within_bcm': 1e-9, '2025_baseline_matches_preserved_scenario': True,
         'protected_sha256': protected, 'preservation_verified': True,
-        'code_sha256': {str(p.relative_to(ROOT)): sha(p) for p in (Path(__file__), ROOT / 'src/norway_gas_routing/poc.py',
-            ROOT / 'src/norway_gas_routing/poc_inputs.py', ROOT / 'scripts/run/run_snohvit_sensitivity.py')}}
+        'code_sha256': {str(p.relative_to(ROOT)): sha(p) for p in (Path(__file__), ROOT / 'src/norway_gas_routing/routing.py',
+            ROOT / 'src/norway_gas_routing/routing_inputs.py', ROOT / 'scripts/run/run_snohvit_sensitivity.py')}}
     (run / 'manifest.json').write_text(json.dumps(manifest, indent=2, default=str) + '\n', encoding='utf-8')
     print('Run:', run)
     print(annual.to_string(index=False))

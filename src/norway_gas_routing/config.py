@@ -7,7 +7,7 @@ from pathlib import Path
 import pandas as pd
 import yaml
 
-from .maintenance import validate_maintenance_config
+from .capacity.maintenance import validate_maintenance_config
 from .network import validate_network
 from .validation import ValidationError, check_choice, check_identifier, check_keys, validate_controls, validate_transformations
 
@@ -85,9 +85,9 @@ def load_config(model_path: str | Path, series_path: str | Path) -> tuple[dict, 
         raise ValidationError(f"Cannot read configuration: {exc}") from exc
     sections = {"model", "units", "sources", "junctions", "assets", "arcs", "markets", "derived_series",
                 "reconciliation", "solver", "calibration", "scope_notes", "maintenance_inputs", "transformation_status"}
-    check_keys(model, "model.yaml", sections, {"poc"})
-    if "poc" in model and not isinstance(model["poc"], dict):
-        raise ValidationError("poc must be a mapping")
+    check_keys(model, "model.yaml", sections, {"routing"})
+    if "routing" in model and not isinstance(model["routing"], dict):
+        raise ValidationError("routing must be a mapping")
     for section in sections - {"arcs", "reconciliation"}:
         if not isinstance(model[section], dict):
             raise ValidationError(f"{section} must be a mapping")

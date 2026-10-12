@@ -87,7 +87,7 @@ def inspect():
         assert hashlib.sha256(original_path.read_bytes()).hexdigest() == original_hash
         entry["original_unchanged"] = True
         result[filename] = entry
-    path = ROOT / "evidence/legacy/legacy_poc_cells.json"
+    path = ROOT / "evidence/legacy/legacy_workbook_cells.json"
     path.write_text(json.dumps(result, default=str, indent=2) + "\n", encoding="utf-8")
     print(path.relative_to(ROOT))
     for filename, entry in result.items():

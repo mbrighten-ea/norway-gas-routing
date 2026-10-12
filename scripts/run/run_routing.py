@@ -1,4 +1,4 @@
-"""Run the retained-data POC; leave clearly labelled preparation if no solver exists."""
+"""Run the retained-data routing model; leave clearly labelled preparation if no solver exists."""
 
 import argparse
 from datetime import datetime, timezone
@@ -18,12 +18,12 @@ import pulp
 import yaml
 
 from norway_gas_routing.artifacts import new_experiment, publish_assessment
-from norway_gas_routing.reporting import render_report
+from norway_gas_routing.reporting.assessment import render_report
 from norway_gas_routing.evaluation import reconstruction_evaluation, check_table
 from norway_gas_routing.config import load_config
-from norway_gas_routing.poc import (DESTINATIONS, SolverUnavailable, available_solver,
+from norway_gas_routing.routing import (DESTINATIONS, SolverUnavailable, available_solver,
     build_month, draw_network, network_definition, solve_month, validate_solution)
-from norway_gas_routing.poc_inputs import file_hash, prepare_inputs
+from norway_gas_routing.routing_inputs import file_hash, prepare_inputs
 
 
 def save_csv(frame, path, *, monthly_index=False):
@@ -86,7 +86,7 @@ def summary(inputs, status, blocker, destination_table, comparison_table, checks
     source_exceptions = source_checks.loc[source_checks.source_supply_above_capacity_bcm.gt(1e-7)]
     exceptions = recon.index[~recon.within_5pct_legacy_reconciliation].astype(str).tolist()
     source = inputs["supply"]
-    lines = ["# Seven-destination routing POC", "", f"Run status: **{status}**.", ""]
+    lines = ["# Seven-destination routing routing model", "", f"Run status: **{status}**.", ""]
     if blocker:
         lines += [blocker, "Solved flows, utilisation and model-versus-observed errors are blank, not zero. "
                   "`network_flows.png` is a capacity/preparation view explicitly marked unsolved. "
@@ -139,7 +139,7 @@ def summary(inputs, status, blocker, destination_table, comparison_table, checks
               "- DE/NL shares are landing-pool allocation proxies. Nybro is entry plus transit, not Denmark-only consumption. "
               "Negative historical DK net allocations cannot be nonnegative physical delivery targets. "
               "Faxe kWh histories are not converted using an invented calorific value.",
-              "- St Fergus collection regimes represent one underlying flow. The legacy workbook sums both; this POC does not ingest/stitch them. "
+              "- St Fergus collection regimes represent one underlying flow. The legacy workbook sums both; this routing model does not ingest/stitch them. "
               "The selected 2023/2024 windows avoid their 2020 overlap, but legacy monthly-proxy provenance remains limited.",
               "- This is latest-revised historical reconstruction, not out-of-sample forecasting or a vintage-correct backtest. "
               "Shooju @asof supports revisions, but a full contemporaneous input bundle is not prepared. "
@@ -148,13 +148,13 @@ def summary(inputs, status, blocker, destination_table, comparison_table, checks
               "Capacity/maintenance, source supply and data reconciliation: `inputs/`. "
               "Workbook review: `../../evidence/legacy/legacy_poc_review.md`. CSV dates are ISO and all volumes bcm; UTF-8 BOM supports Excel.", "",
               "Run from this repository with the approved interpreter: "
-              "`& '../.envs/env1.0/python.exe' scripts/run/run_poc.py` (exit 2 means no solver backend).", ""]
+              "`& '../.envs/env1.0/python.exe' scripts/run/run_routing.py` (exit 2 means no solver backend).", ""]
     return "\n".join(lines)
 
 
 def run(solver_name=None):
     model, registry = load_config(ROOT / "config/model.yaml", ROOT / "config/data_series.csv")
-    settings = model["poc"]
+    settings = model["routing"]
     network = network_definition(settings)
     inputs = prepare_inputs(ROOT, model, registry)
     inputs["settings"] = settings
@@ -228,7 +228,7 @@ def run(solver_name=None):
         "registry_sha256": file_hash(ROOT / "config/data_series.csv"),
         "code_sha256": {str(path.relative_to(ROOT)): file_hash(path) for path in
             [Path(__file__), *[ROOT / 'src/norway_gas_routing' / name for name in
-                ('poc.py', 'poc_inputs.py', 'config.py', 'artifacts.py', 'reporting.py')]]},
+                ('routing.py', 'routing_inputs.py', 'config.py', 'artifacts.py', 'reporting/assessment.py')]]},
         "package_versions": {name: version(name) for name in ["pulp", "pandas", "networkx", "matplotlib", "openpyxl", "pyarrow", "PyYAML"]},
         "settings": settings,
         "network": network, "graph_lp_match": topology_check, "inputs": inputs["provenance"],

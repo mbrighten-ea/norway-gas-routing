@@ -6,9 +6,9 @@ import json
 import numpy as np
 import pandas as pd
 
-from .evaluation import check_dates
-from .project_data import get_registered_series, load_registry
-from .visual_data import COUNTRIES, GROUPS
+from ..evaluation import check_dates
+from ..project_data import get_registered_series, load_registry
+from .data import COUNTRIES, GROUPS
 
 KEYS = {'UK': 'uk_flow_qa', 'FR': 'fr_flow_qa', 'BE': 'be_flow_qa',
         'NL': 'nl_flow_qa', 'DE': 'de_flow_qa', 'PL': 'pl_flow_qa', 'DK': 'dk_flow_qa',

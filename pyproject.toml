@@ -10,11 +10,14 @@ requires-python = ">=3.10"
 dependencies = ["pandas", "PyYAML", "pyarrow"]
 
 [project.optional-dependencies]
-poc = ["pulp>=4.0", "networkx", "matplotlib", "openpyxl"]
+routing = ["pulp>=4.0", "networkx", "matplotlib", "openpyxl"]
 reporting = ["matplotlib", "openpyxl", "plotly"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+"norway_gas_routing.reporting" = ["dashboard.html"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

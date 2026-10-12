@@ -8,7 +8,10 @@ from helper_functions_ea import ShoojuTools, check_env
 ROOT = Path(__file__).resolve().parents[2]
 
 def main():
-    cells = json.loads((ROOT / 'evidence/legacy/legacy_poc_cells.json').read_text())
+    cells_path = ROOT / 'evidence/legacy/legacy_workbook_cells.json'
+    if not cells_path.exists():
+        cells_path = ROOT / 'evidence/legacy/legacy_poc_cells.json'  # Frozen historical evidence.
+    cells = json.loads(cells_path.read_text())
     upload = cells['Norwegian flows model.xlsx']['sheets']['SJ upload']
     for row in upload['rows']:
         if any(k in row for k in ['A13','A14','A15','A16','B25']):

@@ -29,7 +29,7 @@ def validate_contract(contract, model, db):
         raise ValueError('This contract must remain inactive')
     if contract['window'] != ['2023-01-01', '2025-12-31']:
         raise ValueError('Historical window must exclude holdout gas-day labels')
-    arcs = {a['id']: a for a in model['poc']['arcs']}
+    arcs = {a['id']: a for a in model['routing']['arcs']}
     for name, expected in ARCS.items():
         if tuple(arcs[name][k] for k in ('from', 'to', 'asset')) != expected:
             raise ValueError('Shared corridor/topology changed: ' + name)
@@ -81,7 +81,7 @@ def inspect_contract(root, contract_path):
                 rows = list(db.execute('SELECT * FROM daily WHERE asset_key=? AND gas_day BETWEEN ? AND ? ORDER BY gas_day',
                                       (mapping['database_asset'],year+'-01-01',year+'-12-31')))
                 asset = mapping['existing_model_asset']
-                assumption = model['poc']['assets'][asset]
+                assumption = model['routing']['assets'][asset]
                 values = [r['technical_kwh_per_gas_day'] for r in rows if r['quality'] in ('complete','reported_zero') and r['technical_kwh_per_gas_day'] is not None]
                 coverage.append(dict(database_asset=mapping['database_asset'], year=year,
                     expected_days=expected, recorded_days=len(rows), known_days=len(values),

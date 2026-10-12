@@ -7,12 +7,49 @@ import sqlite3
 
 import pytest
 
-from norway_gas_routing.public_capacity import (
+from norway_gas_routing.capacity.public import (
     CATEGORIES, SCHEMA, expand_intervals, gas_boundary, historical_window,
     instant, validate_capture,
 )
 
 IDENTITY=('DK-TSO-0001','ITP-00630','entry')
+
+
+@pytest.mark.parametrize('case', ['original', 'renamed', 'changed', 'missing_record'])
+def test_model_identity_allows_only_recorded_naming_migration(tmp_path, monkeypatch, case):
+    from norway_gas_routing.capacity import public
+    evidence = tmp_path/'evidence/inputs'
+    evidence.mkdir(parents=True)
+    config = tmp_path/'config'
+    config.mkdir()
+    original, renamed = b'poc: {}\n', b'routing: {}\n'
+    import hashlib
+    digest = lambda value: hashlib.sha256(value).hexdigest()
+    audit = {'retained_raw_files': {}, 'model_sha256': digest(original)}
+    (evidence/'public_capacity_audit_manifest.json').write_text(json.dumps(audit))
+    (evidence/'public_capacity_verification.json').write_text(json.dumps({'evidence_hashes': {}}))
+    if case != 'missing_record':
+        (evidence/'project_structure_migration.json').write_text(json.dumps({
+            'model_config': {'before_sha256': digest(original), 'after_sha256': digest(renamed)}}))
+    content = original if case == 'original' else renamed
+    if case == 'changed':
+        content += b'assets: {NEW: {mcm_d: 999}}\n'
+    (config/'model.yaml').write_bytes(content)
+
+    class InventoryReached(Exception):
+        pass
+
+    def inventory(path):
+        raise InventoryReached
+
+    monkeypatch.setattr(public, 'read_csv', inventory)
+    if case in {'changed', 'missing_record'}:
+        with pytest.raises(ValueError, match='Model changed since audit'):
+            public.build_database(tmp_path, tmp_path/'result')
+    else:
+        with pytest.raises(InventoryReached):
+            public.build_database(tmp_path, tmp_path/'result')
+    assert not (tmp_path/'result').exists()
 
 
 def record(start='2024-01-01',end='2024-01-03',value=100,identifier='r1',**changes):

@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import yaml
 
-from .evaluation import check_dates
+from ..evaluation import check_dates
 
 COUNTRIES = ['UK', 'FR', 'BE', 'NL', 'DE', 'DK', 'PL']
 GROUPS = {'UK': ['UK'], 'FR+BE': ['FR', 'BE'], 'NL+DE': ['NL', 'DE'],
@@ -111,14 +111,14 @@ def load_run(path, scenario=None, start=None, end=None, topology=None):
         arcs = choose(csv('arc_flows.csv'), 'scenario', scenario)
         assets = choose(csv('asset_constraints.csv'), 'scenario', scenario)
         observations = choose(csv('observed_comparison.csv'), 'scenario', scenario)
-        root = Path(__file__).resolve().parents[2]
+        root = Path(__file__).resolve().parents[3]
         network_path = Path(topology) if topology else root/'outputs/reconstruction/provenance/network_definition.yaml'
         key = network_path.resolve().relative_to(root).as_posix()
         if sha(network_path) != manifest.get('protected_sha256', {}).get(key):
             raise ValueError('Archived topology hash does not match the selected diagnostic')
         reference = json.loads((network_path.parent/'run_manifest.json').read_text())
         def optimiser_hash(m):
-            return next((v for k, v in m['code_sha256'].items() if k.replace('\\', '/').endswith('/poc.py')), None)
+            return next((v for k, v in m['code_sha256'].items() if k.replace('\\', '/').endswith(('/routing.py', '/poc.py'))), None)
         if not optimiser_hash(manifest) or optimiser_hash(manifest) != optimiser_hash(reference):
             raise ValueError('Topology and diagnostic optimiser identities differ')
         title = 'Provisional revised-input reconstruction / diagnostic'

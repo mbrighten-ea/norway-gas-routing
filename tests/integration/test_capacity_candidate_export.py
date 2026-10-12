@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from norway_gas_routing.public_capacity import sha256
+from norway_gas_routing.capacity.public import sha256
 
 ROOT=Path(__file__).resolve().parents[2]
 

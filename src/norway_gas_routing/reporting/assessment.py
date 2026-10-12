@@ -3,7 +3,7 @@ from html import escape
 import json
 from pathlib import Path
 import pandas as pd
-from .evaluation import check_table, validate_manifest
+from ..evaluation import check_table, validate_manifest
 
 STYLE = '''body{font:16px/1.55 system-ui;margin:40px auto;max-width:1100px;padding:0 24px;color:#192c38}
 h1,h2{line-height:1.2}table{border-collapse:collapse;font-size:14px;width:100%;margin:20px 0}

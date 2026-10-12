@@ -7,14 +7,14 @@ import pulp
 import pytest
 import yaml
 
-from norway_gas_routing.poc import (DESTINATIONS, SolverUnavailable, available_solver,
+from norway_gas_routing.routing import (DESTINATIONS, SolverUnavailable, available_solver,
     build_month, historical_preferences, monthly_available_capacity, network_definition,
     network_graph, solve_month, validate_solution)
 
 
 @pytest.fixture
 def network(repo_root):
-    settings = yaml.safe_load((repo_root / "config/model.yaml").read_text())["poc"]
+    settings = yaml.safe_load((repo_root / "config/model.yaml").read_text())["routing"]
     return network_definition(settings)
 
 
@@ -223,7 +223,7 @@ def test_tiebreak_zero_export_and_zero_preference_are_feasible(network, solver):
 
 
 def test_workbook_additions_reject_double_counted_fields():
-    from norway_gas_routing.poc_inputs import workbook_source_columns
+    from norway_gas_routing.routing_inputs import workbook_source_columns
     assert workbook_source_columns({"a": {"workbook_columns": ["ES", "FO"]}}, ["asgard_prod"]) == ["ES", "FO"]
     with pytest.raises(ValueError, match="multiple"):
         workbook_source_columns({"a": {"workbook_columns": ["AF"]}}, ["asgard_prod"])

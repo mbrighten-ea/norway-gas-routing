@@ -8,7 +8,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT/'src'))
-from norway_gas_routing.capacity_contract import inspect_contract
+from norway_gas_routing.capacity.contract import inspect_contract
 
 
 def main():

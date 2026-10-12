@@ -317,9 +317,9 @@ scope_notes:
   snohvit_lng: Exclude from pipeline routing if embedded in Norway production totals.
   domestic_gas: Subtract relevant Norwegian domestic use if embedded in pipeline-available production.
 
-# Executable, price-off historical POC. Earlier six-market foundation above is
-# retained; its unresolved transformations are not executed by this POC.
-poc:
+# Executable, price-off historical routing model. Earlier six-market foundation above is
+# retained; its unresolved transformations are not executed by this routing model.
+routing:
   start: '2024-01'
   end: '2024-12'
   baseline_start: '2023-01'

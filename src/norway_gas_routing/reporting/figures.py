@@ -6,7 +6,7 @@ import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-from .visual_data import COLORS, COUNTRIES, GROUPS, NAMES, TOL, safe_percent, shares, strict_sum
+from .data import COLORS, COUNTRIES, GROUPS, NAMES, TOL, safe_percent, shares, strict_sum
 
 # Layout coordinates, not surveyed coordinates. No GIS or physical geometry claim.
 # North Sea sources sit between western UK and eastern Norwegian processing sites.

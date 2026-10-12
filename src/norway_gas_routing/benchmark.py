@@ -2,7 +2,7 @@
 from pathlib import Path
 import numpy as np
 import pandas as pd
-from .poc import DESTINATIONS
+from .routing import DESTINATIONS
 from .evaluation import check_dates, check_table, TRAIN_END, TRAIN_CUTOFF, EvaluationError
 
 OUT=Path(__file__).resolve().parents[2]/'.scratch/benchmark-tables'

@@ -1,4 +1,4 @@
-"""Prepare retained EA data for the POC; no network access or helper writes."""
+"""Prepare retained EA data for the routing model; no network access or helper writes."""
 
 import hashlib
 import json
@@ -8,7 +8,7 @@ from pathlib import Path
 import pandas as pd
 from openpyxl import load_workbook
 
-from .poc import DESTINATIONS, finite_nonnegative, historical_preferences, monthly_available_capacity
+from .routing import DESTINATIONS, finite_nonnegative, historical_preferences, monthly_available_capacity
 from .evaluation import check_dates, read_parquet, EvaluationError
 
 # Exact raw field columns behind the accepted component SIDs. Workbook additions
@@ -26,7 +26,7 @@ def workbook_source_columns(nodes, assigned_series):
     columns = [c for entry in nodes.values() for c in entry.get("workbook_columns", [])]
     if len(columns) != len(set(columns)) or set(columns).intersection(
             PRODUCTION_COLUMNS[k] for k in assigned_series if k in PRODUCTION_COLUMNS):
-        raise ValueError("Workbook production field appears in multiple POC sources")
+        raise ValueError("Workbook production field appears in multiple routing model sources")
     return columns
 
 
@@ -72,15 +72,15 @@ def diagnostic_snohvit_values(months, values, scenario):
 def prepare_inputs(root, model, registry, *, analysis_mode='historical_reconstruction',
                    diagnostic_snohvit_bcm=None, diagnostic_scenario=None,
                    capacity_scenario='baseline'):
-    from .capacity_inputs import SCENARIOS
+    from .capacity.inputs import SCENARIOS
     if capacity_scenario not in SCENARIOS:
         raise ValueError('Explicit known capacity scenario required')
     diagnostic = analysis_mode == 'snohvit_sensitivity'
     if analysis_mode not in {'historical_reconstruction', 'snohvit_sensitivity'}:
-        raise EvaluationError('POC reader has no complete verified forecast-origin bundle; historical reconstruction only')
+        raise EvaluationError('routing model reader has no complete verified forecast-origin bundle; historical reconstruction only')
     if not diagnostic and (diagnostic_snohvit_bcm is not None or diagnostic_scenario is not None):
         raise ValueError('Snøhvit override requires explicit snohvit_sensitivity mode')
-    settings = model["poc"]
+    settings = model["routing"]
     months = pd.period_range(settings["start"], settings["end"], freq="M")
     training = pd.period_range(settings["baseline_start"], settings["baseline_end"], freq="M")
     check_dates(months, 'analysis')
@@ -89,7 +89,7 @@ def prepare_inputs(root, model, registry, *, analysis_mode='historical_reconstru
         diagnostic_snohvit_bcm = diagnostic_snohvit_values(
             months, diagnostic_snohvit_bcm, diagnostic_scenario)
     if training.max() >= months.min():
-        raise ValueError("Baseline observations must precede all POC months")
+        raise ValueError("Baseline observations must precede all routing model months")
     audit = pd.read_csv(root / "evidence/inputs/data_series_audit.csv", keep_default_na=False)
     provenance, retained = [], {}
 
@@ -126,7 +126,7 @@ def prepare_inputs(root, model, registry, *, analysis_mode='historical_reconstru
             continue
         keys = model["sources"][entry["source_group"]]["series"]
         if assigned.intersection(keys):
-            raise ValueError("Production field appears in multiple POC sources")
+            raise ValueError("Production field appears in multiple routing model sources")
         assigned.update(keys)
         fields = pd.DataFrame({k: monthly_points(cached(k), months, k) for k in keys})
         finite_nonnegative(fields.to_numpy().ravel(), "monthly component production")
@@ -181,7 +181,7 @@ def prepare_inputs(root, model, registry, *, analysis_mode='historical_reconstru
     # Retained official-source checks validate the historical rate interpretation.
     # No use of the stale 2022 ex-Snohvit forecast or forecast-period unit inference.
     if not diagnostic and months.max() > pd.Period("2025-07", freq="M"):
-        raise ValueError("Snohvit actual conversion validated only through July 2025 for this POC")
+        raise ValueError("Snohvit actual conversion validated only through July 2025 for this routing model")
     if diagnostic:
         snohvit = diagnostic_snohvit_bcm
         provenance.append({'key': 'snohvit_diagnostic_override', 'category': 'production',
@@ -251,6 +251,6 @@ def prepare_inputs(root, model, registry, *, analysis_mode='historical_reconstru
             "excluded_training_months": excluded_training,
             "training_observations": observed.loc[training],
             "reconciliation": reconciliation, "provenance": provenance}
-    from .capacity_inputs import database_candidates, select_capacity_scenario
+    from .capacity.inputs import database_candidates, select_capacity_scenario
     candidates = database_candidates(root, model, months) if capacity_scenario != 'baseline' else None
     return select_capacity_scenario(prepared, model, scenario=capacity_scenario, candidates=candidates)

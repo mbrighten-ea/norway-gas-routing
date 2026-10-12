@@ -14,7 +14,7 @@ from .project_data import get_registered_series
 
 def component_references(root, model):
     """Use retained identifier/formula audit metadata, never workbook numbers."""
-    components = [(node, col) for node, entry in model['poc']['nodes'].items()
+    components = [(node, col) for node, entry in model['routing']['nodes'].items()
                   for col in entry.get('workbook_columns', [])]
     if not components:
         return pd.DataFrame(columns=['node','column','field','header_sid'])
@@ -63,7 +63,7 @@ def inspect_origin(root, model, registry, output, origin='2024-12-31', *, client
     origin = timestamp.strftime('%Y-%m-%d')
     targets = pd.period_range(pd.Period(origin,'M')+1, periods=months_ahead, freq='M')
     check_dates(targets, 'read')
-    training = pd.period_range(model['poc']['baseline_start'], model['poc']['baseline_end'], freq='M')
+    training = pd.period_range(model['routing']['baseline_start'], model['routing']['baseline_end'], freq='M')
     check_dates(training,'fit')
     if training.max()>=targets.min():
         raise ValueError('Training cannot include target outcomes')
@@ -77,12 +77,12 @@ def inspect_origin(root, model, registry, output, origin='2024-12-31', *, client
     components = component_candidates(component_references(root,model),discovered)
     components.to_csv(output/'required_component_sids.csv',index=False)
     keys = {}
-    for _, entry in model['poc']['nodes'].items():
+    for _, entry in model['routing']['nodes'].items():
         if 'source_group' in entry:
             for key in model['sources'][entry['source_group']]['series']:
                 keys[key] = ('production',targets)
     keys.update({'norway_prod':('production',targets), 'snohvit_net_prod':('production',targets)})
-    for entry in model['poc']['assets'].values():
+    for entry in model['routing']['assets'].values():
         if entry.get('maintenance_series'):
             keys[entry['maintenance_series']] = ('maintenance',targets)
     for destination in ['UK','FR','BE','NL','DE','DK','PL']:
@@ -137,7 +137,7 @@ def inspect_origin(root, model, registry, output, origin='2024-12-31', *, client
         'training_query_cutoff':min(timestamp,TRAIN_CUTOFF).strftime('%Y-%m-%d'), 'parameter_fitting':False,
         'blockers':blockers,'sid_queries':len(keys),'discovery_query':query,'component_rows':len(components),
         'solver_calls':0,'holdout_loaded':False,'holdout_scored':False,'actuals_scored':False,
-        'optimiser_sha256':hashlib.sha256((root/'src/norway_gas_routing/poc.py').read_bytes()).hexdigest(),
+        'optimiser_sha256':hashlib.sha256((root/'src/norway_gas_routing/routing.py').read_bytes()).hexdigest(),
         'model_config_sha256':hashlib.sha256((root/'config/model.yaml').read_bytes()).hexdigest()}
     (provenance/'run_manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
     return manifest

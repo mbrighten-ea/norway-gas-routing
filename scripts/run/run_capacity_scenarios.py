@@ -16,10 +16,10 @@ import pandas as pd
 import yaml
 import pulp
 
-from norway_gas_routing.capacity_inputs import SCENARIOS, baseline_rate, database_candidates, select_capacity_scenario
+from norway_gas_routing.capacity.inputs import SCENARIOS, baseline_rate, database_candidates, select_capacity_scenario
 from norway_gas_routing.evaluation import check_dates, load_policy
-from norway_gas_routing.poc import DESTINATIONS, available_solver, build_month, network_definition, solve_month, validate_solution
-from norway_gas_routing.public_capacity import sha256
+from norway_gas_routing.routing import DESTINATIONS, available_solver, build_month, network_definition, solve_month, validate_solution
+from norway_gas_routing.capacity.public import sha256
 
 
 def frozen_inputs(model, year):
@@ -56,13 +56,13 @@ def frozen_inputs(model, year):
     source = source.reindex(months)
     caps['month'] = pd.PeriodIndex(caps.month, freq='M')
     capacity = caps.pivot(index='month', columns='asset', values='available_capacity_bcm').reindex(months)
-    for asset, entry in model['poc']['assets'].items():
+    for asset, entry in model['routing']['assets'].items():
         if not entry.get('maintenance_series'):
             rate = baseline_rate(entry)
             capacity[asset] = months.days_in_month * rate / 1000
     if daily is None:
         records = []
-        for asset, entry in model['poc']['assets'].items():
+        for asset, entry in model['routing']['assets'].items():
             rate = baseline_rate(entry)
             for month in months:
                 derate = rate - capacity.at[month, asset] * 1000 / month.days_in_month
@@ -88,7 +88,7 @@ def run_scenarios(output, scenarios, years, *, authorization_reference):
         raise ValueError('Use a new repository scratch experiment directory')
     output.mkdir()  # Never overwrite previous output.
     model = yaml.safe_load((ROOT / 'config/model.yaml').read_text(encoding='utf-8'))
-    network = network_definition(model['poc'])
+    network = network_definition(model['routing'])
     solver_name, solver = available_solver('HiGHS')
     rows, arcs, constraints, balances, selected, evidence, source_rows, replay = [], [], [], [], [], [], [], []
     file_hashes = {}
@@ -190,7 +190,7 @@ def run_scenarios(output, scenarios, years, *, authorization_reference):
         holdout_loaded=False,holdout_scored=False,price_response=False,public_capacity_replacements=0,
         baseline_max_difference_bcm=max(r['max_absolute_difference_bcm'] for r in replay),
         caveat_2025='Explicit saved official-net-production diagnostic; monthly equivalent maintenance is not reconstructed daily availability',
-        code_sha256={p.relative_to(ROOT).as_posix():sha256(p) for p in [Path(__file__), *[(ROOT/'src/norway_gas_routing'/n) for n in ('poc.py','poc_inputs.py','capacity_inputs.py','capacity_conversion.py','capacity_constraints.py')]]})
+        code_sha256={p.relative_to(ROOT).as_posix():sha256(p) for p in [Path(__file__), *[(ROOT/'src/norway_gas_routing'/n) for n in ('routing.py','routing_inputs.py','capacity/inputs.py','capacity/conversion.py','capacity/constraints.py')]]})
     (output/'manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
     print(annual_delta[['year','scenario','total_exports_bcm',*DESTINATIONS]].to_string(index=False))
 

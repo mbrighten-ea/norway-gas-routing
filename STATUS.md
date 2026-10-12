@@ -1,5 +1,21 @@
 # Current implementation state
 
+## Source structure - 12 October 2026
+
+Branch `refactor/project-structure` groups capacity components under
+`src/norway_gas_routing/capacity/` and reports/visuals under `reporting/`.
+The active model, input module, commands, tests, configuration section and
+dependency extra use `routing` names. All retained modules have identified
+consumers; archived names, raw inputs and saved results remain intact.
+Configuration values and optimiser operations are unchanged. The exact naming
+migration in `evidence/inputs/project_structure_migration.json` keeps the public
+capacity audit's original model identity verifiable.
+Validation: 424 synthetic tests passed with one existing pandas warning; three
+command help/import checks and a scratch wheel build passed, including the HTML
+template. Historical-data evaluation/rebuild tests were not run.
+Restart: inspect `git log -1` and the working tree; publication of this feature
+branch requires approval. Do not resume the modelling tasks below.
+
 ## Git baseline - 12 October 2026
 
 Initial Git baseline: source, tests, configuration, instructions, selected lightweight
@@ -102,7 +118,7 @@ The 2026 holdout and all existing model/results remain unchanged.
 User confirmed SID-only sourcing: query Shooju directly on every new run;
 workbooks are formula/SID references only. Direct registered-series retrieval
 now supports explicit `asof` and retrieves values/metadata afresh, rejecting
-empty archives without a cache fallback. Existing POC/report readers still
+empty archives without a cache fallback. Existing routing model/report readers still
 use retained workbook/cache paths and are not approved for new data-consuming
 runs until migrated. No model mappings or alternative SIDs were adopted to
 bypass missing origin data; this migration and missing SID coverage remain open.
@@ -163,7 +179,7 @@ resolve Kollsnes/Karsto boundaries, and source upstream restriction/publication
 history. Commands, limitations and retained milestone:
 [Stage 2 public database](evidence/inputs/public_capacity_database.md).
 
-Public technical-capacity source audit (9 October 2026): the 19 active POC
+Public technical-capacity source audit (9 October 2026): the 19 active routing model
 constraints and 15 retained foundation assets are inventoried. Gassco's 2024 map
 corroborates fourteen pipeline snapshots; public ENTSOG intervals cover all
 2023-2025 gas days for North Sea Entry and both Faxe directions in energy units.

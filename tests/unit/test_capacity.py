@@ -3,7 +3,7 @@ import pytest
 
 from norway_gas_routing.config import load_config
 from norway_gas_routing.data import time_series
-from norway_gas_routing.maintenance import capacity_for_asset, daily_maintenance_capacity
+from norway_gas_routing.capacity.maintenance import capacity_for_asset, daily_maintenance_capacity
 from norway_gas_routing.units import mcm_d_to_monthly_bcm
 from norway_gas_routing.validation import ValidationError
 

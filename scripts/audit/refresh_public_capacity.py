@@ -14,7 +14,7 @@ from urllib.request import urlopen
 
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'src'))
-from norway_gas_routing.public_capacity import PILOT,canonical,historical_window,validate_capture
+from norway_gas_routing.capacity.public import PILOT,canonical,historical_window,validate_capture
 
 
 def collect_pages(identity,start,end,get,page_size=100):

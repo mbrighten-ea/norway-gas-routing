@@ -8,13 +8,13 @@ import pandas as pd
 import pytest
 import yaml
 
-from norway_gas_routing.capacity_conversion import (
+from norway_gas_routing.capacity.conversion import (
     REQUIREMENTS, aggregate_converted_month, convert_gas_day_quantities)
-from norway_gas_routing.capacity_inputs import (
+from norway_gas_routing.capacity.inputs import (
     SCENARIOS, baseline_rate, database_candidates, dated_daily_rates, select_capacity_scenario)
-from norway_gas_routing.public_capacity import gas_boundary
+from norway_gas_routing.capacity.public import gas_boundary
 from norway_gas_routing.evaluation import EvaluationError
-from norway_gas_routing.poc import monthly_available_capacity
+from norway_gas_routing.routing import monthly_available_capacity
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -24,7 +24,7 @@ def prepared():
     model = yaml.safe_load((ROOT / 'config/model.yaml').read_text(encoding='utf-8'))
     months = pd.period_range('2024-01', '2024-02', freq='M')
     capacities, daily, monthly = {}, [], []
-    for asset, entry in model['poc']['assets'].items():
+    for asset, entry in model['routing']['assets'].items():
         rate = entry.get('mcm_d', entry.get('annual_bcm', 0) * 1000 / 365)
         derate = pd.Series(2., index=pd.date_range('2024-01-01', '2024-02-29')) if entry.get('maintenance_series') else None
         if derate is not None:

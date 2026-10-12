@@ -7,7 +7,7 @@ import sqlite3
 import pytest
 import yaml
 
-from norway_gas_routing.capacity_contract import IDENTITIES, inspect_contract, validate_contract
+from norway_gas_routing.capacity.contract import IDENTITIES, inspect_contract, validate_contract
 
 ROOT = Path(__file__).resolve().parents[2]
 CONTRACT = ROOT/'evidence/inputs/capacity_integration_contract.json'
@@ -49,7 +49,7 @@ def test_unsupported_derivations_and_shared_constraints(proposal,change):
     if change=='shared_sum': contract['shared_constraints']['faxe']['combination']='sum'
     if change=='duplicate': contract['mappings'][2]=deepcopy(contract['mappings'][1])
     if change=='holdout': contract['window'][1]='2026-01-01'
-    if change=='topology': next(a for a in model['poc']['arcs'] if a['id']=='DK_OFFTAKE')['from']='FAXE'
+    if change=='topology': next(a for a in model['routing']['arcs'] if a['id']=='DK_OFFTAKE')['from']='FAXE'
     with pytest.raises(ValueError): validate_contract(contract,model,db)
 
 

@@ -6,10 +6,10 @@ import pandas as pd
 import pytest
 import yaml
 
-from norway_gas_routing.capacity_constraints import add_reviewed_point_bounds
-from norway_gas_routing.capacity_contract import IDENTITIES
-from norway_gas_routing.capacity_inputs import select_capacity_scenario
-from norway_gas_routing.poc import (
+from norway_gas_routing.capacity.constraints import add_reviewed_point_bounds
+from norway_gas_routing.capacity.contract import IDENTITIES
+from norway_gas_routing.capacity.inputs import select_capacity_scenario
+from norway_gas_routing.routing import (
     DESTINATIONS, available_solver, build_month, network_definition, solve_month, validate_solution)
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -17,9 +17,9 @@ ROOT = Path(__file__).resolve().parents[2]
 
 def fixture():
     model = yaml.safe_load((ROOT / 'config/model.yaml').read_text(encoding='utf-8'))
-    network = network_definition(model['poc'])
+    network = network_definition(model['routing'])
     supply = {n: 0. for n,e in network['nodes'].items() if e['kind'] == 'source'}
-    capacity = {a: 20. for a in model['poc']['assets']}
+    capacity = {a: 20. for a in model['routing']['assets']}
     preferences = {d: 0. for d in DESTINATIONS}
     preferences['PL'] = .8
     preferences['DK'] = .2
@@ -70,7 +70,7 @@ def test_capacity_correction_reroutes_only_mapped_supply_and_balances():
     model,network,supply,capacity,prefs,solver = fixture()
     supply.update(KOLLSNES_FEED=4.7, UNMAPPED=.5)
     capacity['KOLLSNES_EXPORT']=143.*31/1000
-    model['poc']['assets']['KOLLSNES_EXPORT'].pop('maintenance_series')
+    model['routing']['assets']['KOLLSNES_EXPORT'].pop('maintenance_series')
     month=pd.Period('2024-01','M')
     prepared=dict(months=pd.PeriodIndex([month]),capacities=pd.DataFrame([capacity],index=[month]),
                   supply=pd.DataFrame([supply],index=[month]))

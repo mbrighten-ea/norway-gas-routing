@@ -28,6 +28,8 @@ one HTML report and one main results CSV, with technical detail below them.
 |---|---|
 | `config/` | Active model and series configuration |
 | `src/norway_gas_routing/` | Reusable model, data and reporting code |
+| `src/norway_gas_routing/capacity/` | Capacity inputs, constraints, conversions, maintenance and public evidence |
+| `src/norway_gas_routing/reporting/` | Assessment reports, dashboard, figures, SID references and legacy adapters |
 | `scripts/run/` | Reconstruction driver |
 | `scripts/verify/` | Saved-evidence checks and routing diagnosis |
 | `scripts/audit/` | Maintained input/source investigations |
@@ -40,6 +42,12 @@ one HTML report and one main results CSV, with technical detail below them.
 
 Create processed inputs, shared fixtures or notebooks only when actually used.
 The compact new-file gate and naming rules are in [AGENTS.md](AGENTS.md).
+
+The executable model is `routing.py`; input preparation is `routing_inputs.py`,
+and its configuration section is `routing`. Install the solver dependencies with
+the `routing` extra when setting up an approved environment. Archived code,
+historical manifest keys and persisted database identifiers retain their original
+names for provenance; they are not active module names.
 
 Run from this repository with the approved workspace interpreter. Prepare scratch
 parents first; pytest creates its basetemp directory but not missing parents:
@@ -57,10 +65,10 @@ Supported commands (append to that interpreter):
 
 | Command | Purpose |
 |---|---|
-| `scripts/run/run_poc.py --solver HiGHS` | Cached-input reconstruction; promotes only a successful staged result |
+| `scripts/run/run_routing.py --solver HiGHS` | Cached-input reconstruction; promotes only a successful staged result |
 | `scripts/run/run_snohvit_sensitivity.py` | Explicit full-year 2025 official/selected Snøhvit diagnostics in a new named experiment; no baseline promotion |
 | `scripts/run/run_routing_flexibility.py` | Individual physical destination min/max at fixed 2025 stage-1 exports; no preference or price objective |
-| `scripts/verify/diagnose_poc_routing.py` | Cached before/after scenarios and physical/scoring checks |
+| `scripts/verify/diagnose_routing.py` | Cached before/after scenarios and physical/scoring checks |
 | `scripts/verify/verify_initial_benchmark.py` | Read-only original forecast/archive verification |
 | `scripts/verify/verify_repository.py` | Preserved source/result hashes, report links and layout audit |
 | `scripts/audit/build_public_capacity.py` | Offline public SQLite capacity database and CSVs in a fresh experiment; no optimiser integration |
@@ -84,7 +92,7 @@ plots and assessment publication. Parameters cannot use 2025/2026 outcomes.
 There is no routine holdout unlock flag. Explicit approval and a frozen model
 identity are prerequisites for a separately implemented final evaluation.
 Run manifests contain the split/hash, experiment identity, parameters/hash and
-input vintages. The current POC reader permits revised-input reconstructions;
+input vintages. The current routing model reader permits revised-input reconstructions;
 it rejects genuine-forecast mode without a complete verified origin bundle.
 Archive queries alone do not verify public release timing. The frozen benchmark
 predates this protocol; its partial 2025 coverage is not a full validation run.

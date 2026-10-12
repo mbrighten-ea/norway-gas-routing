@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pandas as pd
 import pytest
-from norway_gas_routing.poc_inputs import diagnostic_snohvit_values, prepare_inputs
+from norway_gas_routing.routing_inputs import diagnostic_snohvit_values, prepare_inputs
 from norway_gas_routing.evaluation import EvaluationError
 
 MONTHS = pd.period_range('2025-01', '2025-12', freq='M')
@@ -46,7 +46,7 @@ def test_normal_reader_rejects_override_before_any_io():
 
 
 def test_holdout_rejected_before_diagnostic_values_or_io():
-    model = {'poc': {'start': '2026-01', 'end': '2026-09',
+    model = {'routing': {'start': '2026-01', 'end': '2026-09',
                      'baseline_start': '2023-01', 'baseline_end': '2023-12'}}
     with pytest.raises(EvaluationError):
         prepare_inputs(Path('does-not-exist'), deepcopy(model), None,

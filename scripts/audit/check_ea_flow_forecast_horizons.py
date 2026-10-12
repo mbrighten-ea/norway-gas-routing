@@ -5,7 +5,7 @@ import sys
 
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'src'))
-from norway_gas_routing.forecast_horizons import inspect_horizons
+from norway_gas_routing.reporting.horizons import inspect_horizons
 
 
 def main():

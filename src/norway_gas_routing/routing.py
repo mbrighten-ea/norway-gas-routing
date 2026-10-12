@@ -24,9 +24,9 @@ def network_definition(settings):
                                     "to": "UNROUTED", "asset": None, "kind": "accounting"})
     graph = network_graph(network)
     if not nx.is_directed_acyclic_graph(graph):
-        raise ValueError("POC requires an acyclic routing network")
+        raise ValueError("routing model requires an acyclic routing network")
     if {n for n, e in network["nodes"].items() if e["kind"] == "destination"} != set(DESTINATIONS):
-        raise ValueError("POC requires exactly seven separate destinations")
+        raise ValueError("routing model requires exactly seven separate destinations")
     if any(entry["kind"] not in {"source", "junction", "destination", "unrouted"}
            for entry in network["nodes"].values()):
         raise ValueError("Unknown node kind")

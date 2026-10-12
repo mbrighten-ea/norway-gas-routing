@@ -6,9 +6,9 @@ from datetime import timedelta
 import math
 import pandas as pd
 
-from .capacity_contract import IDENTITIES
-from .evaluation import check_dates
-from .public_capacity import gas_boundary
+from .contract import IDENTITIES
+from ..evaluation import check_dates
+from .public import gas_boundary
 
 REQUIREMENTS = ('capacity_basis_verified', 'gross_energy_verified',
                 'volume_reference_verified', 'energy_reference_verified',

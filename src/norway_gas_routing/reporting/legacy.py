@@ -11,8 +11,8 @@ import numpy as np
 import pandas as pd
 from openpyxl.utils.datetime import from_excel
 
-from .evaluation import check_dates
-from .visual_data import COUNTRIES, GROUPS, dated_csv, sha
+from ..evaluation import check_dates
+from .data import COUNTRIES, GROUPS, dated_csv, sha
 
 NS = {'x': 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'}
 SUFFIX = {'UK': 'UK', 'FR+BE': 'FR_and_BE', 'NL+DE': 'NL_and_DE',

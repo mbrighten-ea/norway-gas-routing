@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pulp
 import pytest
-from norway_gas_routing.poc import DESTINATIONS, available_solver, build_month, network_definition, validate_solution
+from norway_gas_routing.routing import DESTINATIONS, available_solver, build_month, network_definition, validate_solution
 
 path = Path(__file__).resolve().parents[2] / 'scripts/run/run_routing_flexibility.py'
 spec = importlib.util.spec_from_file_location('routing_flexibility', path)

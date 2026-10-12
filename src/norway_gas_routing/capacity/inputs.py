@@ -11,9 +11,9 @@ import sqlite3
 
 import pandas as pd
 
-from .capacity_contract import ARCS, IDENTITIES
-from .evaluation import check_dates
-from .public_capacity import sha256
+from .contract import ARCS, IDENTITIES
+from ..evaluation import check_dates
+from .public import sha256
 
 DATABASE = 'archive/20261009-17_public-capacity-database/database/capacity.sqlite'
 DATABASE_SHA256 = '5e6e2b14c76a0afb94aa487e316c617f37fd78f95f117d96ec30232b180721a4'
@@ -51,7 +51,7 @@ def baseline_rate(entry):
 
 
 def validate_point_topology(model, db):
-    arcs = {a['id']: a for a in model['poc']['arcs']}
+    arcs = {a['id']: a for a in model['routing']['arcs']}
     for name, expected in ARCS.items():
         if name not in arcs or tuple(arcs[name][k] for k in ('from', 'to', 'asset')) != expected:
             raise ValueError('Capacity mapping topology changed: ' + name)
@@ -174,7 +174,7 @@ def select_capacity_scenario(inputs, model, *, scenario='baseline', candidates=N
     ledger = []
     daily = inputs.get('capacity_daily')
     for asset in capacities.columns:
-        entry = model['poc']['assets'][asset]
+        entry = model['routing']['assets'][asset]
         adjustment = pd.Series(0., index=months)
         if asset in SCENARIOS[scenario]:
             rates = dated_daily_rates(SCENARIOS[scenario][asset], months)

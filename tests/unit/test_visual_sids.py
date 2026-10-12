@@ -4,9 +4,9 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from norway_gas_routing import visual_sids as sources
-from norway_gas_routing.visual_data import comparison, actual_error_summary
-from norway_gas_routing.visual_report import build_package
+from norway_gas_routing.reporting import sids as sources
+from norway_gas_routing.reporting.data import comparison, actual_error_summary
+from norway_gas_routing.reporting.dashboard import build_package
 
 
 def response(months=('2025-01','2025-02'), values=(2.,3.), boundary='2026-10-01'):

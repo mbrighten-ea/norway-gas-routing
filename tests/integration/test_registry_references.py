@@ -4,7 +4,7 @@ import csv
 import pandas as pd
 
 from norway_gas_routing.config import load_config
-from norway_gas_routing.poc import network_definition
+from norway_gas_routing.routing import network_definition
 
 
 FIELDS = ('balder', 'brage', 'halten_ost', 'trym', 'tune', 'urd')
@@ -30,7 +30,7 @@ def test_verified_field_history_references_are_not_selected_supply(repo_root):
 def test_appending_a_synthetic_production_reference_preserves_selection_and_network(config_files):
     model_path, registry_path = config_files
     model, before = load_config(model_path, registry_path)
-    old_network = network_definition(model['poc'])
+    old_network = network_definition(model['routing'])
     selected = {key for source in model['sources'].values() for key in source['series']}
     with registry_path.open(encoding='utf-8-sig', newline='') as stream:
         header = next(csv.reader(stream))
@@ -43,6 +43,6 @@ def test_appending_a_synthetic_production_reference_preserves_selection_and_netw
         csv.DictWriter(stream, fieldnames=header).writerow(row)
     after_model, after = load_config(model_path, registry_path)
     assert after_model == model
-    assert network_definition(after_model['poc']) == old_network
+    assert network_definition(after_model['routing']) == old_network
     pd.testing.assert_frame_equal(before.loc[list(selected)], after.loc[list(selected)])
     assert 'synthetic_reference' not in selected

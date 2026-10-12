@@ -11,7 +11,7 @@ queries, retrieval times, units and hashes. Workbooks may identify formulas and
 SIDs but cannot supply numerical model inputs or comparison values. Do not fall
 back to cached files when a SID is absent or an origin query is empty.
 
-The legacy POC and visual report readers still contain cached/workbook paths.
+The legacy routing model and visual report readers still contain cached/workbook paths.
 They are not approved for new data-consuming runs under this rule until their
 adapters are migrated. Existing results/graphics remain historical evidence.
 `project_data.get_registered_series(..., asof=...)` supports direct origin

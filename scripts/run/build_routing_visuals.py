@@ -5,7 +5,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT/'src'))
-from norway_gas_routing.visual_report import build_package
+from norway_gas_routing.reporting.dashboard import build_package
 
 
 def main():

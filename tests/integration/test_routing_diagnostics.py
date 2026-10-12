@@ -8,7 +8,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
-spec = importlib.util.spec_from_file_location("poc_diagnostics", ROOT / "scripts/verify/diagnose_poc_routing.py")
+spec = importlib.util.spec_from_file_location("routing_diagnostics", ROOT / "scripts/verify/diagnose_routing.py")
 diagnostics = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(diagnostics)
 

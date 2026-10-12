@@ -293,7 +293,7 @@ def populate_assets(connection, model, matrix):
     for row in matrix:
         scope, aid = row['model_scope'], row['asset_id']
         active = scope == 'poc_active'
-        config = model['poc']['assets'][aid] if active else model['assets'][aid]
+        config = model['routing']['assets'][aid] if active else model['assets'][aid]
         value = config.get('mcm_d',config.get('annual_bcm')) if active else config['technical_capacity_mcm_d']
         unit = 'annual_bcm' if active and 'annual_bcm' in config else 'mcm_d'
         insert(connection,'assets',dict(asset_key=scope+':'+aid,asset_id=aid,scope=scope,
@@ -409,11 +409,17 @@ def build_database(root, output, start='2022-10-01', end='2025-12-31'):
             raise ValueError('Immutable raw evidence hash mismatch: '+rel)
     model_path = root/'config/model.yaml'
     if sha256(model_path) != audit['model_sha256']:
-        raise ValueError('Model changed since audit; inventory review required')
+        migration_path = root/'evidence/inputs/project_structure_migration.json'
+        if not migration_path.is_file():
+            raise ValueError('Model changed since audit; inventory review required')
+        migration = json.loads(migration_path.read_bytes())
+        if (audit['model_sha256'] != migration['model_config']['before_sha256'] or
+                sha256(model_path) != migration['model_config']['after_sha256']):
+            raise ValueError('Model changed since audit; inventory review required')
     model = yaml.safe_load(model_path.read_text(encoding='utf-8'))
     matrix = read_csv(root/'evidence/inputs/public_capacity_coverage.csv')
     register = read_csv(root/'evidence/inputs/public_capacity_sources.csv')
-    if {r['asset_id'] for r in matrix if r['model_scope']=='poc_active'} != set(model['poc']['assets']):
+    if {r['asset_id'] for r in matrix if r['model_scope']=='poc_active'} != set(model['routing']['assets']):
         raise ValueError('Active asset inventory mismatch')
     if {r['asset_id'] for r in matrix if r['model_scope']=='foundation_retained'} != set(model['assets']):
         raise ValueError('Foundation asset inventory mismatch')

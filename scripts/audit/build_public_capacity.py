@@ -6,7 +6,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'src'))
 from norway_gas_routing.artifacts import new_experiment
-from norway_gas_routing.public_capacity import build_database
+from norway_gas_routing.capacity.public import build_database
 
 
 def main():

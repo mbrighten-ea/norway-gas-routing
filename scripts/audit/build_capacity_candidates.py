@@ -9,9 +9,9 @@ ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'src'))
 import pandas as pd
 import yaml
-from norway_gas_routing.capacity_contract import IDENTITIES
-from norway_gas_routing.capacity_inputs import DATABASE, SCENARIOS, baseline_rate, database_candidates, dated_daily_rates
-from norway_gas_routing.public_capacity import sha256
+from norway_gas_routing.capacity.contract import IDENTITIES
+from norway_gas_routing.capacity.inputs import DATABASE, SCENARIOS, baseline_rate, database_candidates, dated_daily_rates
+from norway_gas_routing.capacity.public import sha256
 
 
 def export_candidates(output):
@@ -34,7 +34,7 @@ def export_candidates(output):
     months=pd.period_range('2024-01','2025-12',freq='M')
     tables=[]
     for scenario,schedules in SCENARIOS.items():
-        for asset,entry in model['poc']['assets'].items():
+        for asset,entry in model['routing']['assets'].items():
             base=baseline_rate(entry)
             rates=dated_daily_rates(schedules[asset],months) if asset in schedules else pd.Series(base,index=pd.date_range('2024-01-01','2025-12-31'))
             monthly=rates.groupby(rates.index.to_period('M')).sum()/1000

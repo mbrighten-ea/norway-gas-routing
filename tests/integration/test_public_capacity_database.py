@@ -5,7 +5,7 @@ import sqlite3
 
 import pytest
 
-from norway_gas_routing.public_capacity import build_database, sha256
+from norway_gas_routing.capacity.public import build_database, sha256
 
 
 @pytest.fixture(scope='module')
