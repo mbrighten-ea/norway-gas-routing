@@ -15,8 +15,9 @@ end: null
 origin: null
 horizon_months: 12
 solver: HiGHS
-# Proposed constant canonical capacities + signed Kollsnes plan. This label
-# does not approve their prospective use; real forecasts stay explicitly blocked.
+# F2.2 approved provisional scenario: 19 existing model envelopes, Kollsnes 143
+# central / provisional_kollsnes_156 sensitivity, signed maintenance once.
+# Real activation still requires the complete 2024 population and Snøhvit gates.
 # synthetic_demo requires capacity_scenario synthetic_fixture.
-capacity_scenario: baseline_prospective
+capacity_scenario: provisional_kollsnes_143
 price_enabled: false

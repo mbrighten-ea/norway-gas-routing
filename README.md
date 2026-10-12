@@ -6,11 +6,36 @@ forecast validity and production readiness remain unresolved.
 
 ## Operational operator guide
 
+**F2.2 status:** the complete production-population gate is blocked. The default
+`provisional_kollsnes_143` scenario is approved provisionally (19 existing
+envelopes; Kollsnes 143 mcm/day, signed maintenance once). Select
+`provisional_kollsnes_156` for the approved sensitivity; other future availability
+is disclosed as unknown. These scenarios do not approve incomplete production.
+`baseline_prospective` remains an alias for the 143 central case.
+
+The [complete component ledger and source checks](evidence/inputs/reconciled_supply_f22/README.md)
+replace the earlier blanket 46-field forecast blocker. The backend checks the
+entire 132-component population, preserves UNMAPPED, and refuses to derive
+weights from only the original 46. The approved annual-2024 allocation method
+cannot activate until complete classifications, source coverage and the national
+identity pass. Snøhvit's prospective units/vintage also remain incompatible.
+`--validate-only` retains an explicitly blocked Excel/CSV/HTML package, exact
+forecast responses, the population ledger and checked provisional capacities;
+blank flow results mean unavailable, not zero exports. No source-backed country
+forecast or sensitivity conclusions are currently available.
+
+Troubleshoot coverage against `production_population.csv`, `assessment.json`
+and raw SID responses. Resolve provider omissions or document a specific
+source-supported relationship; never turn an empty response into zero. Resolve
+project/group membership and Brage/Tune/Trym's accepted boundary questions.
+Correct or independently establish Snøhvit's forecast contract before deduction.
+Do not combine workbook values with SID forecasts or reuse old five-node weights.
+
 Use `config/run.yaml` as the single run request. Its repository-relative paths
 reference the canonical model, registry and locked evaluation policy without
 duplicating network/source mappings. The default is `current_forecast`, with
 `origin: null`, `horizon_months: 12`, `start: null`, `end: null`,
-`input_source: fresh_sid`, `capacity_scenario: baseline_prospective` and
+`input_source: fresh_sid`, `capacity_scenario: provisional_kollsnes_143` and
 `price_enabled: false`. It retrieves/checks candidates, then reports the pending
 physical-input decisions; it cannot yet issue a complete EA routing forecast.
 
@@ -46,8 +71,11 @@ window. Changing horizon does not fill missing source months.
 
 The sixteen identified field forecasts and national total are monthly bcm.
 Snøhvit is retrieved unchanged pending forecast-unit/vintage confirmation.
-The proposed capacity scenario holds canonical technical envelopes constant and
-uses the signed Kollsnes plan once; the label does not constitute approval.
+The approved provisional capacity scenario holds canonical technical envelopes
+constant and uses the signed Kollsnes plan once. Source/reference incompatibility
+still blocks execution: the current plan reaches 156 mcm/day on thirteen days,
+exceeding the 143 central envelope. The 156 sensitivity accepts this plan; neither
+scenario resolves the population or Snøhvit gates.
 Future actuals/comparison scores are never requested. Excel records origin,
 deliveries, assumptions, source checks and explicit unavailable flow results.
 `provenance/forecast_requirements.csv` lists every affected field/node;

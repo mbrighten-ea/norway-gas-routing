@@ -1,5 +1,26 @@
 # Input and data contract
 
+## F2.2 complete-population activation gate
+
+`production_population.py` validates exhaustive component identities, unique SID
+ownership, declared aliases, existing physical nodes and explicit UNMAPPED.
+The [132-row historical ledger](evidence/inputs/reconciled_supply_f22/production_population.csv)
+includes the original 16 + 46, all 69 remaining components and Snøhvit; national
+and non-flex aggregates are controls, never additional component supply.
+Coverage is exact January–December 2024. Missing/negative/nonfinite observations,
+unknown groups and uncertified boundaries prevent annual residual weights.
+The partial reconciliation retains discrepancies rather than forcing closure.
+Classifications 1–5 follow the requested represented/overlapping/mapped/outside/
+unidentified-entry definitions. Class 5 is held as UNMAPPED; unresolved class 2
+projects are not automatically excluded or set to zero. A population evidence
+certificate alone is not an operational numerical input or permission to solve.
+
+F2.2 approves provisional 19-envelope capacities and Kollsnes 143 central / 156
+sensitivity with the signed maintenance plan applied once. Canonical topology,
+envelopes, historical preparation and objective are unchanged. Prospective
+capacity snapshots are scenarios, not verified future availability. No generic
+future/actual date bypass or new structural-zero rule was introduced.
+
 ## F2 current forecast contract
 
 `current_forecast` derives a rolling next-complete-calendar-month delivery window
@@ -15,8 +36,9 @@ coverage. No filling, clipping, actual-as-forecast or node allocation occurs.
 The real adapter checks sixteen known fields, national total, Snøhvit and Kollsnes
 maintenance, then fails on the [specific unapproved physical contract](evidence/inputs/forecast_viability_f1/current_forecast_supply_contract.md).
 Historical NPD identities are not future forecasts. Snøhvit remains native raw
-rate pending conversion/vintage approval. `baseline_prospective` is a proposed
-constant-capacity/one signed maintenance scenario, not approval. An analyst cannot
+rate pending conversion/vintage approval. `baseline_prospective` is now an alias
+for F2.2's approved provisional 143 central scenario with one signed maintenance
+deduction. An analyst cannot
 promote the partial vector by changing config flags; complete approved preparation
 must be implemented before real forecast LP construction.
 

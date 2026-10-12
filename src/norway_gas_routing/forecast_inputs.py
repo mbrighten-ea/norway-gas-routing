@@ -12,6 +12,40 @@ from .project_data import get_prospective_forecast
 from .routing_sources import source_requirements, check_registered
 
 
+def provisional_capacities(model, months, maintenance, scenario):
+    """Approved unchanged 19-envelope scenario; signed Kollsnes plan once.
+
+    No other future availability is assumed verified. This is scenario capacity,
+    independent of the failed production-population gate and never solver output.
+    """
+    from .routing import monthly_available_capacity
+    if scenario not in {'baseline_prospective','provisional_kollsnes_143','provisional_kollsnes_156'}:
+        raise ValueError('A named F2.2 provisional capacity scenario is required.')
+    assets=model['routing']['assets']
+    if len(assets)!=19 or assets['KOLLSNES_EXPORT'].get('maintenance_series')!='kollsnes_maint_d':
+        raise ValueError('Approved provisional scenario requires the existing 19 model envelopes and Kollsnes maintenance contract.')
+    days=pd.date_range(months.min().start_time,months.max().end_time.normalize())
+    if not maintenance.index.equals(days):
+        raise ValueError('Kollsnes maintenance requires exact daily coverage; no filling.')
+    capacities={}; daily=[]
+    for asset,entry in assets.items():
+        rate=entry['mcm_d'] if 'mcm_d' in entry else entry['annual_bcm']*1000/365
+        if asset=='KOLLSNES_EXPORT': rate=156. if scenario=='provisional_kollsnes_156' else 143.
+        if asset=='KOLLSNES_EXPORT' and maintenance.gt(rate).any():
+            bad=maintenance.loc[maintenance.gt(rate)]
+            raise ValueError('KOLLSNES_EXPORT: signed maintenance reaches '+str(bad.max())+
+                ' mcm/day above the '+str(rate)+' envelope on '+str(len(bad))+
+                ' days (first '+str(bad.index.min().date())+'); obtain a compatible reference/maintenance contract. No clipping, zero floor or rescaling.')
+        if entry.get('maintenance_series') and asset!='KOLLSNES_EXPORT':
+            raise ValueError(asset+': unreviewed prospective maintenance input.')
+        technical=pd.Series([rate],index=pd.DatetimeIndex([months.min().start_time]))
+        monthly,detail=monthly_available_capacity(technical,months,maintenance if asset=='KOLLSNES_EXPORT' else None)
+        capacities[asset]=monthly.available_capacity_bcm
+        daily.append(detail.rename_axis('date').reset_index().assign(asset=asset,
+            availability_status='Signed Kollsnes plan applied once' if asset=='KOLLSNES_EXPORT' else 'Unknown future availability; provisional envelope held constant'))
+    return pd.DataFrame(capacities),pd.concat(daily,ignore_index=True)
+
+
 def forecast_window(origin=None, horizon_months=12):
     """Current-month origins only; next complete delivery month, ending by 2030."""
     load_policy()
@@ -36,12 +70,12 @@ def forecast_requirements(root,model,registry,request):
     requirements=requirements.copy()
     npd=requirements.key.isin([m['key'] for m in contract.get('historical_components',{}).values()])
     requirements.loc[npd,'blocked']=True
-    requirements.loc[npd,'status']='BLOCKED: historical NPD leaf has no approved current forecast or source-node aggregation contract'
+    requirements.loc[npd,'status']='BLOCKED: 2024 historical leaf for frozen residual allocation; complete population gate must pass first'
     requirements.loc[requirements.key.eq('snohvit_net_prod'),'status']='BLOCKED: forecast bcm label versus mcm/day interpretation needs physical-design validation; historical conversion is not approved for forecasts'
     requirements.loc[requirements.key.eq('snohvit_net_prod'),'blocked']=True
     capacities=requirements.classification.eq('essential_assumption')
-    requirements.loc[capacities,'blocked']=True
-    requirements.loc[capacities,'status']='BLOCKED: proposed baseline held constant prospectively; approval and maintenance-overlap decision absent'
+    requirements.loc[capacities,'blocked']=False
+    requirements.loc[capacities,'status']='Approved F2.2 provisional envelope; Kollsnes 143 central / 156 sensitivity; maintenance once; other future availability unknown'
     requirements['origin']=request['origin']
     requirements['start'],requirements['end']=request['start'],request['end']
     training=requirements.classification.eq('essential_training')
@@ -50,6 +84,17 @@ def forecast_requirements(root,model,registry,request):
     requirements.loc[training,'status']='Existing earlier development-window shares; current-origin training retrieval required after physical contract approval'
     optional=requirements.classification.eq('optional_comparison')
     requirements.loc[optional,'status']='Unavailable: future actual comparisons are not retrieved or scored'
+    from .production_population import POPULATION
+    if (Path(root)/POPULATION).is_file():
+        ledger=pd.read_csv(Path(root)/POPULATION,keep_default_na=False,dtype=str)
+        extra=ledger.loc[ledger.classification.isin({'2','5'})]
+        rows=[dict(key=row.source_key,identifier=row.sid,consumer=row.node,
+            classification='essential_population',status='2024 population: '+row.coverage_status+'; physical entry/ownership '+row.reason,
+            blocked=row.coverage_verified!='True' or row.classification_verified!='True',
+            raw_unit='bcm',metadata_unit='bcm',model_unit='bcm/month',frequency='monthly',
+            transformation='Historical-only component for full-population reconciliation; no forecast or cached-workbook substitution',
+            evidence=POPULATION,origin=None,start='2024-01',end='2024-12') for row in extra.itertuples()]
+        requirements=pd.concat([requirements,pd.DataFrame(rows)],ignore_index=True)
     return requirements,components,contract
 
 
@@ -61,7 +106,7 @@ def inspect_forecast_source(root,key,dates,registry,contract,records,output,orig
         start=str(dates.min().date()),end=str(dates.max().date()),status='REQUESTED',
         retrieved_at=datetime.now(timezone.utc).isoformat(),raw_unit=spec['raw_unit'],reported_unit=spec['metadata_unit'],
         target_unit='mcm/day (signed capacity adjustment)' if spec['frequency']=='daily' else 'bcm/month (required; transformation pending)' if key=='snohvit_net_prod' else 'bcm/month',
-        transformation='Signed daily mcm/day derate; prospective scope/overlap pending approval' if spec['frequency']=='daily' else 'Unchanged monthly bcm' if spec['raw_unit']=='bcm' else 'Unchanged raw forecast rate; conversion requires explicit forecast-unit approval',
+        transformation='Signed daily mcm/day derate; applied once in approved provisional scenario, reference compatibility checked separately' if spec['frequency']=='daily' else 'Unchanged monthly bcm' if spec['raw_unit']=='bcm' else 'Unchanged raw forecast rate; conversion requires explicit forecast-unit approval',
         vintage_status='Current-origin archived service state, not a historical forecast backtest')
     records.append(record)
     try:
@@ -125,18 +170,29 @@ def prepare_current_inputs(root,model,registry,request):
     if len(set(keys))!=len(keys) or len({registry.at[k,'sid'] for k in keys})!=len(keys):
         raise ValueError('Duplicate forecast production key/SID; no double counting.')
     records,failures=[],[]
+    candidates={}
     try: client=connect_shooju()
     except Exception as exc:
         raise ValueError('Current forecast service connection failed ('+type(exc).__name__+'); check authorised credentials/environment.') from None
     for key in keys+['kollsnes_maint_d']:
         selected=pd.date_range(dates.min(),dates.max().to_period('M').end_time.normalize()) if key=='kollsnes_maint_d' else dates
-        try: inspect_forecast_source(root,key,selected,registry,contract,records,output,request['origin'],client)
+        try: candidates[key]=inspect_forecast_source(root,key,selected,registry,contract,records,output,request['origin'],client)
         except (ValueError,OSError,KeyError) as error: failures.append(str(error))
-    missing=inventory.loc[inventory.blocked & inventory.key.str.endswith('_net_actual')]
-    by_node=missing.groupby('consumer').size().to_dict()
-    blockers=['Physical-design decision required: '+str(len(missing))+' additional fields lack an approved forecast supply contract ('+
-        ', '.join(node+': '+str(count) for node,count in by_node.items())+'). No national/non-flexible remainder may be assigned or dropped.',
-        'Snøhvit forecast conversion and vintage compatibility are not approved; historical July-2025 rate guard is unchanged.',
-        'Prospective baseline technical capacities and signed Kollsnes maintenance scope/overlap require explicit approval.']
+    from .production_population import population_blockers
+    blockers=population_blockers(root,components,output)
+    if 'kollsnes_maint_d' in candidates:
+        try:
+            from .operational import save_current_forecast_table
+            capacities,daily=provisional_capacities(model,dates.to_period('M'),candidates['kollsnes_maint_d'],request['capacity_scenario'])
+            save_current_forecast_table(capacities,output/'provisional_capacity_monthly.csv',request,monthly_index=True)
+            save_current_forecast_table(daily,output/'provisional_capacity_daily.csv',request)
+        except (ValueError,KeyError) as error: failures.append(str(error))
+    sn=candidates.get('snohvit_net_prod'); national=candidates.get('norway_prod')
+    if sn is not None and national is not None and sn.gt(national).any():
+        error='snohvit_net_prod: returned values labelled monthly bcm exceed national monthly production; incompatible forecast unit contract. No inferred rate conversion.'
+        failures.append(error)
+        next(record for record in records if record['key']=='snohvit_net_prod').update(status='REJECTED_FORECAST_UNIT_CONTRACT',validation_error=error)
+    blockers.append('Snøhvit forecast conversion and vintage compatibility are not approved; historical July-2025 rate guard is unchanged.')
     (output/'forecast_blockers.json').write_text(json.dumps(dict(physical_decisions=blockers,source_failures=failures,source_records=len(records)),indent=2)+'\n')
+    (output/'source_metadata.json').write_text(json.dumps(records,default=str,indent=2,allow_nan=False)+'\n',encoding='utf-8')
     raise ValueError('Current forecast blocked: '+' '.join(blockers+failures))

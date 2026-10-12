@@ -1,0 +1,32 @@
+{
+  "historical_gate_passed": false,
+  "forecast_activated": false,
+  "weights_frozen": false,
+  "interpretation": "Partial coverage diagnostic only; unresolved_difference is not certified UNMAPPED or allocated supply",
+  "additional69_classification_counts": {
+    "5": 65,
+    "2": 4
+  },
+  "additional69_exact_sid_matches": 61,
+  "additional69_complete_2024_coverage": 28,
+  "additional69_unresolved_coverage": 41,
+  "original62_complete": true,
+  "original_historical_snohvit_guard_unchanged": true,
+  "verified_additional_components_2024_bcm": 0.4264059999999993,
+  "unresolved_difference_annual_bcm": 0.020453000000018005,
+  "maximum_unresolved_month_bcm": 0.01884900000000504,
+  "data_location": "data\\raw\\reconciled_supply_f22\\20261012T165347Z",
+  "source_metadata_sha256": "8966563f27d00633b7b588da61b7b0efe0bccce0ced49db50dcbac112f0c231c",
+  "discovery_metadata_sha256": "1fd1449cb5307f298ac6661b3397c5a1959dd64c40e7f11389bb30bd6ef67e91",
+  "classification_limit": "No new physical entry mappings approved. Class 5 retains candidate export-eligible saleable production with unverified physical entry; group class 2 is unresolved, never excluded numerically.",
+  "blockers": [
+    "33 matched additional sources have incomplete or unavailable 2024 monthly observations; no zero filling.",
+    "8 components lack exact standalone NPD source membership, including grouped/project calculations.",
+    "Brage Statpipe conditioning/entry, Tune sale-gas attribution and Trym Danish-system boundary remain unresolved in accepted model.",
+    "Prospective Snohvit unit/vintage compatibility must pass separately."
+  ],
+  "empty_response_probe": "data\\raw\\reconciled_supply_f22\\20261012T165347Z\\empty_response_probe_170504\\results.json",
+  "empty_response_count": 27,
+  "partial_response_count": 6,
+  "negative_component_months": 1
+}

@@ -31,6 +31,7 @@ DEFINITIONS = [
     ('Settings', 'Resolved run request. Canonical model, registry, fixed evaluation policy and source code snapshots are in provenance; manifest records hashes and Git identity.'),
     ('Missing values', 'Unavailable means not retrieved, unsupported, incompatible or unsolved. It is never an assumed zero. Synthetic references are not invented.'),
     ('Boundaries', 'UK United Kingdom; FR France; BE Belgium; NL Netherlands; DE Germany; DK Danish gross sink; PL Poland delivery. Historical DK signed net allocation and Poland-labelled Nybro entry are incompatible gross-export comparisons.'),
+    ('Country interpretation', 'UK combines receiving routes; FR/BE represent modelled Dunkerque/Zeebrugge corridors; DE/NL are country-allocation proxies in a shared landing pool; DK/PL are modelled corridor allocations. These seven sinks are not seven independently validated terminal forecasts. Combined comparison groups overlap them.'),
     ('Evaluation', 'Development through 2024-12; validation 2025 only for fixed candidate comparison. 2026 holdout locked. No forecast or revised-data fallback is implemented.'),
 ]
 
@@ -181,7 +182,7 @@ def report_run(output, manifest, inputs, results, inventory, network):
     definitions=[(key,'Prospective only: no actuals or scores; historical date guards and 2026 holdout remain locked.' if forecast and key=='Evaluation' else value) for key,value in DEFINITIONS]
     forecast_guide=[('Forecast origin (UTC)',manifest['settings']['origin']),
         ('Delivery horizon',manifest['settings']['start']+' to '+manifest['settings']['end']+'; '+str(manifest['settings']['horizon_months'])+' monthly deliveries'),
-        ('Prospective assumptions',manifest['settings']['capacity_scenario']+'; physical approvals pending for EA inputs; synthetic fixtures are manufactured')] if forecast else []
+        ('Prospective assumptions',manifest['settings']['capacity_scenario']+'; F2.2 provisional capacities approved, complete population and Snøhvit inputs still gated; synthetic fixtures are manufactured')] if forecast else []
     guide = pd.DataFrame([('Run identity', manifest['run_id']), ('Git commit', manifest['git']['commit']),
         ('Action required', manifest['blocker'] or 'Open Monthly flows; read definitions below before using results.'),
         *forecast_guide,*definitions], columns=['item', 'meaning'])
