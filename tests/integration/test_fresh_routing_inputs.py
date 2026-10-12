@@ -2,7 +2,7 @@
 
 Successful cases use a fixture-specific reviewed contract, three already selected
 Kollsnes fields and manufactured responses. The unchanged full operational model
-must still reject all 46 unresolved components before connecting or optimising.
+now includes all 46 directly validated NPD historical field mappings.
 """
 from copy import deepcopy
 import json
@@ -51,7 +51,7 @@ def response_factory(contract, calls, change=None):
         value = 1. if key.endswith('_flow_qa') or spec['frequency']=='daily' else 1.05 if key=='norway_prod' else 2. if key=='snohvit_net_prod' else .2
         result = dict(registry={'key':key, 'sid':spec['sid']}, asof=asof, query=None,
             values=pd.Series(value, index=index), metadata=dict(unit=spec['metadata_unit'],
-                frequency=spec['frequency'], source_file=spec['source_file'],
+                frequency=spec['frequency'], source_file=spec.get('source_file'),
                 lifecycle_stage='forecast', forecast_start_date='2025-10-01',
                 api_obj={'snap_shooju_job_id':'mock-cohort'}, _mock_sid_response=True))
         if change:
@@ -153,13 +153,14 @@ def test_registry_or_mapping_blockers_precede_retrieval(mock_workspace, monkeypa
         prep.prepare_fresh_inputs(root, model, registry, client=object())
 
 
-def test_full_model_keeps_46_essential_blockers(repo_root, monkeypatch):
+def test_full_model_registers_46_without_mutating_configuration(repo_root, monkeypatch):
     model, registry = load_config(repo_root/'config/model.yaml', repo_root/'config/data_series.csv')
     requirements, _, _ = sources.source_requirements(repo_root, model, registry)
-    assert len(requirements.loc[requirements.blocked & requirements.classification.eq('essential_optimisation')]) == 46
-    monkeypatch.setattr(sources, 'get_registered_series', lambda *a,**k: pytest.fail('Full model must not retrieve'))
-    with pytest.raises(ValueError, match='46 essential inputs unresolved'):
-        prep.prepare_fresh_inputs(repo_root, model, registry)
+    assert not requirements.loc[requirements.classification.eq('essential_optimisation'), 'blocked'].any()
+    _, components, contract = sources.source_requirements(repo_root, model, registry)
+    assert len(contract['historical_components']) == 46
+    assert sum(map(len, components.values())) == 62
+    assert model['sources']['KOLLSNES']['series'] == contract['source_groups']['KOLLSNES']
     changed=deepcopy(model)
     changed['routing']['nodes']['KOLLSNES_FEED'].pop('workbook_columns')
     with pytest.raises(ValueError, match='do not remove essential inputs'):

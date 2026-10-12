@@ -34,17 +34,17 @@ without constructing an LP, checking solver availability or optimising.
 Exit 0 means complete or validated-only; exit 2 means blocked/failed. Configuration
 errors stop before package creation. Later failures retain an explanatory package.
 
-**B1 real-data status:** `fresh_sid` now has a directly queried, validated historical
-adapter for the existing selected contracts. The full configured model still stops
-before retrieval on 46 essential component mappings. The [source-mapping ledger
-and audit](evidence/inputs/routing_sources_b1/README.md) distinguish verified existing
-IDs, unverified discovery candidates, derived identities and optional comparisons.
-Zero new component mappings were independently verified. The default command
-writes the exact blockers into its Excel/source inventory and never substitutes
-workbook observations, zeros, aggregate production or frozen inputs. Removing
-components or changing the topology cannot bypass this gate.
+**B2 real-data status:** all 46 known NPD field identifiers are registered from
+direct EA/Shooju responses. 45 have complete January–December 2024 coverage;
+Hanz returns March–December only. The full-year command therefore stops with
+`hanz_net_actual: ... missing 2024-01-01, 2024-02-01`. Inspect `results.xlsx`
+(Read me, Input sources, Diagnostics) and `provenance/source_metadata.json` in
+the printed run directory. Missing observations are never zero-filled or replaced
+by workbook numbers. Restore genuine source coverage before retrying; changing
+the field membership or topology cannot bypass the guard. The [source ledger](evidence/inputs/routing_sources_b1/README.md)
+records identities, returned units, transformations, coverage and evidence hashes.
 
-When all required mappings are reviewed, the adapter queries EA/Shooju through
+On every fresh run, the adapter queries EA/Shooju through
 the existing helper, validates source identity, units/frequency, complete dates,
 historical/forecast boundaries, signs and production import cohort, and retains
 original responses and metadata before preparing model inputs. Incorrect essential

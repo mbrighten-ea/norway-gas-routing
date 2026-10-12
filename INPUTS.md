@@ -2,11 +2,25 @@
 
 ## Milestone A operational contract
 
+B2 NPD historical leaves use the exact known
+`NPD\monthly_by_field\marketed_production\<field>\gas-saleable` identifiers.
+The canonical registry adds 46 supply records; the source contract maps each
+original workbook reference to its unchanged source node. Returned actual monthly
+`bcm` / `bill Sm3` volumes need no conversion. NPD actuals do not need a forecast
+boundary or EA workbook filename/import cohort; their field/marketed-saleable-gas,
+country/provider, lifecycle, units and exact monthly dates are checked instead.
+All other historical and forecast-vintage safeguards remain intact. Every run
+records the latest-revised retrieval date, original metadata and response hash;
+no historical forecast vintage or cached-workbook equality is claimed.
+National minus signed Snøhvit minus all distinct mapped leaves remains the
+UNMAPPED residual; negative residuals fail rather than changing source allocation.
+
 `config/run.yaml` references the canonical files and requests exact target months,
 mode, origin and price-free baseline. `operational.prepare_run_inputs` separates
 preparation from `operational.optimise` and `reporting.operational.report_run`.
 `routing_inputs.prepare_fresh_inputs` provides fresh historical preparation, but
-the full model is blocked by 46 essential component mappings. The retained cached
+all 46 NPD field mappings are active; full-year 2024 is blocked specifically by
+Hanz's absent January and February observations. The retained cached
 `routing_inputs.prepare_inputs` is never called by the operational command.
 `synthetic_demo` is explicitly manufactured, never a cached-input exception.
 

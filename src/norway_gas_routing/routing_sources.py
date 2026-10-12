@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
+import unicodedata
 
 import pandas as pd
 
@@ -61,7 +62,7 @@ def source_requirements(root, model, registry):
     for node, entry in model['routing']['nodes'].items():
         if entry['kind'] != 'source' or entry.get('residual'):
             continue
-        keys = model['sources'][entry['source_group']]['series'] if entry.get('source_group') else []
+        keys = list(model['sources'][entry['source_group']]['series']) if entry.get('source_group') else []
         if len(keys) != len(set(keys)) or assigned.intersection(keys):
             raise ValueError('Duplicate production component across source nodes; no double counting.')
         if entry.get('source_group') and set(keys) != set(contract['source_groups'].get(entry['source_group'], [])):
@@ -82,6 +83,23 @@ def source_requirements(root, model, registry):
         for column in entry.get('workbook_columns', []):
             match = ledger.loc[ledger.reference.eq(column) & ledger.node.eq(node)]
             field = match.iloc[0]['field'] if len(match)==1 else 'Unreviewed field reference'
+            mapping = contract.get('historical_components', {}).get(column)
+            if mapping:
+                key = mapping['key']
+                spec = contract['sources'].get(key, {})
+                if (mapping.get('node') != node or spec.get('provider_contract') != 'npd_historical'
+                        or len(match)!=1 or match.iloc[0].verified_key!=key
+                        or match.iloc[0].verified_sid!=spec.get('sid')
+                        or field_identity(field)!=field_identity(spec.get('npd_field_label',''))):
+                    raise ValueError(column+': historical field mapping/ledger identity mismatch.')
+                if key in assigned:
+                    raise ValueError('Duplicate production component across source nodes; no double counting: '+key)
+                assigned.add(key)
+                components[node].append(key)
+                add(key,node,'essential_optimisation',
+                    'NPD monthly bcm directly; worksheet rate conversion and old adapter reversal cancel')
+                rows[-1].update(reference=column,field=field)
+                continue
             rows.append(dict(key='unresolved_component_'+column, identifier='', consumer=node,
                 field=field, reference=column, classification='essential_optimisation', blocked=True,
                 status='BLOCKED: '+field+' has no verified canonical EA SID mapping',
@@ -114,6 +132,12 @@ OPTIONAL_GROUPS = {'UK': 'uk_flow_qa', 'FR+BE': 'fr_be_flow_qa',
                    'NL+DE': 'nl_de_flow_qa', 'Baltic Pipe': 'pl_flow_qa', 'DK': 'dk_flow_qa'}
 
 
+def field_identity(value):
+    """Normalise labels only, never manufacture a SID."""
+    value = str(value).casefold().replace('ø', 'o').replace('æ', 'ae')
+    return '_'.join(unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').decode().replace('_', ' ').split())
+
+
 def verify_response(key, response, spec, dates, frequency):
     """Accept historical segments only; reported units never imply conversions."""
     if response.get('asof') is not None or '@asof' in str(response.get('query', '')):
@@ -123,18 +147,45 @@ def verify_response(key, response, spec, dates, frequency):
         raise ValueError(key+': response source identifier differs from requested canonical SID.')
     meta = response.get('metadata', {})
     if meta.get('series_id') is not None and meta['series_id'] != spec['sid']:
-        raise ValueError(key+': provider metadata SID mismatch.')
+        legacy = str(meta['series_id']).split('\\')
+        legacy_identity = (spec.get('provider_contract')=='npd_historical' and len(legacy)==4
+            and legacy[:2]==['NPD','monthly_by_field'] and legacy[-1]=='Gas - saleable'
+            and field_identity(legacy[2])==spec['npd_field']
+            and meta.get('series_id_name')=='\\'.join(spec['sid'].split('\\')[2:]))
+        if not legacy_identity:
+            raise ValueError(key+': provider metadata SID mismatch.')
     if meta.get('unit') != spec['metadata_unit'] or meta.get('frequency') != frequency:
         raise ValueError(key+': inconsistent source units/frequency; expected '+spec['metadata_unit']+'/'+frequency+'.')
-    if not str(meta.get('source_file', '')).replace('\\', '/').endswith('/'+spec['source_file']) and meta.get('source_file') != spec['source_file']:
-        raise ValueError(key+': provider source-file identity changed.')
-    if meta.get('lifecycle_stage') not in {'forecast', 'actual', 'historical'}:
-        raise ValueError(key+': unverified lifecycle; historical observations required.')
-    first = meta.get('forecast_start_date')
-    if not first:
-        raise ValueError(key+': missing historical/forecast boundary; no future observation substitution.')
-    if pd.isna(pd.Timestamp(first)) or dates.max().to_period('M') >= pd.Period(pd.Timestamp(first), 'M'):
-        raise ValueError(key+': requested historical months cross the returned forecast boundary.')
+    if spec.get('provider_contract') == 'npd_historical':
+        source = meta.get('source_obj', {})
+        if (meta.get('row_level') != 'field' or meta.get('country_iso') != 'NO'
+                or meta.get('ea_production_type') != 'marketed_production'
+                or meta.get('economic_property') != 'production'
+                or meta.get('energy_product') != 'natural_gas'
+                or source.get('aspect') != 'gas-saleable'):
+            raise ValueError(key+': incompatible NPD field/marketed saleable-gas definition.')
+        if (field_identity(meta.get('ea_field_name_standardised', '')) != spec['npd_field']
+                or field_identity(source.get('discovery_field_name', '')) != field_identity(spec['npd_field_label'])):
+            raise ValueError(key+': returned NPD field identity differs from workbook field/candidate SID.')
+        if meta.get('lifecycle_stage') not in {'actual', 'historical'} or source.get('units') not in {'bill Sm3', 'bcm'}:
+            raise ValueError(key+': NPD requires historical monthly billion-standard-cubic-metre volumes.')
+        if meta.get('source') not in {'Norwegian Petroleum Directorate', 'Norwegian Offshore Directorate'}:
+            raise ValueError(key+': unexpected NPD provider identity.')
+        if not str(meta.get('source_url', '')).startswith(('https://factpages.npd.no/', 'https://factpages.sodir.no/')):
+            raise ValueError(key+': unexpected Directorate source URL.')
+        first = meta.get('forecast_start_date')
+        if first and dates.max().to_period('M') >= pd.Period(pd.Timestamp(first), 'M'):
+            raise ValueError(key+': requested historical months cross the returned forecast boundary.')
+    else:
+        if not str(meta.get('source_file', '')).replace('\\', '/').endswith('/'+spec['source_file']) and meta.get('source_file') != spec['source_file']:
+            raise ValueError(key+': provider source-file identity changed.')
+        if meta.get('lifecycle_stage') not in {'forecast', 'actual', 'historical'}:
+            raise ValueError(key+': unverified lifecycle; historical observations required.')
+        first = meta.get('forecast_start_date')
+        if not first:
+            raise ValueError(key+': missing historical/forecast boundary; no future observation substitution.')
+        if pd.isna(pd.Timestamp(first)) or dates.max().to_period('M') >= pd.Period(pd.Timestamp(first), 'M'):
+            raise ValueError(key+': requested historical months cross the returned forecast boundary.')
     values = response['values']
     if not isinstance(values.index, pd.DatetimeIndex) or not values.index.is_unique or values.index.hasnans:
         raise ValueError(key+': missing/duplicate timestamp; no aggregation or filling.')
@@ -147,7 +198,11 @@ def verify_response(key, response, spec, dates, frequency):
     if not actual.equals(actual.normalize()) or (frequency=='monthly' and not actual.equals(actual.to_period('M').to_timestamp())):
         raise ValueError(key+': expected midnight '+frequency+' observation dates.')
     if not actual.sort_values().equals(dates):
-        raise ValueError(key+': incomplete or out-of-bounds '+frequency+' coverage; no filling/interpolation.')
+        missing = dates.difference(actual)
+        extra = actual.difference(dates)
+        fmt = lambda values: ', '.join(str(d.date()) for d in values[:15]) or 'none'
+        raise ValueError(key+': incomplete or out-of-bounds '+frequency+' coverage; missing '+fmt(missing)+
+                         '; unexpected '+fmt(extra)+'; no filling/interpolation.')
     normal = pd.Series(pd.to_numeric(values.to_numpy(), errors='raise'), index=actual, name=key).sort_index()
     if normal.isna().any() or not normal.map(lambda v: float('-inf') < float(v) < float('inf')).all():
         raise ValueError(key+': missing/nonfinite source observations.')

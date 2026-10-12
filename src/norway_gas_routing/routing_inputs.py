@@ -115,9 +115,10 @@ def prepare_fresh_inputs(root, model, registry, *, provenance_dir=None, client=N
     snohvit = get('snohvit_net_prod', months) * pd.Series(months.days_in_month/1000, index=months)
     supply['UNMAPPED'] = total-snohvit-supply.sum(axis=1)
     finite_nonnegative(supply.to_numpy().ravel(), 'source/residual supply; verify aggregate boundaries')
-    # Same production import cohort when provider snapshot IDs are supplied.
+    # EA workbook cohort only. Directorate leaves are separate latest-revised
+    # historical sources; no shared EA import job or cache equality is required.
     cohort = {r['metadata'].get('api_obj', {}).get('snap_shooju_job_id') for r in records
-              if r['key'] in selected_keys+['norway_prod']}
+              if r['category']=='production' and r['key'] in selected_keys+['norway_prod']}
     if len(cohort-{None}) > 1:
         raise ValueError('Mixed production import vintages; retrieve a consistent national/component cohort. No silent revised substitution.')
     observations = pd.DataFrame({d: get(d.lower()+'_flow_qa', training) for d in DESTINATIONS})

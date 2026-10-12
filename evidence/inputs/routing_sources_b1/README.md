@@ -1,5 +1,35 @@
 # B1 routing-source audit and integration gate
 
+## B2 activation update — 12 October 2026
+
+The ledger and `verified_sources.json` now include direct-response checks of all
+46 known candidates; the original B1 audit below and its JSON remain historical
+evidence. 45 fields passed complete January–December 2024 coverage. Hanz passed
+identity/measurement checks and March–December coverage, but its full-year query
+omits January and February: these remain an explicit operational blocker.
+
+NPD actual monthly `bcm` / `bill Sm3` is marketed saleable natural gas, used
+directly in bcm/month. Existing worksheet rate conversion and adapter reversal
+cancel. Field labels, country, measure, lifecycle, provider, units, dates and
+nonnegative observations were checked; old workbook equality is not required.
+Sindre returns the old metadata label `NPD\monthly_by_field\SINDRE\Gas - saleable`
+alongside the matching current `series_id_name`, field and measurement metadata.
+The validator accepts that exact legacy label structure only when all identities
+agree; the queried and registered SID remains the known marketed-production SID.
+NPD revisions need not share EA workbook import-job identifiers. Existing EA
+cohort checks remain, and every operational run queries all inputs fresh.
+
+`scripts/audit/activate_historical_fields.py --apply` validates known candidates
+within 2024 and appends passing registry records, after validating the full model
+configuration and checking for concurrent changes. `--reference FM` rechecks
+Sindre; `--reference GI --start 2024-03 --end 2024-12` records Hanz's partial
+coverage without asserting absent months are zero. Responses and before/candidate
+snapshots are retained locally in `data/raw/npd_activation/`; per-row paths,
+retrieval dates and hashes are in the ledger/contracts. These are evidence, never
+a run-input cache. Activation does not authorise new retrieval scopes.
+
+## Original B1 audit
+
 Audit date: 12 October 2026; baseline `0de2ba4`. No source observations were
 retrieved, no workbook observations were used, and no holdout values were read.
 The audit inspected headers plus January/December 2024 formulas only. Original

@@ -1,5 +1,44 @@
 # Current implementation state
 
+## Historical NPD input activation B2 — 12 October 2026
+
+Implemented on `feature/historical-npd-input-b2` from verified `be294be`.
+All 46 known NPD identifiers passed direct field/measure/unit identity checks
+and were added to the canonical registry and existing source contract/ledger.
+45 returned complete January–December 2024 coverage. Hanz returned ten months,
+March–December; January and February are absent, not assumed zero. Sindre's
+old metadata SID label is accepted only with matching current series_id_name,
+field and marketed saleable-gas definition. No source discovery was repeated.
+
+Default full-year live command produced
+`outputs/routing_runs/20261012T132445551243Z_21658147/`: BLOCKED_INPUTS on
+`hanz_net_actual`, missing `2024-01-01, 2024-02-01`. The nine-sheet Excel,
+diagnostic dates, raw response hashes and manifest were checked. No optimisation
+or full-year real-data result exists. Downstream preparation after this first
+coverage error has not been demonstrated with live data. Activation evidence is
+retained locally under `data/raw/npd_activation/`; ledger rows identify exact
+metadata paths, retrieval dates and hashes. Existing evidence remains preserved.
+
+Validation: 300 regression checks passed, followed by 13 focused NPD checks
+after adding the registry activation/recheck test. The latter verifies full
+configuration validation, original registry preservation and no duplicate append.
+Excel previews were reviewed; unavailable results and Hanz's dates are visible.
+
+Full-network manufactured SID responses exercise all 62 field components,
+unchanged capacities, signed LNG accounting, residual supply, LP/reporting and
+Hanz failure propagation. This does not manufacture missing live observations.
+Price-free objective, EA import checks, forecast-origin requirements, physical
+field mappings and locked 2026 holdout remain unchanged. NPD actual monthly bcm
+is used directly, independently of the EA import batch and older workbook values.
+
+Restart: inspect Git state; obtain genuine Hanz January/February source coverage
+before retrying `scripts/run/run_routing.py --config config/run.yaml` (or
+`--validate-only`). If source evidence supports a pre-start zero treatment, that
+would require an explicit methodological decision; it is not embedded here.
+Real-data preparation is activated, but full-year 2024 execution remains blocked.
+
+The B1 section below records the pre-activation state and is historical.
+
 ## Real-data input integration B1 - 12 October 2026
 
 Implemented on `feature/real-data-input-b1` from verified `0de2ba4`.

@@ -93,7 +93,6 @@ def test_validate_only_never_builds_lp_or_retrieves(workspace, monkeypatch):
 @pytest.mark.parametrize('changes,message', [
     ({'mode': 'retrospective_forecast', 'origin': '2023-12-31T23:59:59Z'}, 'complete origin bundle'),
     ({'mode': 'latest_forecast'}, 'Forecast mode unavailable'),
-    ({'input_source': 'fresh_sid'}, '46 essential inputs unresolved'),
 ])
 def test_blocked_modes_have_actionable_packages(workspace, changes, message):
     configure(workspace, **changes)
