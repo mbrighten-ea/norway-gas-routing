@@ -1,0 +1,184 @@
+{
+  "norway_exports_qa": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO\\gassco_total\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:16:56.972161+00:00",
+    "meta.updated_at": 1791825168645,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:12:48.645000+00:00"
+  },
+  "uk_flow_qa": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO\\gassco_UK\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:16:57.264936+00:00",
+    "meta.updated_at": 1791825176069,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:12:56.069000+00:00"
+  },
+  "fr_be_flow_qa": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO\\gassco_FR_and_BE\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:16:57.573885+00:00",
+    "meta.updated_at": 1791825164845,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:12:44.845000+00:00"
+  },
+  "nl_de_flow_qa": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO\\gassco_NL_and_DE\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:16:57.889606+00:00",
+    "meta.updated_at": 1791825167403,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:12:47.403000+00:00"
+  },
+  "pl_flow_qa": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO\\gassco_PL\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:16:58.198515+00:00",
+    "meta.updated_at": 1791825173711,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:12:53.711000+00:00"
+  },
+  "dk_flow_qa": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO\\gassco_DK\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:16:58.501763+00:00",
+    "meta.updated_at": 1791797107534,
+    "meta.updated_by": "mike.cullen",
+    "updated_at_utc": "2026-10-12T09:25:07.534000+00:00"
+  },
+  "norway_prod": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:16:58.805870+00:00",
+    "meta.updated_at": 1791825194388,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:13:14.388000+00:00"
+  },
+  "troll_prod": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_Troll_field\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:16:59.112806+00:00",
+    "meta.updated_at": 1791825211754,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:13:31.754000+00:00"
+  },
+  "oseberg_prod": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_Oseberg_field\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:16:59.563551+00:00",
+    "meta.updated_at": 1791825209061,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:13:29.061000+00:00"
+  },
+  "aasta_hansteen_prod": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_Aasta_Hansteen_field\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:16:59.884632+00:00",
+    "meta.updated_at": 1791825195463,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:13:15.463000+00:00"
+  },
+  "asgard_prod": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_Asgard_field\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:17:00.310299+00:00",
+    "meta.updated_at": 1791825196850,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:13:16.850000+00:00"
+  },
+  "gina_krog_prod": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_Gina_Krog_field\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:17:00.633224+00:00",
+    "meta.updated_at": 1791825198589,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:13:18.589000+00:00"
+  },
+  "gullfaks_sor_prod": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_Gullfaks_Sor_field\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:17:00.946181+00:00",
+    "meta.updated_at": 1791825199494,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:13:19.494000+00:00"
+  },
+  "heidrun_prod": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_Heidrun_field\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:17:01.279561+00:00",
+    "meta.updated_at": 1791825202259,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:13:22.259000+00:00"
+  },
+  "kristin_prod": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_Kristin_field\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:17:01.622228+00:00",
+    "meta.updated_at": 1791825200446,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:13:20.446000+00:00"
+  },
+  "kvitebjorn_prod": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_Kvitebjorn_field\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:17:01.957435+00:00",
+    "meta.updated_at": 1791825201316,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:13:21.316000+00:00"
+  },
+  "martin_linge_prod": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_Martin_Linge_field\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:17:02.293843+00:00",
+    "meta.updated_at": 1791825203866,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:13:23.866000+00:00"
+  },
+  "norne_prod": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_Norne_field\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:17:02.701049+00:00",
+    "meta.updated_at": 1791825205726,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:13:25.726000+00:00"
+  },
+  "ormen_lange_prod": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_Ormen_Lange_field\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:17:03.043267+00:00",
+    "meta.updated_at": 1791825206658,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:13:26.658000+00:00"
+  },
+  "skarv_prod": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_Skarv_field\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:17:03.385002+00:00",
+    "meta.updated_at": 1791825207552,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:13:27.552000+00:00"
+  },
+  "sleipner_prod": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_Sleipner_field\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:17:03.725718+00:00",
+    "meta.updated_at": 1791825210820,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:13:30.820000+00:00"
+  },
+  "visund_prod": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_Visund_field\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:17:04.047623+00:00",
+    "meta.updated_at": 1791825209987,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:13:29.987000+00:00"
+  },
+  "dvalin_prod": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_Dvalin_field\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:17:04.404899+00:00",
+    "meta.updated_at": 1791825197687,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:13:17.687000+00:00"
+  },
+  "snohvit_net_prod": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_Snohvit_field\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:17:04.729685+00:00",
+    "meta.updated_at": 1760624101591,
+    "meta.updated_by": "tom.purdie",
+    "updated_at_utc": "2025-10-16T14:15:01.591000+00:00"
+  },
+  "snohvit_net_prod_legacy": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_SN\u00d8HVIT_gas_production\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:17:05.075762+00:00",
+    "meta.updated_at": 1667571559723,
+    "meta.updated_by": "lauren.broadfield",
+    "updated_at_utc": "2022-11-04T14:19:19.723000+00:00"
+  },
+  "kollsnes_maint_d": {
+    "query": "sid=\"teams\\natural_gas\\EUR\\daily_NO\\NO_maintenance_Kollsnes\"@asof:2026-10-12T17:12:28",
+    "retrieved_at": "2026-10-12T17:17:05.388250+00:00",
+    "meta.updated_at": 1791824599280,
+    "meta.updated_by": "ea-service-account",
+    "updated_at_utc": "2026-10-12T17:03:19.280000+00:00"
+  }
+}

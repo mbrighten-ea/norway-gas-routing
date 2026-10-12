@@ -1,0 +1,38 @@
+{
+  "origin": "2026-10-12T17:12:28+00:00",
+  "initial_git": {
+    "branch": "investigation/ea-legacy-forecast-horizon",
+    "commit": "81114aa17186c755962830d58b6f9e81dc52518d",
+    "index_diff": ""
+  },
+  "preserved_file_count": 1658,
+  "preserved_existing_changes_and_outputs": true,
+  "changed_preserved_files": [],
+  "workbook_hash_unchanged": true,
+  "protected_actuals_read": false,
+  "model_runs": 0,
+  "checked_beyond_2030_through": "2040-12-31",
+  "forecast_observation_min": "2026-10-01",
+  "forecast_observation_max": "2030-12-31",
+  "coverage_rows": 26,
+  "field_forecast_count": 16,
+  "blocked_series": [],
+  "evidence_hashes": {
+    "coverage_checks.json": "3f60029cde27ef1e1438c7001d3a6e8d99e72b7ddfa9370c41cbc4cb75a57aa8",
+    "forecast_observations.csv": "1d6cf8f3b30af9813d8499567555d83bdf77a5c444f550f1792d133a570f49cb",
+    "README.md": "5191b91c8cff4b94df6765f71f460e76dd35bd7532b37e0b18f86b6667a817fa",
+    "sid_coverage.csv": "4864cddf4ffdb5da94248e7fa701558fe96c03b14bc1898cf249cec2381f841d",
+    "source_evidence.json": "2e734001c935b244109ff3b9bdbbca1284a0b371ca626f528a1c7e526cde4bec",
+    "update_metadata.json": "68b744229636d1a6a470ab961340761b29baf169d642c11946ebac8c63f18c09",
+    "workbook_evidence.json": "06f8139e3ac31db0f67c5c167f70be99acb07460aa27b9b4a39c1060a5eec0d4"
+  },
+  "final_checks": {
+    "monthly_observations_on_month_start": true,
+    "finite_observations": true,
+    "duplicate_dates": false,
+    "protected_date_values": false,
+    "both_workbooks_unchanged": true,
+    "all_26_series_probed_beyond_2030": true,
+    "six_flow_series_plus_national_plus_16_fields_have_51_months": true
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "Forecasts": {
+    "first_row": 134,
+    "last_row": 184,
+    "month_count": 51,
+    "columns_with_formulas_and_finite_saved_values": [
+      "F",
+      "AT",
+      "AY",
+      "BD",
+      "H",
+      "M"
+    ]
+  },
+  "SJ upload": {
+    "first_row": 154,
+    "last_row": 204,
+    "month_count": 51,
+    "columns_with_formulas_and_finite_saved_values": [
+      "D",
+      "G",
+      "K",
+      "L",
+      "M",
+      "O"
+    ]
+  },
+  "published_country_total_max_abs_residual_bcm": 3.552713678800501e-15,
+  "denmark_all_51_published_forecasts_are_zero": true,
+  "saved_vs_published": {
+    "uk_flow_qa": {
+      "max_absolute_difference_bcm": 0.05091820647409584,
+      "months_differing_over_1e_10": 51
+    },
+    "fr_be_flow_qa": {
+      "max_absolute_difference_bcm": 0.03219695819494861,
+      "months_differing_over_1e_10": 47
+    },
+    "nl_de_flow_qa": {
+      "max_absolute_difference_bcm": 0.013009480082475378,
+      "months_differing_over_1e_10": 48
+    },
+    "pl_flow_qa": {
+      "max_absolute_difference_bcm": 0.03100000000000014,
+      "months_differing_over_1e_10": 1
+    },
+    "norway_exports_qa": {
+      "max_absolute_difference_bcm": 0.029999999999997584,
+      "months_differing_over_1e_10": 14
+    },
+    "dk_flow_qa": {
+      "max_absolute_difference_bcm": 0.0,
+      "months_differing_over_1e_10": 0
+    }
+  },
+  "kollsnes_daily_coverage": [
+    {
+      "year": "2026",
+      "points": 92,
+      "nonzero": 0
+    },
+    {
+      "year": "2027",
+      "points": 365,
+      "nonzero": 55
+    },
+    {
+      "year": "2028",
+      "points": 366,
+      "nonzero": 0
+    },
+    {
+      "year": "2029",
+      "points": 365,
+      "nonzero": 0
+    },
+    {
+      "year": "2030",
+      "points": 365,
+      "nonzero": 0
+    }
+  ],
+  "production_workbook_endpoint": {
+    "path": "data\\raw\\legacy\\Norwegian production model.xlsx",
+    "sha256": "4aaff5eaaa96d2e6d47ef94a8cf5a9abf5822fcbcabfd4c661e1cd8e29fd4686",
+    "cells": {
+      "HH18": {
+        "date": "2026-10-01",
+        "formula": null,
+        "saved_value": null
+      },
+      "IE18": {
+        "date": "2026-10-01",
+        "formula": "=TEXT(EOMONTH(TODAY(),-1)+1,\"yyyy-mm-dd\")",
+        "saved_value": "2026-10-01"
+      },
+      "GD465": {
+        "date": "2026-10-01",
+        "formula": "=IF($E465>GD$11,0,IF((YEAR($E465)-YEAR(GD$6))*12+MONTH($E465)-MONTH(GD$6)+1<GD$7,GD453,IF((YEAR($E465)-YEAR(GD$6))*12+MONTH($E465)-MONTH(GD$6)+1-GD$7>24,(1-GD$10)*GD453,IF(AND(24>(YEAR($E465)-YEAR(GD$6))*12+MONTH($E465)-MONTH(GD$6)+1-GD$7,(YEAR($E465)-YEAR(GD$6))*12+MONTH($E465)-MONTH(GD$6)+1-GD$7>12),(1-GD$9)*GD453,(1-GD$8)*GD453))))",
+        "saved_value": "17.418954193548387"
+      },
+      "GY465": {
+        "date": "2026-10-01",
+        "formula": "=SUM(HH465,GD465*D465/1000)",
+        "saved_value": "10.749802872537174"
+      },
+      "HH465": {
+        "date": "2026-10-01",
+        "formula": "=HG465*D465/1000",
+        "saved_value": "10.209815292537174"
+      },
+      "HM465": {
+        "date": "2026-10-01",
+        "formula": "=HN465*D465/1000",
+        "saved_value": "10.073680938197867"
+      },
+      "HN465": {
+        "date": "2026-10-01",
+        "formula": "=HG465-BC465-EB465-FD465-FF465-CK465-FS465-EQ465-CG465-EB465",
+        "saved_value": "324.95744961928602"
+      },
+      "IE465": {
+        "date": "2026-10-01",
+        "formula": "=GY465",
+        "saved_value": "10.749802872537174"
+      },
+      "GD515": {
+        "date": "2030-12-01",
+        "formula": "=IF($E515>GD$11,0,IF((YEAR($E515)-YEAR(GD$6))*12+MONTH($E515)-MONTH(GD$6)+1<GD$7,GD503,IF((YEAR($E515)-YEAR(GD$6))*12+MONTH($E515)-MONTH(GD$6)+1-GD$7>24,(1-GD$10)*GD503,IF(AND(24>(YEAR($E515)-YEAR(GD$6))*12+MONTH($E515)-MONTH(GD$6)+1-GD$7,(YEAR($E515)-YEAR(GD$6))*12+MONTH($E515)-MONTH(GD$6)+1-GD$7>12),(1-GD$9)*GD503,(1-GD$8)*GD503))))",
+        "saved_value": "17.445114860857512"
+      },
+      "GY515": {
+        "date": "2030-12-01",
+        "formula": "=SUM(HH515,GD515*D515/1000)",
+        "saved_value": "9.2782709077232433"
+      },
+      "HH515": {
+        "date": "2030-12-01",
+        "formula": "=HG515*D515/1000",
+        "saved_value": "8.7374723470366611"
+      },
+      "HM515": {
+        "date": "2030-12-01",
+        "formula": "=HN515*D515/1000",
+        "saved_value": "8.5643794941538083"
+      },
+      "HN515": {
+        "date": "2030-12-01",
+        "formula": "=HG515-BC515-EB515-FD515-FF515-CK515-FS515-EQ515-CG515-EB515",
+        "saved_value": "276.2703062630261"
+      },
+      "IE515": {
+        "date": "2030-12-01",
+        "formula": "=GY515",
+        "saved_value": "9.2782709077232433"
+      }
+    },
+    "dates": {
+      "2026-10-01": 465,
+      "2030-12-01": 515
+    },
+    "unchanged": true
+  }
+}
