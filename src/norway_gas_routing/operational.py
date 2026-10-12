@@ -69,8 +69,8 @@ def load_run_config(root, path):
     current=request['mode']=='current_forecast'
     if not isinstance(request['capacity_scenario'],str):
         raise RunBlocked('capacity_scenario must be a named string.')
-    if current and request['capacity_scenario'] not in {'baseline_prospective','synthetic_fixture'}:
-        raise RunBlocked('Current forecast requires explicit baseline_prospective (approval pending) or synthetic_fixture capacity scenario.')
+    if current and request['capacity_scenario'] not in {'baseline_prospective','provisional_kollsnes_143','provisional_kollsnes_156','synthetic_fixture'}:
+        raise RunBlocked('Current forecast requires provisional_kollsnes_143 / provisional_kollsnes_156 or explicit synthetic_fixture capacities.')
     if current and ((request['input_source']=='synthetic_demo') != (request['capacity_scenario']=='synthetic_fixture')):
         raise RunBlocked('synthetic_fixture capacities require synthetic_demo inputs, and vice versa; never mix manufactured and EA inputs.')
     if not current and request['capacity_scenario'] != 'baseline':
@@ -325,7 +325,7 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
     prepared.mkdir()
     manifest = dict(schema_version=1, run_id=run_id, run_at_utc=datetime.now(timezone.utc).isoformat(),
         status='PREPARING', phase='preparation', blocker=None, settings=request,
-        analysis_type=('SYNTHETIC CURRENT-FORECAST WORKFLOW — manufactured data, not an EA forecast' if request['input_source']=='synthetic_demo' else 'Current forecast — pending approved physical inputs') if request['mode']=='current_forecast' else
+        analysis_type=('SYNTHETIC CURRENT-FORECAST WORKFLOW — manufactured data, not an EA forecast' if request['input_source']=='synthetic_demo' else 'Norwegian Gas Routing: Provisional Physical and Historical-Preference Allocation Forecast') if request['mode']=='current_forecast' else
             'SYNTHETIC DEMONSTRATION — not EA data or a forecast' if request['input_source']=='synthetic_demo' else 'Latest revised reconstruction',
         asof=request['origin'], unit='bcm/month', git=identity,
         config_sha256={str(p.relative_to(root)): digest(p) for p in [config_path,
@@ -335,7 +335,7 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
         interpreter=sys.executable, package_versions={name: version(name) for name in
             ['pandas', 'pulp', 'openpyxl', 'matplotlib', 'networkx', 'PyYAML']})
     if request['mode']=='current_forecast':
-        manifest.update(operational_forecast_available=False,physical_supply_contract='Pending physical-design approval; fixtures are demonstration only')
+        manifest.update(operational_forecast_available=False,physical_supply_contract='F2.2: complete historical population and compatible Snøhvit required; allocation and capacities provisionally approved, no EA commercial validation')
     manifest['code_sha256']['scripts/run/run_routing.py'] = digest(root/'scripts/run/run_routing.py')
     # Preserve dirty code itself, not only a hash which cannot reconstruct it.
     code = provenance/'code'
@@ -362,6 +362,9 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
             mask = inventory.classification.eq('essential_training')
             inventory.loc[mask, 'start'] = model['routing']['baseline_start']
             inventory.loc[mask, 'end'] = model['routing']['baseline_end']
+            mask=inventory.classification.eq('essential_population')
+            inventory.loc[mask,'start']='2024-01'
+            inventory.loc[mask,'end']='2024-12'
         except (ValueError, OSError) as error:
             inventory_error = str(error)
         for name in [CONTRACT, MAPPING_LEDGER, 'evidence/inputs/routing_sources_b1/hanz_preproduction.json']:
@@ -371,6 +374,12 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
                 target.write_bytes((root/name).read_bytes())
             else:
                 inventory_error = 'Reviewed source evidence missing: '+name+'. Restore the committed evidence; never infer replacement mappings.'
+        if request['mode']=='current_forecast':
+            from .production_population import POPULATION, LINEAGE
+            for name in [POPULATION, LINEAGE, 'evidence/inputs/reconciled_supply_f22/assessment.json']:
+                target=provenance/name
+                target.parent.mkdir(parents=True,exist_ok=True)
+                if (root/name).is_file(): target.write_bytes((root/name).read_bytes())
     inputs, results, checks = None, {}, pd.DataFrame(columns=['month', 'max_mass_balance_residual_bcm', 'max_capacity_violation_bcm'])
     try:
         if inventory_error:
