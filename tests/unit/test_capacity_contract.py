@@ -59,6 +59,7 @@ def test_database_operator_not_inferred_from_point(proposal):
     with pytest.raises(ValueError): validate_contract(contract,model,db)
 
 
+@pytest.mark.retained_evidence
 def test_retained_history_lineage_and_no_volume_comparison():
     coverage,differences=inspect_contract(ROOT,CONTRACT)
     assert len(coverage)==9

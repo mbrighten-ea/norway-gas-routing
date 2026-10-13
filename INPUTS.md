@@ -7,6 +7,8 @@ blockers for this labelled experiment, not historical-vintage safeguards or the
 unmodified default configuration. Every run queries genuine prospective SIDs at
 one current October origin and authorised 2024 history/2023 preferences freshly.
 Operational observations never come from Excel caches or retained audit responses.
+The release verifier may replay immutable recorded inputs for reproduction only;
+this does not provide a cache fallback or historical-origin forecasting contract.
 
 The approved annual EA certificate is
 `126.231133 = 119.377524 + 0.426406 + 0.020461 + 6.406742 bcm`.

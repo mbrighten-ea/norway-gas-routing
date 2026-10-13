@@ -20,3 +20,7 @@ venv/
 *.p12
 *.pfx
 credentials.json
+
+# Immutable run-request snapshots must survive even when the request was temporary.
+!outputs/routing_runs/*/provenance/configuration/.scratch/
+!outputs/routing_runs/*/provenance/configuration/.scratch/**

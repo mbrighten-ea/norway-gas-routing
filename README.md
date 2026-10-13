@@ -8,7 +8,33 @@ contains 152 OPTIMAL monthly solves with identical freshly queried sources at
 for all 38 monthly country/corridor allocations, accounting and sensitivities.
 The [package verification](outputs/forward_scenarios/20261013T134952692166Z/provenance/validation.json)
 checks source identity/ownership, national closure, capacities, holdout exclusion,
-Excel cells/charts and artifact hashes. Full regression: 624 passed.
+Excel cells/charts and artifact hashes. The [hardened primary Excel](outputs/forward_scenarios/20261013_f26/results.xlsx)
+combines all scenarios, accounting, source nodes and capacity utilisation. Four exact
+original YAML snapshots omitted by a nested `.scratch` Git ignore are now restored;
+the original F2.4 results, manifests and workbook bytes remain unchanged.
+
+To verify the retained release without changing it or querying SIDs:
+
+```powershell
+& 'C:\Users\martell.brighten\Documents\repos\.envs\env1.0\python.exe' scripts/verify/verify_forward_scenarios.py outputs/forward_scenarios/20261013_f26 --replay
+```
+
+This replays immutable inputs with the installed recorded solver and checks monthly
+country flows, disposal, objective and all arc flows to 1e-7 bcm, plus every package
+hash, ownership, accounting and capacity check. It is numerical reproduction, not a
+fresh operational forecast. `--write-validation` is only for a newly created package.
+
+Ordinary offline regressions run with `python -m pytest -q`. Fourteen tests explicitly
+marked `retained_evidence` are reported as deselected; they require the original
+public-capacity audit, not forecast data or a synthetic replacement. Run them with
+`python -m pytest --run-evidence -m retained_evidence -q`. Missing prerequisites
+produce an explicit error. Restore `evidence/inputs/public_capacity_audit_manifest.json`,
+`public_capacity_verification.json`, their referenced evidence/raw files and
+`archive/20261009-17_public-capacity-database/database/capacity.sqlite` from the retained
+public bundle. Existing checks verify the original hashes, including configuration
+and archived byte serialization; do not regenerate or edit evidence to fit a test.
+The SQLite SHA-256 is `5e6e2b14c76a0afb94aa487e316c617f37fd78f95f117d96ec30232b180721a4`.
+Use the approved workspace interpreter for both test commands.
 
 Run `scripts/run/run_forward_scenarios.py` with the workspace interpreter to produce
 fresh November 2026–December 2029 results for A reference, B whole-Heidrun domestic
@@ -52,30 +78,24 @@ forecast validity and production readiness remain unresolved.
 
 ## Operational operator guide
 
-**F2.2 status:** the complete production-population gate is blocked. The default
-`provisional_kollsnes_143` scenario is approved provisionally (19 existing
-envelopes; Kollsnes 143 mcm/day, signed maintenance once). Select
-`provisional_kollsnes_156` for the approved sensitivity; other future availability
-is disclosed as unknown. These scenarios do not approve incomplete production.
-`baseline_prospective` remains an alias for the 143 central case.
+The active opt-in prospective contract is `core_f24`, documented in INPUTS.md.
+The unmodified default retains the original blocked F2.2 contract and 12-month view.
+It must not be confused with Core's approved provisional POC. Choose the approved
+contract explicitly in the same run YAML:
 
-The [complete component ledger and source checks](evidence/inputs/reconciled_supply_f22/README.md)
-replace the earlier blanket 46-field forecast blocker. The backend checks the
-entire 132-component population, preserves UNMAPPED, and refuses to derive
-weights from only the original 46. The approved annual-2024 allocation method
-cannot activate until complete classifications, source coverage and the national
-identity pass. Snøhvit's prospective units/vintage also remain incompatible.
-`--validate-only` retains an explicitly blocked Excel/CSV/HTML package, exact
-forecast responses, the population ledger and checked provisional capacities;
-blank flow results mean unavailable, not zero exports. No source-backed country
-forecast or sensitivity conclusions are currently available.
+```yaml
+physical_input_contract: core_f24
+heidrun_treatment: export_eligible  # domestic_bound for the hypothetical exclusion
+capacity_scenario: core_f24_156     # core_f24_proportional_143 for stress
+forecast_end_month: '2029-12'       # null retains rolling 12 months
+compare_scenarios: true            # false/omitted runs the selected single scenario
+```
 
-Troubleshoot coverage against `production_population.csv`, `assessment.json`
-and raw SID responses. Resolve provider omissions or document a specific
-source-supported relationship; never turn an empty response into zero. Resolve
-project/group membership and Brage/Tune/Trym's accepted boundary questions.
-Correct or independently establish Snøhvit's forecast contract before deduction.
-Do not combine workbook values with SID forecasts or reuse old five-node weights.
+`compare_scenarios: true` uses the existing runner for A/B/C/D at one shared origin,
+with the selected period. The same command prints one primary Excel location containing
+monthly/annual scenarios, differences, accounting, source nodes, capacity utilisation
+and qualifications. Each scenario's complete CSV/HTML/chart/provenance package remains
+available. `--validate-only` validates all requested cases without solving.
 
 Use `config/run.yaml` as the single run request. Its repository-relative paths
 reference the canonical model, registry and locked evaluation policy without
@@ -137,17 +157,11 @@ month after the UTC information origin. Run the same command with
 `--validate-only` first. This requests fresh origin-matched SID observations
 over the entire delivery window and does not construct an LP.
 
-Changing horizon never fills source months. Selected Snøhvit stops in December
-2029, so every requested 2030 month is missing and the extended live run stays
-`BLOCKED_INPUTS`. Its units/vintage remain incompatible even for the short view.
-The complete 2024 population/classification gate and absence of frozen residual
-weights remain blockers. The 156 sensitivity passing capacity preparation does
-not approve a replacement central rating or solve these source problems.
-`source_metadata.json` records expected/returned point counts and missing dates
-and delivery months; `forecast_blockers.json` separates structured source gaps
-from unresolved physical decisions. Missing dates and unavailable outputs remain
-missing, not zeros. Prospective technical envelopes remain explicitly provisional,
-with unknown availability outside the approved signed Kollsnes-plan contract.
+Changing horizon never fills source months. The approved selected Snøhvit source
+ends December 2029, so missing 2030 deliveries retain `BLOCKED_INPUTS`. In `core_f24`,
+the approved LNG conversion/mixed-vintage and frozen residual contracts replace the
+old physical-decision blockers; source gaps and accounting failures still block.
+Other prospective envelopes retain unverified future availability.
 
 Excel, CSV, HTML, charts and provenance retain every chronological monthly row
 across calendar years and use monthly bcm units. For an explicit manufactured
@@ -155,20 +169,11 @@ across calendar years and use monthly bcm units. For an explicit manufactured
 `capacity_scenario: synthetic_fixture`. It is labelled SYNTHETIC throughout and
 queries no EA data; these fixture values cannot substitute for blocked live inputs.
 
-The sixteen identified field forecasts and national total are monthly bcm.
-Snøhvit is retrieved unchanged pending forecast-unit/vintage confirmation.
-The approved provisional capacity scenario holds canonical technical envelopes
-constant and uses the signed Kollsnes plan once. Source/reference incompatibility
-still blocks execution: the current plan reaches 156 mcm/day on thirteen days,
-exceeding the 143 central envelope. The 156 sensitivity accepts this plan; neither
-scenario resolves the population or Snøhvit gates.
-Future actuals/comparison scores are never requested. Excel records origin,
-deliveries, assumptions, source checks and explicit unavailable flow results.
-`provenance/forecast_requirements.csv` lists every affected field/node;
-`forecast_blockers.json` separates source failures from physical decisions.
-The [F2 supply-contract decision](evidence/inputs/forecast_viability_f1/current_forecast_supply_contract.md)
-documents direct node-feed, reduced-scope and residual-split alternatives. No
-arbitrary national/non-flex allocation or partial real-data LP is implemented.
+The national and sixteen field forecasts are monthly bcm. In `core_f24`, selected
+Snøhvit rates convert using calendar days/1000; Kollsnes uses 156 minus verified net
+unavailability once, or proportional 143 stress. Read the workbook's qualifications
+before treating proxies or assumed residual coverage as physically identified flows.
+No protected actuals or forecast accuracy scores are requested.
 
 **Historical reconstruction:** set mode to `historical_reconstruction`, start to
 `'2024-01'`, end to `'2024-12'`, origin to null and capacity_scenario to `baseline`.
@@ -183,9 +188,8 @@ sources, Diagnostics) and `provenance/source_metadata.json` in the printed packa
 The [source ledger](evidence/inputs/routing_sources_b1/README.md) records identities,
 units, transformations, coverage and hashes.
 
-**F1 forecast readiness:** current and historical forecast execution remain
-blocked by specific source/vintage dependencies, not a blanket SID certification
-gate. See the [readiness report and 2024 monthly matrix](evidence/inputs/forecast_viability_f1/README.md).
+**F1 historical forecast readiness:** historical origin bundles remain blocked
+by specific vintage dependencies. The current `core_f24` POC is separately approved. See the [readiness report and 2024 monthly matrix](evidence/inputs/forecast_viability_f1/README.md).
 `scripts/audit/assess_forecast_viability.py` and `--supplement` inspect bounded
 forecasts/archives without solving or scoring. Prospective inspection has its own
 forecast-only access path; historical guards and the 2026 holdout stay locked.
@@ -250,8 +254,8 @@ errors need the workspace path/ACL/file-lock diagnosis. No environment/package
 change is automatic. Current mode permits only bounded prospective forecast
 deliveries and matching-origin forecast responses; ordinary historical reads,
 exports, fitting and scoring still reject dates after 2025 and the locked holdout.
-Current real-data optimisation remains blocked on the explicit supply/units/
-capacity decisions, with original responses retained. Historical replay and
+The original F2.2 contract remains blocked on its physical decisions. Core F2.4
+permits the labelled prospective POC subject to strict source/accounting gates. Historical replay and
 walk-forward scoring are not implemented; their origin-bundle guards remain.
 
 ## Git baseline

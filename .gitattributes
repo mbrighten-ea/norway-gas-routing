@@ -1,4 +1,5 @@
 # Preserve immutable F2.3 capture/package bytes and their provenance hashes.
+outputs/forward_scenarios/20261013_f26/** -text whitespace=cr-at-eol
 data/raw/physical_contract_f23/** -text whitespace=cr-at-eol,-trailing-space,-blank-at-eof
 outputs/routing_runs/20261013T105227167672Z_fc7923e9/** -text whitespace=cr-at-eol
 evidence/inputs/physical_contract_f23/*.csv -text whitespace=cr-at-eol

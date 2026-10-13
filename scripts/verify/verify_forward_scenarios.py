@@ -15,15 +15,20 @@ from norway_gas_routing.routing import network_definition
 def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('summary',help='Repository-relative completed four-scenario summary')
+    parser.add_argument('--write-validation',action='store_true',help='Write validation only for a newly generated package; default is read-only')
+    parser.add_argument('--replay',action='store_true',help='Replay retained supply/capacity/preference snapshots, never retrieve fresh SIDs')
     args=parser.parse_args(argv); summary=(ROOT/args.summary).resolve()
     assert summary.is_relative_to(ROOT)
     batch=json.loads((summary/'provenance/manifest.json').read_text())
     assert not batch['failures'] and batch['controlled_sources_identical']
+    for file,sha in batch.get('files_sha256',{}).items():
+        assert hashlib.sha256((summary/file).read_bytes()).hexdigest()==sha,file
     model,registry=load_config(ROOT/'config/model.yaml',ROOT/'config/data_series.csv')
     contract=json.loads((ROOT/'evidence/inputs/routing_sources_b1/verified_sources.json').read_text())
     lineage=pd.read_csv(ROOT/'evidence/inputs/production_forecast_lineage/all_field_components.csv')
     assert lineage.loc[lineage.registered_forecast_key.eq('heidrun_prod'),'includes_in_total_w_snohvit'].eq(True).all()
-    months=pd.period_range('2026-11','2029-12',freq='M'); outputs={}; raw_hashes={}
+    first=json.loads((ROOT/next(iter(batch['outputs'].values()))/'provenance/run_manifest.json').read_text())
+    months=pd.period_range(first['settings']['start'],first['settings']['end'],freq='M'); outputs={}; raw_hashes={}
     for label,relative in batch['outputs'].items():
         path=ROOT/relative; manifest=json.loads((path/'provenance/run_manifest.json').read_text())
         assert manifest['status']=='OPTIMAL' and not manifest['holdout_scored']
@@ -39,6 +44,18 @@ def main(argv=None):
         flows=monthly('results.csv'); supply=monthly('provenance/inputs/supply.csv')
         capacities=monthly('provenance/inputs/capacities.csv')
         assert flows.solver_status.eq('OPTIMAL').all()
+        if args.replay:
+            from norway_gas_routing.operational import optimise
+            preferences=json.loads((path/'provenance/inputs/preferences.json').read_text())
+            _,replayed,_=optimise(dict(months=months,supply=supply,capacities=capacities,preferences=preferences),manifest['network'],manifest['solver'])
+            saved=json.loads((path/'provenance/solver_results.json').read_text())
+            for month,result in saved.items():
+                assert abs(replayed[month]['unrouted']-result['unrouted'])<1e-7
+                assert abs(replayed[month]['minimum_baseline_deviation_bcm']-result['minimum_baseline_deviation_bcm'])<1e-7
+                for country,value in result['destinations'].items():
+                    assert abs(replayed[month]['destinations'][country]-value)<1e-7
+                for arc,value in result['flows'].items():
+                    assert abs(replayed[month]['flows'][arc]-value)<1e-7
         assert flows.national_balance_residual_bcm.abs().max()<1e-9
         assert flows.residual_bcm.ge(0).all() and supply.ge(0).all().all()
         owners=pd.read_csv(path/'provenance/frozen_2024_owners.csv')
@@ -73,7 +90,7 @@ def main(argv=None):
         reconstruction.KARSTO_FEED-=domestic
         assert np.allclose(supply,reconstruction,atol=1e-9,rtol=0)
         maintenance=raw('kollsnes_maint_d')
-        assert maintenance.index.equals(pd.date_range('2026-11-01','2029-12-31'))
+        assert maintenance.index.equals(pd.date_range(months.min().start_time,months.max().end_time.normalize()))
         assert maintenance.between(0,156).all()
         factor=143/156 if label in {'C','D'} else 1.
         expected=((156-maintenance)*factor).groupby(maintenance.index.to_period('M')).sum()/1000
@@ -83,7 +100,7 @@ def main(argv=None):
         for file in (path/'provenance/raw').glob('*.csv'):
             v=pd.read_csv(file,index_col='date',parse_dates=True)
             dates=pd.DatetimeIndex(pd.to_datetime(v.index,utc=True)).tz_localize(None)
-            permitted=((dates>=pd.Timestamp('2023-01-01')) & (dates<=pd.Timestamp('2024-12-31'))) | ((dates>=pd.Timestamp('2026-11-01')) & (dates<=pd.Timestamp('2029-12-31')))
+            permitted=((dates>=pd.Timestamp('2023-01-01')) & (dates<=pd.Timestamp('2024-12-31'))) | ((dates>=months.min().start_time) & (dates<=months.max().end_time))
             assert permitted.all(),file
             raw_hashes[label][file.name]=hashlib.sha256(file.read_bytes()).hexdigest()
         country=[d+'_volume_bcm' for d in ['UK','FR','BE','NL','DE','DK','PL']]
@@ -91,10 +108,10 @@ def main(argv=None):
         assert np.allclose(flows.total_exports_bcm+flows.unrouted_supply_bcm,supply.sum(axis=1),atol=1e-7,rtol=0)
         book=load_workbook(path/'results.xlsx',read_only=False,data_only=True)
         try:
-            assert book['Monthly flows'].max_row==41
+            assert book['Monthly flows'].max_row==len(months)+3
             assert len(book['Monthly flows']._charts)==1
-            assert book['Monthly flows'].cell(4,1).value.strftime('%Y-%m')=='2026-11'
-            assert book['Monthly flows'].cell(41,1).value.strftime('%Y-%m')=='2029-12'
+            assert book['Monthly flows'].cell(4,1).value.strftime('%Y-%m')==str(months.min())
+            assert book['Monthly flows'].cell(len(months)+3,1).value.strftime('%Y-%m')==str(months.max())
             for sheet in book:
                 for row in sheet.iter_rows():
                     assert not any(c.data_type=='e' for c in row),sheet.title
@@ -112,7 +129,7 @@ def main(argv=None):
     shares=pd.read_csv(ROOT/batch['outputs']['A']/'details/historical_share_comparison.csv')
     ranges=pd.read_csv(ROOT/batch['outputs']['A']/'details/physical_ranges.csv')
     binding=pd.read_csv(ROOT/batch['outputs']['A']/'details/binding_constraints.csv')
-    report=dict(verified=True,scenario_status={k:'OPTIMAL' for k in outputs},months_each=38,monthly_solves=152,
+    report=dict(verified=True,scenario_status={k:'OPTIMAL' for k in outputs},months_each=len(months),monthly_solves=len(months)*len(outputs),saved_input_replay=args.replay,
         origin=batch['origin'],raw_sources_identical=True,protected_actuals_in_raw_captures=False,
         maximum_national_closure_bcm=max(v['closure_max_bcm'] for v in outputs.values()),
         frozen_denominator_bcm=18.785806,residual_proxy_pipeline_pct=float(a.residual_bcm.sum()/a.pipeline_supply_bcm.sum()*100),
@@ -133,7 +150,8 @@ def main(argv=None):
             'Heidrun bound is an outside-network eligibility scenario, not an offtake schedule or domestic-demand estimate',
             'Monthly LP does not demonstrate daily dispatch; individual physical range endpoints not jointly attainable',
             'DE/NL are shared-landing-pool allocation proxies; DK/PL corridor outputs are not compatible with signed DK net/Nybro legacy readings'])
-    (summary/'provenance/validation.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
+    if args.write_validation:
+        (summary/'provenance/validation.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({k:report[k] for k in ['verified','months_each','monthly_solves','maximum_national_closure_bcm','reference','scenario_exports_bcm']},indent=2))
 
 

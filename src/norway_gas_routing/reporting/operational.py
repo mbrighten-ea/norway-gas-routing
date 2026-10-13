@@ -149,6 +149,9 @@ def write_workbook(path, frames, manifest):
             height = 22
             for cell in row:
                 cell.font = Font(name='Calibri', size=11, color='865600' if cell.value=='Unavailable' else '193B50')
+                if isinstance(cell.value,str) and cell.value.startswith('../../routing_runs/'):
+                    cell.hyperlink=cell.value
+                    cell.font=Font(name='Calibri',size=11,color='0563C1',underline='single')
                 cell.alignment = Alignment(wrap_text=True, vertical='top')
                 if isinstance(cell.value, datetime):
                     cell.number_format = 'yyyy-mm-dd'
@@ -216,7 +219,7 @@ def report_run(output, manifest, inputs, results, inventory, network):
     guide = pd.DataFrame([('Run identity', manifest['run_id']), ('Git commit', manifest['git']['commit']),
         ('Action required', manifest['blocker'] or 'Open Monthly flows; read definitions below before using results.'),
         *forecast_guide,*definitions], columns=['item', 'meaning'])
-    frames = {'Read me': guide, 'Monthly flows': monthly, 'Comparisons': comparisons,
+    frames = {'Monthly flows': monthly, 'Read me': guide, 'Comparisons': comparisons,
         'Capacities': capacities, 'Network flows': arcs, 'Preferences': preferences,
         'Input sources': inventory, 'Settings': pd.DataFrame(list(manifest['settings'].items()), columns=['setting', 'value']),
         'Diagnostics': diagnostics}
@@ -233,6 +236,7 @@ def report_run(output, manifest, inputs, results, inventory, network):
             frames['Annual flows']=totals
             save_delivery(totals,output/'details/annual_flows.csv')
             binding,shares=physical_comparison_tables(inputs,results,network)
+            binding['utilisation_pct']=100*binding.flow_bcm/binding.available_capacity_bcm.mask(binding.available_capacity_bcm.eq(0))
             save_delivery(binding,output/'details/binding_constraints.csv')
             save_delivery(shares,output/'details/historical_share_comparison.csv')
             frames['Binding limits']=binding

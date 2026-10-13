@@ -1,5 +1,20 @@
 # Current implementation state
 
+## Operational release hardening
+
+The exact four F2.4 scenario YAML snapshots have been recovered and restored with
+their original manifest hashes. Nested `.scratch` ignores no longer omit snapshots.
+The [primary scenario Excel](outputs/forward_scenarios/20261013_f26/results.xlsx)
+combines existing monthly/annual flows, sensitivities, accounting, source nodes and
+capacity utilisation. Original forecast values and release files remain intact.
+Use the normal operator command with `compare_scenarios: true` for four scenarios;
+the ordinary 12-month default remains unchanged. Retained-evidence tests have an
+explicit opt-in and original public-bundle prerequisites; see README.md.
+QA: 610 existing ordinary regressions, four workflow checks and all 14 retained-
+evidence checks passed. Strict restored-release hashes and 152 saved-input replays
+pass. Next: verify the committed tree in a fixture-free clean checkout with
+`python -m pytest -q`, then push the feature branch after recording that result.
+
 ## F2.4 provisional forward routing — 13 October 2026
 
 Core approved the explicit provisional input contract, superseding the F2.3

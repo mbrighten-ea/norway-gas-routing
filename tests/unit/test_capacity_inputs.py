@@ -48,6 +48,7 @@ def test_default_isolated_unchanged_without_database(prepared):
     assert inputs['capacities'].iloc[0, 0] > 0
 
 
+@pytest.mark.retained_evidence
 def test_evidence_mode_retains_all_ineligible_baselines(prepared):
     model, inputs = prepared
     observations = database_candidates(ROOT, model, inputs['months'])

@@ -51,7 +51,7 @@ def test_complete_solve_excel_provenance_and_nonoverwrite(workspace):
     for name, digest in manifest['files_sha256'].items():
         assert hashlib.sha256((first/name).read_bytes()).hexdigest() == digest
     workbook = load_workbook(first/'results.xlsx', data_only=False)
-    assert workbook.sheetnames == ['Read me', 'Monthly flows', 'Comparisons', 'Capacities',
+    assert workbook.sheetnames == ['Monthly flows', 'Read me', 'Comparisons', 'Capacities',
         'Network flows', 'Preferences', 'Input sources', 'Settings', 'Diagnostics']
     assert workbook['Monthly flows'].freeze_panes == 'B4'
     assert len(workbook['Monthly flows']._charts) == 1

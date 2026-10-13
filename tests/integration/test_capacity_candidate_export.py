@@ -3,12 +3,14 @@ import importlib.util
 from pathlib import Path
 
 import pandas as pd
+import pytest
 
 from norway_gas_routing.capacity.public import sha256
 
 ROOT=Path(__file__).resolve().parents[2]
 
 
+@pytest.mark.retained_evidence
 def test_public_export_deterministic_and_not_solver_ready(tmp_path):
     spec=importlib.util.spec_from_file_location('capacity_candidate_export',ROOT/'scripts/audit/build_capacity_candidates.py')
     module=importlib.util.module_from_spec(spec)

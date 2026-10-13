@@ -57,7 +57,11 @@ def load_run_config(root, path):
         raise RunBlocked('Invalid run YAML: '+str(exc)+'; fix the indicated line in '+str(path)) from exc
     keys = {'model', 'registry', 'evaluation', 'mode', 'input_source', 'start',
             'end', 'origin', 'solver', 'capacity_scenario', 'price_enabled'}
-    check_keys(request, 'run configuration', keys, {'horizon_months','forecast_end_month','physical_input_contract','heidrun_treatment'})
+    check_keys(request, 'run configuration', keys, {'horizon_months','forecast_end_month','physical_input_contract','heidrun_treatment','compare_scenarios'})
+    if not isinstance(request.get('compare_scenarios',False),bool):
+        raise RunBlocked('compare_scenarios must be a YAML boolean.')
+    if request.get('compare_scenarios') and request.get('physical_input_contract')!='core_f24':
+        raise RunBlocked('Four-scenario comparison requires the approved core_f24 contract.')
     if not isinstance(request['mode'], str) or request['mode'] not in {'historical_reconstruction', 'retrospective_forecast', 'latest_forecast', 'current_forecast'}:
         raise RunBlocked('Unsupported mode. Use historical_reconstruction; forecast modes require a verified origin bundle.')
     if not isinstance(request['input_source'], str) or request['input_source'] not in {'fresh_sid', 'synthetic_demo'}:
@@ -509,7 +513,20 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
     manifest['files_sha256'] = {p.relative_to(output).as_posix(): digest(p) for p in output.rglob('*')
                                if p.is_file() and p != provenance/'run_manifest.json'}
     write_json(provenance/'run_manifest.json', manifest)
-    print(manifest['status']+': '+str(output))
+    print_completion(output, manifest)
     if manifest['blocker']:
         print('Action required: '+manifest['blocker'])
     return output, 0 if manifest['status'] in {'OPTIMAL', 'VALIDATED_ONLY'} else 2
+
+
+def print_completion(output, manifest):
+    settings=manifest['settings']
+    print(manifest['status']+' | '+settings['start']+' to '+settings['end']+
+        ' | '+(settings.get('heidrun_treatment') or 'standard')+' / '+settings['capacity_scenario'])
+    print('Excel: '+str(output/'results.xlsx'))
+    if settings['input_source']=='synthetic_demo':
+        print('SYNTHETIC demonstration; manufactured inputs, not an EA forecast.')
+    elif settings.get('physical_input_contract')=='core_f24':
+        print('Provisional partial-coverage physical routing; frozen residual mix, mixed LNG vintage and technical capacities. No commercial validation; DE/NL and DK/PL are allocation proxies.')
+    if manifest['status']=='VALIDATED_ONLY':
+        print('Inputs validated only; no optimisation or country forecast was produced.')

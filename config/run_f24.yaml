@@ -1,4 +1,6 @@
 # Explicit Core-approved provisional physical routing; canonical run.yaml unchanged.
+# Add compare_scenarios: true to run A/B/C/D with the normal run_routing command
+# and receive one Excel summary. Omitted/false keeps the selected single scenario.
 model: config/model.yaml
 registry: config/data_series.csv
 evaluation: config/evaluation.yaml

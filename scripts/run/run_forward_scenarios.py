@@ -8,8 +8,52 @@ import yaml
 ROOT=Path(__file__).resolve().parents[2]
 os.environ.setdefault('MPLCONFIGDIR',str(ROOT/'.scratch/cache/matplotlib'))
 sys.path.insert(0,str(ROOT/'src'))
-from norway_gas_routing.operational import execute_run
+from norway_gas_routing.operational import execute_run,load_run_config
 from norway_gas_routing.reporting.assessment import STYLE,table
+
+
+def write_summary_workbook(summary,manifest):
+    """One analyst workbook over existing saved scenario tables; no new solves."""
+    from norway_gas_routing.reporting.operational import write_workbook
+    def read(path):
+        if not path.exists(): return pd.DataFrame()
+        try: frame=pd.read_csv(path)
+        except pd.errors.EmptyDataError: return pd.DataFrame()
+        if 'month' in frame: frame['month']=pd.to_datetime(frame.month)
+        return frame
+    frames={'Monthly scenarios':read(summary/'results.csv'),
+        'Annual scenarios':read(summary/'details/annual_allocations.csv'),
+        'Scenario differences':read(summary/'details/scenario_differences.csv')}
+    monthly=frames['Monthly scenarios']
+    if not monthly.empty:
+        columns=['month','scenario']+[d+'_volume_bcm' for d in ['UK','FR','BE','NL','DE','DK','PL']]+[
+            'total_exports_bcm','unrouted_supply_bcm','network_coverage_pct']
+        frames['Monthly scenarios']=monthly[columns]
+    notes=[('Status',manifest['status']),('Origin UTC',manifest['origin']),
+        ('Interpretation',manifest['interpretation']),
+        ('Units','Monthly bcm; annual totals cover only the included delivery months.'),
+        ('Country definitions','UK/FR/BE are modelled exits; DE/NL are shared landing-pool proxies; DK/PL are corridor allocations, not signed DK net/Nybro legacy deliveries.'),
+        ('Country codes','UK United Kingdom; FR France; BE Belgium; NL Netherlands; DE Germany; DK Denmark; PL Poland. Coverage is conditional on frozen residual assumptions, not independent physical verification.'),
+        ('Supply','Frozen 2024 residual weights approximate future mix; external Trym excluded; UNMAPPED is unrouted. Mixed Snøhvit/national vintages accepted provisionally.'),
+        ('Capacity','156 minus net unavailability once; stress is 143/156 times that availability. Other envelopes provisional; monthly feasibility does not prove daily dispatch.'),
+        ('Scenarios','A reference: no extra domestic deduction. B: forecast Heidrun outside-network bound. C: proportional capacity stress. D: both bounds.'),
+        ('Validation-only','No country forecast is produced when status is VALIDATED_ONLY.')]
+    for label,relative in manifest['outputs'].items():
+        notes.append((label+' detailed Excel','../../'+relative.removeprefix('outputs/')+'/results.xlsx'))
+    frames['Read me']=pd.DataFrame(notes,columns=['item','meaning'])
+    for sheet,file in [('Accounting','provenance/inputs/reconciliation.csv'),
+        ('Source nodes','provenance/inputs/supply.csv'),
+        ('Capacity utilisation','details/binding_constraints.csv')]:
+        tables=[]
+        for label,relative in manifest['outputs'].items():
+            frame=read(ROOT/relative/file)
+            if not frame.empty:
+                if sheet=='Capacity utilisation':
+                    frame['utilisation_pct']=100*frame.flow_bcm/frame.available_capacity_bcm.mask(frame.available_capacity_bcm.eq(0))
+                frame.insert(0,'scenario',label); tables.append(frame)
+        if tables: frames[sheet]=pd.concat(tables,ignore_index=True)
+    write_workbook(summary/'results.xlsx',frames,dict(status=manifest['status'],
+        analysis_type='Provisional physical-routing scenario comparison; snapshot, not commercial forecast'))
 
 
 def render_summary(summary,manifest):
@@ -45,9 +89,11 @@ def render_summary(summary,manifest):
     (summary/'report.html').write_text('<!doctype html><html lang="en"><meta charset="utf-8"><style>'+STYLE+'</style>'+content+'</html>',encoding='utf-8')
 
 
-def main():
-    settings=yaml.safe_load((ROOT/'config/run_f24.yaml').read_text(encoding='utf-8'))
-    settings['origin']=pd.Timestamp.now(tz='UTC').floor('s').isoformat()
+def main(config='config/run_f24.yaml', *, validate_only=False, solver_name=None):
+    settings,_,_,_=load_run_config(ROOT,config)
+    if settings.get('physical_input_contract')!='core_f24':
+        raise ValueError('Four-scenario comparison requires core_f24.')
+    if solver_name: settings['solver']=solver_name
     run=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
     scratch=ROOT/'.scratch/runs'/(run[:8]+'-01_forward-scenarios_'+run)
     scratch.mkdir(parents=True,exist_ok=False)
@@ -55,12 +101,12 @@ def main():
     for label,heidrun,capacity in [('A','export_eligible','core_f24_156'),
         ('B','domestic_bound','core_f24_156'),('C','export_eligible','core_f24_proportional_143'),
         ('D','domestic_bound','core_f24_proportional_143')]:
-        config={**settings,'heidrun_treatment':heidrun,'capacity_scenario':capacity}
-        path=scratch/(label+'.yaml'); path.write_text(yaml.safe_dump(config,sort_keys=False),encoding='utf-8')
-        output,code=execute_run(ROOT,path.relative_to(ROOT).as_posix())
+        scenario_config={**settings,'compare_scenarios':False,'heidrun_treatment':heidrun,'capacity_scenario':capacity}
+        path=scratch/(label+'.yaml'); path.write_text(yaml.safe_dump(scenario_config,sort_keys=False),encoding='utf-8')
+        output,code=execute_run(ROOT,path.relative_to(ROOT).as_posix(),validate_only=validate_only)
         outputs[label]=output.relative_to(ROOT).as_posix()
         if code: failures[label]=json.loads((output/'provenance/run_manifest.json').read_text())['blocker']
-        else:
+        elif not validate_only:
             frame=pd.read_csv(output/'results.csv',parse_dates=['month']); frame['scenario']=label; frames.append(frame)
     summary=ROOT/'outputs/forward_scenarios'/run
     (summary/'details').mkdir(parents=True,exist_ok=False)
@@ -86,11 +132,6 @@ def main():
     annual.to_csv(summary/'details/annual_allocations.csv',index=False)
     differences=pd.DataFrame(differences)
     differences.to_csv(summary/'details/scenario_differences.csv',index=False)
-    if frames:
-        from norway_gas_routing.reporting.operational import write_workbook
-        write_workbook(summary/'results.xlsx',{'Monthly scenarios':results,'Annual scenarios':annual,
-            'Scenario differences':differences},dict(status='SCENARIO_COMPARISON',
-                analysis_type='Provisional partial-coverage physical-routing POC; bcm over included deliveries, 2026 Nov-Dec only'))
     # Fresh queries occurred in each scenario at the same information origin.
     # Compare frozen owners and prospective points to detect revisions mid-batch.
     comparable={}
@@ -101,16 +142,22 @@ def main():
     consistent=bool(comparable) and all(v==next(iter(comparable.values())) for v in comparable.values())
     if not consistent: failures['consistency']='Fresh raw sources changed between scenarios; do not interpret differences as controlled sensitivities.'
     manifest=dict(origin=settings['origin'],outputs=outputs,failures=failures,controlled_sources_identical=consistent,
-        status='PROVISIONAL_PARTIAL_COVERAGE_PHYSICAL_ROUTING' if not failures else 'PARTIAL_SCENARIO_RESULTS',
+        status=('VALIDATED_ONLY' if validate_only else 'PROVISIONAL_PARTIAL_COVERAGE_PHYSICAL_ROUTING') if not failures else 'PARTIAL_SCENARIO_RESULTS',
         interpretation='No commercial validation. A/C no additional domestic deduction; B/D hypothetical whole-Heidrun outside-network boundary, not an offtake or domestic forecast. Unknown future field mix approximated by Core-approved frozen 2024 residual weights.',
         holdout_actuals_loaded=False,source_query_policy='Every scenario freshly queried 2024 owners, 2023 preferences and prospective origin-matched SIDs; no workbook numerical inputs')
     (summary/'provenance/manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
-    if not failures:
+    write_summary_workbook(summary,manifest)
+    if not failures and not validate_only:
         sys.path.insert(0,str(ROOT/'scripts/verify'))
         from verify_forward_scenarios import main as verify_packages
-        verify_packages([summary.relative_to(ROOT).as_posix()])
+        verify_packages([summary.relative_to(ROOT).as_posix(),'--write-validation'])
     render_summary(summary,manifest)
-    print('SUMMARY',summary,flush=True)
+    manifest['files_sha256']={p.relative_to(summary).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()
+        for p in summary.rglob('*') if p.is_file() and p!=summary/'provenance/manifest.json'}
+    (summary/'provenance/manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
+    print(manifest['status']+' | '+settings['start']+' to '+settings['end']+' | A/B/C/D')
+    print('Excel: '+str(summary/'results.xlsx'))
+    print(manifest['interpretation'],flush=True)
     return 0 if not failures else 2
 
 

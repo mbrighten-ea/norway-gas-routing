@@ -7,6 +7,31 @@ import yaml
 from norway_gas_routing.data import time_series
 
 
+def pytest_addoption(parser):
+    parser.addoption('--run-evidence', action='store_true',
+        help='Include retained-public-evidence tests; requires the original hash-verified capacity audit and SQLite archive')
+
+
+def pytest_configure(config):
+    config.addinivalue_line('markers', 'retained_evidence: requires explicitly restored immutable public-capacity evidence')
+
+
+def pytest_collection_modifyitems(config, items):
+    evidence = [item for item in items if item.get_closest_marker('retained_evidence')]
+    if config.getoption('--run-evidence'):
+        root = Path(__file__).resolve().parents[1]
+        required = ['evidence/inputs/public_capacity_audit_manifest.json',
+            'evidence/inputs/public_capacity_verification.json',
+            'archive/20261009-17_public-capacity-database/database/capacity.sqlite']
+        missing = [name for name in required if not (root/name).is_file()]
+        if evidence and missing:
+            raise pytest.UsageError('Retained evidence unavailable: '+', '.join(missing)+
+                '. Restore the original hash-verified bundle described in README.md; no synthetic substitution.')
+    else:
+        items[:] = [item for item in items if item not in evidence]
+        config.hook.pytest_deselected(items=evidence)
+
+
 @pytest.fixture
 def repo_root():
     return Path(__file__).resolve().parents[1]
