@@ -1,0 +1,157 @@
+{
+  "origin": "2026-10-13T16:59:13+00:00",
+  "outputs": {
+    "A": "outputs/routing_runs/20261013T165918528411Z_87c4eb40",
+    "B": "outputs/routing_runs/20261013T170110955685Z_8de91d4c",
+    "C": "outputs/routing_runs/20261013T170259061147Z_afbe0af9",
+    "D": "outputs/routing_runs/20261013T170509787483Z_39d6379e"
+  },
+  "failures": {},
+  "controlled_sources_identical": true,
+  "status": "PROVISIONAL_PARTIAL_COVERAGE_PHYSICAL_ROUTING",
+  "interpretation": "No commercial validation. A/C no additional domestic deduction; B/D hypothetical whole-Heidrun outside-network boundary, not an offtake or domestic forecast. Unknown future field mix approximated by Core-approved frozen 2024 residual weights.",
+  "holdout_actuals_loaded": false,
+  "source_query_policy": "Every scenario freshly queried 2024 owners, 2023 preferences and prospective origin-matched SIDs; no workbook numerical inputs",
+  "files_sha256": {
+    "report.html": "0e86f71c11a35f16b49470af415d2eb5439175151444b983cfaec586d2351549",
+    "results.csv": "67deda140abe8595035b21dfd893a24b2276aa085582d20fa2bad87c1f3c28cf",
+    "results.xlsx": "9c8f6c7e72cd58dde0d91ebe8c710ab3a0d7238d106d0c8b2acf9922cc065957",
+    "details/annual_allocations.csv": "31eb59bd574231989db53d3ba1154dabf1db9e7945a455637f30d6967deb165e",
+    "details/legacy_forecast_comparison.csv": "cb9fce1e7a6aaf55c063de9600c45393f9d3d07dc357aa2feb7ffa3b4a727a98",
+    "details/scenario_differences.csv": "e82a7748bfa4ccfde5364365096fb5af09a3a3db6c3db5e5d1a97c027808309e",
+    "provenance/run_config.yaml": "1f410c3acb6ed0eb29f37957c498fbaf81c4cead2c0cbaa6b27df716cf19bff2",
+    "provenance/validation.json": "bbfbb632bfdf3aeb8288c43e479c04ce671f159757cf6968f8c871803b453401"
+  },
+  "acceptance_review": {
+    "live_origin": "2026-10-13T16:59:13+00:00",
+    "scenarios": {
+      "A": {
+        "exports_bcm": 358.36617761605504,
+        "disposal_bcm": 0.2841634363030925,
+        "capacity_violation_bcm": 0.0,
+        "node_balance_error_bcm": 1.7763568394002505e-15,
+        "raw_source_count": 122
+      },
+      "B": {
+        "exports_bcm": 354.0607743478762,
+        "disposal_bcm": 0.2841634363030925,
+        "capacity_violation_bcm": 0.0,
+        "node_balance_error_bcm": 1.7763568394002505e-15,
+        "raw_source_count": 122
+      },
+      "C": {
+        "exports_bcm": 353.3995104114876,
+        "disposal_bcm": 5.250830640870558,
+        "capacity_violation_bcm": 0.0,
+        "node_balance_error_bcm": 1.7763568394002505e-15,
+        "raw_source_count": 122
+      },
+      "D": {
+        "exports_bcm": 349.0941071433088,
+        "disposal_bcm": 5.250830640870558,
+        "capacity_violation_bcm": 0.0,
+        "node_balance_error_bcm": 1.7763568394002505e-15,
+        "raw_source_count": 122
+      }
+    },
+    "rolling12_package": "outputs/routing_runs/20261013T170332921870Z_422d6f69",
+    "rolling12_status": "OPTIMAL; all monthly numeric results match reference first 12 months",
+    "national_closure_bcm": 5.329070518200752e-15,
+    "residual_proxy_pipeline_pct": 26.735679226711227,
+    "reference_accounting": {
+      "national_bcm": 376.3105226865903,
+      "LNG_bcm": 17.555712985703572,
+      "external_trym_bcm": 0.1044686485283818,
+      "unmapped_bcm": 0.0,
+      "exports_bcm": 358.36617761605504,
+      "forced_disposal_bcm": 0.2841634363030925,
+      "assumed_eligible_network_coverage_pct": 99.99999999999997,
+      "pipeline_boundary_coverage_pct": 99.97088020962963
+    },
+    "workbook_acceptance": "152 monthly rows; month/scenario visible first; all scenario/accounting/source/capacity sheets, filters, frozen panes, typed values and no Excel errors",
+    "legacy_comparison": "Prospective origin-matched differences only. UK boundary adjusted by evidenced non-Gassco packets; FR+BE and NL+DE grouped. DK/PL net/Nybro and total comparison not certified.",
+    "largest_UK_legacy_gap_month": "2027-06",
+    "UK_same_export_physical_minimum_gross_bcm": 1.8334814770629175,
+    "UK_same_export_physical_minimum_comparable_bcm": 1.608042815968439,
+    "UK_legacy_forecast_bcm": 1.2876096865939717,
+    "physical_range_diagnostic": [
+      {
+        "month": "2027-06-01",
+        "destination": "UK",
+        "model_bcm": 2.3110837940172178,
+        "minimum_bcm": 1.8334814770629175,
+        "maximum_bcm": 3.751026436456073,
+        "range_width_bcm": 1.9175449593931555,
+        "fixed_exports_bcm": 9.15602023600325,
+        "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+      },
+      {
+        "month": "2027-06-01",
+        "destination": "FR",
+        "model_bcm": 1.1483976830456997,
+        "minimum_bcm": 0.0,
+        "maximum_bcm": 1.6260000000000006,
+        "range_width_bcm": 1.6260000000000006,
+        "fixed_exports_bcm": 9.15602023600325,
+        "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+      },
+      {
+        "month": "2027-06-01",
+        "destination": "BE",
+        "model_bcm": 1.2660000000000002,
+        "minimum_bcm": 0.0,
+        "maximum_bcm": 1.2660000000000002,
+        "range_width_bcm": 1.2660000000000002,
+        "fixed_exports_bcm": 9.15602023600325,
+        "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+      },
+      {
+        "month": "2027-06-01",
+        "destination": "NL",
+        "model_bcm": 0.7685492033720762,
+        "minimum_bcm": 0.0,
+        "maximum_bcm": 4.430538758940333,
+        "range_width_bcm": 4.430538758940333,
+        "fixed_exports_bcm": 9.15602023600325,
+        "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+      },
+      {
+        "month": "2027-06-01",
+        "destination": "DE",
+        "model_bcm": 2.9704313006386287,
+        "minimum_bcm": 0.0,
+        "maximum_bcm": 4.430538758940333,
+        "range_width_bcm": 4.430538758940333,
+        "fixed_exports_bcm": 9.15602023600325,
+        "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+      },
+      {
+        "month": "2027-06-01",
+        "destination": "DK",
+        "model_bcm": 0.11235329927233259,
+        "minimum_bcm": 0.0,
+        "maximum_bcm": 0.8219999999999997,
+        "range_width_bcm": 0.8219999999999997,
+        "fixed_exports_bcm": 9.15602023600325,
+        "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+      },
+      {
+        "month": "2027-06-01",
+        "destination": "PL",
+        "model_bcm": 0.579204955657296,
+        "minimum_bcm": -0.0,
+        "maximum_bcm": 0.8219178082191781,
+        "range_width_bcm": 0.8219178082191781,
+        "fixed_exports_bcm": 9.15602023600325,
+        "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+      }
+    ],
+    "decision": "Ready for routine provisional analyst use with explicit core_f24 opt-in; not a commercial or complete independently verified country-export forecast",
+    "Core_review": [
+      "Summer UK excess and continental shortfall versus EA; inspect residual UK-direct mix and dated capacity assumptions before assigning economic meaning",
+      "DE/NL and DK/PL individual splits principally select historical preferences, not uniquely identified physical outcomes",
+      "156 technical reference and proportional stress; monthly feasibility is not daily dispatch; other future envelopes remain provisional",
+      "Heidrun bound is hypothetical whole-field outside-network eligibility, not a domestic-demand forecast; residual future mix and older LNG vintage remain assumptions"
+    ]
+  }
+}

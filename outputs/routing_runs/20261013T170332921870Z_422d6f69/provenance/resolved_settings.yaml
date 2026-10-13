@@ -1,0 +1,762 @@
+run:
+  model: config/model.yaml
+  registry: config/data_series.csv
+  evaluation: config/evaluation.yaml
+  mode: current_forecast
+  input_source: fresh_sid
+  start: 2026-11
+  end: 2027-10
+  origin: '2026-10-13T16:59:13+00:00'
+  horizon_months: 12
+  forecast_end_month: null
+  solver: HiGHS
+  capacity_scenario: core_f24_156
+  physical_input_contract: core_f24
+  heidrun_treatment: export_eligible
+  price_enabled: false
+  compare_scenarios: false
+model:
+  model:
+    frequency: monthly
+    forecast_end: 2030-12
+    markets:
+    - UK
+    - GERMANY
+    - NETHERLANDS
+    - DENMARK
+    - BELGIUM
+    - FRANCE
+    solve_each_month_independently: true
+    reference_price_market: NETHERLANDS
+    allow_unrouted_volume: true
+    core_has_aggregate_capacity: false
+  units:
+    flow: bcm/month
+    price: EUR/MWh
+    bcm_to_mwh: null
+  sources:
+    KOLLSNES:
+      series:
+      - troll_prod
+      - kvitebjorn_prod
+      - visund_prod
+      status: ACCEPTED
+    NYHAMNA:
+      series:
+      - ormen_lange_prod
+      - aasta_hansteen_prod
+      - dvalin_prod
+      status: ACCEPTED
+    KARSTO:
+      series:
+      - asgard_prod
+      - gullfaks_sor_prod
+      - heidrun_prod
+      - kristin_prod
+      - norne_prod
+      - skarv_prod
+      status: ACCEPTED
+      notes: Review Heidrun domestic allocation if relevant.
+    OSEBERG_HEIMDAL:
+      series:
+      - oseberg_prod
+      status: ACCEPTED
+    SLEIPNER:
+      series:
+      - sleipner_prod
+      - gina_krog_prod
+      status: ACCEPTED
+    UK_DIRECT:
+      series:
+      - martin_linge_prod
+      status: ACCEPTED
+      notes: Add identified direct UK residual fields once classified.
+    DE_DIRECT:
+      series: []
+      active: false
+      status: TODO
+      notes: Activate only when production with effectively fixed German evacuation
+        is identified.
+    OTHER_RESIDUAL:
+      series:
+      - norway_nonflex_prod
+      active: false
+      status: TODO
+      notes: Residual calculation must exclude named non-flexible fields plus LNG/domestic
+        volumes as applicable.
+  junctions:
+    CORE:
+      description: Collapsed Sleipner/Draupner/internal dry-gas transfer system
+      aggregate_capacity: null
+    EUROPIPE_II_SPLIT:
+      description: Shared Europipe II corridor before Germany/Denmark split
+    EMDEN_POOL:
+      description: Emden-area landing pool used for DE/NL market allocation
+  assets:
+    NYHAMNA_INJECTION:
+      type: source_capacity
+      availability_series: nyhamna_avail_cap
+      technical_capacity_mcm_d: null
+      priority: high
+    KOLLSNES_INJECTION:
+      type: source_capacity
+      maintenance_series: kollsnes_maint_d
+      technical_capacity_mcm_d: null
+      priority: high
+    KARSTO_INJECTION:
+      type: source_capacity
+      availability_series: karsto_avail_cap
+      technical_capacity_mcm_d: null
+      priority: high
+    OGT:
+      type: route_capacity
+      availability_series: ogt_avail_cap
+      technical_capacity_mcm_d: null
+      priority: medium
+    VESTERLED:
+      type: export_corridor
+      availability_series: vesterled_avail_cap
+      technical_capacity_mcm_d: null
+      priority: high
+    LANGELED_SOUTH:
+      type: export_corridor
+      availability_series: langeled_south_avail_cap
+      technical_capacity_mcm_d: null
+      priority: high
+    EUROPIPE_I:
+      type: export_corridor
+      availability_series: europipe_i_avail_cap
+      technical_capacity_mcm_d: null
+      priority: high
+    NORPIPE:
+      type: export_corridor
+      availability_series: norpipe_avail_cap
+      technical_capacity_mcm_d: null
+      priority: high
+    EUROPIPE_II:
+      type: export_corridor
+      availability_series: europipe_ii_avail_cap
+      technical_capacity_mcm_d: null
+      priority: high
+    NYBRO_EXIT:
+      type: exit_capacity
+      availability_series: nybro_avail_cap
+      technical_capacity_mcm_d: null
+      priority: medium
+    ZEEPIPE_EXPORT:
+      type: export_corridor
+      availability_series: zeepipe_avail_cap
+      technical_capacity_mcm_d: null
+      priority: high
+    FRANPIPE:
+      type: export_corridor
+      availability_series: franpipe_avail_cap
+      technical_capacity_mcm_d: null
+      priority: high
+    EMDEN_RECEIVING:
+      type: exit_capacity
+      availability_series: emden_avail_cap
+      technical_capacity_mcm_d: null
+      priority: medium
+      active: false
+    UK_DIRECT_ROUTE:
+      type: direct
+      availability_series: null
+      technical_capacity_mcm_d: null
+      priority: medium
+      status: REVIEW
+    DE_DIRECT_ROUTE:
+      type: direct
+      technical_capacity_mcm_d: null
+      active: false
+      status: TODO
+  maintenance_inputs:
+    KOLLSNES_PROCESSING:
+      series: kollsnes_maint_d
+      asset: KOLLSNES_INJECTION
+      unit: mcm_d
+      semantics: capacity_derate
+      provisional: true
+      notes: Processing derate, not available capacity. Do not additionally apply
+        upstream Kollsnes maintenance.
+  arcs:
+  - id: NYHAMNA_CORE
+    from: NYHAMNA
+    to: CORE
+    asset: NYHAMNA_INJECTION
+  - id: KOLLSNES_CORE
+    from: KOLLSNES
+    to: CORE
+    asset: KOLLSNES_INJECTION
+  - id: KARSTO_CORE
+    from: KARSTO
+    to: CORE
+    asset: KARSTO_INJECTION
+  - id: KARSTO_EUROPIPE_II
+    from: KARSTO
+    to: EUROPIPE_II_SPLIT
+    asset: EUROPIPE_II
+  - id: OSEBERG_CORE
+    from: OSEBERG_HEIMDAL
+    to: CORE
+    asset: OGT
+  - id: OSEBERG_VESTERLED_UK
+    from: OSEBERG_HEIMDAL
+    to: UK
+    asset: VESTERLED
+  - id: SLEIPNER_CORE
+    from: SLEIPNER
+    to: CORE
+    asset: null
+  - id: CORE_LANGELED_UK
+    from: CORE
+    to: UK
+    asset: LANGELED_SOUTH
+  - id: CORE_EUROPIPE_I_EMDEN
+    from: CORE
+    to: EMDEN_POOL
+    asset: EUROPIPE_I
+  - id: CORE_NORPIPE_EMDEN
+    from: CORE
+    to: EMDEN_POOL
+    asset: NORPIPE
+  - id: CORE_ZEEPIPE_BELGIUM
+    from: CORE
+    to: BELGIUM
+    asset: ZEEPIPE_EXPORT
+  - id: CORE_FRANPIPE_FRANCE
+    from: CORE
+    to: FRANCE
+    asset: FRANPIPE
+  - id: EUROPIPE_II_GERMANY
+    from: EUROPIPE_II_SPLIT
+    to: GERMANY
+    asset: null
+    physical_exit: DORNUM
+  - id: EUROPIPE_II_DENMARK
+    from: EUROPIPE_II_SPLIT
+    to: DENMARK
+    asset: NYBRO_EXIT
+    physical_exit: NYBRO
+  - id: EMDEN_NETHERLANDS
+    from: EMDEN_POOL
+    to: NETHERLANDS
+    asset: null
+    physical_exit: EMDEN
+  - id: EMDEN_GERMANY
+    from: EMDEN_POOL
+    to: GERMANY
+    asset: null
+    physical_exit: EMDEN
+  - id: UK_DIRECT_UK
+    from: UK_DIRECT
+    to: UK
+    asset: UK_DIRECT_ROUTE
+  - id: DE_DIRECT_GERMANY
+    from: DE_DIRECT
+    to: GERMANY
+    asset: DE_DIRECT_ROUTE
+    active: false
+  markets:
+    UK:
+      price_series: nbp_day_ahead
+      forecast_price_series: nbp_forecast_eur
+      actual_series: flow_uk_actual
+    GERMANY:
+      price_series: the_day_ahead
+      forecast_price_series: the_forecast
+      actual_series: flow_de_actual
+      actual_is_derived: true
+    NETHERLANDS:
+      price_series: ttf_day_ahead
+      forecast_price_series: ttf_forecast
+      actual_series: flow_nl_actual
+    DENMARK:
+      price_series: denmark_price
+      actual_series: flow_dk_actual
+    BELGIUM:
+      price_series: ztp_day_ahead
+      forecast_price_series: ztp_forecast
+      actual_series: flow_be_actual
+    FRANCE:
+      price_series: peg_day_ahead
+      forecast_price_series: peg_forecast
+      actual_series: flow_fr_actual
+  derived_series:
+    exit_st_fergus: st_fergus_flow_compact + st_fergus_flow_snake
+    flow_uk_actual: easington_flow + segal_flow + exit_st_fergus
+    flow_be_actual: zeebrugge_flow
+    flow_fr_actual: dunkerque_flow
+    flow_dk_actual: nybro_flow
+    flow_de_nl_landing_actual: emden_flow + dornum_flow
+    flow_nl_actual: emden_ept1_in_flow
+    flow_de_actual: flow_de_nl_landing_actual - flow_nl_actual
+    physical_exit_total_actual: zeebrugge_flow + dunkerque_flow + emden_flow + dornum_flow
+      + easington_flow + segal_flow + exit_st_fergus + nybro_flow
+  transformation_status:
+    exit_st_fergus: decision_required
+  reconciliation:
+  - lhs: flow_de_nl_landing_actual
+    rhs: emden_flow + dornum_flow
+    severity: error
+  - lhs: flow_nl_actual
+    rhs: emden_ept1_in_flow
+    severity: error
+  - lhs: flow_de_actual
+    rhs: flow_de_nl_landing_actual - flow_nl_actual
+    severity: error
+  - lhs: flow_uk_actual
+    rhs: easington_flow + segal_flow + exit_st_fergus
+    severity: error
+  - lhs: flow_be_actual
+    rhs: zeebrugge_flow
+    severity: error
+  - lhs: flow_fr_actual
+    rhs: dunkerque_flow
+    severity: error
+  - lhs: flow_dk_actual
+    rhs: nybro_flow
+    severity: error
+  - lhs: flow_uk_actual + flow_de_actual + flow_nl_actual + flow_dk_actual + flow_be_actual
+      + flow_fr_actual
+    rhs: physical_exit_total_actual
+    severity: error
+  solver:
+    unrouted_volume_penalty: null
+    reconciliation_tolerance_bcm: null
+  calibration:
+    training_start: null
+    training_end: null
+    validation_start: null
+    validation_end: null
+    initial_global_flexible_fraction: null
+    routing_share_seasonality: static_initially
+    note: Fitted routing shares and flexible fraction belong in outputs/calibration,
+      not in this file.
+  scope_notes:
+    germany_actual: Derived as Emden + Dornum - Netherlands TSO observation.
+    netherlands_actual: Observed from Dutch TSO / ENTSOG at Emden EPT1.
+    poland_in_v1: false
+    snohvit_lng: Exclude from pipeline routing if embedded in Norway production totals.
+    domestic_gas: Subtract relevant Norwegian domestic use if embedded in pipeline-available
+      production.
+  routing:
+    start: 2026-11
+    end: 2027-10
+    baseline_start: 2023-01
+    baseline_end: 2023-12
+    reconciliation_relative_tolerance: 0.05
+    solver_numerical_tolerance_bcm: 1.0e-07
+    capacity_sources:
+      gassco_map_2024: https://gassco.eu/wp-content/uploads/2024/12/Det-norske-gasstransportsystemet-2024.pdf
+      plant_definitions: https://www.norskpetroleum.no/produksjon-og-eksport/landanlegg/
+      nyhamna: https://gassco.eu/prosessanlegg/nyhamna/
+      north_sea_entry: https://ens.dk/media/5370/download
+      baltic_pipe: https://www.gaz-system.pl/en/for-media/press-releases/2022/november/31-11-2022-baltic-pipe-has-reached-its-maximum-capacity.html
+    capacity_notes: Provisional engineering envelopes for 2024, not verified capacity
+      vintages. Kollsnes uses published 143 dry-export capacity. Current plant descriptions
+      report 146.5 rich-processing capacity; these are different measures, not substitutes.
+      Karsto 95 is a rich-processing envelope applied provisionally to net gas; dry-gas
+      equivalence and maintenance baseline are unresolved, so no Karsto derate is
+      applied. North Sea Entry and Baltic Pipe volume reference conditions require
+      harmonisation. Baltic Pipe 10 bcm/year uses a flat 10/365 daily envelope, not
+      booked capacity. Daily technical updates are forward-filled only; no backfill
+      before the first record.
+    assets:
+      KOLLSNES_EXPORT:
+        mcm_d: 143.0
+        source: plant_definitions
+        maintenance_series: kollsnes_maint_d
+      NYHAMNA_EXPORT:
+        mcm_d: 84.0
+        source: nyhamna
+      KARSTO_PROCESSING:
+        mcm_d: 95.0
+        source: plant_definitions
+      OGT:
+        mcm_d: 35.0
+        source: gassco_map_2024
+      HEIMDAL_STATPIPE:
+        mcm_d: 35.0
+        source: gassco_map_2024
+      KARSTO_STATPIPE:
+        mcm_d: 12.0
+        source: gassco_map_2024
+      DRAUPNER_EKOFISK_STATPIPE:
+        mcm_d: 32.4
+        source: gassco_map_2024
+      LANGELED_NORTH:
+        mcm_d: 74.7
+        source: gassco_map_2024
+      LANGELED_SOUTH:
+        mcm_d: 73.8
+        source: gassco_map_2024
+      ZEEPIPE_IIA:
+        mcm_d: 77.0
+        source: gassco_map_2024
+      ZEEPIPE_IIB:
+        mcm_d: 80.0
+        source: gassco_map_2024
+      EUROPIPE_I:
+        mcm_d: 48.0
+        source: gassco_map_2024
+      EUROPIPE_II:
+        mcm_d: 73.5
+        source: gassco_map_2024
+      NORPIPE:
+        mcm_d: 34.0
+        source: gassco_map_2024
+      VESTERLED:
+        mcm_d: 35.0
+        source: gassco_map_2024
+      ZEEPIPE_EXPORT:
+        mcm_d: 42.2
+        source: gassco_map_2024
+      FRANPIPE:
+        mcm_d: 54.2
+        source: gassco_map_2024
+      NORTH_SEA_ENTRY:
+        mcm_d: 27.4
+        source: north_sea_entry
+      BALTIC_PIPE:
+        annual_bcm: 10.0
+        source: baltic_pipe
+    nodes:
+      KOLLSNES_FEED:
+        kind: source
+        source_group: KOLLSNES
+        workbook_columns:
+        - CV
+        - EW
+        position:
+        - 0
+        - 8
+        label: Kollsnes fields incl Fram / Valemon
+      NYHAMNA_FEED:
+        kind: source
+        source_group: NYHAMNA
+        position:
+        - 0
+        - 12
+        label: Nyhamna fields
+      KARSTO_FEED:
+        kind: source
+        source_group: KARSTO
+        workbook_columns:
+        - ES
+        - FO
+        - DR
+        - CF
+        - DW
+        - FT
+        - DQ
+        - CO
+        - FE
+        - FN
+        - DT
+        - EP
+        - FX
+        - DK
+        - FW
+        - FM
+        position:
+        - 0
+        - 4
+        label: Karsto fields incl omitted satellites
+      OSEBERG:
+        kind: source
+        source_group: OSEBERG_HEIMDAL
+        position:
+        - 0
+        - 10
+        label: Oseberg
+      SLEIPNER:
+        kind: source
+        source_group: SLEIPNER
+        workbook_columns:
+        - DF
+        - DG
+        - FQ
+        - ED
+        position:
+        - 3
+        - 6
+        label: Sleipner fields incl Gudrun
+      UK_DIRECT:
+        kind: source
+        source_group: UK_DIRECT
+        workbook_columns:
+        - EZ
+        - DB
+        - FU
+        - CG
+        - EH
+        - FL
+        - CQ
+        - EJ
+        - EM
+        - FV
+        - GI
+        - EI
+        - CK
+        - FF
+        - FS
+        - EB
+        - DL
+        position:
+        - 8
+        - 14
+        label: Direct UK FLAGS / SAGE / FUKA / Armada
+      EKOFISK_FEED:
+        kind: source
+        workbook_columns:
+        - CR
+        - CS
+        - CT
+        - EO
+        - FY
+        - EX
+        - DI
+        position:
+        - 0
+        - 0
+        label: Ekofisk / Valhall gas incl Tommeliten A
+      UNMAPPED:
+        kind: source
+        residual: true
+        position:
+        - 0
+        - -3
+        label: Unclassified net production
+      KOLLSNES:
+        kind: junction
+        position:
+        - 2
+        - 8
+        label: Kollsnes dry export
+      NYHAMNA:
+        kind: junction
+        position:
+        - 2
+        - 12
+        label: Nyhamna
+      KARSTO:
+        kind: junction
+        position:
+        - 2
+        - 4
+        label: Karsto shared processing
+      HEIMDAL_BYPASS:
+        kind: junction
+        position:
+        - 3
+        - 10
+        label: Heimdal bypass
+      CORE:
+        kind: junction
+        position:
+        - 5
+        - 8
+        label: Sleipner / Draupner core
+      EUROPIPE_II_SPLIT:
+        kind: junction
+        position:
+        - 5
+        - 4
+        label: Shared Europipe II
+      EKOFISK:
+        kind: junction
+        position:
+        - 7
+        - 3
+        label: Ekofisk / Norpipe junction
+      EMDEN_POOL:
+        kind: junction
+        position:
+        - 8
+        - 6
+        label: DE / NL landing pool
+      DANISH_TRANSIT:
+        kind: junction
+        position:
+        - 8
+        - 1
+        label: North Sea Entry / Nybro transit
+      FAXE:
+        kind: junction
+        position:
+        - 10
+        - 0
+        label: Faxe / Baltic Pipe
+      UK:
+        kind: destination
+        position:
+        - 12
+        - 12
+        label: UK
+      FR:
+        kind: destination
+        position:
+        - 12
+        - 10
+        label: France
+      BE:
+        kind: destination
+        position:
+        - 12
+        - 8
+        label: Belgium
+      NL:
+        kind: destination
+        position:
+        - 12
+        - 6
+        label: Netherlands
+      DE:
+        kind: destination
+        position:
+        - 12
+        - 4
+        label: Germany
+      DK:
+        kind: destination
+        position:
+        - 12
+        - 2
+        label: Denmark
+      PL:
+        kind: destination
+        position:
+        - 12
+        - 0
+        label: Poland
+      UNROUTED:
+        kind: unrouted
+        position:
+        - 12
+        - -3
+        label: Unrouted supply (accounting)
+    arcs:
+    - id: KOLLSNES_PROCESSING
+      from: KOLLSNES_FEED
+      to: KOLLSNES
+      asset: KOLLSNES_EXPORT
+    - id: NYHAMNA_PROCESSING
+      from: NYHAMNA_FEED
+      to: NYHAMNA
+      asset: NYHAMNA_EXPORT
+    - id: KARSTO_PROCESSING
+      from: KARSTO_FEED
+      to: KARSTO
+      asset: KARSTO_PROCESSING
+    - id: OGT
+      from: OSEBERG
+      to: HEIMDAL_BYPASS
+      asset: OGT
+    - id: HEIMDAL_STATPIPE
+      from: HEIMDAL_BYPASS
+      to: CORE
+      asset: HEIMDAL_STATPIPE
+    - id: VESTERLED
+      from: HEIMDAL_BYPASS
+      to: UK
+      asset: VESTERLED
+    - id: LANGELED_NORTH
+      from: NYHAMNA
+      to: CORE
+      asset: LANGELED_NORTH
+    - id: ZEEPIPE_IIA
+      from: KOLLSNES
+      to: CORE
+      asset: ZEEPIPE_IIA
+    - id: ZEEPIPE_IIB
+      from: KOLLSNES
+      to: CORE
+      asset: ZEEPIPE_IIB
+    - id: KARSTO_STATPIPE
+      from: KARSTO
+      to: CORE
+      asset: KARSTO_STATPIPE
+    - id: EUROPIPE_II
+      from: KARSTO
+      to: EUROPIPE_II_SPLIT
+      asset: EUROPIPE_II
+    - id: EUROPIPE_II_DORNUM
+      from: EUROPIPE_II_SPLIT
+      to: EMDEN_POOL
+      asset: null
+    - id: NORTH_SEA_ENTRY
+      from: EUROPIPE_II_SPLIT
+      to: DANISH_TRANSIT
+      asset: NORTH_SEA_ENTRY
+    - id: DK_OFFTAKE
+      from: DANISH_TRANSIT
+      to: DK
+      asset: null
+    - id: BALTIC_PIPE
+      from: DANISH_TRANSIT
+      to: FAXE
+      asset: BALTIC_PIPE
+    - id: PL_DELIVERY
+      from: FAXE
+      to: PL
+      asset: null
+    - id: SLEIPNER_CORE
+      from: SLEIPNER
+      to: CORE
+      asset: null
+    - id: LANGELED_SOUTH
+      from: CORE
+      to: UK
+      asset: LANGELED_SOUTH
+    - id: EUROPIPE_I
+      from: CORE
+      to: EMDEN_POOL
+      asset: EUROPIPE_I
+    - id: CORE_EKOFISK
+      from: CORE
+      to: EKOFISK
+      asset: DRAUPNER_EKOFISK_STATPIPE
+    - id: EKOFISK_INJECTION
+      from: EKOFISK_FEED
+      to: EKOFISK
+      asset: null
+    - id: NORPIPE
+      from: EKOFISK
+      to: EMDEN_POOL
+      asset: NORPIPE
+    - id: ZEEPIPE_EXPORT
+      from: CORE
+      to: BE
+      asset: ZEEPIPE_EXPORT
+    - id: FRANPIPE
+      from: CORE
+      to: FR
+      asset: FRANPIPE
+    - id: NL_ALLOCATION_PROXY
+      from: EMDEN_POOL
+      to: NL
+      asset: null
+    - id: DE_ALLOCATION_PROXY
+      from: EMDEN_POOL
+      to: DE
+      asset: null
+    - id: UK_DIRECT_PROXY
+      from: UK_DIRECT
+      to: UK
+      asset: null
+    notes: Nodes/arcs are the sole definitions used by PuLP and both plots. Source
+      groups reuse existing accepted field mappings; Heidrun domestic allocation remains
+      uncertain. Ekofisk-area fields come from cached EA production workbook cells,
+      in monthly-average mcm/d. Omitted net fields with evidenced evacuation extend
+      existing source feeds; no residual goes to the core. Published field transport
+      evidence and the monthly ledger are retained in outputs/poc/diagnostics. The
+      Norway-minus-Snohvit boundary is unchanged. Direct SAGE/FLAGS/FUKA/Armada gas
+      stays separate from Gassco processing; supply-bounded proxy capacity is unverified.
+      Brage Statpipe entry, Tune sale-gas attribution, Trym Danish-system allocation,
+      and Vilje's negative May 2024 net-production cell remain UNMAPPED. Full Norway
+      minus Snohvit minus mapped sources is forced to UNROUTED until routing is evidenced.
+      Direct UK proxy lacks a verified technical capacity; bounded by its field supply
+      only. DE/NL destinations are allocation proxies at the landing pool, not commercial
+      swaps. Disposal arcs from every source to UNROUTED are generated as accounting
+      arcs and plotted.

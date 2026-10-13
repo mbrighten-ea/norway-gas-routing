@@ -15,3 +15,16 @@ outputs/routing_runs/20261013T134953172297Z_0687eeec/details/*.svg whitespace=cr
 outputs/routing_runs/20261013T135345065588Z_aa2757be/details/*.svg whitespace=cr-at-eol,-trailing-space
 outputs/routing_runs/20261013T135600399641Z_b99e8ba9/details/*.svg whitespace=cr-at-eol,-trailing-space
 outputs/routing_runs/20261013T135808503970Z_568585ae/details/*.svg whitespace=cr-at-eol,-trailing-space
+
+# Immutable live F2.7 forecast/acceptance packages; preserve recorded byte hashes.
+outputs/routing_runs/20261013T165918528411Z_87c4eb40/** -text whitespace=cr-at-eol
+outputs/routing_runs/20261013T170110955685Z_8de91d4c/** -text whitespace=cr-at-eol
+outputs/routing_runs/20261013T170259061147Z_afbe0af9/** -text whitespace=cr-at-eol
+outputs/routing_runs/20261013T170509787483Z_39d6379e/** -text whitespace=cr-at-eol
+outputs/routing_runs/20261013T170332921870Z_422d6f69/** -text whitespace=cr-at-eol
+outputs/forward_scenarios/20261013T165915778836Z/** -text whitespace=cr-at-eol
+outputs/routing_runs/20261013T165918528411Z_87c4eb40/details/*.svg whitespace=cr-at-eol,-trailing-space
+outputs/routing_runs/20261013T170110955685Z_8de91d4c/details/*.svg whitespace=cr-at-eol,-trailing-space
+outputs/routing_runs/20261013T170259061147Z_afbe0af9/details/*.svg whitespace=cr-at-eol,-trailing-space
+outputs/routing_runs/20261013T170509787483Z_39d6379e/details/*.svg whitespace=cr-at-eol,-trailing-space
+outputs/routing_runs/20261013T170332921870Z_422d6f69/details/*.svg whitespace=cr-at-eol,-trailing-space

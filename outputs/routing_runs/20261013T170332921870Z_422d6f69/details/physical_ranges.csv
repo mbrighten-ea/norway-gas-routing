@@ -1,0 +1,22 @@
+﻿month,destination,model_bcm,minimum_bcm,maximum_bcm,range_width_bcm,fixed_exports_bcm,interpretation
+2026-11-01,UK,2.6951360460144294,2.6951360460144294,3.7817343359581725,1.0865982899437432,10.176002047840072,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2026-11-01,FR,1.6260000000000006,0.5394017100562567,1.6260000000000006,1.0865982899437439,10.176002047840072,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2026-11-01,BE,1.2660000000000002,0.17940171005625638,1.2660000000000002,1.0865982899437439,10.176002047840072,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2026-11-01,NL,0.79601364573725364,0,4.5888660018256431,4.5888660018256431,10.176002047840072,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2026-11-01,DE,3.0765809640540143,0,4.5888660018256431,4.5888660018256431,10.176002047840072,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2026-11-01,DK,0.11636829362645287,0,0.82199999999999973,0.82199999999999973,10.176002047840072,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2026-11-01,PL,0.59990309840792178,-0,0.82191780821917815,0.82191780821917815,10.176002047840072,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2027-09-01,UK,1.3676439469884594,0.65744094685707288,3.6708393153455683,3.0133983684884953,6.5402246411942047,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2027-09-01,FR,0.82031042209932814,0,1.6260000000000006,1.6260000000000006,6.5402246411942047,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2027-09-01,BE,0.88587002562866002,0,1.2660000000000002,1.2660000000000002,6.5402246411942047,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2027-09-01,NL,0.60130365469061609,0,4.2816452914718806,4.2816452914718806,6.5402246411942047,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2027-09-01,DE,2.3240297293193493,0,4.2816452914718806,4.2816452914718806,6.5402246411942047,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2027-09-01,DK,0.087903870269572304,0,0.82199999999999973,0.82199999999999973,6.5402246411942047,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2027-09-01,PL,0.45316299219821987,-0,0.82191780821917815,0.82191780821917815,6.5402246411942047,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2027-10-01,UK,2.6559592924148951,2.6559592924148951,3.8903398822433228,1.2343805898284277,10.200688933444077,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2027-10-01,FR,1.6802000000000006,0.44581941017157289,1.6802000000000006,1.2343805898284277,10.200688933444077,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2027-10-01,BE,1.3082000000000003,0.073819410171572564,1.3082000000000003,1.2343805898284277,10.200688933444077,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2027-10-01,NL,0.79036968333645352,0,4.5563296410291825,4.5563296410291825,10.200688933444077,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2027-10-01,DE,3.0547671328752091,0,4.5563296410291825,4.5563296410291825,10.200688933444077,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2027-10-01,DK,0.11554320943676581,0,0.84939999999999971,0.84939999999999971,10.200688933444077,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios
+2027-10-01,PL,0.59564961538075345,-0,0.84931506849315075,0.84931506849315075,10.200688933444077,Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios

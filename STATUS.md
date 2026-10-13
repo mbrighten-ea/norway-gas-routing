@@ -1,5 +1,30 @@
 # Current implementation state
 
+## Live forecast acceptance
+
+[Live scenario Excel](outputs/forward_scenarios/20261013T165915778836Z/results.xlsx)
+uses fresh EA SID queries at explicit origin 2026-10-13 16:59:13 UTC, with F2.6
+implementation `b8d8e03`. All four scenarios are OPTIMAL for November 2026–December
+2029 (152 monthly solves); raw sources agree across cases, source ownership is
+unique, national closure is <6e-15 bcm and capacity violations are zero. Exports
+A/B/C/D are 358.366178 / 354.060774 / 353.399510 / 349.094107 bcm. The fresh rolling
+12-month reference also ran and matches A's first 12 monthly results. No model
+code, physical assumptions, parameter fitting or protected-actual reads changed.
+
+Ready for routine **provisional** analyst use with explicit `core_f24` settings.
+Conditional mapped eligible coverage is 100%; 26.74% of pipeline supply remains a
+frozen residual-mix proxy, not independently verified future entry-point coverage.
+The [live report and acceptance provenance](outputs/forward_scenarios/20261013T165915778836Z/report.html)
+include compatible prospective EA comparisons: adjusted UK +7.711552 bcm (+10.62%),
+FR+BE +0.106316 (+0.11%), NL+DE -11.274491 (-7.31%). No accuracy scores were computed.
+June 2027's UK comparable physical minimum at the same maximum exports is 1.608043
+bcm versus EA 1.287610; some excess is forced under these assumptions, while the
+exact allocation is not uniquely determined by physics. Core review should focus
+on summer UK/continental differences, residual UK-direct mix, dated technical
+capacities and preference-selected DE/NL and DK/PL splits. Heidrun remains an
+outside-network bound, not a domestic forecast; mixed LNG vintage and provisional
+capacity availability remain disclosed. No hard live-input obstacle was found.
+
 ## Operational release hardening
 
 The exact four F2.4 scenario YAML snapshots have been recovered and restored with
