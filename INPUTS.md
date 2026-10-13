@@ -24,14 +24,22 @@ future/actual date bypass or new structural-zero rule was introduced.
 ## F2 current forecast contract
 
 `current_forecast` derives a rolling next-complete-calendar-month delivery window
-from a captured/configured UTC origin and `horizon_months` (default 12). Origins
-must be in the current UTC month, no later than execution; horizon ends by 2030.
+from a captured/configured UTC origin and `horizon_months` (default 12). An explicit
+quoted `forecast_end_month` takes precedence and resolves the actual month count;
+null preserves the length setting. October 2026 to endpoint `2030-12` gives 50
+deliveries, November 2026–December 2030. Origins must be in the current UTC month,
+no later than execution; delivery always ends by December 2030.
 `get_prospective_forecast(..., origin=...)` queries metadata and points using the
 same exact `@asof` state, with forecast lifecycle/boundary checks before point I/O.
 There is no latest fallback for empty origin responses. Raw IDs, units, forecast
 start, returned origin, retrieval time and hashes precede analytical validation.
 Monthly fields require exact first-of-month coverage; maintenance exact daily
 coverage. No filling, clipping, actual-as-forecast or node allocation occurs.
+The entire requested window is checked before solving, including late-year gaps.
+Source records retain expected/returned counts and missing delivery months/dates;
+structured coverage failures are separate from physical-decision blockers.
+Selected Snøhvit's absent 2030 observations block the extended request; published
+zero maintenance points do not certify absence of future outages.
 
 The real adapter checks sixteen known fields, national total, Snøhvit and Kollsnes
 maintenance, then fails on the [specific unapproved physical contract](evidence/inputs/forecast_viability_f1/current_forecast_supply_contract.md).

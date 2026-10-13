@@ -14,6 +14,10 @@ end: null
 # selects the same prospective @asof state for all candidate sources.
 origin: null
 horizon_months: 12
+# Optional quoted endpoint takes precedence over horizon_months; null keeps 12.
+# Example: '2030-12' gives 50 future months from an October 2026 origin.
+# Coverage and physical-input gates apply to every requested delivery month.
+forecast_end_month: null
 solver: HiGHS
 # F2.2 approved provisional scenario: 19 existing model envelopes, Kollsnes 143
 # central / provisional_kollsnes_156 sensitivity, signed maintenance once.

@@ -146,11 +146,13 @@ def write_workbook(path, frames, manifest):
         chart.type = 'col'
         chart.grouping = 'stacked'
         chart.overlap = 100
-        chart.y_axis.title = 'Monthly volume (bcm)'
+        chart.y_axis.title = 'Monthly volume (bcm/month)'
         chart.x_axis.title = 'Target month'
+        chart.x_axis.numFmt = 'yyyy-mm'
+        chart.x_axis.tickLblSkip = max(1, math.ceil(len(frames['Monthly flows'])/18))
         chart.add_data(Reference(sheet, min_col=2, max_col=8, min_row=3, max_row=sheet.max_row), titles_from_data=True)
         chart.set_categories(Reference(sheet, min_col=1, min_row=4, max_row=sheet.max_row))
-        chart.width, chart.height = 26, 12
+        chart.width, chart.height = max(26, min(45, len(frames['Monthly flows'])*.6)), 12
         sheet.add_chart(chart, 'A'+str(sheet.max_row+3))
     book.save(path)
     # Export check: typed numbers/dates and visible missing values survive OOXML.
@@ -198,10 +200,13 @@ def report_run(output, manifest, inputs, results, inventory, network):
         import matplotlib
         matplotlib.use('Agg')
         import matplotlib.pyplot as plt
-        fig, ax = plt.subplots(figsize=(11, 5))
+        fig, ax = plt.subplots(figsize=(max(11, min(24, len(monthly)/3)), 5))
         plotted = monthly.set_index(monthly.month.dt.to_period('M').astype(str))[[d+'_volume_bcm' for d in DESTINATIONS]]
         plotted.rename(columns={d+'_volume_bcm': d for d in DESTINATIONS}).plot.bar(
             stacked=True, ax=ax, color=[COLORS[d] for d in DESTINATIONS], rot=45)
+        # Keep every monthly bar, with readable year/month labels across years.
+        positions=sorted(set(range(0,len(plotted),max(1,math.ceil(len(plotted)/18)))) | {len(plotted)-1})
+        ax.set_xticks(positions,labels=plotted.index[positions],rotation=45,ha='right')
         ax.set(title=manifest['analysis_type']+' — monthly destination volumes', ylabel='bcm/month', xlabel='Target month')
         ax.legend(loc='upper left', bbox_to_anchor=(1.01, 1))
         fig.tight_layout()

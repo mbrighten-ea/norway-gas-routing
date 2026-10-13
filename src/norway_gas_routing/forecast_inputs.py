@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
+import re
 
 import pandas as pd
 
@@ -46,8 +47,12 @@ def provisional_capacities(model, months, maintenance, scenario):
     return pd.DataFrame(capacities),pd.concat(daily,ignore_index=True)
 
 
-def forecast_window(origin=None, horizon_months=12):
-    """Current-month origins only; next complete delivery month, ending by 2030."""
+def forecast_window(origin=None, horizon_months=12, forecast_end_month=None):
+    """Next complete month through a count or explicit endpoint, ending by 2030.
+
+    An explicit endpoint takes precedence over the length setting. The caller
+    records the resolved month count alongside that endpoint in provenance.
+    """
     load_policy()
     now=pd.Timestamp.now(tz='UTC')
     if origin is not None and not isinstance(origin,(str,pd.Timestamp)):
@@ -58,7 +63,18 @@ def forecast_window(origin=None, horizon_months=12):
     if isinstance(horizon_months,bool) or not isinstance(horizon_months,int) or not 1<=horizon_months<=60:
         raise ValueError('horizon_months must be an integer between 1 and 60.')
     origin=origin.floor('s')
-    months=pd.period_range(origin.tz_localize(None).to_period('M')+1,periods=horizon_months,freq='M')
+    first=origin.tz_localize(None).to_period('M')+1
+    if forecast_end_month is not None:
+        if not isinstance(forecast_end_month,str) or not re.fullmatch(r'\d{4}-(0[1-9]|1[0-2])',forecast_end_month):
+            raise ValueError('forecast_end_month must be a quoted YYYY-MM month or null.')
+        last=pd.Period(forecast_end_month,'M')
+        if last<first:
+            raise ValueError('forecast_end_month must include at least the first complete delivery month '+str(first)+'.')
+        if last>pd.Period('2030-12','M'):
+            raise ValueError('Current forecast deliveries must exclude the locked holdout and end by December 2030.')
+        months=pd.period_range(first,last,freq='M')
+    else:
+        months=pd.period_range(first,periods=horizon_months,freq='M')
     if months.min()<pd.Period('2026-10','M') or months.max()>pd.Period('2030-12','M'):
         raise ValueError('Current forecast deliveries must exclude the locked holdout and end by December 2030.')
     return origin.isoformat(),months
@@ -138,11 +154,22 @@ def inspect_forecast_source(root,key,dates,registry,contract,records,output,orig
         if actual.tz is not None:
             if str(actual.tz)!='UTC': raise ValueError(key+': unapproved forecast timezone.')
             actual=actual.tz_localize(None)
+        missing=dates.difference(actual)
+        unexpected=actual.difference(dates)
+        record.update(expected_points=len(dates),returned_points=len(actual),
+            missing_dates=missing.strftime('%Y-%m-%d').tolist(),
+            missing_delivery_months=missing.to_period('M').unique().astype(str).tolist(),
+            unexpected_dates=unexpected.dropna().strftime('%Y-%m-%d').tolist(),
+            duplicate_dates=actual[actual.duplicated()].dropna().strftime('%Y-%m-%d').tolist())
         if (actual.hasnans or not actual.is_unique or not actual.sort_values().equals(dates)):
-            raise ValueError(key+': incomplete/duplicate forecast coverage; missing '+', '.join(dates.difference(actual).astype(str))+'; no filling.')
+            raise ValueError(key+': incomplete/duplicate forecast coverage; missing delivery months '+
+                ', '.join(record['missing_delivery_months'])+'; missing dates '+', '.join(record['missing_dates'])+
+                '; unexpected/duplicate dates '+', '.join(record['unexpected_dates']+record['duplicate_dates'])+'; no filling.')
         normal=pd.Series(pd.to_numeric(values.to_numpy(),errors='raise'),index=actual,name=key).sort_index()
-        if not normal.map(lambda v: pd.notna(v) and abs(v)!=float('inf')).all():
-            raise ValueError(key+': missing/nonfinite forecast values.')
+        invalid=normal.loc[~normal.map(lambda v: pd.notna(v) and abs(v)!=float('inf'))]
+        if len(invalid):
+            record['invalid_delivery_months']=invalid.index.to_period('M').unique().astype(str).tolist()
+            raise ValueError(key+': missing/nonfinite forecast values in delivery months '+', '.join(record['invalid_delivery_months'])+'.')
         if spec['category']=='production' and key!='snohvit_net_prod' and normal.lt(0).any():
             raise ValueError(key+': negative production forecast; no clipping.')
         record['status']='VERIFIED_FORECAST_RESPONSE' if key!='snohvit_net_prod' else 'COVERAGE_VERIFIED_UNITS_PENDING'
@@ -193,6 +220,10 @@ def prepare_current_inputs(root,model,registry,request):
         failures.append(error)
         next(record for record in records if record['key']=='snohvit_net_prod').update(status='REJECTED_FORECAST_UNIT_CONTRACT',validation_error=error)
     blockers.append('Snøhvit forecast conversion and vintage compatibility are not approved; historical July-2025 rate guard is unchanged.')
-    (output/'forecast_blockers.json').write_text(json.dumps(dict(physical_decisions=blockers,source_failures=failures,source_records=len(records)),indent=2)+'\n')
+    coverage_failures=[{k:r[k] for k in ['key','sid','missing_delivery_months','missing_dates',
+        'unexpected_dates','duplicate_dates','invalid_delivery_months'] if k in r}
+        for r in records if any(r.get(k) for k in ['missing_dates','unexpected_dates','duplicate_dates','invalid_delivery_months'])]
+    (output/'forecast_blockers.json').write_text(json.dumps(dict(physical_decisions=blockers,source_failures=failures,
+        source_coverage_failures=coverage_failures,source_records=len(records)),indent=2)+'\n')
     (output/'source_metadata.json').write_text(json.dumps(records,default=str,indent=2,allow_nan=False)+'\n',encoding='utf-8')
     raise ValueError('Current forecast blocked: '+' '.join(blockers+failures))

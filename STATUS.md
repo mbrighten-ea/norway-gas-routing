@@ -1,5 +1,51 @@
 # Current implementation state
 
+## F2 forecast horizon endpoint — 13 October 2026
+
+Branch `feature/forecast-horizon-2030` is isolated in
+`.scratch/worktrees/horizon-2030/`, based directly on `f4a742e` (implementation
+`524ee59`); no investigation branch or concurrent commit/revert history was merged.
+`forecast_end_month: null` preserves the 12-month default. An explicit quoted
+`'2030-12'` takes precedence over `horizon_months`, with the resolved count recorded
+in settings/provenance. October 2026 origins produce November 2026–December 2030,
+50 complete monthly deliveries. Source/export gates check the entire resolved
+window and record missing delivery months/dates. Multi-year chart labels remain
+readable while every monthly bar/row is retained. Physical topology, optimiser,
+population/allocation methodology, ratings and historical/evaluation guards are
+unchanged. Operator configuration and troubleshooting are in README.md/INPUTS.md.
+
+[Validation evidence](evidence/inputs/forecast_horizon_2030/validation.json)
+records 12- and 50-month synthetic OPTIMAL packages, identical repeated 50-month
+results, chronological monthly Excel/CSV/HTML/chart ranges, validation-only
+packages and all package hashes. These are explicitly manufactured fixtures,
+never EA forecasts or a remedy for unavailable sources.
+
+Fresh full-window live validation is `BLOCKED_INPUTS`, with no LP or supply vector:
+`outputs/routing_runs/20261013T084959806649Z_e6a9cd6f/` in the isolated worktree.
+National production and all 16 fields returned 50/50 months; Kollsnes returned
+1,522/1,522 daily points. Selected Snøhvit returned 38/50 months through December
+2029; every January–December 2030 month is identified as missing, with the raw
+response unchanged. Its unit/vintage approval is still absent. The complete 2024
+identity/classification gate fails for 41 components; no frozen residual weights
+exist. Kollsnes's 156 mcm/day derate on thirteen September 2027 days remains
+incompatible with the 143 central envelope. The 156 sensitivity passing capacity
+preparation does not approve a new central rating or unblock source preparation.
+
+Verification: 51 focused checks passed. Full regression ran 584 tests: 571 passed;
+13 initially failed/errored because the isolated worktree lacked existing offline
+capacity fixtures and their exact archived byte serialization. After copying only
+the hash-referenced fixtures from this repository, all 33 capacity fixture/contract
+checks passed on rerun, verifying all 584 distinct tests. Model content and hash
+guards were not changed; the copied fixtures are untracked and excluded from the
+commit. One pre-existing pandas deprecation warning remains. No protected
+January–September 2026 actuals were accessed or scored.
+
+Restart: use the isolated horizon branch/worktree and README endpoint option.
+Resolve the original F2.2 population, frozen-weight, Snøhvit and 143-maintenance
+contracts before any live activation. Do not extrapolate 2030 LNG or infer future
+maintenance certainty. Historical walk-forward and commercial optimisation remain
+outside scope.
+
 ## F2.2 complete-population gate and provisional capacities — 12 October 2026
 
 Branch `feature/reconciled-supply-f22` from verified `81114aa`; one worker.

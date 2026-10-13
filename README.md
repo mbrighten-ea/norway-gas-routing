@@ -34,7 +34,7 @@ Do not combine workbook values with SID forecasts or reuse old five-node weights
 Use `config/run.yaml` as the single run request. Its repository-relative paths
 reference the canonical model, registry and locked evaluation policy without
 duplicating network/source mappings. The default is `current_forecast`, with
-`origin: null`, `horizon_months: 12`, `start: null`, `end: null`,
+`origin: null`, `horizon_months: 12`, `forecast_end_month: null`, `start: null`, `end: null`,
 `input_source: fresh_sid`, `capacity_scenario: provisional_kollsnes_143` and
 `price_enabled: false`. It retrieves/checks candidates, then reports the pending
 physical-input decisions; it cannot yet issue a complete EA routing forecast.
@@ -65,9 +65,49 @@ errors stop before package creation. Later failures retain an explanatory packag
 an explicit quoted timestamp within the current UTC month selects that same
 `@asof` state for every candidate source. Future origins and older replay origins
 are rejected. Deliveries start with the next complete calendar month: currently
-November 2026–October 2027. Set integer `horizon_months` (default 12; maximum 60,
-also bounded by December 2030); start/end must stay null or match the resolved
-window. Changing horizon does not fill missing source months.
+November 2026–October 2027. Set integer `horizon_months` (default 12; maximum 60)
+or a quoted `forecast_end_month`. **A non-null endpoint takes precedence over
+the length setting.** Start/end must stay null or match the resolved window;
+the endpoint must include at least one delivery month and cannot exceed December
+2030. Settings and provenance record the resolved start, end and actual month
+count. Historical reconstruction uses start/end and requires a null endpoint.
+
+To request the full extended horizon, edit these settings in the run YAML:
+
+```yaml
+mode: current_forecast
+origin: null
+start: null
+end: null
+horizon_months: 12
+forecast_end_month: '2030-12'
+```
+
+For any October 2026 information origin this resolves to November 2026–December
+2030, exactly **50 monthly deliveries**. With `forecast_end_month: null` the
+unchanged default is November 2026–October 2027, **12 deliveries**. Later origins
+produce shorter endpoint-based windows; they always start in the first complete
+month after the UTC information origin. Run the same command with
+`--validate-only` first. This requests fresh origin-matched SID observations
+over the entire delivery window and does not construct an LP.
+
+Changing horizon never fills source months. Selected Snøhvit stops in December
+2029, so every requested 2030 month is missing and the extended live run stays
+`BLOCKED_INPUTS`. Its units/vintage remain incompatible even for the short view.
+The complete 2024 population/classification gate and absence of frozen residual
+weights remain blockers. The 156 sensitivity passing capacity preparation does
+not approve a replacement central rating or solve these source problems.
+`source_metadata.json` records expected/returned point counts and missing dates
+and delivery months; `forecast_blockers.json` separates structured source gaps
+from unresolved physical decisions. Missing dates and unavailable outputs remain
+missing, not zeros. Prospective technical envelopes remain explicitly provisional,
+with unknown availability outside the approved signed Kollsnes-plan contract.
+
+Excel, CSV, HTML, charts and provenance retain every chronological monthly row
+across calendar years and use monthly bcm units. For an explicit manufactured
+50-month demonstration, additionally set `input_source: synthetic_demo` and
+`capacity_scenario: synthetic_fixture`. It is labelled SYNTHETIC throughout and
+queries no EA data; these fixture values cannot substitute for blocked live inputs.
 
 The sixteen identified field forecasts and national total are monthly bcm.
 Snøhvit is retrieved unchanged pending forecast-unit/vintage confirmation.

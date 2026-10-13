@@ -57,7 +57,7 @@ def load_run_config(root, path):
         raise RunBlocked('Invalid run YAML: '+str(exc)+'; fix the indicated line in '+str(path)) from exc
     keys = {'model', 'registry', 'evaluation', 'mode', 'input_source', 'start',
             'end', 'origin', 'solver', 'capacity_scenario', 'price_enabled'}
-    check_keys(request, 'run configuration', keys, {'horizon_months'})
+    check_keys(request, 'run configuration', keys, {'horizon_months','forecast_end_month'})
     if not isinstance(request['mode'], str) or request['mode'] not in {'historical_reconstruction', 'retrospective_forecast', 'latest_forecast', 'current_forecast'}:
         raise RunBlocked('Unsupported mode. Use historical_reconstruction; forecast modes require a verified origin bundle.')
     if not isinstance(request['input_source'], str) or request['input_source'] not in {'fresh_sid', 'synthetic_demo'}:
@@ -87,11 +87,15 @@ def load_run_config(root, path):
     if current:
         from .forecast_inputs import forecast_window
         request['horizon_months']=request.get('horizon_months',12)
-        request['origin'],months=forecast_window(request['origin'],request['horizon_months'])
+        request['forecast_end_month']=request.get('forecast_end_month')
+        request['origin'],months=forecast_window(request['origin'],request['horizon_months'],request['forecast_end_month'])
+        request['horizon_months']=len(months)
         for name,value in [('start',str(months.min())),('end',str(months.max()))]:
             if request[name] is not None and request[name]!=value:
-                raise RunBlocked('Current forecast '+name+' must be null or '+value+'; deliveries derive from origin and horizon_months.')
+                raise RunBlocked('Current forecast '+name+' must be null or '+value+'; deliveries derive from origin and forecast_end_month or horizon_months.')
             request[name]=value
+    elif request.get('forecast_end_month') is not None:
+        raise RunBlocked('forecast_end_month is only supported for current_forecast; historical reconstruction uses start/end.')
     for name in ('start', 'end'):
         value = request[name]
         if not isinstance(value, str) or len(value) != 7 or str(pd.Period(value, 'M')) != value:
@@ -217,8 +221,9 @@ def validate_prepared_inputs(inputs, network, request):
     months = pd.period_range(request['start'], request['end'], freq='M')
     if request['mode']=='current_forecast':
         from .forecast_inputs import forecast_window
-        _,expected=forecast_window(request['origin'],request['horizon_months'])
-        if not months.equals(expected): raise RunBlocked('Current forecast deliveries differ from origin/horizon contract.')
+        _,expected=forecast_window(request['origin'],request['horizon_months'],request.get('forecast_end_month'))
+        if not months.equals(expected) or len(expected)!=request['horizon_months']:
+            raise RunBlocked('Current forecast deliveries differ from origin/horizon contract.')
     else:
         check_dates(months, 'analysis')
     if not inputs['months'].equals(months):
@@ -293,8 +298,8 @@ def save_current_forecast_table(frame,path,request,*,monthly_index=False):
     """
     from .forecast_inputs import forecast_window
     if request['mode']!='current_forecast': raise RunBlocked('Prospective table export requires current_forecast.')
-    _,months=forecast_window(request['origin'],request['horizon_months'])
-    if request['start']!=str(months.min()) or request['end']!=str(months.max()):
+    _,months=forecast_window(request['origin'],request['horizon_months'],request.get('forecast_end_month'))
+    if request['start']!=str(months.min()) or request['end']!=str(months.max()) or len(months)!=request['horizon_months']:
         raise RunBlocked('Prospective export window differs from declared forecast horizon.')
     frame=csv_frame(frame,monthly_index)
     for column in ('month','target_month','date','calendar_date','timestamp'):

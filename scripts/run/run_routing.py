@@ -14,7 +14,7 @@ from norway_gas_routing.operational import execute_run, save_csv
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--config', default='config/run.yaml', help='Repository-relative historical/current-forecast YAML; current horizon defaults to 12 next-complete-month deliveries')
+    parser.add_argument('--config', default='config/run.yaml', help='Repository-relative YAML; current horizon defaults to 12 months, or set forecast_end_month through 2030-12')
     parser.add_argument('--validate-only', action='store_true', help='Prepare/check inputs and write an unsolved analyst package; never construct or solve an LP')
     parser.add_argument('--solver', help='Override configured installed solver name')
     args = parser.parse_args(argv)
