@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Norwegian gas routing · network and model comparison</title>
+<style>
+:root{--ink:#172f45;--muted:#5f7385;--line:#dce5ec;--paper:#f3f6f8;--accent:#285d7c}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.6 Arial,Helvetica,sans-serif}
+header{padding:34px max(24px,calc((100vw - 1260px)/2));background:#172f45;color:white}
+header p{max-width:960px;color:#d2e0eb;margin:8px 0 0}h1{font-size:34px;font-weight:600;letter-spacing:-.7px;margin:0}
+.eyebrow{font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:#a7c7d9;margin-bottom:8px}
+main{max-width:1308px;margin:auto;padding:24px}h2{font-size:24px;margin:0 0 8px;font-weight:600}h3{font-size:17px;margin:0 0 6px}
+p{margin:6px 0 14px}.muted{color:var(--muted)}.controls{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:16px}
+label{display:flex;flex-direction:column;font-size:12px;font-weight:bold;color:var(--muted);gap:5px;flex:1;min-width:220px}
+select{font:14px Arial;color:var(--ink);padding:11px 12px;border:1px solid #b7c8d5;border-radius:5px;background:white;width:100%}
+.card{padding:22px 24px;background:white;border:1px solid var(--line);border-radius:8px;margin-bottom:22px}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:20px 0}
+.kpi{padding:17px 18px;border:1px solid var(--line);background:white;border-radius:6px}.kpi small{display:block;font-size:12px;color:var(--muted)}
+.kpi strong{font-size:30px;font-weight:600;letter-spacing:-.5px}.kpi span{font-size:12px;color:var(--muted)}
+.note{border-left:3px solid #bc8c32;background:#fbf8f1;padding:11px 15px;color:#64553e;font-size:13px}
+.plot{width:100%;min-height:200px}.map{min-height:700px}.section-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 20px}.pills a{font-size:13px;text-decoration:none;padding:7px 12px;background:white;border:1px solid var(--line);border-radius:5px;color:var(--accent)}
+a{color:var(--accent)}table{border-collapse:collapse;width:100%;font-size:13px}th{text-align:left;font-size:12px;color:var(--muted);background:#f4f7f9}td,th{padding:10px 12px;border-bottom:1px solid var(--line)}td.num{text-align:right;font-variant-numeric:tabular-nums}code{font-size:12px;overflow-wrap:anywhere}
+.scroll{overflow-x:auto}.source-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}.detail{border-top:1px solid var(--line);padding-top:16px;margin-top:16px}summary{cursor:pointer;font-weight:bold}button{padding:8px 13px;border:1px solid #bdcbd7;background:#fff;border-radius:5px;color:var(--accent);cursor:pointer}
+.asset-info{padding:10px 14px;background:#edf3f6;border-radius:4px;font-size:13px;min-height:42px;margin-top:10px}.status{font-size:12px;color:#33786e}.legendline{display:inline-block;width:26px;border-top:3px solid #456a89;margin:0 5px 3px 12px}.dash{border-top-style:dashed}.dot{border-top-style:dotted;border-color:#a0a8b1}
+footer{color:var(--muted);font-size:12px;text-align:center;margin:22px}
+@media(max-width:900px){main{padding:14px}.card{padding:18px 12px}.kpis{grid-template-columns:repeat(2,1fr)}.source-grid,.section-grid{grid-template-columns:1fr}h1{font-size:28px}header{padding:26px 20px}.map{min-height:600px}}
+@media print{body{background:white}.controls,.pills,button,.modebar{display:none!important}.card{break-inside:avoid;border:0}.plot{max-width:1100px}header{background:white;color:#172f45}header p,.eyebrow{color:#5f7385}}
+</style>
+<script>__PLOTLY_JS__</script>
+</head>
+<body>
+<header><div class="eyebrow">Norwegian pipeline gas · saved model results</div><h1>Routes, constraints and destination allocations</h1>
+<p>Explore the PuLP / HiGHS routing reconstruction and compare it with retained legacy Excel allocations. Source vintages, shared corridors and missing comparisons remain visible.</p></header>
+<main>
+<div class="controls"><label>Model run and reporting year<select id="run"></select></label><label>Legacy comparison source<select id="legacy"></select></label></div>
+<div id="selection" class="muted"></div><div class="kpis" id="kpis"></div>
+<div class="pills"><a href="#network">Network</a><a href="#annual-section">Allocation comparison</a><a href="#monthly-section">Monthly destinations</a><a href="#difference-section">Model differences</a><a href="#capacity-section">Bottlenecks</a><a href="#sources">Method and sources</a><a href="#downloads">Figures and CSVs</a></div>
+<section id="network" class="card"><h2>Where the gas can flow</h2><p class="muted">The saved model topology, arranged as a North Sea schematic. Shared constraints apply before destination allocation.</p>
+<div class="controls"><label style="max-width:260px">Map period<select id="map-period"></select></label></div><div id="map" class="plot map"></div>
+<div class="asset-info" id="asset-info">Hover over a route for flow, modelled capacity and utilisation. Select a route to keep its details here.</div>
+<div class="source-grid detail"><div><h3>Germany and Netherlands</h3><p>Europipe I, Europipe II and Norpipe feed one landing pool. The dashed country links are allocation proxies with no separate capacity denominator.</p></div>
+<div><h3>Denmark and Poland</h3><p>North Sea Entry is shared. Danish offtake and Baltic Pipe / Faxe delivery divide that entry flow. Europipe II also supplies the German landing pool.</p></div></div>
+<p class="note">Capacities are the modelled limits applied in this saved solution. Annual utilisation uses the sum of monthly bcm limits. Engineering availability and the separate public-capacity audit are not substituted.</p></section>
+<section id="annual-section" class="card"><h2>How allocations compare</h2><div id="comparison-note" class="note"></div>
+<div id="annual-summary" class="detail"></div><div id="totals" class="plot"></div><div id="annual" class="plot"></div>
+<p class="muted" style="font-size:13px">The legacy declared Gassco total keeps its original supply/accounting boundary. Its difference from allocated exports is retained; no adjustment forces agreement.</p>
+<p class="muted" style="font-size:13px">A full-period bar requires every selected month. No country split is inferred from France + Belgium or Netherlands + Germany forecasts.</p>
+<div id="matched-wrap" hidden><h3>Available matched months</h3><div id="matched" class="plot"></div></div>
+<details class="detail"><summary>Country and group figures</summary><div id="annual-table" class="scroll"></div></details></section>
+<section id="monthly-section" class="card"><h2>Monthly destination exports</h2>
+<p class="muted"><span class="legendline"></span>Routing reconstruction / diagnostic <span class="legendline dash"></span>Legacy model forecast <span class="legendline dot"></span>Cached revised historical proxy, when selected</p>
+<div id="countries" class="plot"></div><p class="note">Individual France, Belgium, Netherlands and Germany forecasts are unavailable in the retained legacy origins. Danish cached history is a signed net-flow proxy. The workbook’s historical Poland-labelled upload is total Nybro, so it is withheld from a direct Polish-export comparison.</p>
+<div id="groups" class="plot"></div></section>
+<section id="difference-section" class="card"><h2>Differences between the models</h2><p class="muted">Routing model minus the retained legacy model, for the same month and original group. These are allocation and vintage differences, not forecast errors.</p>
+<div id="differences" class="plot"></div><h3>Largest matched divergences</h3><div id="divergences" class="scroll"></div></section>
+<section class="card"><h2>Shares of allocated exports</h2><p class="muted">The same five destination groups and colours are used for both models. An incomplete or negative basket has no 100% share calculation.</p><div id="shares" class="plot"></div>
+<p class="note">These shares use exported or allocated gas as the denominator. Shares of routing-model pipeline supply are provided separately in CSV. A legacy available-supply denominator is not verified.</p></section>
+<section id="capacity-section" class="card"><h2>Supply and modelled bottlenecks</h2><div id="supply" class="plot"></div><div id="capacity" class="plot"></div>
+<div class="source-grid detail"><div><h3>Unclassified supply</h3><p>UNMAPPED supply has no export route in the saved model. It remains separate from gas attributed to a mapped production source.</p></div>
+<div><h3>Mapped-source disposal</h3><p>Mapped gas can be disposed by the model when its infrastructure limits prevent export. This is not proof of actual Norwegian production curtailment.</p></div></div>
+<p class="muted">A binding capacity row does not alone establish the marginal bottleneck. Binding-month counts expose seasonal restrictions that annual averages can hide. Kollsnes’s processing/export basis remains provisional.</p>
+<details class="detail"><summary>Saved 2025 routing flexibility context</summary><div id="flexibility"></div></details></section>
+<section id="sources" class="card"><h2>Method and source provenance</h2><div class="source-grid"><div><h3>Selected saved solution</h3><div id="identity"></div></div>
+<div><h3>Legacy definition and vintage</h3><div id="source-details"></div></div></div>
+<div class="detail"><p>The 2024 run is a historical reconstruction using revised inputs. The full-year 2025 official-Snøhvit scenario is a provisional revised-input reconstruction / diagnostic. Neither is a genuine forecast made before its target year.</p>
+<p>The retained December 2023 and June 2024 legacy outputs are forecasts at those origins, with public release timing unverified. The current workbook was modified on 8 October 2026 and has an October 2026 cached cutoff. Its historical formulas use raw/reference allocations; the sheet name “Forecasts” does not make those cells pre-period forecasts.</p>
+<p>Historical <code>SJ upload!L</code> links <code>Forecasts!M</code>, which converts total Nybro entry to bcm. Separate <code>Baltic Pipe!P</code> Faxe and <code>R</code> Danish offtake cells are retained in the ledger. The original five legacy groups are preserved. No proxy is relabelled as independently verified physical Gassco observations.</p>
+<p>Monthly volumes use bcm/month. Calendar-adjusted capacities come directly from saved constraint tables. Annual values sum complete monthly cells; no missing values become zero. Pipeline arc flows are not added into a national export total because the same gas traverses multiple arcs.</p>
+<p>Named legacy Gassco totals and the sum of the five allocation groups are provided separately in <code>legacy_totals.csv</code>. Their original accounting remainder is retained, with no adjustment to force agreement.</p>
+<p>January–September 2026 outcomes remain locked and unscored. No live data retrieval, Excel recalculation or optimisation occurs during report generation. Forecasts through December 2030 are not extrapolated; they require real outputs, source provenance and an authorised reporting policy.</p>
+<p class="status">Saved-volume, group, node-balance, disposal and capacity reconciliation checks passed. Source hashes, cell ledgers and verification evidence are included in the package.</p></div></section>
+<section id="downloads" class="card"><h2>Presentation figures and underlying data</h2><p>The dashboard is self-contained and opens offline. Standalone PNG and SVG figures use the same prepared datasets. Keep the full folder when sharing CSV and figure links.</p>
+<div id="galleries"></div><div class="detail"><p><a href="results.csv">Supply and seven-country model results</a> · <a href="details/monthly_comparisons.csv">Monthly comparison data</a> · <a href="details/annual_comparisons.csv">Annual comparison data</a> · <a href="details/map_flows.csv">Map flows</a> · <a href="details/modelled_capacities.csv">Capacity and binding data</a> · <a href="details/allocation_shares.csv">Export and supply shares</a> · <a href="details/legacy_totals.csv">Named legacy totals and allocation remainder</a></p>
+<p><a href="provenance/run_manifest.json">Run and source manifest</a> · <a href="provenance/source_definitions.md">Source definitions and workbook ranges</a> · <a href="provenance/verification.md">Verification report</a> · <a href="provenance/verification.json">Machine-readable checks</a></p></div></section>
+</main><footer>Norwegian gas routing · Saved results, original source vintages and explicit limitations</footer>
+<script id="report-data" type="application/json">__REPORT_DATA__</script>
+<script>
+'use strict';
+const report=JSON.parse(document.getElementById('report-data').textContent), q=id=>document.getElementById(id);
+const config={responsive:true,displaylogo:false,toImageButtonOptions:{format:'png',scale:2},modeBarButtonsToRemove:['lasso2d','select2d']};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const num=(n,d=3)=>n===null||n===undefined?'Unavailable':Number(n).toFixed(d);
+function table(columns,rows){return '<table><thead><tr>'+columns.map(c=>'<th>'+esc(c[1])+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+columns.map(c=>'<td class="'+(c[2]?'num':'')+'">'+(c[2]?num(r[c[0]],c[2]):esc(r[c[0]]))+'</td>').join('')+'</tr>').join('')+'</tbody></table>'}
+function plot(id,f){return Plotly.react(q(id),f.data,f.layout,config)}
+function view(){return report.views.find(v=>v.key===q('run').value)}
+function fillSources(){const v=view(),previous=q('legacy').value;q('legacy').innerHTML=Object.entries(v.sources).map(([id,s])=>'<option value="'+esc(id)+'">'+esc(s.label)+'</option>').join('');q('legacy').value=v.sources[previous]?previous:v.default_source;
+q('map-period').innerHTML=Object.keys(v.maps).map(m=>'<option>'+esc(m)+'</option>').join('');render()}
+function renderMap(){const v=view();plot('map',v.maps[q('map-period').value]).then(()=>{if(!q('map').routeHandler){q('map').on('plotly_click',event=>{const text=event.points?.[0]?.text;if(text)q('asset-info').innerHTML=text});q('map').routeHandler=true}});q('asset-info').textContent='Hover over a route for flow, modelled capacity and utilisation. Select a route to keep its details here.'}
+function render(){const v=view(),s=v.sources[q('legacy').value];q('selection').textContent=v.title+' · Saved run '+v.id;
+q('kpis').innerHTML=[['Pipeline supply','supply_bcm'],['Pipeline exports','exports_bcm'],['Total unrouted','unrouted_bcm'],['Unclassified / UNMAPPED','unmapped_bcm'],['Mapped-source disposal','mapped_disposal_bcm']].map(([label,key])=>'<div class="kpi"><small>'+label+'</small><strong>'+num(v.totals[key],2)+'</strong> <span>bcm</span><small>'+esc(v.year)+' selected-period total</small></div>').join('');
+q('comparison-note').innerHTML=s.notes.map(n=>'<p>'+esc(n)+'</p>').join('');
+q('annual-summary').innerHTML='<p><b>Routing allocated exports:</b> '+num(s.routing_total)+' bcm. <b>Legacy allocated exports, same full period:</b> '+num(s.legacy_total)+' bcm.</p>'+(s.matched_months.length?'<p class="muted">Matched legacy coverage: '+esc(s.matched_months[0])+' to '+esc(s.matched_months.at(-1))+' ('+s.matched_months.length+' months). Routing '+num(s.matched_routing_total)+' bcm; legacy '+num(s.matched_legacy_total)+' bcm.</p>':'<p class="muted">No model-versus-model matched coverage. Cached workbook history is context only.</p>');
+for(const id of ['countries','groups','annual','totals','differences','shares'])plot(id,s.figures[id]);
+q('matched-wrap').hidden=!s.figures.matched;if(s.figures.matched)plot('matched',s.figures.matched);
+q('annual-table').innerHTML=table([['level','Classification'],['destination','Destination'],['model_bcm','Routing bcm',3],['legacy_model_bcm','Legacy model bcm',3],['matched_model_months','Matched months',0]],s.annual_data);
+q('divergences').innerHTML=s.divergences.length?table([['month','Month'],['destination','Legacy group'],['model_bcm','Routing bcm',3],['legacy_model_bcm','Legacy bcm',3],['delta_bcm','Difference bcm',3],['delta_pct','Difference %',1]],s.divergences):'<p class="muted">No compatible legacy model output. Missing comparisons are not assigned zero differences.</p>';
+plot('supply',v.supply);plot('capacity',v.capacity);renderMap();
+q('identity').innerHTML='<p><b>'+esc(v.id)+'</b><br>'+esc(v.scenario)+'<br>Solver: '+esc(v.identity.solver)+'<br>Recorded run: '+esc(v.identity.run_at_utc)+'</p><details><summary>Producer code identity</summary><pre style="white-space:pre-wrap;font-size:11px">'+esc(JSON.stringify(v.identity.code_sha256,null,2))+'</pre></details>';
+const sourceSlug=q('legacy').value.replace(':','_');q('source-details').innerHTML='<p><b>'+esc(s.label)+'</b><br>'+esc(s.vintage)+'</p><p><a href="provenance/legacy_'+esc(sourceSlug)+'_cells.csv">Exact source cells / retained points</a> · <a href="provenance/legacy_'+esc(sourceSlug)+'_values.csv">Prepared source values</a></p>';
+q('flexibility').innerHTML=v.flexibility?'<p>Individual country extrema at unchanged maximum exports. These bounds are not simultaneous allocations or evidence of commercial flexibility.</p>'+table([['destination','Destination'],['baseline_bcm','Baseline bcm',3],['minimum_bcm','Individual minimum',3],['maximum_bcm','Individual maximum',3]],v.flexibility):'<p class="muted">No independently matching saved flexibility table is attached to this run.</p>';
+}
+q('run').innerHTML=report.views.map(v=>'<option value="'+esc(v.key)+'">'+esc(v.label)+'</option>').join('');
+q('run').addEventListener('change',fillSources);q('legacy').addEventListener('change',render);q('map-period').addEventListener('change',renderMap);
+q('galleries').innerHTML=report.galleries.map(g=>'<details class="detail"><summary>'+esc(g.label)+'</summary><div class="pills">'+g.files.map(f=>'<a href="'+esc(f)+'">'+esc(f.split('/').at(-1))+'</a>').join('')+'</div></details>').join('');
+fillSources();
+</script>
+</body></html>

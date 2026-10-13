@@ -1,0 +1,93 @@
+component_id,field,sid,node,role,annual_bcm,observed_months,approved_structural_zero_months,accounting
+L,TROLL,teams\natural_gas\EUR\NO_production_Troll_field,KOLLSNES_FEED,explicit,43.754388999999996,12,0.0,Existing approved independent owner
+Q,OSEBERG,teams\natural_gas\EUR\NO_production_Oseberg_field,OSEBERG,explicit,8.851182999999999,12,0.0,Oseberg aggregate owns Oseberg/Sor/Ost; Tune separate
+AC,AASTA HANSTEEN,teams\natural_gas\EUR\NO_production_Aasta_Hansteen_field,NYHAMNA_FEED,explicit,8.297145,12,0.0,Existing approved independent owner
+AF,ÅSGARD,teams\natural_gas\EUR\NO_production_Asgard_field,KARSTO_FEED,explicit,4.041596,12,0.0,Existing approved independent owner
+AI,GINA KROG,teams\natural_gas\EUR\NO_production_Gina_Krog_field,SLEIPNER,explicit,2.8219570000000003,12,0.0,Existing approved independent owner
+AN,GULLFAKS SØR,teams\natural_gas\EUR\NO_production_Gullfaks_Sor_field,KARSTO_FEED,explicit,4.6065700000000005,12,0.0,Existing approved independent owner
+AQ,HEIDRUN,teams\natural_gas\EUR\NO_production_Heidrun_field,KARSTO_FEED,explicit,1.658415,12,0.0,Explicit Heidrun owner; never residual
+AW,KRISTIN,teams\natural_gas\EUR\NO_production_Kristin_field,KARSTO_FEED,explicit,0.46925599999999995,12,0.0,Existing approved independent owner
+AZ,KVITEBJØRN,teams\natural_gas\EUR\NO_production_Kvitebjorn_field,KOLLSNES_FEED,explicit,2.6922439999999996,12,0.0,Existing approved independent owner
+BC,MARTIN LINGE,teams\natural_gas\EUR\NO_production_Martin_Linge_field,UK_DIRECT,explicit,1.6432999999999998,12,0.0,Existing approved independent owner
+BF,NORNE,teams\natural_gas\EUR\NO_production_Norne_field,KARSTO_FEED,explicit,0.30921499999999996,12,0.0,Existing approved independent owner
+BI,ORMEN LANGE,teams\natural_gas\EUR\NO_production_Ormen_Lange_field,NYHAMNA_FEED,explicit,7.6080000000000005,12,0.0,Existing approved independent owner
+BL,SKARV,teams\natural_gas\EUR\NO_production_Skarv_field,KARSTO_FEED,explicit,6.067772000000001,12,0.0,Existing approved independent owner
+BP,SLEIPNER,teams\natural_gas\EUR\NO_production_Sleipner_field,SLEIPNER,explicit,1.4339230000000003,12,0.0,Existing approved independent owner
+BU,VISUND,teams\natural_gas\EUR\NO_production_Visund_field,KOLLSNES_FEED,explicit,4.138712,12,0.0,Existing approved independent owner
+BX,DVALIN,teams\natural_gas\EUR\NO_production_Dvalin_field,NYHAMNA_FEED,explicit,2.6449080000000005,12,0.0,Existing approved independent owner
+CF,ALVE,NPD\monthly_by_field\marketed_production\alve\gas-saleable,KARSTO_FEED,residual,0.482024,12,0.0,Existing approved independent owner
+CG,ALVHEIM,NPD\monthly_by_field\marketed_production\alvheim\gas-saleable,UK_DIRECT,residual,0.723096,12,0.0,Existing approved independent owner
+CK,BØYLA,NPD\monthly_by_field\marketed_production\boyla\gas-saleable,UK_DIRECT,residual,0.024394999999999997,12,0.0,Existing approved independent owner
+CO,DRAUGEN,NPD\monthly_by_field\marketed_production\draugen\gas-saleable,KARSTO_FEED,residual,0.221908,12,0.0,Existing approved independent owner
+CQ,EDVARD GRIEG,NPD\monthly_by_field\marketed_production\edvard_grieg\gas-saleable,UK_DIRECT,residual,0.19876400000000002,12,0.0,Existing approved independent owner
+CR,EKOFISK,NPD\monthly_by_field\marketed_production\ekofisk\gas-saleable,EKOFISK_FEED,residual,0.45382500000000003,12,0.0,Existing approved independent owner
+CS,ELDFISK,NPD\monthly_by_field\marketed_production\eldfisk\gas-saleable,EKOFISK_FEED,residual,0.328484,12,0.0,Existing approved independent owner
+CT,EMBLA,NPD\monthly_by_field\marketed_production\embla\gas-saleable,EKOFISK_FEED,residual,0.107782,12,0.0,Existing approved independent owner
+CV,FRAM,NPD\monthly_by_field\marketed_production\fram\gas-saleable,KOLLSNES_FEED,residual,1.108695,12,0.0,Existing approved independent owner
+DB,GJØA,NPD\monthly_by_field\marketed_production\gjoa\gas-saleable,UK_DIRECT,residual,1.3224829999999999,12,0.0,Existing approved independent owner
+DF,GUDRUN,NPD\monthly_by_field\marketed_production\gudrun\gas-saleable,SLEIPNER,residual,0.741959,12,0.0,Existing approved independent owner
+DG,GUNGNE,NPD\monthly_by_field\marketed_production\gungne\gas-saleable,SLEIPNER,residual,0.092471,12,0.0,Existing approved independent owner
+DI,HOD,NPD\monthly_by_field\marketed_production\hod\gas-saleable,EKOFISK_FEED,residual,0.05111000000000001,12,0.0,Existing approved independent owner
+DK,HYME,NPD\monthly_by_field\marketed_production\hyme\gas-saleable,KARSTO_FEED,residual,0.04481,12,0.0,Existing approved independent owner
+DL,ISLAY,NPD\monthly_by_field\marketed_production\islay\gas-saleable,UK_DIRECT,residual,3e-05,12,0.0,Existing approved independent owner
+DQ,MARULK,NPD\monthly_by_field\marketed_production\marulk\gas-saleable,KARSTO_FEED,residual,0.34562400000000004,12,0.0,Existing approved independent owner
+DR,MIKKEL,NPD\monthly_by_field\marketed_production\mikkel\gas-saleable,KARSTO_FEED,residual,0.6188910000000001,12,0.0,Existing approved independent owner
+DT,MORVIN,NPD\monthly_by_field\marketed_production\morvin\gas-saleable,KARSTO_FEED,residual,0.080177,12,0.0,Existing approved independent owner
+DW,NJORD,NPD\monthly_by_field\marketed_production\njord\gas-saleable,KARSTO_FEED,residual,0.468015,12,0.0,Existing approved independent owner
+EB,REV,NPD\monthly_by_field\marketed_production\rev\gas-saleable,UK_DIRECT,residual,0.0052899999999999996,12,0.0,Existing approved independent owner
+ED,SIGYN,NPD\monthly_by_field\marketed_production\sigyn\gas-saleable,SLEIPNER,residual,0.034621,12,0.0,Existing approved independent owner
+EH,STATFJORD,NPD\monthly_by_field\marketed_production\statfjord\gas-saleable,UK_DIRECT,residual,0.496697,12,0.0,Existing approved independent owner
+EI,STATFJORD NORD,NPD\monthly_by_field\marketed_production\statfjord_nord\gas-saleable,UK_DIRECT,residual,0.026849,12,0.0,Existing approved independent owner
+EJ,STATFJORD ØST,NPD\monthly_by_field\marketed_production\statfjord_ost\gas-saleable,UK_DIRECT,residual,0.18898399999999999,12,0.0,Existing approved independent owner
+EM,SOLVEIG,NPD\monthly_by_field\marketed_production\solveig\gas-saleable,UK_DIRECT,residual,0.16422299999999998,12,0.0,Existing approved independent owner
+EO,TOR,NPD\monthly_by_field\marketed_production\tor\gas-saleable,EKOFISK_FEED,residual,0.07215700000000001,12,0.0,Existing approved independent owner
+EP,TORDIS,NPD\monthly_by_field\marketed_production\tordis\gas-saleable,KARSTO_FEED,residual,0.053482,12,0.0,Existing approved independent owner
+ES,TYRIHANS,NPD\monthly_by_field\marketed_production\tyrihans\gas-saleable,KARSTO_FEED,residual,2.797973,12,0.0,Existing approved independent owner
+EW,VALEMON,NPD\monthly_by_field\marketed_production\valemon\gas-saleable,KOLLSNES_FEED,residual,0.484828,12,0.0,Existing approved independent owner
+EX,VALHALL,NPD\monthly_by_field\marketed_production\valhall\gas-saleable,EKOFISK_FEED,residual,0.34604100000000004,12,0.0,Existing approved independent owner
+EZ,VEGA,NPD\monthly_by_field\marketed_production\vega\gas-saleable,UK_DIRECT,residual,1.491307,12,0.0,Existing approved independent owner
+FE,VISUND SØR,NPD\monthly_by_field\marketed_production\visund_sor\gas-saleable,KARSTO_FEED,residual,0.161821,12,0.0,Existing approved independent owner
+FF,VOLUND,NPD\monthly_by_field\marketed_production\volund\gas-saleable,UK_DIRECT,residual,0.017746,12,0.0,Existing approved independent owner
+FL,IVAR AASEN,NPD\monthly_by_field\marketed_production\ivar_aasen\gas-saleable,UK_DIRECT,residual,0.31098299999999995,12,0.0,Existing approved independent owner
+FM,SINDRE,NPD\monthly_by_field\marketed_production\sindre\gas-saleable,KARSTO_FEED,residual,0.012116,12,0.0,Existing approved independent owner
+FN,MARIA,NPD\monthly_by_field\marketed_production\maria\gas-saleable,KARSTO_FEED,residual,0.08384,12,0.0,Existing approved independent owner
+FO,JOHAN SVERDRUP,NPD\monthly_by_field\marketed_production\johan_sverdrup\gas-saleable,KARSTO_FEED,residual,1.3388959999999999,12,0.0,Existing approved independent owner
+FQ,UTGARD,NPD\monthly_by_field\marketed_production\utgard\gas-saleable,SLEIPNER,residual,0.08845199999999999,12,0.0,Existing approved independent owner
+FS,SKOGUL,NPD\monthly_by_field\marketed_production\skogul\gas-saleable,UK_DIRECT,residual,0.009118,12,0.0,Existing approved independent owner
+FT,ÆRFUGL NORD,NPD\monthly_by_field\marketed_production\aerfugl_nord\gas-saleable,KARSTO_FEED,residual,0.38356,12,0.0,Existing approved independent owner
+FU,DUVA,NPD\monthly_by_field\marketed_production\duva\gas-saleable,UK_DIRECT,residual,0.759956,12,0.0,Existing approved independent owner
+FV,NOVA,NPD\monthly_by_field\marketed_production\nova\gas-saleable,UK_DIRECT,residual,0.13555699999999998,12,0.0,Existing approved independent owner
+FW,BAUGE,NPD\monthly_by_field\marketed_production\bauge\gas-saleable,KARSTO_FEED,residual,0.03147,12,0.0,Existing approved independent owner
+FX,FENJA,NPD\monthly_by_field\marketed_production\fenja\gas-saleable,KARSTO_FEED,residual,0.050780000000000006,12,0.0,Existing approved independent owner
+FY,TOMMELITEN A,NPD\monthly_by_field\marketed_production\tommeliten_a\gas-saleable,EKOFISK_FEED,residual,1.2842410000000002,12,0.0,Existing approved independent owner
+GI,HANZ,NPD\monthly_by_field\marketed_production\hanz\gas-saleable,UK_DIRECT,residual,0.09340799999999999,10,2.0,Existing approved independent owner
+CL,BRAGE,NPD\monthly_by_field\marketed_production\brage\gas-saleable,KARSTO_FEED,residual,0.225193,12,,Unique signed annual owner; Vilje May negative retained
+ER,TUNE,NPD\monthly_by_field\marketed_production\tune\gas-saleable,OSEBERG,residual,0.20084700000000003,12,,Unique signed annual owner; Vilje May negative retained
+FD,VILJE,NPD\monthly_by_field\marketed_production\vilje\gas-saleable,UK_DIRECT,residual,0.000366,12,,Unique signed annual owner; Vilje May negative retained
+EQ,TRYM,NPD\monthly_by_field\marketed_production\trym\gas-saleable,EXTERNAL_TRYM,residual,0.020461,2,,Approved observed annual subtotal; missing Trym months not filled
+AM,GULLFAKS,NPD\monthly_by_field\marketed_production\gullfaks\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+AT,HEIMDAL,NPD\monthly_by_field\marketed_production\heimdal\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+CH,ATLA,NPD\monthly_by_field\marketed_production\atla\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+CI,BALDER,NPD\monthly_by_field\marketed_production\balder\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+CJ,BLANE,NPD\monthly_by_field\marketed_production\blane\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+CU,ENOCH,NPD\monthly_by_field\marketed_production\enoch\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+CW,FRAM H-NORD,NPD\monthly_by_field\marketed_production\fram_h-nord\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+DA,GIMLE,NPD\monthly_by_field\marketed_production\gimle\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+DD,GOLIAT,NPD\monthly_by_field\marketed_production\goliat\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+DE,GRANE,NPD\monthly_by_field\marketed_production\grane\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+DX,ODA,NPD\monthly_by_field\marketed_production\oda\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+EC,RINGHORNE ØST,NPD\monthly_by_field\marketed_production\ringhorne_ost\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+EE,SKIRNE,NPD\monthly_by_field\marketed_production\skirne\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+EF,SKULD,NPD\monthly_by_field\marketed_production\skuld\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+EG,SNORRE,NPD\monthly_by_field\marketed_production\snorre\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+EK,SVALIN,NPD\monthly_by_field\marketed_production\svalin\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+EL,SYGNA,NPD\monthly_by_field\marketed_production\sygna\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+ET,ULA,NPD\monthly_by_field\marketed_production\ula\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+EU,URD,NPD\monthly_by_field\marketed_production\urd\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+EV,VALE,NPD\monthly_by_field\marketed_production\vale\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+FC,VIGDIS,NPD\monthly_by_field\marketed_production\vigdis\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+FH,YME,NPD\monthly_by_field\marketed_production\yme\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+FJ,BYRDING,NPD\monthly_by_field\marketed_production\byrding\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+FK,FLYNDRE,NPD\monthly_by_field\marketed_production\flyndre\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+FP,TRESTAKK,NPD\monthly_by_field\marketed_production\trestakk\gas-saleable,UNMAPPED,residual,0.0,12,,Twelve explicit source zeros; unknown entry not routed
+GD,Snohvit,NPD\monthly_by_field\marketed_production\snohvit\gas-saleable,OUTSIDE_LNG,LNG,6.4067419999999995,12,,"Single LNG owner; prospective driver is selected converted SID, not additional supply"

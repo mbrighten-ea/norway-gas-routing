@@ -3,3 +3,14 @@ data/raw/physical_contract_f23/** -text whitespace=cr-at-eol,-trailing-space,-bl
 outputs/routing_runs/20261013T105227167672Z_fc7923e9/** -text whitespace=cr-at-eol
 evidence/inputs/physical_contract_f23/*.csv -text whitespace=cr-at-eol
 evidence/inputs/physical_contract_f23/*.json -text whitespace=cr-at-eol
+# Immutable F2.4 source/solver/report packages, preserving manifest byte hashes.
+outputs/routing_runs/20261013T134953172297Z_0687eeec/** -text whitespace=cr-at-eol
+outputs/routing_runs/20261013T135345065588Z_aa2757be/** -text whitespace=cr-at-eol
+outputs/routing_runs/20261013T135600399641Z_b99e8ba9/** -text whitespace=cr-at-eol
+outputs/routing_runs/20261013T135808503970Z_568585ae/** -text whitespace=cr-at-eol
+outputs/forward_scenarios/20261013T134952692166Z/** -text whitespace=cr-at-eol
+# Matplotlib's immutable SVG path serialization intentionally has line-end spaces.
+outputs/routing_runs/20261013T134953172297Z_0687eeec/details/*.svg whitespace=cr-at-eol,-trailing-space
+outputs/routing_runs/20261013T135345065588Z_aa2757be/details/*.svg whitespace=cr-at-eol,-trailing-space
+outputs/routing_runs/20261013T135600399641Z_b99e8ba9/details/*.svg whitespace=cr-at-eol,-trailing-space
+outputs/routing_runs/20261013T135808503970Z_568585ae/details/*.svg whitespace=cr-at-eol,-trailing-space

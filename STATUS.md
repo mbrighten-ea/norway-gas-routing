@@ -10,24 +10,47 @@ Approval is recorded in DECISIONS.md; source equations and exclusions in INPUTS.
 The unmodified `config/run.yaml` retains the ordinary 12-month default. F2.4 opts
 in through `config/run_f24.yaml` / `scripts/run/run_forward_scenarios.py`.
 
-Initial fresh reference package `outputs/routing_runs/20261013T130816451967Z_e0314b65/`
-completed all 38 monthly solves OPTIMAL. National closure <6e-15 bcm; no negative
-residual or unknown production routed. Trym remains external. Frozen denominator
-18.785806 bcm; Heidrun is explicit, never residual; signed Vilje annual net stays
-positive. Twenty-five explicit zero-response owners were refreshed, not filled.
-Mixed-vintage LNG is converted only under Core's explicit prospective approval.
-No network, objective, historical reconstruction or holdout guard was changed.
+[Released POC and scenario links](outputs/forward_scenarios/20261013T134952692166Z/report.html):
+all four scenarios completed 38 monthly solves OPTIMAL (152 total), based on
+implementation `c18c12e`, with identical freshly queried raw sources at the common
+origin 2026-10-13 13:49:52 UTC. Every national balance closes <6e-15 bcm. A totals:
+376.310523 national = 17.555713 LNG + 0.104469 external Trym + 358.366178 exports
++ 0.284163 modelled forced disposal; UNMAPPED zero under the approved annual proxy.
+Eligible network representation is 100%; pipeline-boundary representation 99.97088%.
+Frozen residual proxy supplies 26.73568% of pipeline volume: this does not certify
+future field memberships. Denominator 18.785806; node weights Kårstø 39.39453%,
+UK direct 31.77533%, Ekofisk 14.07254%, Kollsnes 8.48259%, Sleipner 5.09695%,
+Oseberg 1.06914%, external Trym 0.10892%, UNMAPPED 0. Heidrun is explicit, never
+residual; signed Vilje annual net stays positive. Native zero owners are observed,
+not missing-to-zero. Existing Hanz-only structural zeros are separately recorded.
 
-Checkpoint validation: 43 focused checks passed, covering independent ownership,
-38 monthly balances, Heidrun boundary, proportional capacity stress, physical
-ranges, configuration guards and validation-only without LP construction.
-Full regression before the seven additional canonical-owner hardening checks:
-617 passed in 246.48 seconds, one existing pandas warning. All new owner checks
-passed in the subsequent focused run; repeat the complete final suite at release.
-Existing hash-referenced offline fixtures were copied for tests only and original
-tracked byte serialization restored; model content and hash guards unchanged.
-Restart: run the four fresh scenarios together, inspect package accounting/charts,
-verify controlled source equality and record final results here before final push.
+Exports A/B/C/D: 358.366178 / 354.060774 / 353.399510 / 349.094107 bcm. Domestic
+bound excludes that month's Heidrun, totalling 4.305403 bcm. Largest monthly
+country sensitivity: D minus A France April 2027 -0.518767 bcm (-31.90446%).
+At the same export-volume basis, physical constraints reallocate 22.354393 bcm
+(6.24%) versus naive 2023 shares. Net UK +13.178474 and FR +9.012093 versus that
+baseline; DE -13.781778 and NL -3.565803. Franpipe/Zeepipe export bind 23/26 months,
+Kollsnes 4; Europipe I/Norpipe also frequently bind. Binding parallel arcs can be
+nonunique; DE/NL and DK/PL individual allocations have broad physical ranges and
+depend primarily on preferences/proxies. UK has an infrastructure floor in some
+high-supply months. No claim of independently identified market demand.
+
+[Verification](outputs/forward_scenarios/20261013T134952692166Z/provenance/validation.json)
+records raw/source and workbook checks. 43 focused and 624 full regression checks
+passed; one existing pandas warning. All four packages retain Excel/CSV/HTML/charts,
+country/corridor outputs, source ownership/weights, shares, constraints and provenance.
+No network, objective, historical reconstruction or holdout guard was changed; no
+protected 2026 actual observations retrieved or exposed. Existing offline fixtures
+were copied for tests only, original tracked bytes restored. Matplotlib cache was
+redirected to repository-local scratch for subsequent wrapper runs.
+
+Release is a provisional partial-coverage physical-routing POC, not a commercial
+forecast. Remaining limitations: residual future mix, mixed-vintage LNG, unverified
+dry-export/other future availability, hypothetical domestic boundary and monthly
+versus daily feasibility. No hard target-window input or accounting blockers remain.
+Restart: use the existing F2.4 operator command with fresh SIDs; preserve current
+packages. Full-field prospective certification and commercial/walk-forward work
+remain separate scopes requiring approval.
 
 ## F2.3 physical-input contracts — 13 October 2026
 

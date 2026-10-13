@@ -1,0 +1,365 @@
+{
+  "verified": true,
+  "scenario_status": {
+    "A": "OPTIMAL",
+    "B": "OPTIMAL",
+    "C": "OPTIMAL",
+    "D": "OPTIMAL"
+  },
+  "months_each": 38,
+  "monthly_solves": 152,
+  "origin": "2026-10-13T13:49:52+00:00",
+  "raw_sources_identical": true,
+  "protected_actuals_in_raw_captures": false,
+  "maximum_national_closure_bcm": 5.329070518200752e-15,
+  "frozen_denominator_bcm": 18.785806,
+  "residual_proxy_pipeline_pct": 26.735679226711227,
+  "reference": {
+    "national_bcm": 376.3105226865903,
+    "LNG_bcm": 17.555712985703572,
+    "external_trym_bcm": 0.1044686485283818,
+    "unmapped_bcm": 0.0,
+    "exports_bcm": 358.36617761605504,
+    "forced_disposal_bcm": 0.2841634363030925,
+    "assumed_eligible_network_coverage_pct": 99.99999999999997,
+    "pipeline_boundary_coverage_pct": 99.97088020962963
+  },
+  "scenario_exports_bcm": {
+    "A": 358.36617761605504,
+    "B": 354.0607743478762,
+    "C": 353.3995104114876,
+    "D": 349.0941071433088
+  },
+  "scenario_disposal_bcm": {
+    "A": 0.2841634363030925,
+    "B": 0.2841634363030925,
+    "C": 5.250830640870558,
+    "D": 5.250830640870558
+  },
+  "largest_monthly_country_differences": [
+    {
+      "month": "2027-04-01",
+      "scenario": "D",
+      "measure": "FR_volume_bcm",
+      "reference_bcm": 1.6260000000000006,
+      "scenario_bcm": 1.1072334762086502,
+      "difference_bcm": -0.5187665237913504,
+      "difference_pct": -31.90446025777061
+    },
+    {
+      "month": "2027-04-01",
+      "scenario": "C",
+      "measure": "FR_volume_bcm",
+      "reference_bcm": 1.6260000000000006,
+      "scenario_bcm": 1.1240174691575315,
+      "difference_bcm": -0.501982530842469,
+      "difference_pct": -30.872234369155528
+    },
+    {
+      "month": "2027-01-01",
+      "scenario": "D",
+      "measure": "UK_volume_bcm",
+      "reference_bcm": 2.9253858628487777,
+      "scenario_bcm": 2.500125414649777,
+      "difference_bcm": -0.4252604481990008,
+      "difference_pct": -14.536901049520926
+    },
+    {
+      "month": "2026-12-01",
+      "scenario": "D",
+      "measure": "UK_volume_bcm",
+      "reference_bcm": 2.907375648665517,
+      "scenario_bcm": 2.504375648665516,
+      "difference_bcm": -0.4030000000000009,
+      "difference_pct": -13.86129790916346
+    },
+    {
+      "month": "2027-01-01",
+      "scenario": "C",
+      "measure": "UK_volume_bcm",
+      "reference_bcm": 2.9253858628487777,
+      "scenario_bcm": 2.5223858628487767,
+      "difference_bcm": -0.4030000000000009,
+      "difference_pct": -13.775960467914288
+    },
+    {
+      "month": "2026-12-01",
+      "scenario": "C",
+      "measure": "UK_volume_bcm",
+      "reference_bcm": 2.907375648665517,
+      "scenario_bcm": 2.504375648665516,
+      "difference_bcm": -0.4030000000000009,
+      "difference_pct": -13.86129790916346
+    },
+    {
+      "month": "2026-11-01",
+      "scenario": "C",
+      "measure": "UK_volume_bcm",
+      "reference_bcm": 2.6951360460144294,
+      "scenario_bcm": 2.3051360460144297,
+      "difference_bcm": -0.3899999999999997,
+      "difference_pct": -14.470512558233644
+    },
+    {
+      "month": "2026-11-01",
+      "scenario": "D",
+      "measure": "UK_volume_bcm",
+      "reference_bcm": 2.6951360460144294,
+      "scenario_bcm": 2.3051360460144297,
+      "difference_bcm": -0.3899999999999997,
+      "difference_pct": -14.470512558233644
+    }
+  ],
+  "binding_month_counts": {
+    "EUROPIPE_I": 37,
+    "EUROPIPE_II": 2,
+    "FRANPIPE": 23,
+    "KOLLSNES_EXPORT": 4,
+    "NORPIPE": 33,
+    "ZEEPIPE_EXPORT": 26,
+    "ZEEPIPE_IIB": 37
+  },
+  "absolute_share_deviation_bcm": 44.70878688253694,
+  "share_deviation_country_bcm": {
+    "BE": -1.634393571431575,
+    "DE": -13.78177773915762,
+    "DK": -0.5212805960196548,
+    "FR": 9.012093129304091,
+    "NL": -3.565803491298847,
+    "PL": -2.6873114226110197,
+    "UK": 13.178473691214627
+  },
+  "physical_ranges": [
+    {
+      "month": "2026-11-01",
+      "destination": "UK",
+      "model_bcm": 2.6951360460144294,
+      "minimum_bcm": 2.6951360460144294,
+      "maximum_bcm": 3.781734335958173,
+      "range_width_bcm": 1.0865982899437432,
+      "fixed_exports_bcm": 10.176002047840072,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2026-11-01",
+      "destination": "FR",
+      "model_bcm": 1.6260000000000006,
+      "minimum_bcm": 0.5394017100562567,
+      "maximum_bcm": 1.6260000000000006,
+      "range_width_bcm": 1.086598289943744,
+      "fixed_exports_bcm": 10.176002047840072,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2026-11-01",
+      "destination": "BE",
+      "model_bcm": 1.2660000000000002,
+      "minimum_bcm": 0.1794017100562563,
+      "maximum_bcm": 1.2660000000000002,
+      "range_width_bcm": 1.086598289943744,
+      "fixed_exports_bcm": 10.176002047840072,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2026-11-01",
+      "destination": "NL",
+      "model_bcm": 0.7960136457372536,
+      "minimum_bcm": 0.0,
+      "maximum_bcm": 4.588866001825643,
+      "range_width_bcm": 4.588866001825643,
+      "fixed_exports_bcm": 10.176002047840072,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2026-11-01",
+      "destination": "DE",
+      "model_bcm": 3.0765809640540143,
+      "minimum_bcm": 0.0,
+      "maximum_bcm": 4.588866001825643,
+      "range_width_bcm": 4.588866001825643,
+      "fixed_exports_bcm": 10.176002047840072,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2026-11-01",
+      "destination": "DK",
+      "model_bcm": 0.1163682936264528,
+      "minimum_bcm": 0.0,
+      "maximum_bcm": 0.8219999999999997,
+      "range_width_bcm": 0.8219999999999997,
+      "fixed_exports_bcm": 10.176002047840072,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2026-11-01",
+      "destination": "PL",
+      "model_bcm": 0.5999030984079217,
+      "minimum_bcm": -0.0,
+      "maximum_bcm": 0.8219178082191781,
+      "range_width_bcm": 0.8219178082191781,
+      "fixed_exports_bcm": 10.176002047840072,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2027-09-01",
+      "destination": "UK",
+      "model_bcm": 1.3676439469884594,
+      "minimum_bcm": 0.6574409468570728,
+      "maximum_bcm": 3.670839315345568,
+      "range_width_bcm": 3.0133983684884957,
+      "fixed_exports_bcm": 6.540224641194205,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2027-09-01",
+      "destination": "FR",
+      "model_bcm": 0.8203104220993281,
+      "minimum_bcm": 0.0,
+      "maximum_bcm": 1.6260000000000006,
+      "range_width_bcm": 1.6260000000000006,
+      "fixed_exports_bcm": 6.540224641194205,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2027-09-01",
+      "destination": "BE",
+      "model_bcm": 0.88587002562866,
+      "minimum_bcm": 0.0,
+      "maximum_bcm": 1.2660000000000002,
+      "range_width_bcm": 1.2660000000000002,
+      "fixed_exports_bcm": 6.540224641194205,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2027-09-01",
+      "destination": "NL",
+      "model_bcm": 0.601303654690616,
+      "minimum_bcm": 0.0,
+      "maximum_bcm": 4.2816452914718806,
+      "range_width_bcm": 4.2816452914718806,
+      "fixed_exports_bcm": 6.540224641194205,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2027-09-01",
+      "destination": "DE",
+      "model_bcm": 2.3240297293193493,
+      "minimum_bcm": 0.0,
+      "maximum_bcm": 4.2816452914718806,
+      "range_width_bcm": 4.2816452914718806,
+      "fixed_exports_bcm": 6.540224641194205,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2027-09-01",
+      "destination": "DK",
+      "model_bcm": 0.0879038702695723,
+      "minimum_bcm": 0.0,
+      "maximum_bcm": 0.8219999999999997,
+      "range_width_bcm": 0.8219999999999997,
+      "fixed_exports_bcm": 6.540224641194205,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2027-09-01",
+      "destination": "PL",
+      "model_bcm": 0.4531629921982198,
+      "minimum_bcm": -0.0,
+      "maximum_bcm": 0.8219178082191781,
+      "range_width_bcm": 0.8219178082191781,
+      "fixed_exports_bcm": 6.540224641194205,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2029-12-01",
+      "destination": "UK",
+      "model_bcm": 2.2941184656915183,
+      "minimum_bcm": 2.2941184656915183,
+      "maximum_bcm": 4.035150697753906,
+      "range_width_bcm": 1.7410322320623877,
+      "fixed_exports_bcm": 9.721463518570083,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2029-12-01",
+      "destination": "FR",
+      "model_bcm": 1.6802000000000006,
+      "minimum_bcm": 0.0,
+      "maximum_bcm": 1.6802000000000006,
+      "range_width_bcm": 1.6802000000000006,
+      "fixed_exports_bcm": 9.721463518570083,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2029-12-01",
+      "destination": "BE",
+      "model_bcm": 1.3082000000000005,
+      "minimum_bcm": 0.0,
+      "maximum_bcm": 1.3082000000000005,
+      "range_width_bcm": 1.3082000000000005,
+      "fixed_exports_bcm": 9.721463518570083,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2029-12-01",
+      "destination": "NL",
+      "model_bcm": 0.770007412150072,
+      "minimum_bcm": 0.0,
+      "maximum_bcm": 4.438945052878563,
+      "range_width_bcm": 4.438945052878563,
+      "fixed_exports_bcm": 9.721463518570083,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2029-12-01",
+      "destination": "DE",
+      "model_bcm": 2.976067255991936,
+      "minimum_bcm": 0.0,
+      "maximum_bcm": 4.438945052878563,
+      "range_width_bcm": 4.438945052878563,
+      "fixed_exports_bcm": 9.721463518570083,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2029-12-01",
+      "destination": "DK",
+      "model_bcm": 0.1125664730893333,
+      "minimum_bcm": 0.0,
+      "maximum_bcm": 0.8493999999999997,
+      "range_width_bcm": 0.8493999999999997,
+      "fixed_exports_bcm": 9.721463518570083,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    },
+    {
+      "month": "2029-12-01",
+      "destination": "PL",
+      "model_bcm": 0.5803039116472213,
+      "minimum_bcm": -0.0,
+      "maximum_bcm": 0.8493150684931507,
+      "range_width_bcm": 0.8493150684931507,
+      "fixed_exports_bcm": 9.721463518570083,
+      "interpretation": "Individual physical bounds at maximum exports; endpoints are not jointly attainable and are not scenarios"
+    }
+  ],
+  "workbook_results_sha256": {
+    "A": "890065b51f0d17006aecfc817187937b807beaca95c57aa7d6818d8eb9406431",
+    "B": "7821b24c18e416de5e8fe26d1c7c8ed13b6cd4ae30cf5b0689cf179a9b542fb0",
+    "C": "d77598f8221a4ed6e40401aa17c524b0bf7d5d233ea59c3c8d470ab84f63fde9",
+    "D": "f634e1e13642c188df0f27e59a32a6b7e8612661d51ac34d5e016bb951203f7b"
+  },
+  "workbook_checks": "Typed chronological 38 monthly rows, chart objects, accounting/source/annual/binding/share sheets, no Excel error cells; existing snapshot exporter",
+  "limitations": [
+    "Frozen residual mix is not independently forecast future field membership",
+    "Provisional technical reference and other future envelopes are not certified dry-export or outage guarantees",
+    "Heidrun bound is an outside-network eligibility scenario, not an offtake schedule or domestic-demand estimate",
+    "Monthly LP does not demonstrate daily dispatch; individual physical range endpoints not jointly attainable",
+    "DE/NL are shared-landing-pool allocation proxies; DK/PL corridor outputs are not compatible with signed DK net/Nybro legacy readings"
+  ],
+  "tests": {
+    "focused_passed": 43,
+    "full_passed": 624,
+    "full_seconds": 359.11,
+    "warnings": "One existing pandas deprecation warning"
+  },
+  "visual_checks": "Reference and combined-stress monthly charts and reference network inspected; workbook typed cells/chart objects and error-cell scan passed. No native Excel recalculation required for immutable numeric snapshots."
+}

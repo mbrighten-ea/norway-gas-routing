@@ -2,6 +2,14 @@
 
 ## Core-approved provisional forward routing (F2.4)
 
+[Released four-scenario POC](outputs/forward_scenarios/20261013T134952692166Z/report.html)
+contains 152 OPTIMAL monthly solves with identical freshly queried sources at
+2026-10-13 13:49:52 UTC. Open its scenario workbook or the four individual packages
+for all 38 monthly country/corridor allocations, accounting and sensitivities.
+The [package verification](outputs/forward_scenarios/20261013T134952692166Z/provenance/validation.json)
+checks source identity/ownership, national closure, capacities, holdout exclusion,
+Excel cells/charts and artifact hashes. Full regression: 624 passed.
+
 Run `scripts/run/run_forward_scenarios.py` with the workspace interpreter to produce
 fresh November 2026–December 2029 results for A reference, B whole-Heidrun domestic
 bound, C proportional Kollsnes stress and D combined stress. Each scenario uses fresh
