@@ -1,5 +1,34 @@
 # Current implementation state
 
+## F2.4 provisional forward routing — 13 October 2026
+
+Core approved the explicit provisional input contract, superseding the F2.3
+non-material blockers for this experiment. One worker, isolated worktree
+`.scratch/worktrees/f24`, branch `feature/provisional-routing-f24` from verified
+`2335831 -> a34bc72 -> f4a742e`; no investigation merges or retained evidence edits.
+Approval is recorded in DECISIONS.md; source equations and exclusions in INPUTS.md.
+The unmodified `config/run.yaml` retains the ordinary 12-month default. F2.4 opts
+in through `config/run_f24.yaml` / `scripts/run/run_forward_scenarios.py`.
+
+Initial fresh reference package `outputs/routing_runs/20261013T130816451967Z_e0314b65/`
+completed all 38 monthly solves OPTIMAL. National closure <6e-15 bcm; no negative
+residual or unknown production routed. Trym remains external. Frozen denominator
+18.785806 bcm; Heidrun is explicit, never residual; signed Vilje annual net stays
+positive. Twenty-five explicit zero-response owners were refreshed, not filled.
+Mixed-vintage LNG is converted only under Core's explicit prospective approval.
+No network, objective, historical reconstruction or holdout guard was changed.
+
+Checkpoint validation: 43 focused checks passed, covering independent ownership,
+38 monthly balances, Heidrun boundary, proportional capacity stress, physical
+ranges, configuration guards and validation-only without LP construction.
+Full regression before the seven additional canonical-owner hardening checks:
+617 passed in 246.48 seconds, one existing pandas warning. All new owner checks
+passed in the subsequent focused run; repeat the complete final suite at release.
+Existing hash-referenced offline fixtures were copied for tests only and original
+tracked byte serialization restored; model content and hash guards unchanged.
+Restart: run the four fresh scenarios together, inspect package accounting/charts,
+verify controlled source equality and record final results here before final push.
+
 ## F2.3 physical-input contracts — 13 October 2026
 
 One worker on `feature/physical-input-contract-f23` in `.scratch/worktrees/f23`,

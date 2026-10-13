@@ -1,5 +1,23 @@
 # Accepted modelling decisions
 
+## Core F2.4 provisional release approval (13 October 2026)
+
+The modeller explicitly approved the 2024 EA component equation, selected Snøhvit
+monthly-average rate conversion and mixed-vintage limitation, 156-minus-unavailability
+technical reference, and proportional 143 stress. Use four independent price-free
+monthly scenarios over November 2026–December 2029. A/C make no additional domestic
+Heidrun deduction; B/D use the forecast component as a hypothetical whole-field
+outside-network bound. No commercial calibration, topology or LP objective change.
+
+This authorises frozen mutually exclusive annual residual weights with supported
+existing entries, separate external Trym and unrouted UNMAPPED, including signed
+Vilje net accounting. It does not authorise treating all workbook slots as independent
+fields, zero-filling missing history, adding the NPD revision difference or claiming
+that future field mix and domestic consumption are certified. Small documented
+unresolved scope may be released as a partial-coverage POC when the core monthly
+balance and input checks pass. The ordinary default and historical/holdout guards
+remain unchanged. Exact contract and operator options are in INPUTS.md/README.md.
+
 Established from the lead modeller's agreed initial design, 2026-10-07. This file
 records acceptance; unresolved alternatives belong in [STATUS.md](STATUS.md).
 Configuration is the authoritative machine-readable mapping, not an approval

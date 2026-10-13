@@ -190,6 +190,15 @@ def prepare_current_inputs(root,model,registry,request):
     """
     inventory,components,contract=forecast_requirements(root,model,registry,request)
     output=Path(request['_provenance_dir'])
+    if request.get('physical_input_contract')=='core_f24':
+        scope=inventory.classification.eq('essential_population')
+        inventory.loc[scope,'classification']='historical_scope_reference'
+        inventory.loc[scope,'status']='Original full-certification issues retained as scope evidence; Core annual certificate governs this provisional run, not independent new supply.'
+        inventory['gate_for_this_run']=~scope
+        historical_keys=[k for group in components.values() for k in group if contract['sources'][k].get('provider_contract')=='npd_historical']
+        historical=inventory.key.isin(historical_keys)
+        inventory.loc[historical,['start','end']]=['2024-01','2024-12']
+        inventory.loc[historical,'classification']='essential_frozen_2024_owner'
     inventory.to_csv(output/'forecast_requirements.csv',index=False)
     dates=pd.period_range(request['start'],request['end'],freq='M').to_timestamp()
     keys=[key for group in components.values() for key in group if contract['sources'][key].get('provider_contract')!='npd_historical']
@@ -205,6 +214,11 @@ def prepare_current_inputs(root,model,registry,request):
         selected=pd.date_range(dates.min(),dates.max().to_period('M').end_time.normalize()) if key=='kollsnes_maint_d' else dates
         try: candidates[key]=inspect_forecast_source(root,key,selected,registry,contract,records,output,request['origin'],client)
         except (ValueError,OSError,KeyError) as error: failures.append(str(error))
+    if request.get('physical_input_contract')=='core_f24':
+        if failures:
+            raise ValueError('Core F2.4 essential source coverage failed: '+' '.join(failures))
+        from .forward_supply import prepare_approved_inputs
+        return prepare_approved_inputs(root,model,registry,request,candidates,records,components,contract,client)
     from .production_population import population_blockers
     blockers=population_blockers(root,components,output)
     if 'kollsnes_maint_d' in candidates:

@@ -1,0 +1,16 @@
+# Explicit Core-approved provisional physical routing; canonical run.yaml unchanged.
+model: config/model.yaml
+registry: config/data_series.csv
+evaluation: config/evaluation.yaml
+mode: current_forecast
+input_source: fresh_sid
+start: null
+end: null
+origin: null
+horizon_months: 12
+forecast_end_month: '2029-12'
+solver: HiGHS
+capacity_scenario: core_f24_156
+physical_input_contract: core_f24
+heidrun_treatment: export_eligible
+price_enabled: false

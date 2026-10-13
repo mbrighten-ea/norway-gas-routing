@@ -1,5 +1,43 @@
 # Norwegian gas routing
 
+## Core-approved provisional forward routing (F2.4)
+
+Run `scripts/run/run_forward_scenarios.py` with the workspace interpreter to produce
+fresh November 2026–December 2029 results for A reference, B whole-Heidrun domestic
+bound, C proportional Kollsnes stress and D combined stress. Each scenario uses fresh
+SIDs at one shared October information origin, the unchanged monthly price-free LP
+and 2023 historical preferences. `outputs/forward_scenarios/<run>/report.html` links
+the four established Excel/CSV/HTML/chart/provenance packages and contains annual
+allocations; `details/scenario_differences.csv` reports monthly bcm and percentage
+changes against A. January–September 2026 actuals remain locked.
+
+For one scenario, use `scripts/run/run_routing.py --config config/run_f24.yaml`.
+The explicit options are `physical_input_contract: core_f24`,
+`heidrun_treatment: export_eligible` or `domestic_bound`, and
+`capacity_scenario: core_f24_156` or `core_f24_proportional_143`.
+`forecast_end_month: '2029-12'` resolves 38 deliveries. These options must be selected
+together; they do not change `config/run.yaml` or its ordinary 12-month default.
+`--validate-only` checks and packages inputs without constructing an LP.
+
+Results are a **provisional partial-coverage physical-routing POC**, not a commercial
+or complete Norwegian export forecast. Frozen net annual 2024 residual weights are
+a proxy for future residual field mix. Trym is excluded separately; unknown owners
+stay UNMAPPED. B/D are an outside-network boundary bound, not a domestic-demand
+estimate or a simulated withdrawal before processing. National balances and coverage
+are reported every month. Kollsnes 156 is provisional technical availability;
+other envelopes and uncertain prospective availability are unchanged.
+
+The workbook adds Accounting, Source nodes, Annual flows, Binding limits and
+same-export-basis Share comparison; A additionally includes three representative
+Physical ranges with historical preferences released. Individual range endpoints
+are not jointly attainable. DE/NL remain allocation proxies; DK/PL are corridor
+allocations. Legacy groups are descriptive forecast comparisons, not accuracy
+scores; known non-Gassco UK packets are excluded once for the UK comparison and
+the legacy duplicate Rev deduction is disclosed, never applied to model supply.
+
+The earlier F2.2 blockers below apply to the original contract. Core's explicit
+F2.4 approval is recorded in [DECISIONS.md](DECISIONS.md) and [INPUTS.md](INPUTS.md).
+
 Monthly Norwegian pipeline gas routing to UK, France, Belgium, Netherlands,
 Germany, Denmark and Poland. The historical reconstruction solves with HiGHS;
 forecast validity and production readiness remain unresolved.

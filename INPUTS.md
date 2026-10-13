@@ -1,5 +1,55 @@
 # Input and data contract
 
+## Core F2.4 provisional input contract (13 October 2026)
+
+`core_f24` is an explicit prospective-only approval. It supersedes the old physical
+blockers for this labelled experiment, not historical-vintage safeguards or the
+unmodified default configuration. Every run queries genuine prospective SIDs at
+one current October origin and authorised 2024 history/2023 preferences freshly.
+Operational observations never come from Excel caches or retained audit responses.
+
+The approved annual EA certificate is
+`126.231133 = 119.377524 + 0.426406 + 0.020461 + 6.406742 bcm`.
+Fresh sums must reproduce it. Native Snøhvit owns the historical LNG exclusion;
+the independent NPD national revision difference is not added or redistributed.
+The matching frozen denominator is EA annual national minus native LNG minus the
+sixteen explicit annual owners. Each residual numerator is a unique signed annual
+owner. Original 46 mapped fields, Brage/Statpipe, Tune/Oseberg entitlement and
+Vilje/UK direct remain distinct; EA Oseberg already owns Oseberg/Sør/Øst. Heidrun
+is explicit, never residual. Vilje's signed May observation stays in its positive
+annual net weight; no negative physical injection is created. Trym's approved
+two-observation annual subtotal owns an external Harald/Tyra packet; absent months
+are documented, never filled. The other complete 25 zero-response SIDs are refreshed
+and stay zero-weight UNMAPPED. Empty/partial/group slots outside the approved annual
+certificate are not independently summed or silently converted to zero sources.
+
+For each delivery, `R = national_EA - converted_Snohvit - sum(all16)` must be finite
+and nonnegative. Allocate R using the frozen weights, keeping Trym outside and
+UNMAPPED unrouted. B/D then reclassify that month's explicit Heidrun forecast into
+a hypothetical domestic/outside category; R and the other ownership weights do
+not change. This is a boundary exclusion, not a new upstream offtake; domestic
+processing or its competition for export capacity is not modelled.
+
+Core approves the selected Snøhvit rate interpretation `rate*calendar_days/1000`.
+Its declared bcm label is retained in raw metadata. Complete coverage, archived
+origin availability, finite/nonnegative LNG, nonnegative pipeline/residual supply
+remain hard gates. The older LNG import versus newer national/component vintage
+is disclosed and accepted provisionally; equal publication dates are not required.
+
+Kollsnes daily reference is `156 - unavailable`; stress is
+`(143/156)*(156 - unavailable)`. Require every daily point and `0<=unavailable<=156`.
+Subtract the verified net unavailability once, with no upstream production deduction,
+independent 143 cap, clipping or extra overlapping notices. Sum daily rates/1000
+for monthly capacity. 156 is a provisional technical reference, not certification
+of a dry-export limit. Other existing envelopes retain unverified future availability.
+
+Every package retains owner memberships, signed raw observations, denominator and
+weights, national closure, eligible/network coverage, external exclusions, LP checks,
+country/corridor outputs and assumptions. Fresh sources must be identical across
+the four controlled scenarios. Small unresolved scope does not automatically block
+the POC; missing essential points, duplicate ownership, changed annual certificate,
+negative residual or invalid maintenance do.
+
 ## F2.2 complete-population activation gate
 
 `production_population.py` validates exhaustive component identities, unique SID

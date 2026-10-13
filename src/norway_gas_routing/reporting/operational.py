@@ -48,6 +48,8 @@ def result_tables(inputs, results, manifest):
             unclassified_supply_bcm=float(inputs['supply'].at[month, 'UNMAPPED']) if inputs else None,
             solver_status=manifest['status'])
         rows.append(row)
+        if inputs and 'reconciliation' in inputs and manifest['settings'].get('physical_input_contract')=='core_f24':
+            row.update(inputs['reconciliation'].loc[month].to_dict())
         if manifest['settings']['mode']=='current_forecast':
             row['forecast_origin']=manifest['settings']['origin']
         for group, countries in GROUPS.items():
@@ -63,6 +65,12 @@ def result_tables(inputs, results, manifest):
                     inputs['comparison_status'][group] if inputs and 'comparison_status' in inputs else
                     'Unavailable: synthetic run has no EA references' if manifest['settings']['input_source']=='synthetic_demo'
                     else 'Unavailable: complete fresh SID inputs and compatible comparison definitions required'))
+            if inputs and 'legacy_forecasts' in inputs and group in {'UK','FR+BE','NL+DE'}:
+                legacy=inputs['legacy_forecasts'].at[month,group] if group in inputs['legacy_forecasts'] else None
+                adjusted=modelled-inputs['reconciliation'].at[month,'legacy_excluded_uk_direct_bcm'] if result and group=='UK' else modelled
+                comparisons[-1].update(ea_legacy_forecast_bcm=legacy,model_comparable_bcm=adjusted,
+                    model_minus_ea_forecast_bcm=adjusted-legacy if adjusted is not None and pd.notna(legacy) else None,
+                    status=inputs['legacy_status'][group])
         for arc in manifest['network']['arcs']:
             asset = arc['asset']
             arcs.append(dict(month=month.start_time, arc_id=arc['id'], from_node=arc['from'], to_node=arc['to'],
@@ -70,6 +78,24 @@ def result_tables(inputs, results, manifest):
                 flow_bcm=result['flows'][arc['id']] if result else None,
                 available_capacity_bcm=float(inputs['capacities'].at[month, asset]) if inputs and asset else None))
     return pd.DataFrame(rows), pd.DataFrame(comparisons), pd.DataFrame(arcs)
+
+
+def physical_comparison_tables(inputs,results,network):
+    """Same export-volume basis for historical shares; no demand identification."""
+    binding=[]; shares=[]
+    for month,result in results.items():
+        p=pd.Period(month,'M'); exports=sum(result['destinations'].values())
+        for asset,capacity in inputs['capacities'].loc[p].items():
+            flow=sum(result['flows'][a['id']] for a in network['arcs'] if a['asset']==asset)
+            binding.append(dict(month=p.start_time,asset=asset,flow_bcm=flow,available_capacity_bcm=capacity,
+                slack_bcm=capacity-flow,binding=abs(capacity-flow)<1e-7,
+                interpretation='Monthly envelope only; not daily dispatch or demand identification'))
+        for d in DESTINATIONS:
+            baseline=inputs['preferences'][d]*exports
+            shares.append(dict(month=p.start_time,destination=d,model_bcm=result['destinations'][d],
+                same_basis_exports_bcm=exports,historical_share=inputs['preferences'][d],
+                historical_share_baseline_bcm=baseline,model_minus_share_bcm=result['destinations'][d]-baseline))
+    return pd.DataFrame(binding),pd.DataFrame(shares)
 
 
 def excel_value(value):
@@ -185,6 +211,8 @@ def report_run(output, manifest, inputs, results, inventory, network):
     forecast_guide=[('Forecast origin (UTC)',manifest['settings']['origin']),
         ('Delivery horizon',manifest['settings']['start']+' to '+manifest['settings']['end']+'; '+str(manifest['settings']['horizon_months'])+' monthly deliveries'),
         ('Prospective assumptions',manifest['settings']['capacity_scenario']+'; F2.2 provisional capacities approved, complete population and Snøhvit inputs still gated; synthetic fixtures are manufactured')] if forecast else []
+    if manifest['settings'].get('physical_input_contract')=='core_f24':
+        forecast_guide[-1]=('Prospective assumptions','Core F2.4 provisional approval: selected LNG rate conversion, mixed vintages, frozen net 2024 residual owners, external Trym, '+manifest['settings']['heidrun_treatment']+' Heidrun boundary; '+manifest['settings']['capacity_scenario']+'. 156 is technical availability, not verified dry export; other future envelopes provisional. No commercial validation.')
     guide = pd.DataFrame([('Run identity', manifest['run_id']), ('Git commit', manifest['git']['commit']),
         ('Action required', manifest['blocker'] or 'Open Monthly flows; read definitions below before using results.'),
         *forecast_guide,*definitions], columns=['item', 'meaning'])
@@ -192,6 +220,24 @@ def report_run(output, manifest, inputs, results, inventory, network):
         'Capacities': capacities, 'Network flows': arcs, 'Preferences': preferences,
         'Input sources': inventory, 'Settings': pd.DataFrame(list(manifest['settings'].items()), columns=['setting', 'value']),
         'Diagnostics': diagnostics}
+    if inputs and manifest['settings'].get('physical_input_contract')=='core_f24':
+        frames['Accounting']=inputs['reconciliation'].rename_axis('month').reset_index()
+        frames['Source nodes']=inputs['supply'].rename_axis('month').reset_index()
+        if results:
+            annual=monthly.copy(); annual['year']=annual.month.dt.year
+            columns=[d+'_volume_bcm' for d in DESTINATIONS]+['total_exports_bcm','unrouted_supply_bcm',
+                'national_production_bcm','snohvit_bcm','external_trym_bcm','hypothetical_domestic_bcm']
+            totals=annual.groupby('year')[columns].sum().reset_index()
+            totals['delivery_months']=annual.groupby('year').size().to_numpy()
+            totals['unit']='bcm over included delivery months; 2026 November-December only'
+            frames['Annual flows']=totals
+            save_delivery(totals,output/'details/annual_flows.csv')
+            binding,shares=physical_comparison_tables(inputs,results,network)
+            save_delivery(binding,output/'details/binding_constraints.csv')
+            save_delivery(shares,output/'details/historical_share_comparison.csv')
+            frames['Binding limits']=binding
+            frames['Share comparison']=shares
+            if 'physical_ranges' in inputs: frames['Physical ranges']=inputs['physical_ranges']
     write_workbook(output/'results.xlsx', frames, manifest)
     if results:
         month = inputs['months'][0]
@@ -221,6 +267,7 @@ def report_run(output, manifest, inputs, results, inventory, network):
     if manifest['blocker']:
         content += '<p class="note">Action required: '+escape(manifest['blocker'])+'</p>'
     content += table(guide)+table(monthly)+table(comparisons)
+    if 'Annual flows' in frames: content+=table(frames['Annual flows'])
     if results:
         content += '<img alt="Monthly flows snapshot" src="details/monthly_flows.png"><img alt="Solved network snapshot" src="details/network_flows.png">'
     else:

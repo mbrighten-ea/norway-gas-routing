@@ -57,7 +57,7 @@ def load_run_config(root, path):
         raise RunBlocked('Invalid run YAML: '+str(exc)+'; fix the indicated line in '+str(path)) from exc
     keys = {'model', 'registry', 'evaluation', 'mode', 'input_source', 'start',
             'end', 'origin', 'solver', 'capacity_scenario', 'price_enabled'}
-    check_keys(request, 'run configuration', keys, {'horizon_months','forecast_end_month'})
+    check_keys(request, 'run configuration', keys, {'horizon_months','forecast_end_month','physical_input_contract','heidrun_treatment'})
     if not isinstance(request['mode'], str) or request['mode'] not in {'historical_reconstruction', 'retrospective_forecast', 'latest_forecast', 'current_forecast'}:
         raise RunBlocked('Unsupported mode. Use historical_reconstruction; forecast modes require a verified origin bundle.')
     if not isinstance(request['input_source'], str) or request['input_source'] not in {'fresh_sid', 'synthetic_demo'}:
@@ -67,9 +67,20 @@ def load_run_config(root, path):
     if request['price_enabled']:
         raise RunBlocked('Experimental price routing is not exposed in Milestone A. Set price_enabled: false; use the separately authorised price experiment.')
     current=request['mode']=='current_forecast'
+    core=request.get('physical_input_contract')=='core_f24'
+    if request.get('physical_input_contract') not in (None,'core_f24'):
+        raise RunBlocked('Unknown physical input contract.')
+    if core and (not current or request['input_source']!='fresh_sid' or
+                 request.get('heidrun_treatment') not in ('export_eligible','domestic_bound')):
+        raise RunBlocked('Core F2.4 requires fresh current forecasts and an explicit Heidrun treatment.')
+    if not core and request.get('heidrun_treatment') is not None:
+        raise RunBlocked('Heidrun treatment requires the Core F2.4 contract.')
     if not isinstance(request['capacity_scenario'],str):
         raise RunBlocked('capacity_scenario must be a named string.')
-    if current and request['capacity_scenario'] not in {'baseline_prospective','provisional_kollsnes_143','provisional_kollsnes_156','synthetic_fixture'}:
+    approved_capacities={'core_f24_156','core_f24_proportional_143'}
+    if core != (request['capacity_scenario'] in approved_capacities):
+        raise RunBlocked('Core F2.4 supply and capacity contracts must be selected together.')
+    if current and request['capacity_scenario'] not in {'baseline_prospective','provisional_kollsnes_143','provisional_kollsnes_156','synthetic_fixture'} | approved_capacities:
         raise RunBlocked('Current forecast requires provisional_kollsnes_143 / provisional_kollsnes_156 or explicit synthetic_fixture capacities.')
     if current and ((request['input_source']=='synthetic_demo') != (request['capacity_scenario']=='synthetic_fixture')):
         raise RunBlocked('synthetic_fixture capacities require synthetic_demo inputs, and vice versa; never mix manufactured and EA inputs.')
@@ -393,6 +404,8 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
         inputs = prepare_run_inputs(root, model, registry, preparation_request)
         validate_prepared_inputs(inputs, network, request)
         manifest['inputs'] = inputs['provenance']
+        if request.get('physical_input_contract')=='core_f24':
+            inventory=pd.DataFrame(columns=['key','classification','status'])
         metadata = [r['metadata'] for r in inputs['provenance'] if r.get('metadata')]
         if any(m.get('_mock_sid_response') is True for m in metadata):
             if not all(m.get('_mock_sid_response') is True for m in metadata):
@@ -443,20 +456,31 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
         parameters = manifest['evaluation']['model_parameters']
         manifest['evaluation']['parameters_sha256'] = hashlib.sha256(json.dumps(parameters, sort_keys=True, default=str).encode()).hexdigest()
         if request['mode']=='current_forecast':
-            # Current real inputs cannot reach this phase without the pending
-            # physical contract implementation. Never weaken historical validators.
-            if request['input_source']!='synthetic_demo':
+            if request.get('physical_input_contract')=='core_f24' and inputs.get('approved_contract')=='core_f24':
+                manifest.update(operational_forecast_available=True,
+                    commercial_validated=False,production_ready=False,
+                    analysis_type='PROVISIONAL PARTIAL-COVERAGE PHYSICAL-ROUTING POC - price-free historical-preference allocation',
+                    physical_supply_contract='Core F2.4 approved provisional annual ownership, LNG conversion and technical availability; external routes and hypothetical domestic supply excluded explicitly')
+                parameters['training_vintage_status']='Fresh latest-revised 2023 destination preferences; not a historical forecast backtest'
+            elif request['input_source']!='synthetic_demo':
                 raise RunBlocked('Approved complete physical forecast adapter required; no partial EA vector can be solved.')
-            if any(r.get('kind')!='synthetic_forecast_fixture' for r in inputs['provenance']):
+            if request['input_source']=='synthetic_demo' and any(r.get('kind')!='synthetic_forecast_fixture' for r in inputs['provenance']):
                 raise RunBlocked('Mixed/unlabelled forecast fixture provenance.')
         else:
             validate_manifest(manifest)
+        manifest['evaluation']['parameters_sha256']=hashlib.sha256(json.dumps(parameters,sort_keys=True,default=str).encode()).hexdigest()
         if validate_only:
             manifest['status'] = 'VALIDATED_ONLY'
         else:
             manifest['phase'] = 'optimisation'
             selected, results, checks = optimise(inputs, network, request['solver'])
             manifest.update(status='OPTIMAL', solver=selected)
+            if request.get('physical_input_contract')=='core_f24' and request['heidrun_treatment']=='export_eligible' and request['capacity_scenario']=='core_f24_156':
+                from .forward_diagnostics import representative_ranges
+                _,diagnostic_solver=available_solver(selected)
+                inputs['physical_ranges']=representative_ranges(inputs,results,network,diagnostic_solver)
+                save_target(inputs['physical_ranges'],details/'physical_ranges.csv')
+                manifest['physical_range_diagnostics']='Individual maximum-export-face bounds for three representative months; historical preferences released, not additional forecasts'
     except (ValueError, RuntimeError, OSError) as exc:
         manifest.update(status='BLOCKED_INPUTS' if manifest['phase']=='preparation' else 'FAILED_OPTIMISATION', blocker=str(exc))
         if (provenance/'source_metadata.json').exists():
@@ -464,6 +488,7 @@ def execute_run(root, config='config/run.yaml', *, validate_only=False, solver_n
     if request['input_source'] == 'fresh_sid' and manifest['inputs']:
         if request['mode']=='current_forecast' and any(r.get('metadata',{}).get('_mock_sid_response') for r in manifest['inputs']):
             manifest['analysis_type']='MOCK CURRENT-FORECAST INPUT CHECK — manufactured responses, not an operational EA forecast'
+            manifest['operational_forecast_available']=False
         rows = [{**{k:v for k,v in r.items() if k not in {'metadata', 'registry'}},
                  'metadata_file': 'provenance/source_metadata.json'} for r in manifest['inputs']]
         inventory = pd.concat([inventory, pd.DataFrame(rows)], ignore_index=True)
