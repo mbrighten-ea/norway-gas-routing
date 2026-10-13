@@ -1,0 +1,38 @@
+{
+  "sid": "NPD\\monthly_by_field\\marketed_production\\oseberg\\gas-saleable",
+  "start": "2024-01-01",
+  "end": "2024-12-31",
+  "metadata": {
+    "row_level": "field",
+    "country": "Norway",
+    "unit_long": "billion cubic metres",
+    "series_id_name": "marketed_production\\oseberg\\gas-saleable",
+    "ea_field_name_standardised": "oseberg",
+    "lifecycle_stage": "actual",
+    "energy_product": "natural_gas",
+    "economic_property": "production",
+    "description": "NPD: Norway monthly marketed production for natural gas from field Oseberg in bcm",
+    "source": "Norwegian Petroleum Directorate",
+    "github_repo_url": "https://github.com/energyaspects/norway_od_etl",
+    "ea_terrain": "offshore",
+    "source_url": "https://factpages.npd.no/en/field/TableView/Production/Saleable",
+    "frequency": "monthly",
+    "unit": "bcm",
+    "source_short": "NPD",
+    "analyst_owner": "Shubhranshu Agrahari",
+    "source_obj": {
+      "npdid_information_carrier": "43625.0",
+      "aspect": "gas-saleable",
+      "units": "bill Sm3",
+      "discovery_field_name": "OSEBERG"
+    },
+    "ea_production_type": "marketed_production",
+    "region": "EUR",
+    "country_iso": "NO",
+    "airflow_dag": "https://airflow.v3.energyaspects.com/dags/npd_norway_all_crude_gas"
+  },
+  "queried_at": "2026-10-13T10:58:29.426211+00:00",
+  "points": 12,
+  "sha256": "acf8191699262948b5cc3e9471506fd520ef99f7ccc97b93a6a9d368522d48d1",
+  "purpose": "Test existing Oseberg marketed-gas owner against EA historical field; no forecast activation"
+}

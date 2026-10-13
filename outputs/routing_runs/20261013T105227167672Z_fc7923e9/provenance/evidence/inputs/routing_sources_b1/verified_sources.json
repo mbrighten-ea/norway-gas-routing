@@ -1,0 +1,2010 @@
+{
+  "schema_version": 1,
+  "scope": "Existing selected contracts only; no discovered candidate is approved",
+  "component_columns": {
+    "troll_prod": "L",
+    "kvitebjorn_prod": "AZ",
+    "visund_prod": "BU",
+    "ormen_lange_prod": "BI",
+    "aasta_hansteen_prod": "AC",
+    "dvalin_prod": "BX",
+    "asgard_prod": "AF",
+    "gullfaks_sor_prod": "AN",
+    "heidrun_prod": "AQ",
+    "kristin_prod": "AW",
+    "norne_prod": "BF",
+    "skarv_prod": "BL",
+    "oseberg_prod": "Q",
+    "sleipner_prod": "BP",
+    "gina_krog_prod": "AI",
+    "martin_linge_prod": "BC"
+  },
+  "component_groups": {
+    "troll_prod": "KOLLSNES",
+    "kvitebjorn_prod": "KOLLSNES",
+    "visund_prod": "KOLLSNES",
+    "ormen_lange_prod": "NYHAMNA",
+    "aasta_hansteen_prod": "NYHAMNA",
+    "dvalin_prod": "NYHAMNA",
+    "asgard_prod": "KARSTO",
+    "gullfaks_sor_prod": "KARSTO",
+    "heidrun_prod": "KARSTO",
+    "kristin_prod": "KARSTO",
+    "norne_prod": "KARSTO",
+    "skarv_prod": "KARSTO",
+    "oseberg_prod": "OSEBERG_HEIMDAL",
+    "sleipner_prod": "SLEIPNER",
+    "gina_krog_prod": "SLEIPNER",
+    "martin_linge_prod": "UK_DIRECT"
+  },
+  "source_groups": {
+    "KOLLSNES": [
+      "troll_prod",
+      "kvitebjorn_prod",
+      "visund_prod"
+    ],
+    "NYHAMNA": [
+      "ormen_lange_prod",
+      "aasta_hansteen_prod",
+      "dvalin_prod"
+    ],
+    "KARSTO": [
+      "asgard_prod",
+      "gullfaks_sor_prod",
+      "heidrun_prod",
+      "kristin_prod",
+      "norne_prod",
+      "skarv_prod"
+    ],
+    "OSEBERG_HEIMDAL": [
+      "oseberg_prod"
+    ],
+    "SLEIPNER": [
+      "sleipner_prod",
+      "gina_krog_prod"
+    ],
+    "UK_DIRECT": [
+      "martin_linge_prod"
+    ],
+    "DE_DIRECT": [],
+    "OTHER_RESIDUAL": [
+      "norway_nonflex_prod"
+    ]
+  },
+  "network": {
+    "nodes": {
+      "KOLLSNES_FEED": {
+        "kind": "source",
+        "source_group": "KOLLSNES",
+        "workbook_columns": [
+          "CV",
+          "EW"
+        ],
+        "position": [
+          0,
+          8
+        ],
+        "label": "Kollsnes fields incl Fram / Valemon"
+      },
+      "NYHAMNA_FEED": {
+        "kind": "source",
+        "source_group": "NYHAMNA",
+        "position": [
+          0,
+          12
+        ],
+        "label": "Nyhamna fields"
+      },
+      "KARSTO_FEED": {
+        "kind": "source",
+        "source_group": "KARSTO",
+        "workbook_columns": [
+          "ES",
+          "FO",
+          "DR",
+          "CF",
+          "DW",
+          "FT",
+          "DQ",
+          "CO",
+          "FE",
+          "FN",
+          "DT",
+          "EP",
+          "FX",
+          "DK",
+          "FW",
+          "FM"
+        ],
+        "position": [
+          0,
+          4
+        ],
+        "label": "Karsto fields incl omitted satellites"
+      },
+      "OSEBERG": {
+        "kind": "source",
+        "source_group": "OSEBERG_HEIMDAL",
+        "position": [
+          0,
+          10
+        ],
+        "label": "Oseberg"
+      },
+      "SLEIPNER": {
+        "kind": "source",
+        "source_group": "SLEIPNER",
+        "workbook_columns": [
+          "DF",
+          "DG",
+          "FQ",
+          "ED"
+        ],
+        "position": [
+          3,
+          6
+        ],
+        "label": "Sleipner fields incl Gudrun"
+      },
+      "UK_DIRECT": {
+        "kind": "source",
+        "source_group": "UK_DIRECT",
+        "workbook_columns": [
+          "EZ",
+          "DB",
+          "FU",
+          "CG",
+          "EH",
+          "FL",
+          "CQ",
+          "EJ",
+          "EM",
+          "FV",
+          "GI",
+          "EI",
+          "CK",
+          "FF",
+          "FS",
+          "EB",
+          "DL"
+        ],
+        "position": [
+          8,
+          14
+        ],
+        "label": "Direct UK FLAGS / SAGE / FUKA / Armada"
+      },
+      "EKOFISK_FEED": {
+        "kind": "source",
+        "workbook_columns": [
+          "CR",
+          "CS",
+          "CT",
+          "EO",
+          "FY",
+          "EX",
+          "DI"
+        ],
+        "position": [
+          0,
+          0
+        ],
+        "label": "Ekofisk / Valhall gas incl Tommeliten A"
+      },
+      "UNMAPPED": {
+        "kind": "source",
+        "residual": true,
+        "position": [
+          0,
+          -3
+        ],
+        "label": "Unclassified net production"
+      },
+      "KOLLSNES": {
+        "kind": "junction",
+        "position": [
+          2,
+          8
+        ],
+        "label": "Kollsnes dry export"
+      },
+      "NYHAMNA": {
+        "kind": "junction",
+        "position": [
+          2,
+          12
+        ],
+        "label": "Nyhamna"
+      },
+      "KARSTO": {
+        "kind": "junction",
+        "position": [
+          2,
+          4
+        ],
+        "label": "Karsto shared processing"
+      },
+      "HEIMDAL_BYPASS": {
+        "kind": "junction",
+        "position": [
+          3,
+          10
+        ],
+        "label": "Heimdal bypass"
+      },
+      "CORE": {
+        "kind": "junction",
+        "position": [
+          5,
+          8
+        ],
+        "label": "Sleipner / Draupner core"
+      },
+      "EUROPIPE_II_SPLIT": {
+        "kind": "junction",
+        "position": [
+          5,
+          4
+        ],
+        "label": "Shared Europipe II"
+      },
+      "EKOFISK": {
+        "kind": "junction",
+        "position": [
+          7,
+          3
+        ],
+        "label": "Ekofisk / Norpipe junction"
+      },
+      "EMDEN_POOL": {
+        "kind": "junction",
+        "position": [
+          8,
+          6
+        ],
+        "label": "DE / NL landing pool"
+      },
+      "DANISH_TRANSIT": {
+        "kind": "junction",
+        "position": [
+          8,
+          1
+        ],
+        "label": "North Sea Entry / Nybro transit"
+      },
+      "FAXE": {
+        "kind": "junction",
+        "position": [
+          10,
+          0
+        ],
+        "label": "Faxe / Baltic Pipe"
+      },
+      "UK": {
+        "kind": "destination",
+        "position": [
+          12,
+          12
+        ],
+        "label": "UK"
+      },
+      "FR": {
+        "kind": "destination",
+        "position": [
+          12,
+          10
+        ],
+        "label": "France"
+      },
+      "BE": {
+        "kind": "destination",
+        "position": [
+          12,
+          8
+        ],
+        "label": "Belgium"
+      },
+      "NL": {
+        "kind": "destination",
+        "position": [
+          12,
+          6
+        ],
+        "label": "Netherlands"
+      },
+      "DE": {
+        "kind": "destination",
+        "position": [
+          12,
+          4
+        ],
+        "label": "Germany"
+      },
+      "DK": {
+        "kind": "destination",
+        "position": [
+          12,
+          2
+        ],
+        "label": "Denmark"
+      },
+      "PL": {
+        "kind": "destination",
+        "position": [
+          12,
+          0
+        ],
+        "label": "Poland"
+      },
+      "UNROUTED": {
+        "kind": "unrouted",
+        "position": [
+          12,
+          -3
+        ],
+        "label": "Unrouted supply (accounting)"
+      }
+    },
+    "arcs": [
+      {
+        "id": "KOLLSNES_PROCESSING",
+        "from": "KOLLSNES_FEED",
+        "to": "KOLLSNES",
+        "asset": "KOLLSNES_EXPORT"
+      },
+      {
+        "id": "NYHAMNA_PROCESSING",
+        "from": "NYHAMNA_FEED",
+        "to": "NYHAMNA",
+        "asset": "NYHAMNA_EXPORT"
+      },
+      {
+        "id": "KARSTO_PROCESSING",
+        "from": "KARSTO_FEED",
+        "to": "KARSTO",
+        "asset": "KARSTO_PROCESSING"
+      },
+      {
+        "id": "OGT",
+        "from": "OSEBERG",
+        "to": "HEIMDAL_BYPASS",
+        "asset": "OGT"
+      },
+      {
+        "id": "HEIMDAL_STATPIPE",
+        "from": "HEIMDAL_BYPASS",
+        "to": "CORE",
+        "asset": "HEIMDAL_STATPIPE"
+      },
+      {
+        "id": "VESTERLED",
+        "from": "HEIMDAL_BYPASS",
+        "to": "UK",
+        "asset": "VESTERLED"
+      },
+      {
+        "id": "LANGELED_NORTH",
+        "from": "NYHAMNA",
+        "to": "CORE",
+        "asset": "LANGELED_NORTH"
+      },
+      {
+        "id": "ZEEPIPE_IIA",
+        "from": "KOLLSNES",
+        "to": "CORE",
+        "asset": "ZEEPIPE_IIA"
+      },
+      {
+        "id": "ZEEPIPE_IIB",
+        "from": "KOLLSNES",
+        "to": "CORE",
+        "asset": "ZEEPIPE_IIB"
+      },
+      {
+        "id": "KARSTO_STATPIPE",
+        "from": "KARSTO",
+        "to": "CORE",
+        "asset": "KARSTO_STATPIPE"
+      },
+      {
+        "id": "EUROPIPE_II",
+        "from": "KARSTO",
+        "to": "EUROPIPE_II_SPLIT",
+        "asset": "EUROPIPE_II"
+      },
+      {
+        "id": "EUROPIPE_II_DORNUM",
+        "from": "EUROPIPE_II_SPLIT",
+        "to": "EMDEN_POOL",
+        "asset": null
+      },
+      {
+        "id": "NORTH_SEA_ENTRY",
+        "from": "EUROPIPE_II_SPLIT",
+        "to": "DANISH_TRANSIT",
+        "asset": "NORTH_SEA_ENTRY"
+      },
+      {
+        "id": "DK_OFFTAKE",
+        "from": "DANISH_TRANSIT",
+        "to": "DK",
+        "asset": null
+      },
+      {
+        "id": "BALTIC_PIPE",
+        "from": "DANISH_TRANSIT",
+        "to": "FAXE",
+        "asset": "BALTIC_PIPE"
+      },
+      {
+        "id": "PL_DELIVERY",
+        "from": "FAXE",
+        "to": "PL",
+        "asset": null
+      },
+      {
+        "id": "SLEIPNER_CORE",
+        "from": "SLEIPNER",
+        "to": "CORE",
+        "asset": null
+      },
+      {
+        "id": "LANGELED_SOUTH",
+        "from": "CORE",
+        "to": "UK",
+        "asset": "LANGELED_SOUTH"
+      },
+      {
+        "id": "EUROPIPE_I",
+        "from": "CORE",
+        "to": "EMDEN_POOL",
+        "asset": "EUROPIPE_I"
+      },
+      {
+        "id": "CORE_EKOFISK",
+        "from": "CORE",
+        "to": "EKOFISK",
+        "asset": "DRAUPNER_EKOFISK_STATPIPE"
+      },
+      {
+        "id": "EKOFISK_INJECTION",
+        "from": "EKOFISK_FEED",
+        "to": "EKOFISK",
+        "asset": null
+      },
+      {
+        "id": "NORPIPE",
+        "from": "EKOFISK",
+        "to": "EMDEN_POOL",
+        "asset": "NORPIPE"
+      },
+      {
+        "id": "ZEEPIPE_EXPORT",
+        "from": "CORE",
+        "to": "BE",
+        "asset": "ZEEPIPE_EXPORT"
+      },
+      {
+        "id": "FRANPIPE",
+        "from": "CORE",
+        "to": "FR",
+        "asset": "FRANPIPE"
+      },
+      {
+        "id": "NL_ALLOCATION_PROXY",
+        "from": "EMDEN_POOL",
+        "to": "NL",
+        "asset": null
+      },
+      {
+        "id": "DE_ALLOCATION_PROXY",
+        "from": "EMDEN_POOL",
+        "to": "DE",
+        "asset": null
+      },
+      {
+        "id": "UK_DIRECT_PROXY",
+        "from": "UK_DIRECT",
+        "to": "UK",
+        "asset": null
+      }
+    ]
+  },
+  "capacity_assumptions": {
+    "KOLLSNES_EXPORT": {
+      "mcm_d": 143.0,
+      "source": "plant_definitions",
+      "maintenance_series": "kollsnes_maint_d"
+    },
+    "NYHAMNA_EXPORT": {
+      "mcm_d": 84.0,
+      "source": "nyhamna"
+    },
+    "KARSTO_PROCESSING": {
+      "mcm_d": 95.0,
+      "source": "plant_definitions"
+    },
+    "OGT": {
+      "mcm_d": 35.0,
+      "source": "gassco_map_2024"
+    },
+    "HEIMDAL_STATPIPE": {
+      "mcm_d": 35.0,
+      "source": "gassco_map_2024"
+    },
+    "KARSTO_STATPIPE": {
+      "mcm_d": 12.0,
+      "source": "gassco_map_2024"
+    },
+    "DRAUPNER_EKOFISK_STATPIPE": {
+      "mcm_d": 32.4,
+      "source": "gassco_map_2024"
+    },
+    "LANGELED_NORTH": {
+      "mcm_d": 74.7,
+      "source": "gassco_map_2024"
+    },
+    "LANGELED_SOUTH": {
+      "mcm_d": 73.8,
+      "source": "gassco_map_2024"
+    },
+    "ZEEPIPE_IIA": {
+      "mcm_d": 77.0,
+      "source": "gassco_map_2024"
+    },
+    "ZEEPIPE_IIB": {
+      "mcm_d": 80.0,
+      "source": "gassco_map_2024"
+    },
+    "EUROPIPE_I": {
+      "mcm_d": 48.0,
+      "source": "gassco_map_2024"
+    },
+    "EUROPIPE_II": {
+      "mcm_d": 73.5,
+      "source": "gassco_map_2024"
+    },
+    "NORPIPE": {
+      "mcm_d": 34.0,
+      "source": "gassco_map_2024"
+    },
+    "VESTERLED": {
+      "mcm_d": 35.0,
+      "source": "gassco_map_2024"
+    },
+    "ZEEPIPE_EXPORT": {
+      "mcm_d": 42.2,
+      "source": "gassco_map_2024"
+    },
+    "FRANPIPE": {
+      "mcm_d": 54.2,
+      "source": "gassco_map_2024"
+    },
+    "NORTH_SEA_ENTRY": {
+      "mcm_d": 27.4,
+      "source": "north_sea_entry"
+    },
+    "BALTIC_PIPE": {
+      "annual_bcm": 10.0,
+      "source": "baltic_pipe"
+    }
+  },
+  "sources": {
+    "troll_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Troll_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/1c3fb7454e152d83.json",
+      "source_metadata_sha256": "d49167d43d1cc46f5cdb95148d78116426e68ffdee9f7e12575d1ae166d4a05f",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "kvitebjorn_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Kvitebjorn_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/fe4fe4174a6e38db.json",
+      "source_metadata_sha256": "cdc060110a3435fd801b75a231437b2c1982d5563557db2446b5edb2704a4de8",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "visund_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Visund_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/b1d54853c5ff887b.json",
+      "source_metadata_sha256": "18b6c7cb575d7cd7c5563ac3e00d0842b684a092b39c7d80ebd367b7c3aa7ab5",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "ormen_lange_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Ormen_Lange_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/8977fc3acaf6e491.json",
+      "source_metadata_sha256": "56a1f0d07f86c0f64ddcfc2b524174fb144afd72534f2ae2486afdf172a1b036",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "aasta_hansteen_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Aasta_Hansteen_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/ebd6826a62af1251.json",
+      "source_metadata_sha256": "3517c797eb67e442c8b71a728a44e80d3cb2b563834e477b8f3558930bb1644c",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "dvalin_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Dvalin_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/e3cab8b62b4a36ac.json",
+      "source_metadata_sha256": "69ffd50577b9f2b8342b39b9fc4678a6a5577f5552a58971e9174b7e6bd79299",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "asgard_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Asgard_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/51fd89b299d62640.json",
+      "source_metadata_sha256": "3d3c6c2f052e5b0c041708f0b748b6fe2669c86c1a763fe5b4e72042f140b938",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "gullfaks_sor_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Gullfaks_Sor_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/168f9037311e3911.json",
+      "source_metadata_sha256": "a5f71a98dcba450c88e1dec1b69f0f10f05a1b1f6d56077ae34247bd71cb8dd6",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "heidrun_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Heidrun_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/c88f7df0932eeca4.json",
+      "source_metadata_sha256": "4db218e8dd3b10c1541e41779c43ade131537862f2639fc5a2b7035365b02278",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "kristin_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Kristin_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/ba6518eb1b55b9fc.json",
+      "source_metadata_sha256": "5899998159c525f461ac7693ffef8fc5ce8efcba02e054e398e494355949e803",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "norne_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Norne_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/acd9e8e75946321a.json",
+      "source_metadata_sha256": "3f4417bc6a351e1543904e77aeb4835aaed1976c36cd235d2990cb5cba3f4ea0",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "skarv_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Skarv_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/e10262ed4c676519.json",
+      "source_metadata_sha256": "28f02f4808e5dfc059e9a17f87de131892cf781f4ecacc96f6da41116ca48515",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "oseberg_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Oseberg_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/c74d5882f6b5008e.json",
+      "source_metadata_sha256": "13e5cc7d69d04e54c03df76a5d7b8275ecb339587548a6e9bcaea202dd530e15",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "sleipner_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Sleipner_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/e623aa5b7047eec6.json",
+      "source_metadata_sha256": "e4e4375fdefd778a5cda64b285e03bd8e3f58993efa91823b8906b8daf3df4ff",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "gina_krog_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Gina_Krog_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/1cc0930fdc186fe7.json",
+      "source_metadata_sha256": "fbbf54040eee5b0b452dbe837dac63c1d4d45e007d2c068be9b111469a34a253",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "martin_linge_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Martin_Linge_field",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "supply",
+      "source_metadata_file": "data/raw/series_audit/d3eeddcf33426097.json",
+      "source_metadata_sha256": "c5075aee53c2190dac9732ca7241ba5f0e73e5d7780da5350b9ff6f940d28cb5",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "norway_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production",
+      "category": "production",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "reconciliation",
+      "source_metadata_file": "data/raw/series_audit/6d7d3ff77f9ec74d.json",
+      "source_metadata_sha256": "d32b357eae07e22868e79c29d4e92a022924035321f9d5a9a669338e17a3bffb",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "snohvit_net_prod": {
+      "sid": "teams\\natural_gas\\EUR\\NO_production_Snohvit_field",
+      "category": "production",
+      "raw_unit": "mcm_d",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian production model.xlsx",
+      "registry_role": "lng_exclusion",
+      "source_metadata_file": "data/raw/series_audit/c7bd429750611a2b.json",
+      "source_metadata_sha256": "4a04edf36895204ef02362ea0ea1b43b1663ce969079ab2d10b490b103b00c95",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "evidence/inputs/network_forecast_sid_audit.md",
+      "limitation": "Reported bcm is a historical monthly-average mcm/day; approved conversion only through July 2025"
+    },
+    "kollsnes_maint_d": {
+      "sid": "teams\\natural_gas\\EUR\\daily_NO\\NO_maintenance_Kollsnes",
+      "category": "maintenance",
+      "raw_unit": "mcm_d",
+      "metadata_unit": "mcm_d",
+      "frequency": "daily",
+      "source_file": "Maintenance calculator.xlsx",
+      "registry_role": "capacity_constraint",
+      "source_metadata_file": "data/raw/series_audit/0e250f0efcd9a07b.json",
+      "source_metadata_sha256": "da6c93511659533daa9ae0336f0c4ad8fa1d28a702e82550f290d759e85c8d0d",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "uk_flow_qa": {
+      "sid": "teams\\natural_gas\\EUR\\NO\\gassco_UK",
+      "category": "historical_flows",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian flows model.xlsx",
+      "registry_role": "benchmark_only",
+      "source_metadata_file": "data/raw/series_audit/cada0a7c51b3ec94.json",
+      "source_metadata_sha256": "7e4c3b54a07e5bf0ff18d4fcd2e8b042512ba84d2a152b3cfb088e38e7767dfe",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "fr_flow_qa": {
+      "sid": "teams\\natural_gas\\EUR\\NO\\gassco_FR",
+      "category": "historical_flows",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian flows model.xlsx",
+      "registry_role": "benchmark_only",
+      "source_metadata_file": "data/raw/series_audit/0690959815677d5f.json",
+      "source_metadata_sha256": "81d480232b60068c50aa60ab883167ed5372e481f7972fc7bcf2826962f1f3c2",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "be_flow_qa": {
+      "sid": "teams\\natural_gas\\EUR\\NO\\gassco_BE",
+      "category": "historical_flows",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian flows model.xlsx",
+      "registry_role": "benchmark_only",
+      "source_metadata_file": "data/raw/series_audit/18c22dfbfe9daf52.json",
+      "source_metadata_sha256": "e11e463f1b3bd7783e0ee8f1e1869d055024f94f8f8cddfe19087cf77796a5f7",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "nl_flow_qa": {
+      "sid": "teams\\natural_gas\\EUR\\NO\\gassco_NL",
+      "category": "historical_flows",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian flows model.xlsx",
+      "registry_role": "benchmark_only",
+      "source_metadata_file": "data/raw/series_audit/8d3515a75799a519.json",
+      "source_metadata_sha256": "d3cbad17f7d63df61d791c923462246bb5c62b4c78865f4a9809ae930f734ee4",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "de_flow_qa": {
+      "sid": "teams\\natural_gas\\EUR\\NO\\gassco_DE",
+      "category": "historical_flows",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian flows model.xlsx",
+      "registry_role": "benchmark_only",
+      "source_metadata_file": "data/raw/series_audit/0435a2dd1c1f7af5.json",
+      "source_metadata_sha256": "a35e26ca8adcc5a67f05ecce18a2768ea0dd0a20d3aae117add927b0f45fdf96",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "dk_flow_qa": {
+      "sid": "teams\\natural_gas\\EUR\\NO\\gassco_DK",
+      "category": "historical_flows",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian flows model.xlsx",
+      "registry_role": "benchmark_only",
+      "source_metadata_file": "data/raw/series_audit/c06dace726eeb7ba.json",
+      "source_metadata_sha256": "565f3e461d58e4bb9017858189161989ebb40705e94117859ec77f48b6ce4e55",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "pl_flow_qa": {
+      "sid": "teams\\natural_gas\\EUR\\NO\\gassco_PL",
+      "category": "historical_flows",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian flows model.xlsx",
+      "registry_role": "benchmark_only",
+      "source_metadata_file": "data/raw/series_audit/2f38e4873b780d84.json",
+      "source_metadata_sha256": "ef2166e0da909bde715a53fdfcf8c838c243a15b9b12a3c7ca6c55a9ada43148",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "fr_be_flow_qa": {
+      "sid": "teams\\natural_gas\\EUR\\NO\\gassco_FR_and_BE",
+      "category": "historical_flows",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian flows model.xlsx",
+      "registry_role": "benchmark_only",
+      "source_metadata_file": "data/raw/series_audit/0154a2800e65af12.json",
+      "source_metadata_sha256": "8bd99f10f9e04528e67ec7d76b32fc6d1726d5dfaff0c18f9a218c18b5eb2385",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "nl_de_flow_qa": {
+      "sid": "teams\\natural_gas\\EUR\\NO\\gassco_NL_and_DE",
+      "category": "historical_flows",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "source_file": "Norwegian flows model.xlsx",
+      "registry_role": "benchmark_only",
+      "source_metadata_file": "data/raw/series_audit/d07c568ad4ee17f8.json",
+      "source_metadata_sha256": "62deb1e3b069b0be59adad3aa6f55a4cbc04e9919ac62a7ee8ecea5ed0834b2d",
+      "status": "Existing selected historical contract; not forecast approval",
+      "evidence": "DECISIONS.md",
+      "limitation": "Source identities do not verify historical publication availability; reconstruction only"
+    },
+    "fram_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\fram\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "fram",
+      "npd_field_label": "FRAM",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "e945e7faeec0348827052ae2a4307de13c5449e4ae7bc9a0fe7d96b75e7176d8",
+      "validated_at": "2026-10-12T13:16:03.613274+00:00"
+    },
+    "valemon_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\valemon\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "valemon",
+      "npd_field_label": "VALEMON",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "969b990dc5cc2ff024205b368edd528b5795eaa3b6a9b9d1243250a81112bbb7",
+      "validated_at": "2026-10-12T13:16:04.356931+00:00"
+    },
+    "tyrihans_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\tyrihans\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "tyrihans",
+      "npd_field_label": "TYRIHANS",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "b1d1e67b61330433092b47106cbda8d30b1efebb06535be0e189b536e52824e0",
+      "validated_at": "2026-10-12T13:16:05.180215+00:00"
+    },
+    "johan_sverdrup_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\johan_sverdrup\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "johan_sverdrup",
+      "npd_field_label": "JOHAN SVERDRUP",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "67a6c616900e9f25885d729d6d9def259e1134f9f2c096bfc76c3c12b4df2255",
+      "validated_at": "2026-10-12T13:16:05.910669+00:00"
+    },
+    "mikkel_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\mikkel\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "mikkel",
+      "npd_field_label": "MIKKEL",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "5f2fb0fcfe01011336df0fe3e0beca1bcada0046e26e99d098a49881ad9ad644",
+      "validated_at": "2026-10-12T13:16:06.786962+00:00"
+    },
+    "alve_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\alve\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "alve",
+      "npd_field_label": "ALVE",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "6dc4dc67039deb12690cfc32dd883eaf4a01577b7ea93b01624b7c20b5959e36",
+      "validated_at": "2026-10-12T13:16:07.715224+00:00"
+    },
+    "njord_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\njord\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "njord",
+      "npd_field_label": "NJORD",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "9d23d5c8e50a7df60c6f96d74aa365c985429b97801f9e5e23277ecaba717bc8",
+      "validated_at": "2026-10-12T13:16:08.853958+00:00"
+    },
+    "aerfugl_nord_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\aerfugl_nord\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "aerfugl_nord",
+      "npd_field_label": "\u00c6RFUGL NORD",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "0f7902f84301ec4e95d00777f05c3bdf8849670f25518e7b41d2bebfc9d0d774",
+      "validated_at": "2026-10-12T13:16:09.663234+00:00"
+    },
+    "marulk_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\marulk\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "marulk",
+      "npd_field_label": "MARULK",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "3432295558576f9a4afcecce150e8441915e6aceb67ae634b5907a62064b269a",
+      "validated_at": "2026-10-12T13:16:16.017950+00:00"
+    },
+    "draugen_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\draugen\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "draugen",
+      "npd_field_label": "DRAUGEN",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "9d78573c7193e63907a77929b246401edb22dc99859eb751aa6e78ecc8471b58",
+      "validated_at": "2026-10-12T13:16:16.830040+00:00"
+    },
+    "visund_sor_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\visund_sor\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "visund_sor",
+      "npd_field_label": "VISUND S\u00d8R",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "929e6d91913127ea3117486a81bf8ebdda0864020c36d66e1c0957588e810a95",
+      "validated_at": "2026-10-12T13:16:17.686972+00:00"
+    },
+    "maria_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\maria\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "maria",
+      "npd_field_label": "MARIA",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "566439bbeed91d1b163d53d6ae98021e97490681bab3527cfae07bb4e1076575",
+      "validated_at": "2026-10-12T13:16:18.564972+00:00"
+    },
+    "morvin_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\morvin\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "morvin",
+      "npd_field_label": "MORVIN",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "227a882bd3818bb348ca924ac22609d5938fa711ea072ef3a5a50f0ada08ba26",
+      "validated_at": "2026-10-12T13:16:20.218801+00:00"
+    },
+    "tordis_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\tordis\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "tordis",
+      "npd_field_label": "TORDIS",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "944d6fba35067f1689f7acf9d99a96cf54154f2a07750efc5ea44d5a42b9b22d",
+      "validated_at": "2026-10-12T13:16:21.369754+00:00"
+    },
+    "fenja_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\fenja\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "fenja",
+      "npd_field_label": "FENJA",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "f03d6a097439af80436d2cf6487fc2d48ede29236e89e46db64ffae15284bf02",
+      "validated_at": "2026-10-12T13:16:22.147746+00:00"
+    },
+    "hyme_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\hyme\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "hyme",
+      "npd_field_label": "HYME",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "fd68f1eab2335ba45f4b571080890df37581a25af6a1657cbc1874c7ff0c4d8c",
+      "validated_at": "2026-10-12T13:16:22.988065+00:00"
+    },
+    "bauge_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\bauge\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "bauge",
+      "npd_field_label": "BAUGE",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "822bb23a869b46be663f5c86a5eeb471cef9e58f8dce3aecbb37e94a38c7b055",
+      "validated_at": "2026-10-12T13:16:23.818198+00:00"
+    },
+    "gudrun_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\gudrun\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "gudrun",
+      "npd_field_label": "GUDRUN",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "1b3b6038e80017e5892669f75f0bc075fe1ff9725c4315aec7f6d3b170e05d1b",
+      "validated_at": "2026-10-12T13:16:25.422221+00:00"
+    },
+    "gungne_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\gungne\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "gungne",
+      "npd_field_label": "GUNGNE",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "b3de98bc094fc03996e8ab1278ce69ae90acd1cc35adf8d61b33ab6c1076149b",
+      "validated_at": "2026-10-12T13:16:33.716148+00:00"
+    },
+    "utgard_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\utgard\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "utgard",
+      "npd_field_label": "UTGARD",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "e38ba13313c5e059b5992ef4b04de87f5b51d13b0aab43f75904618f6780c84f",
+      "validated_at": "2026-10-12T13:16:35.120038+00:00"
+    },
+    "sigyn_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\sigyn\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "sigyn",
+      "npd_field_label": "SIGYN",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "ea2ab14dd9b169320faaf39f80dc906100593592d4d65fdf2548268c1c3fce0e",
+      "validated_at": "2026-10-12T13:16:36.283327+00:00"
+    },
+    "vega_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\vega\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "vega",
+      "npd_field_label": "VEGA",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "b36c938edbbc9608d690c0cf4e35958d996456bf3ed9e2ec7222041607f097d4",
+      "validated_at": "2026-10-12T13:16:37.120048+00:00"
+    },
+    "gjoa_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\gjoa\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "gjoa",
+      "npd_field_label": "GJ\u00d8A",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "54f162fa61933b9c8504f4ad2795c35edd07130380c4d16fab32f7a191aa062c",
+      "validated_at": "2026-10-12T13:16:37.940306+00:00"
+    },
+    "duva_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\duva\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "duva",
+      "npd_field_label": "DUVA",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "ccf0dad03f643f28f32b802f48f6a349bf17471f3b959e466132a1f37c6e56c4",
+      "validated_at": "2026-10-12T13:16:38.721654+00:00"
+    },
+    "alvheim_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\alvheim\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "alvheim",
+      "npd_field_label": "ALVHEIM",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "858b5c62eb3233ed7835d7750c90d957428cc0f3ef1a8b99bab09f0e6ec61925",
+      "validated_at": "2026-10-12T13:16:39.741954+00:00"
+    },
+    "statfjord_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\statfjord\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "statfjord",
+      "npd_field_label": "STATFJORD",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "e15de1329ab3314437832afb6d219aa9b64feff1be09428392f4f88dcb62077c",
+      "validated_at": "2026-10-12T13:16:40.598240+00:00"
+    },
+    "ivar_aasen_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\ivar_aasen\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "ivar_aasen",
+      "npd_field_label": "IVAR AASEN",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "e9519c39c1153fbee833a6e2091d9b9e8a49e699b8bcc4d39503e8b5f0eea0a3",
+      "validated_at": "2026-10-12T13:16:44.214368+00:00"
+    },
+    "edvard_grieg_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\edvard_grieg\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "edvard_grieg",
+      "npd_field_label": "EDVARD GRIEG",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "2c86c248089cbca8f8dc2ab7249241742edc39a9421d16d9b54a0a1d82673a21",
+      "validated_at": "2026-10-12T13:16:46.931965+00:00"
+    },
+    "statfjord_ost_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\statfjord_ost\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "statfjord_ost",
+      "npd_field_label": "STATFJORD \u00d8ST",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "32351ace78303c493e7f8783b5640b260770256f2ccdf789ae144c8d88dc2dc9",
+      "validated_at": "2026-10-12T13:16:47.789276+00:00"
+    },
+    "solveig_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\solveig\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "solveig",
+      "npd_field_label": "SOLVEIG",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "c71c9d32856b5b42b4d76cf854b38f6a0c614d3ea74dc7b135268c105fa224a0",
+      "validated_at": "2026-10-12T13:16:48.588440+00:00"
+    },
+    "nova_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\nova\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "nova",
+      "npd_field_label": "NOVA",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "fd568369728d9e0585d12111c7d7f911e50be24cd1d6e82a5b1bcd31f01b1be2",
+      "validated_at": "2026-10-12T13:16:49.634664+00:00"
+    },
+    "statfjord_nord_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\statfjord_nord\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "statfjord_nord",
+      "npd_field_label": "STATFJORD NORD",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "7a91ef21940071456269a297668acd8442bb72cea02bb06db9b6376598d00162",
+      "validated_at": "2026-10-12T13:16:51.158977+00:00"
+    },
+    "boyla_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\boyla\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "boyla",
+      "npd_field_label": "B\u00d8YLA",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "42bdebd35c9e5262957ca4d3919b2baca5fe17149e4625bccbb49f04b9c13444",
+      "validated_at": "2026-10-12T13:16:52.109168+00:00"
+    },
+    "volund_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\volund\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "volund",
+      "npd_field_label": "VOLUND",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "9922fa7f20fdc54afa69fb0655703710d4f630cb60b6eec8f93effef737b240f",
+      "validated_at": "2026-10-12T13:16:52.950309+00:00"
+    },
+    "skogul_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\skogul\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "skogul",
+      "npd_field_label": "SKOGUL",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "9cdbfb5636e4081959af2e42b5a6dc52cd627a3251a829448078aad713ac9077",
+      "validated_at": "2026-10-12T13:16:53.747083+00:00"
+    },
+    "rev_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\rev\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "rev",
+      "npd_field_label": "REV",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "ea0608fca26d1bea424b2005ab06c2326dd82e4341f212bcb802ad40eaa02d0b",
+      "validated_at": "2026-10-12T13:16:56.146121+00:00"
+    },
+    "islay_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\islay\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "islay",
+      "npd_field_label": "ISLAY",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "dc0300a9bb0f0c3701827f8cc55f8fa972e119b32af79a7e1505d39560b3e8e1",
+      "validated_at": "2026-10-12T13:17:01.203446+00:00"
+    },
+    "ekofisk_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\ekofisk\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "ekofisk",
+      "npd_field_label": "EKOFISK",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "af9d53e1b639baed5af5fbe851a868a18004b4b006075a326527425923d49bed",
+      "validated_at": "2026-10-12T13:17:01.991941+00:00"
+    },
+    "eldfisk_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\eldfisk\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "eldfisk",
+      "npd_field_label": "ELDFISK",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "265a722c59d3154c99c04222bfc1c9a2031a7fb9a294077364fa24b696e47da4",
+      "validated_at": "2026-10-12T13:17:03.034504+00:00"
+    },
+    "embla_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\embla\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "embla",
+      "npd_field_label": "EMBLA",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "1fe5f021e74f1505db620df134c40d552fcf8d769edd747152dbebe441747e88",
+      "validated_at": "2026-10-12T13:17:03.917398+00:00"
+    },
+    "tor_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\tor\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "tor",
+      "npd_field_label": "TOR",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "7f59b2dff32af899377bcd336ba47052aea94f52f0a167d9a433eb1fabfa78fe",
+      "validated_at": "2026-10-12T13:17:07.340465+00:00"
+    },
+    "tommeliten_a_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\tommeliten_a\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "tommeliten_a",
+      "npd_field_label": "TOMMELITEN A",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "186f73773aa2b39e8eb6b742be52a127e1125b5adec2114f5658e937cbf545a4",
+      "validated_at": "2026-10-12T13:17:08.171031+00:00"
+    },
+    "valhall_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\valhall\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "valhall",
+      "npd_field_label": "VALHALL",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "64b8e7c36f51dcf310a6b524d121fe2de482738c0cd38994a1a5b12652e1ebcf",
+      "validated_at": "2026-10-12T13:17:09.008558+00:00"
+    },
+    "hod_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\hod\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "hod",
+      "npd_field_label": "HOD",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T131602286277Z_8f3d6503/source_metadata.json",
+      "source_response_sha256": "01a66caf50ebbe19c3b1efff6a07dec37273ecad0770dbcb1a1cc64de3db02b4",
+      "validated_at": "2026-10-12T13:17:09.780939+00:00"
+    },
+    "sindre_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\sindre\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "sindre",
+      "npd_field_label": "SINDRE",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-01",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T132356109913Z_ad4e8be0/source_metadata.json",
+      "source_response_sha256": "c709acb9f36d9907f4e4810aec568de37e270b5867681b09af45caef29c73a15",
+      "validated_at": "2026-10-12T13:23:57.379612+00:00"
+    },
+    "hanz_net_actual": {
+      "sid": "NPD\\monthly_by_field\\marketed_production\\hanz\\gas-saleable",
+      "category": "production_npd",
+      "provider_contract": "npd_historical",
+      "npd_field": "hanz",
+      "npd_field_label": "HANZ",
+      "raw_unit": "bcm",
+      "metadata_unit": "bcm",
+      "frequency": "monthly",
+      "registry_role": "supply",
+      "status": "Historical identity/units/coverage validated on direct response",
+      "evidence": "evidence/inputs/routing_sources_b1/routing_source_mapping.csv",
+      "verified_history_start": "2024-03",
+      "verified_history_end": "2024-12",
+      "source_metadata_file": "data/raw/npd_activation/20261012T132403213368Z_a58347a4/source_metadata.json",
+      "source_response_sha256": "8d121ca3955abca7e9b5b485b334d99755ae669c0a1a795b228333f0166c5d01",
+      "validated_at": "2026-10-12T13:24:04.309829+00:00",
+      "structural_zeros": {
+        "months": [
+          "2024-01",
+          "2024-02"
+        ],
+        "production_start": "2024-04-20",
+        "evidence": "evidence/inputs/routing_sources_b1/hanz_preproduction.json",
+        "source_url": "https://factpages.sodir.no/en/field/PageView/All/25307278",
+        "reason": "Absent January-February 2024 precede verified production start; March returned zero is not replaced."
+      }
+    }
+  },
+  "historical_components": {
+    "CV": {
+      "key": "fram_net_actual",
+      "node": "KOLLSNES_FEED"
+    },
+    "EW": {
+      "key": "valemon_net_actual",
+      "node": "KOLLSNES_FEED"
+    },
+    "ES": {
+      "key": "tyrihans_net_actual",
+      "node": "KARSTO_FEED"
+    },
+    "FO": {
+      "key": "johan_sverdrup_net_actual",
+      "node": "KARSTO_FEED"
+    },
+    "DR": {
+      "key": "mikkel_net_actual",
+      "node": "KARSTO_FEED"
+    },
+    "CF": {
+      "key": "alve_net_actual",
+      "node": "KARSTO_FEED"
+    },
+    "DW": {
+      "key": "njord_net_actual",
+      "node": "KARSTO_FEED"
+    },
+    "FT": {
+      "key": "aerfugl_nord_net_actual",
+      "node": "KARSTO_FEED"
+    },
+    "DQ": {
+      "key": "marulk_net_actual",
+      "node": "KARSTO_FEED"
+    },
+    "CO": {
+      "key": "draugen_net_actual",
+      "node": "KARSTO_FEED"
+    },
+    "FE": {
+      "key": "visund_sor_net_actual",
+      "node": "KARSTO_FEED"
+    },
+    "FN": {
+      "key": "maria_net_actual",
+      "node": "KARSTO_FEED"
+    },
+    "DT": {
+      "key": "morvin_net_actual",
+      "node": "KARSTO_FEED"
+    },
+    "EP": {
+      "key": "tordis_net_actual",
+      "node": "KARSTO_FEED"
+    },
+    "FX": {
+      "key": "fenja_net_actual",
+      "node": "KARSTO_FEED"
+    },
+    "DK": {
+      "key": "hyme_net_actual",
+      "node": "KARSTO_FEED"
+    },
+    "FW": {
+      "key": "bauge_net_actual",
+      "node": "KARSTO_FEED"
+    },
+    "DF": {
+      "key": "gudrun_net_actual",
+      "node": "SLEIPNER"
+    },
+    "DG": {
+      "key": "gungne_net_actual",
+      "node": "SLEIPNER"
+    },
+    "FQ": {
+      "key": "utgard_net_actual",
+      "node": "SLEIPNER"
+    },
+    "ED": {
+      "key": "sigyn_net_actual",
+      "node": "SLEIPNER"
+    },
+    "EZ": {
+      "key": "vega_net_actual",
+      "node": "UK_DIRECT"
+    },
+    "DB": {
+      "key": "gjoa_net_actual",
+      "node": "UK_DIRECT"
+    },
+    "FU": {
+      "key": "duva_net_actual",
+      "node": "UK_DIRECT"
+    },
+    "CG": {
+      "key": "alvheim_net_actual",
+      "node": "UK_DIRECT"
+    },
+    "EH": {
+      "key": "statfjord_net_actual",
+      "node": "UK_DIRECT"
+    },
+    "FL": {
+      "key": "ivar_aasen_net_actual",
+      "node": "UK_DIRECT"
+    },
+    "CQ": {
+      "key": "edvard_grieg_net_actual",
+      "node": "UK_DIRECT"
+    },
+    "EJ": {
+      "key": "statfjord_ost_net_actual",
+      "node": "UK_DIRECT"
+    },
+    "EM": {
+      "key": "solveig_net_actual",
+      "node": "UK_DIRECT"
+    },
+    "FV": {
+      "key": "nova_net_actual",
+      "node": "UK_DIRECT"
+    },
+    "EI": {
+      "key": "statfjord_nord_net_actual",
+      "node": "UK_DIRECT"
+    },
+    "CK": {
+      "key": "boyla_net_actual",
+      "node": "UK_DIRECT"
+    },
+    "FF": {
+      "key": "volund_net_actual",
+      "node": "UK_DIRECT"
+    },
+    "FS": {
+      "key": "skogul_net_actual",
+      "node": "UK_DIRECT"
+    },
+    "EB": {
+      "key": "rev_net_actual",
+      "node": "UK_DIRECT"
+    },
+    "DL": {
+      "key": "islay_net_actual",
+      "node": "UK_DIRECT"
+    },
+    "CR": {
+      "key": "ekofisk_net_actual",
+      "node": "EKOFISK_FEED"
+    },
+    "CS": {
+      "key": "eldfisk_net_actual",
+      "node": "EKOFISK_FEED"
+    },
+    "CT": {
+      "key": "embla_net_actual",
+      "node": "EKOFISK_FEED"
+    },
+    "EO": {
+      "key": "tor_net_actual",
+      "node": "EKOFISK_FEED"
+    },
+    "FY": {
+      "key": "tommeliten_a_net_actual",
+      "node": "EKOFISK_FEED"
+    },
+    "EX": {
+      "key": "valhall_net_actual",
+      "node": "EKOFISK_FEED"
+    },
+    "DI": {
+      "key": "hod_net_actual",
+      "node": "EKOFISK_FEED"
+    },
+    "FM": {
+      "key": "sindre_net_actual",
+      "node": "KARSTO_FEED"
+    },
+    "GI": {
+      "key": "hanz_net_actual",
+      "node": "UK_DIRECT"
+    }
+  }
+}

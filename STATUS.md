@@ -1,5 +1,36 @@
 # Current implementation state
 
+## F2.3 physical-input contracts — 13 October 2026
+
+One worker on `feature/physical-input-contract-f23` in `.scratch/worktrees/f23`,
+based on verified `a34bc72` directly above F2.2 `f4a742e`. No investigation merges.
+[Contract decisions and evidence](evidence/inputs/physical_contract_f23/README.md):
+all three mandatory contracts remain BLOCKED; no frozen weights, prospective supply
+vector, active dual capacity interpretation or country forecast. Production's
+0.020453 bcm gap is exactly Trym's returned 0.020461 minus 0.000008 Snøhvit
+five-decimal precision difference. EA Oseberg owns Oseberg/Sør/Øst saleable volumes;
+Tune is separate. Missing component coverage, signed Vilje, group ownership,
+Heidrun's domestic split and the -0.015867 EA/NPD national revision bridge prevent
+complete allocation certification. Selected Snøhvit covers all 38 target months at
+October 1, but conversion does not establish prospective definition compatibility.
+Kollsnes's documented upgrade does not verify simultaneous 143/156 constraints or
+the daily SID's event aggregation; 13 central-case days remain incompatible.
+
+The requested November 2026–December 2029 validation wrote a fresh 38-month
+BLOCKED_INPUTS Excel/CSV/HTML/provenance package at
+`outputs/routing_runs/20261013T105227167672Z_fc7923e9/`, with no LP. Diagnostic
+conversion and capacity helpers are disconnected from operational preparation.
+27 focused and 596 full regression checks passed; one existing pandas warning.
+The 12-month default, 50-month endpoint, network/objective and historical guards
+are unchanged. No protected actual SID observations were queried; a search-preview
+exposure is recorded and excluded from numeric evidence, fitting and scoring.
+
+Restart: obtain source-owner declarations and Core decisions listed in the evidence
+table; bridge national revisions and certify independent monthly ownership before
+calculating fresh frozen-2024 weights. Verify rating boundaries, effective dates
+and net event revisions before considering the dual constraint. Do not activate
+`forecast_end_month: '2029-12'` as a solved live forecast until every gate passes.
+
 ## F2 forecast horizon endpoint — 13 October 2026
 
 Branch `feature/forecast-horizon-2030` is isolated in

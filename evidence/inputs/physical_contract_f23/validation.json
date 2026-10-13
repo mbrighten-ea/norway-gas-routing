@@ -1,0 +1,58 @@
+{
+  "status": "BLOCKED_INPUTS",
+  "windows": {
+    "default": {
+      "start": "2026-11",
+      "end": "2027-10",
+      "months": 12
+    },
+    "target": {
+      "start": "2026-11",
+      "end": "2029-12",
+      "months": 38
+    },
+    "extended": {
+      "start": "2026-11",
+      "end": "2030-12",
+      "months": 50
+    }
+  },
+  "trym_unchanged_since_f22": true,
+  "trym_raw_sha256": "3b3ca9582cbc713f833df9445f41829c1968f498c31b5eac0a1e4091425f853c",
+  "oseberg_owned_members": [
+    "Oseberg",
+    "Oseberg Sor",
+    "Oseberg Ost"
+  ],
+  "tune_not_in_this_owner": true,
+  "snohvit_available_at_october01": true,
+  "snohvit_archive_equals_current_capture": true,
+  "maintenance_max_vintage_change_mcmd": 41.0,
+  "heidrun_2024_total_bcm": 1.658415,
+  "monthly_maintenance_equals_daily_mean": true,
+  "output_package": "outputs/routing_runs/20261013T105227167672Z_fc7923e9",
+  "solver_constructed": false,
+  "output_sha256": {
+    "results.xlsx": "55e9c481e2ce73a6d2c179c646fdf3e0eb0243db3c431b1b5dd975aed587a0e1",
+    "results.csv": "8b20dd3500183d86fa86a271abbe09355fe41310f3f9acd2a29aa468f0fd102d",
+    "report.html": "e8bdb39c7a71af0fac1052ac44bcee0164966b5d49d8f164320d0be1eb125702",
+    "provenance/run_manifest.json": "27ed217284120ac2e9d094d7b044f158f58d6c66eb8350e5bb11ecc5f2730703"
+  },
+  "tests": {
+    "focused": 27,
+    "full": 596,
+    "full_seconds": 414.18,
+    "warnings": "One existing pandas warning in test_series_audit"
+  },
+  "protected_sid_actual_observations_read": false,
+  "source_search_incident": "A search preview surfaced protected 2026 rows; excluded from retained numeric evidence, fitting and scoring.",
+  "unchanged_operational_files": [
+    "config/model.yaml",
+    "config/run.yaml",
+    "config/data_series.csv",
+    "config/evaluation.yaml",
+    "src/norway_gas_routing/forecast_inputs.py",
+    "src/norway_gas_routing/operational.py"
+  ],
+  "offline_test_fixture_note": "36 existing hash-referenced public-capacity fixtures and archived SQLite copied for tests only. Two tracked files temporarily used identical content with archived CRLF bytes, then original worktree bytes restored. No fixture or rating change staged."
+}

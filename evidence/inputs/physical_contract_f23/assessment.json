@@ -1,0 +1,49 @@
+{
+  "status": "BLOCKED_INPUTS",
+  "forecast_activated": false,
+  "weights_frozen": false,
+  "historical_allocation_certified": false,
+  "dual_capacity_activated": false,
+  "target_start": "2026-11",
+  "target_end": "2029-12",
+  "months": 38,
+  "annual_observed_subtotals_bcm": {
+    "ea_national_bcm": 126.231133,
+    "npd_national_bcm": 126.247,
+    "original62_bcm": 119.37752399999998,
+    "additional28_complete_bcm": 0.4264059999999993,
+    "snohvit_legacy_converted_bcm": 6.40675,
+    "snohvit_native_bcm": 6.4067419999999995,
+    "trym_observed_bcm": 0.020461,
+    "f22_gap_bcm": 0.020453000000018817,
+    "snohvit_precision_difference_bcm": 8.000000000729646e-06,
+    "native_basis_remaining_before_trym_bcm": 0.020461000000019547,
+    "observed_trym_month_discrepancy_bcm": 6.612115369120097e-15,
+    "ea_minus_npd_total_bcm": -0.01586700000000274
+  },
+  "annual_sn_diagnostic_bcm": {
+    "2026": 1.085489757,
+    "2027": 5.327746875,
+    "2028": 4.807612846186071,
+    "2029": 6.3348635075174995
+  },
+  "capacity_diagnostics": {
+    "current_capture": {
+      "unavailable_bcm": 3.208,
+      "central_143_minus_loss_bcm": 162.24299999999994,
+      "sensitivity_156_minus_loss_bcm": 177.28400000000008,
+      "hypothetical_dual_bcm": 162.95124999999996,
+      "central_invalid_days": 13.0
+    },
+    "october01_archive": {
+      "unavailable_bcm": 3.276,
+      "central_143_minus_loss_bcm": 162.17499999999995,
+      "sensitivity_156_minus_loss_bcm": 177.21600000000007,
+      "hypothetical_dual_bcm": 162.78224999999995,
+      "central_invalid_days": 13.0
+    }
+  },
+  "interpretation": "Observed partial sums are not complete annual source volumes; no missing-to-zero.",
+  "capture": "data/raw/physical_contract_f23/20261013T101258056170Z",
+  "capture_metadata_sha256": "706d850a8a237d2a6c811c2992d470e56194dfa2e43ea399907ac505a20a77b4"
+}

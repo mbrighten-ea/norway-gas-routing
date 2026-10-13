@@ -1,0 +1,13 @@
+{
+  "physical_decisions": [
+    "Complete 2024 production ledger failed: 41 components have unresolved classification or historical coverage: CD 33/9-6 DELTA, CE ALBUSKJELL, CM BRYNHILD, CN COD, CP EDDA, CX FRIGG, CY FR\u00d8Y, CZ GAUPE, DC GLITNE, DH GYDA, DJ HULDRA, DM JETTE, DN JOTUN, DO KNARR, DP LILLE-FRIGG, DS MIME, DU MURCHISON, DV NORD\u00d8ST FRIGG, DY ODIN, DZ OSELVAR, EA \u00d8ST FRIGG, EN TOMMELITEN GAMMA, EQ TRYM, EY VARG, FA VESLEFRIKK, FB VEST EKOFISK, FG VOLVE, FI YTTERGRYTA, FR \u00c6RFUGL, GJ IRPA, GK HALTEN \u00d8ST, GL YGGDRASIL (FULLA,HUGIN,MUNIN), GM FENRIS, GN SKARV SATELLITE PROJECT (IDUN NORD, ALVE NORD, ORN), GO UTSIRA HIGH PROJECT, GP BESTLA, GQ BERLING, GR EIRIN, GS SYMRA, GT VERDANDE, GU PPF project. See production_population.csv; no frozen weights, missing-to-zero or partial-population allocation.",
+    "Full 2024 national = LNG + outside-boundary + mapped + UNMAPPED identity is not certified; forecast allocation remains blocked.",
+    "Sn\u00f8hvit forecast conversion and vintage compatibility are not approved; historical July-2025 rate guard is unchanged."
+  ],
+  "source_failures": [
+    "KOLLSNES_EXPORT: signed maintenance reaches 156.0 mcm/day above the 143.0 envelope on 13 days (first 2027-09-03); obtain a compatible reference/maintenance contract. No clipping, zero floor or rescaling.",
+    "snohvit_net_prod: returned values labelled monthly bcm exceed national monthly production; incompatible forecast unit contract. No inferred rate conversion."
+  ],
+  "source_coverage_failures": [],
+  "source_records": 19
+}

@@ -1,0 +1,190 @@
+[
+  {
+    "name": "historical_norway_prod_dashboard",
+    "metadata": {
+      "unit": "bcm",
+      "series_id_name": "production_total",
+      "energy_product": "natural_gas",
+      "description": "Norway production \u2014 production_total",
+      "source": "energy_aspects",
+      "region": "EUR",
+      "frequency": "monthly"
+    },
+    "raw_file": "data/raw/physical_contract_f23/20261013T101258056170Z/historical_norway_prod_dashboard.csv",
+    "sha256": "b79ab3e8b43221b3b126031d60a092a53af07fa39ea5a48771d3271329ccda76",
+    "points": 12
+  },
+  {
+    "name": "october01_snohvit_net_prod",
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_Snohvit_field\"@asof:2026-10-01T00:00:00",
+    "metadata": {
+      "country": "Norway",
+      "lifecycle_stage": "forecast",
+      "energy_product": "natural_gas",
+      "economic_property": "production",
+      "description": "Norway natural gas supply  for LNG",
+      "forecast_start_date": "2025-10-01T00:00:00",
+      "source": "energy_aspects",
+      "display_source": "NPD",
+      "ea_data_service": "natural_gas",
+      "source_file": "E:\\2. Research - Gas\\2. Spreadsheets\\1. Europe\\SO Data\\Norway\\Norwegian production model.xlsx",
+      "frequency": "monthly",
+      "unit": "bcm",
+      "region": "EUR",
+      "country_iso": "NO"
+    },
+    "points": 38,
+    "raw_file": "data/raw/physical_contract_f23/20261013T101258056170Z/october01_snohvit_net_prod.csv",
+    "sha256": "39a824d459a94a6e552fb22c59ecf6ad4ee42ce82bdbf842782755d24ed353ad"
+  },
+  {
+    "name": "october01_norway_prod",
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production\"@asof:2026-10-01T00:00:00",
+    "metadata": {
+      "country": "Norway",
+      "lifecycle_stage": "forecast",
+      "ea_identifier": "752",
+      "energy_product": "natural_gas",
+      "description": "Norway natural gas supply to UK",
+      "forecast_start_date": "2026-09-01T00:00:00",
+      "source": "energy_aspects",
+      "source_file": "E:\\2. Research - Gas\\2. Spreadsheets\\1. Europe\\SO Data\\Norway\\Norwegian production model.xlsx",
+      "frequency": "monthly",
+      "ea_client_region": "EUR",
+      "ea_client_country_iso": "NO",
+      "ea_category_ids": "335",
+      "ea_client_frequency": "monthly",
+      "api_obj": {
+        "snap_uuid": "d4568702-29dd-40f0-9daf-fc788bd7ebff",
+        "snap_shooju_job_id": 29997890,
+        "snap_job_uuid": "62209221-2d29-47d4-b26f-7d6f23c94b10"
+      },
+      "country_iso": "NO",
+      "ea_client_description": "Monthly EA forecast for natural gas production in Norway in bcm",
+      "series_id_name": "NO_production",
+      "forecast_start": "2021-03-01",
+      "ea_client_lifecycle_stage": "forecast",
+      "contentstack_data_category_uid": "blt253e5aca662ea552,blt253e5aca662ea552",
+      "economic_property": "production",
+      "display_source": "NPD",
+      "ea_data_service": "natural_gas",
+      "ea_client_unit": "bcm",
+      "series_id": "teams\\natural_gas\\EUR\\NO_production",
+      "ea_client_energy_product": "natural_gas",
+      "unit": "bcm",
+      "ea_client_api": 1,
+      "ea_client_country": "Norway",
+      "region": "EUR",
+      "date_to_max": 47088,
+      "ea_client_economic_property": "supply",
+      "date_from_min": 40909,
+      "ea_client_source": "Energy Aspects"
+    },
+    "points": 38,
+    "raw_file": "data/raw/physical_contract_f23/20261013T101258056170Z/october01_norway_prod.csv",
+    "sha256": "69fd41ed74863ea723795be7fc092ad7e5f1aec2d4bdcd90d0576c92e0241459"
+  },
+  {
+    "name": "october01_norway_nonflex_prod",
+    "query": "sid=\"teams\\natural_gas\\EUR\\NO_production_non_flexible_fields\"@asof:2026-10-01T00:00:00",
+    "metadata": {
+      "country": "Norway",
+      "lifecycle_stage": "forecast",
+      "ea_identifier": "8978",
+      "energy_product": "natural_gas",
+      "description": "Norway natural gas supply to UK",
+      "forecast_start_date": "2026-09-01T00:00:00",
+      "source": "energy_aspects",
+      "source_file": "E:\\2. Research - Gas\\2. Spreadsheets\\1. Europe\\SO Data\\Norway\\Norwegian production model.xlsx",
+      "frequency": "monthly",
+      "ea_client_region": "EUR",
+      "ea_client_country_iso": "NO",
+      "ea_category_ids": "335",
+      "ea_client_frequency": "monthly",
+      "api_obj": {
+        "snap_uuid": "409da566-d407-432c-8558-fd72d5d9dfac",
+        "snap_shooju_job_id": 29997890,
+        "snap_job_uuid": "62209221-2d29-47d4-b26f-7d6f23c94b10"
+      },
+      "country_iso": "NO",
+      "ea_client_description": "Monthly EA forecast for natural gas production in Norway: non-flexible fields in bcm",
+      "series_id_name": "NO_production_non_flexible_fields",
+      "ea_client_lifecycle_stage": "forecast",
+      "contentstack_data_category_uid": "blt253e5aca662ea552,blt253e5aca662ea552",
+      "economic_property": "production",
+      "display_source": "NPD",
+      "ea_data_service": "natural_gas",
+      "ea_client_unit": "bcm",
+      "series_id": "teams\\natural_gas\\EUR\\NO_production_non_flexible_fields",
+      "ea_client_energy_product": "natural_gas",
+      "unit": "bcm",
+      "ea_client_api": 1,
+      "ea_client_country": "Norway",
+      "region": "EUR",
+      "date_to_max": 47088,
+      "ea_client_economic_property": "production",
+      "date_from_min": 40909,
+      "ea_client_source": "Energy Aspects"
+    },
+    "points": 38,
+    "raw_file": "data/raw/physical_contract_f23/20261013T101258056170Z/october01_norway_nonflex_prod.csv",
+    "sha256": "93bd0c289df783493676ccd2ac1c13ed552b01009a437fb10f3c657330ffd0b0"
+  },
+  {
+    "name": "october01_kollsnes_maint_d",
+    "query": "sid=\"teams\\natural_gas\\EUR\\daily_NO\\NO_maintenance_Kollsnes\"@asof:2026-10-01T00:00:00",
+    "metadata": {
+      "country": "Norway",
+      "series_id_name": "NO_maintenance_Kollsnes",
+      "lifecycle_stage": "forecast",
+      "energy_product": "natural_gas",
+      "description": "Norwegian daily maintenance at Kollsnes, mcm/d",
+      "forecast_start_date": "2026-09-01T00:00:00",
+      "source": "energy_aspects",
+      "display_source": "Gassco",
+      "ea_data_service": "no",
+      "source_file": "E:\\2. Research - Gas\\2. Spreadsheets\\1. Europe\\SO Data\\Norway\\Maintenance calculator.xlsx",
+      "frequency": "daily",
+      "unit": "mcm_d",
+      "region": "EUR",
+      "country_iso": "NO"
+    },
+    "points": 1157,
+    "raw_file": "data/raw/physical_contract_f23/20261013T101258056170Z/october01_kollsnes_maint_d.csv",
+    "sha256": "a8e3fce4af06d77b53938f0d5e2975f5af3d285b0eea5967ca4a981ab13ddd9d"
+  },
+  {
+    "name": "prospective_dashboard_metadata_only",
+    "metadata": {
+      "unit": "bcm",
+      "series_id_name": "production_total",
+      "energy_product": "natural_gas",
+      "description": "Norway production \u2014 production_total",
+      "source": "energy_aspects",
+      "region": "EUR",
+      "frequency": "monthly"
+    },
+    "points_requested": false,
+    "reason": "Forecast lifecycle/boundary gate failed; no bypass."
+  },
+  {
+    "name": "import_job_27343398",
+    "metadata": {
+      "id": null,
+      "description": "Norwegian production model.xlsx",
+      "created_at": 1760624101213,
+      "updated_at": null,
+      "status": null
+    }
+  },
+  {
+    "name": "import_job_30104685",
+    "metadata": {
+      "id": null,
+      "description": "Norway gas production by field SnapJob 2a8be333-0c49-4fd7-a28e-eae7b627f6a2",
+      "created_at": 1791208873181,
+      "updated_at": null,
+      "status": null
+    }
+  }
+]

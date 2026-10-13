@@ -1,0 +1,21 @@
+{
+  "run_id": "20261013T101258056170Z",
+  "raw_directory": "data/raw/physical_contract_f23/20261013T101258056170Z",
+  "origin": "2026-10-13T10:12:59+00:00",
+  "historical_window": "2024-01..2024-12",
+  "prospective_window": "2026-11..2029-12",
+  "source_records": 135,
+  "source_metadata_sha256": "706d850a8a237d2a6c811c2992d470e56194dfa2e43ea399907ac505a20a77b4",
+  "sid_discovery_performed": false,
+  "solver_runs": 0,
+  "weights_frozen": false,
+  "operational_input_use": false,
+  "protected_sid_observations_read": false,
+  "source_search_incident": "A web search preview surfaced protected 2026 production rows; none retained or consumed as numeric evidence, fitting or scoring inputs.",
+  "jobs": {
+    "30225409": {
+      "description": "Norway gas production by field SnapJob 02792c3f-4694-4839-813b-c36a7ba3a098",
+      "created_at": 1791825145430
+    }
+  }
+}

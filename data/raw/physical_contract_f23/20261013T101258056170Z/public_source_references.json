@@ -1,0 +1,7 @@
+{
+  "description_table": "https://factpages.sodir.no/en/field/TableView/Description",
+  "description_csv": "https://factpages.sodir.no/public?/Factpages/external/tableview/field_description&rs:Command=Render&rc:Toolbar=false&rc:Parameters=f&IpAddress=not_used&CultureCode=en&rs:Format=CSV&Top100=false",
+  "capture_date": "2026-10-13",
+  "observations_in_this_table": false,
+  "csv_sha256": "755393919506333253b480a650602f7c26f40c656f0c73b6ae2a28d0619f78f6"
+}
