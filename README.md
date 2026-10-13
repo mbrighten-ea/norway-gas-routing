@@ -36,8 +36,9 @@ and archived byte serialization; do not regenerate or edit evidence to fit a tes
 The SQLite SHA-256 is `5e6e2b14c76a0afb94aa487e316c617f37fd78f95f117d96ec30232b180721a4`.
 Use the approved workspace interpreter for both test commands.
 
-Run `scripts/run/run_forward_scenarios.py` with the workspace interpreter to produce
-fresh November 2026–December 2029 results for A reference, B whole-Heidrun domestic
+For all four scenarios, set `compare_scenarios: true` in the run YAML and use the
+normal `scripts/run/run_routing.py --config ...` command below. The existing runner
+produces fresh November 2026–December 2029 results for A reference, B whole-Heidrun domestic
 bound, C proportional Kollsnes stress and D combined stress. Each scenario uses fresh
 SIDs at one shared October information origin, the unchanged monthly price-free LP
 and 2023 historical preferences. `outputs/forward_scenarios/<run>/report.html` links

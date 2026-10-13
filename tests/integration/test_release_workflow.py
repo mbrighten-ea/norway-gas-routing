@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 from openpyxl import load_workbook
 import pandas as pd
+import pytest
 
 ROOT=Path(__file__).resolve().parents[2]
 SUMMARY='outputs/forward_scenarios/20261013_f26'
@@ -84,3 +85,16 @@ def test_four_case_validation_writes_one_summary_without_solving(tmp_path,monkey
     book=load_workbook(summary/'results.xlsx',data_only=True)
     assert book['Monthly scenarios'].max_row==3
     book.close()
+
+
+def test_verifier_rejects_holdout_window_before_reading_point_tables(tmp_path,monkeypatch):
+    module=command('verify_forward_scenarios','verify');monkeypatch.setattr(module,'ROOT',tmp_path)
+    (tmp_path/'summary/provenance').mkdir(parents=True)
+    (tmp_path/'run/provenance').mkdir(parents=True)
+    (tmp_path/'summary/provenance/manifest.json').write_text(json.dumps({
+        'outputs':{'A':'run'},'failures':{},'controlled_sources_identical':True,'origin':'2025-12-31T23:59:59Z'}))
+    (tmp_path/'run/provenance/run_manifest.json').write_text(json.dumps({'settings':{
+        'mode':'current_forecast','start':'2026-01','end':'2026-09'}}))
+    monkeypatch.setattr(module.pd,'read_csv',lambda *a,**k: (_ for _ in ()).throw(RuntimeError('Point tables must not be read')))
+    with pytest.raises(AssertionError,match='holdout inputs forbidden'):
+        module.main(['summary'])

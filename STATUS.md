@@ -10,10 +10,13 @@ capacity utilisation. Original forecast values and release files remain intact.
 Use the normal operator command with `compare_scenarios: true` for four scenarios;
 the ordinary 12-month default remains unchanged. Retained-evidence tests have an
 explicit opt-in and original public-bundle prerequisites; see README.md.
-QA: 610 existing ordinary regressions, four workflow checks and all 14 retained-
-evidence checks passed. Strict restored-release hashes and 152 saved-input replays
-pass. Next: verify the committed tree in a fixture-free clean checkout with
-`python -m pytest -q`, then push the feature branch after recording that result.
+QA: the fixture-free clean checkout passed 614 ordinary regressions (14 explicitly
+deselected evidence checks), with one existing pandas warning. All 14 retained-
+evidence checks passed separately against their original hash-verified bundle.
+Five focused workflow checks also cover the verifier's pre-read holdout boundary.
+Strict restored-release hashes and all 152 saved-input replays pass. The ordinary
+12-month command and 50-month validation-only command were demonstrated using
+clearly labelled synthetic inputs. No model assumptions or forecast values changed.
 
 ## F2.4 provisional forward routing — 13 October 2026
 

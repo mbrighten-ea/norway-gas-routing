@@ -21,18 +21,24 @@ def main(argv=None):
     assert summary.is_relative_to(ROOT)
     batch=json.loads((summary/'provenance/manifest.json').read_text())
     assert not batch['failures'] and batch['controlled_sources_identical']
+    first=json.loads((ROOT/next(iter(batch['outputs'].values()))/'provenance/run_manifest.json').read_text())
+    settings=first['settings']
+    origin=pd.Timestamp(batch['origin']).tz_convert('UTC').tz_localize(None).to_period('M')
+    months=pd.period_range(settings['start'],settings['end'],freq='M')
+    assert settings['mode']=='current_forecast' and origin>=pd.Period('2026-10','M'), 'Prospective release only; historical/holdout inputs forbidden'
+    assert len(months)>0 and months.min()==origin+1 and months.max()<=pd.Period('2030-12','M'), 'Invalid declared delivery window'
     for file,sha in batch.get('files_sha256',{}).items():
         assert hashlib.sha256((summary/file).read_bytes()).hexdigest()==sha,file
     model,registry=load_config(ROOT/'config/model.yaml',ROOT/'config/data_series.csv')
     contract=json.loads((ROOT/'evidence/inputs/routing_sources_b1/verified_sources.json').read_text())
     lineage=pd.read_csv(ROOT/'evidence/inputs/production_forecast_lineage/all_field_components.csv')
     assert lineage.loc[lineage.registered_forecast_key.eq('heidrun_prod'),'includes_in_total_w_snohvit'].eq(True).all()
-    first=json.loads((ROOT/next(iter(batch['outputs'].values()))/'provenance/run_manifest.json').read_text())
-    months=pd.period_range(first['settings']['start'],first['settings']['end'],freq='M'); outputs={}; raw_hashes={}
+    outputs={}; raw_hashes={}
     for label,relative in batch['outputs'].items():
         path=ROOT/relative; manifest=json.loads((path/'provenance/run_manifest.json').read_text())
         assert manifest['status']=='OPTIMAL' and not manifest['holdout_scored']
         assert manifest['settings']['origin']==batch['origin']
+        assert manifest['settings']['mode']=='current_forecast' and manifest['settings']['start']==str(months.min()) and manifest['settings']['end']==str(months.max()), 'Scenario delivery window differs from batch'
         assert manifest['network']==network_definition(model['routing'])
         assert all(not r.get('metadata',{}).get('_mock_sid_response') for r in manifest['inputs'])
         for file,sha in manifest['files_sha256'].items():
