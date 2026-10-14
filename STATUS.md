@@ -1,5 +1,34 @@
 # Current implementation state
 
+## Minimum December-2024 backtest package
+
+F2.9's [single focused attempt](outputs/minimum_backtest_f29/report.html) returns
+**BLOCKED_INPUTS (deliverable B)**. Branch `audit/minimum-backtest-f29` starts from
+clean `4465c87`, containing F2.7/F2.6. No model, configuration, calibration,
+source allocation or operational forecast was changed.
+
+Fresh exact December-31-2024 SID archives recover all 17 production forecasts
+and four legacy forecast groups for every 2025 month. Origin-available 2023
+preferences supply ten valid baskets under the unchanged rule. Native/selected
+Snøhvit history is empty; the older series has only Jan-Aug 2022 historical
+observations. Its Sep2022-Dec2023 cells are forecasts and cannot form the seasonal
+baseline. All 75 residual-owner SIDs are empty for 2023, including the original
+46 mapped residual fields. Archived national production minus the explicit 16
+is 25.076500 bcm, containing LNG plus residual production; no denominator or
+weights were invented. The numeric Kollsnes reference remains unverified in
+the dated records reviewed; no planned-outage schedule or retrospective rating
+was introduced.
+
+Stop reached: no LP run, actual-2025 retrieval, scoring or comparison Excel.
+Next is one source-owner/provider bundle of dated 2022/2023 Snøhvit net-saleable
+observations, a mutually exclusive 2023 ledger with origin-known mappings or
+evidenced exclusions, and an applicable dated Kollsnes technical rating. Dated
+EA/SODIR snapshots could substitute after Core source/ownership approval; later
+revisions cannot become an origin-correct backtest through approval alone.
+The exact missing components, forecast imports and hashes are retained in the
+linked report. 106 existing seasonal/vintage/holdout checks passed. Full regression
+was not repeated for this evidence-only task. No protected 2026 actuals were read.
+
 ## Seasonal history and chronological allocation readiness
 
 F2.8 uses isolated `feature/seasonal-inputs-f28`, based on clean F2.7 `d4e3f57`

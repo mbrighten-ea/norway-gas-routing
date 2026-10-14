@@ -1,0 +1,140 @@
+{
+  "outcome": "B",
+  "status": "BLOCKED_INPUTS",
+  "forecast_origin": "2024-12-31T23:59:59+00:00",
+  "target_period": "2025-01 through 2025-12",
+  "focused_attempts": 1,
+  "source_requests": 125,
+  "seasonal_method": "seasonal_two_year",
+  "seasonal_method_coverage_rejection": "Seasonal Sn\u00f8hvit requires two complete origin-eligible calendar years; complete years=[]; missing months={}; no filling.",
+  "missing_snohvit_historical_months": [
+    "2022-09",
+    "2022-10",
+    "2022-11",
+    "2022-12",
+    "2023-01",
+    "2023-02",
+    "2023-03",
+    "2023-04",
+    "2023-05",
+    "2023-06",
+    "2023-07",
+    "2023-08",
+    "2023-09",
+    "2023-10",
+    "2023-11",
+    "2023-12"
+  ],
+  "historical_ledger": {
+    "national_EA_2023_bcm": 117.1552,
+    "explicit16_2023_bcm": 92.0787,
+    "LNG_plus_residual_unallocated_bcm": 25.076499999999996,
+    "LNG_plus_residual_pct": 21.40451298789981,
+    "missing_residual_sids": 75,
+    "missing_original_mapped_residual_sids": 46,
+    "residual_denominator": null,
+    "source_node_weights": null,
+    "interpretation": "The 25.0765 bcm gap contains LNG and residual production; it is not a certified pipeline residual and is never redistributed"
+  },
+  "current_identity_mapping_gaps": {
+    "EKOFISK_FEED": 7,
+    "EXTERNAL_TRYM": 1,
+    "KARSTO_FEED": 17,
+    "KOLLSNES_FEED": 2,
+    "OSEBERG": 1,
+    "SLEIPNER": 4,
+    "UK_DIRECT": 18,
+    "UNMAPPED": 25
+  },
+  "origin_available_preferences": {
+    "shares": {
+      "UK": 0.2091237002271977,
+      "FR": 0.12545104312383654,
+      "BE": 0.13544266786802284,
+      "NL": 0.09193108451758447,
+      "DE": 0.3553315930266153,
+      "DK": 0.013438399723190718,
+      "PL": 0.06928151151355252
+    },
+    "excluded_months": [
+      "2023-07",
+      "2023-08"
+    ],
+    "valid_baskets": 10,
+    "method": "Unchanged historical_preferences; diagnostic archive availability only, not activated"
+  },
+  "decisions": [
+    {
+      "contract": "Seasonal Sn\u00f8hvit, 2022/2023",
+      "status": "BLOCKED",
+      "verified": "Native and selected archives empty; older EA series has only 8 historical months, Jan-Aug 2022",
+      "missing": "Origin-available net-saleable observations for Sep-Dec 2022 and all 2023; units/provenance of substitute must be verified"
+    },
+    {
+      "contract": "2023 residual-production ledger",
+      "status": "BLOCKED",
+      "verified": "All 16 explicit histories and matching national total have 12 months; 75 residual SIDs have no archived observations",
+      "missing": "Complete mutually exclusive residual-owner ledger, native 2023 LNG exclusion, origin-appropriate mappings and monthly closure"
+    },
+    {
+      "contract": "Kollsnes technical rating",
+      "status": "UNRESOLVED",
+      "verified": "Pre-origin upgrade evidence retained; no assumed forecast maintenance deductions",
+      "missing": "Dated numeric post-upgrade technical rating and volume/processing boundary applicable by Dec 2024; no automatic 156/143 substitution"
+    },
+    {
+      "contract": "EA national and 16-field forecasts",
+      "status": "ARCHIVE_AVAILABLE",
+      "verified": "17 series, each 12 genuine forecast months at the origin; December 16 import",
+      "missing": "Original public issuance dates not independently established; archived origin availability verified"
+    },
+    {
+      "contract": "EA legacy forecasts",
+      "status": "ARCHIVE_AVAILABLE",
+      "verified": "UK, FR+BE, DE+NL and Gassco total: 12 future months each at the origin",
+      "missing": "Like-for-like total export/scoring boundary still requires certification after input closure"
+    },
+    {
+      "contract": "2023 destination preferences",
+      "status": "AVAILABLE",
+      "verified": "12 historical observations for all seven destinations; existing rule uses 10 nonnegative baskets",
+      "missing": "No 2025 actuals used or parameter tuning"
+    }
+  ],
+  "capacity_reference": {
+    "existing_evidence": "evidence/inputs/chronological_inputs_f28/assessment.json",
+    "dated_primary_sources": [
+      {
+        "url": "https://gassco.eu/wp-content/uploads/2024/03/Gassco-aarsrapport-2023-ENGELSK.pdf",
+        "availability": "Before origin",
+        "finding": "Approximate 8 percent autumn-2023 upgrade; exact daily rating/physical reference not established"
+      },
+      {
+        "url": "https://www.equinor.com/investors/annual-report",
+        "availability": "Published 21 March 2024",
+        "finding": "Additional pre-origin report inspected; no compatible numeric rating certified in this bounded attempt"
+      },
+      {
+        "url": "https://www.sec.gov/Archives/edgar/data/1140625/000114062524000034/eqnr20231231.pdf",
+        "availability": "2024 filing",
+        "finding": "Text extraction of plant table is insufficient to resolve inconsistent capacities; web screenshot failed and workspace has no PDF renderer. Numeric table not adopted"
+      },
+      {
+        "url": "https://www.equinor.com/news/20250106-troll-highest-natural-gas-production-ever",
+        "availability": "After origin",
+        "finding": "Explicit 156 statement excluded from historical input"
+      }
+    ]
+  },
+  "forecast_run": false,
+  "accuracy_metrics": null,
+  "comparison_excel": null,
+  "actual2025_deliveries_queried": false,
+  "protected_actuals_queried": false,
+  "forward_model_changed": false,
+  "indicative2025_weights_used": false,
+  "approved2024_weights_used": false,
+  "smallest_defensible_substitute": "Dated pre-origin EA or SODIR production snapshots with release/availability evidence, compatible net-saleable units and unique physical ownership; current revised tables or stale forecasts are not substitutes",
+  "core_approval": "Required for any substituted dated production ledger/source contract, historical mapping/exclusion decisions and provisional capacity interpretation; approval does not turn later revisions into origin-correct inputs",
+  "next_action": "Request one provider/source-owner archive bundle: 2022/2023 Sn\u00f8hvit net-saleable monthly actuals, a complete 2023 component ledger and contemporaneous ownership evidence, and one dated Kollsnes technical rating. Once it closes, run the unchanged model and retrieve bounded 2025 actuals for scoring. No additional investigation is launched."
+}

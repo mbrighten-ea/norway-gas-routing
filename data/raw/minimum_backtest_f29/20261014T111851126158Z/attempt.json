@@ -1,0 +1,14 @@
+{
+  "status": "INPUT_AUDIT_ONLY",
+  "origin": "2024-12-31T23:59:59Z",
+  "target_start": "2025-01",
+  "target_end": "2025-12",
+  "base_revision": "4465c8710f42fc732f9e655912f4fd33760318ab",
+  "owner_identity_source": "F2.4 certificate identifies existing SIDs only; no 2024 weights/quantities used",
+  "source_records": 125,
+  "protected_actuals_queried": false,
+  "actual2025_deliveries_queried": false,
+  "optimiser_runs": 0,
+  "forecast_scores_computed": false,
+  "sid_discovery_performed": false
+}

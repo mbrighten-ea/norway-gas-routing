@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "source_responses_checked": 125,
+  "forecast_series_exact_12_month_coverage": 21,
+  "empty_residual_archives": 75,
+  "stale_snohvit_forecast_months_rejected": 16,
+  "seasonal_method_rejected_missing_history": true,
+  "source_bounds_end_by_2025_12": true,
+  "optimiser_runs": 0,
+  "accuracy_metrics_computed": false,
+  "protected_actuals_queried": false,
+  "focused_existing_tests": 106,
+  "implementation_changed": false
+}

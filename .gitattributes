@@ -33,3 +33,7 @@ outputs/routing_runs/20261013T170332921870Z_422d6f69/details/*.svg whitespace=cr
 data/raw/chronological_inputs_f28/** -text whitespace=cr-at-eol
 evidence/inputs/chronological_inputs_f28/** -text whitespace=cr-at-eol
 outputs/chronological_inputs_f28/** -text whitespace=cr-at-eol
+
+# One bounded December-2024 historical-input attempt, including empty responses.
+data/raw/minimum_backtest_f29/** -text whitespace=cr-at-eol
+outputs/minimum_backtest_f29/** -text whitespace=cr-at-eol
