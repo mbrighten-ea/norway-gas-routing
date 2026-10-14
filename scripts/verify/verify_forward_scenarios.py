@@ -12,6 +12,24 @@ from norway_gas_routing.config import load_config
 from norway_gas_routing.routing import network_definition
 
 
+def seasonal_snohvit_snapshot(path, manifest, origin, months):
+    """Independently regenerate the optional assumption from recorded history."""
+    from norway_gas_routing.seasonal_snohvit import seasonal_profile, HISTORICAL_SID
+    from norway_gas_routing.evaluation import check_dates
+    record=next(r for r in manifest['inputs'] if r['key']=='snohvit_seasonal_baseline')
+    assert pd.Timestamp(record['asof'])==pd.Timestamp(origin)
+    assert record['sid']==HISTORICAL_SID and record['status']=='VERIFIED_SEASONAL_ASSUMPTION'
+    assert record['query']==f'sid="{HISTORICAL_SID}"@asof:'+pd.Timestamp(origin).strftime('%Y-%m-%dT%H:%M:%S')
+    check_dates([record['start'],record['end']],'read')
+    raw=pd.read_csv(path/record['raw_file'],index_col='date',parse_dates=True).value
+    observations=pd.DataFrame(dict(date=raw.index,monthly_bcm=raw.to_numpy(),available_at=record['asof']))
+    forecast,_,rates,years,_=seasonal_profile(observations,months,origin)
+    assert years==record['selected_years']
+    assert np.allclose(rates,[record['seasonal_rates_mcmd'][str(m)] for m in range(1,13)],atol=1e-10,rtol=0)
+    assert np.allclose(forecast,[record['monthly_forecast_bcm'][str(m)] for m in months],atol=1e-10,rtol=0)
+    return forecast
+
+
 def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('summary',help='Repository-relative completed four-scenario summary')
@@ -80,9 +98,13 @@ def main(argv=None):
             v=pd.read_csv(path/record['raw_file'],index_col='date',parse_dates=True).value
             if v.index.tz is not None: v.index=v.index.tz_convert('UTC').tz_localize(None)
             return v
-        sn=raw('snohvit_net_prod'); sn.index=sn.index.to_period('M')
-        assert sn.index.equals(months)
-        assert np.allclose(flows.snohvit_bcm,sn*months.days_in_month/1000,atol=1e-10,rtol=0)
+        if manifest['settings'].get('snohvit_method','sid_forecast')=='seasonal_two_year':
+            sn=seasonal_snohvit_snapshot(path,manifest,batch['origin'],months)
+        else:
+            sn=raw('snohvit_net_prod'); sn.index=sn.index.to_period('M')
+            assert sn.index.equals(months)
+            sn=sn*months.days_in_month/1000
+        assert np.allclose(flows.snohvit_bcm,sn,atol=1e-10,rtol=0)
         fields=pd.DataFrame({key:raw(key).set_axis(months) for key in contract['component_columns']})
         assert np.allclose(flows.residual_bcm,raw('norway_prod').to_numpy()-flows.snohvit_bcm-fields.sum(axis=1),atol=1e-10,rtol=0)
         domestic=fields.heidrun_prod if label in {'B','D'} else pd.Series(0.,index=months)
@@ -107,6 +129,9 @@ def main(argv=None):
             v=pd.read_csv(file,index_col='date',parse_dates=True)
             dates=pd.DatetimeIndex(pd.to_datetime(v.index,utc=True)).tz_localize(None)
             permitted=((dates>=pd.Timestamp('2023-01-01')) & (dates<=pd.Timestamp('2024-12-31'))) | ((dates>=months.min().start_time) & (dates<=months.max().end_time))
+            if file.name=='snohvit_seasonal_history.csv' and manifest['settings'].get('snohvit_method')=='seasonal_two_year':
+                record=next(r for r in manifest['inputs'] if r['key']=='snohvit_seasonal_baseline')
+                permitted=(dates>=pd.Timestamp(record['start'])) & (dates<=pd.Timestamp(record['end'])) & (dates<=pd.Timestamp('2025-12-31'))
             assert permitted.all(),file
             raw_hashes[label][file.name]=hashlib.sha256(file.read_bytes()).hexdigest()
         country=[d+'_volume_bcm' for d in ['UK','FR','BE','NL','DE','DK','PL']]

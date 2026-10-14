@@ -28,3 +28,8 @@ outputs/routing_runs/20261013T170110955685Z_8de91d4c/details/*.svg whitespace=cr
 outputs/routing_runs/20261013T170259061147Z_afbe0af9/details/*.svg whitespace=cr-at-eol,-trailing-space
 outputs/routing_runs/20261013T170509787483Z_39d6379e/details/*.svg whitespace=cr-at-eol,-trailing-space
 outputs/routing_runs/20261013T170332921870Z_422d6f69/details/*.svg whitespace=cr-at-eol,-trailing-space
+
+# F2.8 bounded historical archive evidence and input-assumption comparison.
+data/raw/chronological_inputs_f28/** -text whitespace=cr-at-eol
+evidence/inputs/chronological_inputs_f28/** -text whitespace=cr-at-eol
+outputs/chronological_inputs_f28/** -text whitespace=cr-at-eol

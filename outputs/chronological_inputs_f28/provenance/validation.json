@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "captured_artifact_hashes": 141,
+  "independently_recomputed_seasonal_months": 38,
+  "signed_negative_observations_preserved": 3,
+  "owner_identities_unique": true,
+  "missing_observations_not_filled": true,
+  "indicative_shares_sum_one": true,
+  "rolling_weights_activated": false,
+  "protected_actuals_queried": false,
+  "forecasts_scored": false,
+  "ordinary_regressions": 634,
+  "evidence_tests_deselected": 14,
+  "focused_method_package_tests": 31,
+  "existing_pandas_warnings": 1,
+  "f27_strict_package_verification": "PASS; A/B/C/D totals unchanged",
+  "full_tests_command": "workspace Python -m pytest -q --basetemp=.scratch/tmp/f28-final"
+}

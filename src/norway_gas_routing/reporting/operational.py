@@ -216,6 +216,9 @@ def report_run(output, manifest, inputs, results, inventory, network):
         ('Prospective assumptions',manifest['settings']['capacity_scenario']+'; F2.2 provisional capacities approved, complete population and Snøhvit inputs still gated; synthetic fixtures are manufactured')] if forecast else []
     if manifest['settings'].get('physical_input_contract')=='core_f24':
         forecast_guide[-1]=('Prospective assumptions','Core F2.4 provisional approval: selected LNG rate conversion, mixed vintages, frozen net 2024 residual owners, external Trym, '+manifest['settings']['heidrun_treatment']+' Heidrun boundary; '+manifest['settings']['capacity_scenario']+'. 156 is technical availability, not verified dry export; other future envelopes provisional. No commercial validation.')
+        if manifest['settings'].get('snohvit_method')=='seasonal_two_year':
+            forecast_guide[-1]=('Prospective assumptions','Explicit seasonal Snøhvit assumption; frozen 2024 residual owners, external Trym, '+manifest['settings']['heidrun_treatment']+' Heidrun boundary; '+manifest['settings']['capacity_scenario']+'. Other Core F2.4 assumptions unchanged; no commercial validation.')
+            forecast_guide.append(('Snøhvit method','Seasonal two-year historical net-saleable rate assumption; latest complete origin-eligible years. Not an archived EA forecast or an accuracy score. Signed history retained; observations and rates in provenance.'))
     guide = pd.DataFrame([('Run identity', manifest['run_id']), ('Git commit', manifest['git']['commit']),
         ('Action required', manifest['blocker'] or 'Open Monthly flows; read definitions below before using results.'),
         *forecast_guide,*definitions], columns=['item', 'meaning'])

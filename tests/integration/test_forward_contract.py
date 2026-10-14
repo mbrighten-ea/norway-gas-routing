@@ -48,3 +48,50 @@ def test_38_month_validate_only_never_optimises(workspace,monkeypatch):
     assert 'MOCK' in manifest['analysis_type'] and manifest['holdout_scored'] is False
     assert manifest['operational_forecast_available'] is False
     assert json.loads((output/'provenance/solver_results.json').read_text())=={}
+
+
+def test_seasonal_optin_and_unchanged_sid_default(workspace):
+    configuration(workspace)
+    assert op.load_run_config(workspace,'config/run.yaml')[0]['snohvit_method']=='sid_forecast'
+    configuration(workspace,snohvit_method='seasonal_two_year')
+    assert op.load_run_config(workspace,'config/run.yaml')[0]['snohvit_method']=='seasonal_two_year'
+    configuration(workspace,snohvit_method='flat')
+    with pytest.raises(ValueError,match='snohvit_method'):op.load_run_config(workspace,'config/run.yaml')
+
+
+@pytest.mark.parametrize('method',['sid_forecast','seasonal_two_year'])
+def test_preparation_consumes_only_explicit_snohvit_method(workspace,monkeypatch,tmp_path,method):
+    from norway_gas_routing import forecast_inputs as fi,forward_supply as fs,seasonal_snohvit as sn
+    configuration(workspace,snohvit_method=method)
+    request,model,registry,_=op.load_run_config(workspace,'config/run.yaml')
+    output=tmp_path/'capture';output.mkdir();request['_provenance_dir']=output
+    calls=[]
+    monkeypatch.setattr(fi,'connect_shooju',lambda:object())
+    def inspect(root,key,dates,registry,contract,records,output,origin,client):
+        calls.append(key);return pd.Series(.1,index=dates)
+    monkeypatch.setattr(fi,'inspect_forecast_source',inspect)
+    def seasonal(months,origin,records,output,client):
+        calls.append('seasonal');return pd.Series(.3,index=months)
+    monkeypatch.setattr(sn,'retrieve_seasonal_snohvit',seasonal)
+    monkeypatch.setattr(fs,'prepare_approved_inputs',lambda root,model,registry,request,candidates,*a:candidates)
+    candidates=fi.prepare_current_inputs(workspace,model,registry,request)
+    if method=='seasonal_two_year':
+        assert 'snohvit_net_prod' not in calls and 'seasonal' in calls
+        assert candidates['snohvit_seasonal_bcm'].iloc[0]==.3
+    else:
+        assert 'snohvit_net_prod' in calls and 'seasonal' not in calls
+        assert 'snohvit_seasonal_bcm' not in candidates
+
+
+def test_seasonal_gap_keeps_core_input_blocker(workspace,monkeypatch,tmp_path):
+    from norway_gas_routing import forecast_inputs as fi,forward_supply as fs,seasonal_snohvit as sn
+    configuration(workspace,snohvit_method='seasonal_two_year')
+    request,model,registry,_=op.load_run_config(workspace,'config/run.yaml')
+    output=tmp_path/'capture';output.mkdir();request['_provenance_dir']=output
+    monkeypatch.setattr(fi,'connect_shooju',lambda:object())
+    monkeypatch.setattr(fi,'inspect_forecast_source',lambda root,key,dates,*a:pd.Series(.1,index=dates))
+    def unavailable(*a):raise ValueError('two complete origin-eligible years unavailable')
+    monkeypatch.setattr(sn,'retrieve_seasonal_snohvit',unavailable)
+    monkeypatch.setattr(fs,'prepare_approved_inputs',lambda *a:pytest.fail('Failed baseline reached allocation'))
+    with pytest.raises(ValueError,match='essential source coverage failed'):
+        fi.prepare_current_inputs(workspace,model,registry,request)

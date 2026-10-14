@@ -1,0 +1,35 @@
+{
+  "query": "sid=\"NPD\\monthly_by_field\\marketed_production\\norne\\gas-saleable\"@asof:2026-10-13T16:59:13",
+  "metadata": {
+    "row_level": "field",
+    "country": "Norway",
+    "unit_long": "billion cubic metres",
+    "series_id_name": "marketed_production\\norne\\gas-saleable",
+    "ea_field_name_standardised": "norne",
+    "lifecycle_stage": "actual",
+    "energy_product": "natural_gas",
+    "economic_property": "production",
+    "description": "NPD: Norway monthly marketed production for natural gas from field Norne in bcm",
+    "source": "Norwegian Petroleum Directorate",
+    "github_repo_url": "https://github.com/energyaspects/norway_od_etl",
+    "ea_terrain": "offshore",
+    "source_url": "https://factpages.npd.no/en/field/TableView/Production/Saleable",
+    "frequency": "monthly",
+    "unit": "bcm",
+    "source_short": "NPD",
+    "analyst_owner": "Shubhranshu Agrahari",
+    "source_obj": {
+      "npdid_information_carrier": "43778.0",
+      "aspect": "gas-saleable",
+      "units": "bill Sm3",
+      "discovery_field_name": "NORNE"
+    },
+    "ea_production_type": "marketed_production",
+    "region": "EUR",
+    "country_iso": "NO",
+    "airflow_dag": "https://airflow.v3.energyaspects.com/dags/npd_norway_all_crude_gas"
+  },
+  "start": "2025-01-01",
+  "end": "2025-12-31",
+  "sha256": "8aeba8cb3fa55d4694a150525c75641ed0914fc2425b8595eb1a61b9a4d3bbe1"
+}

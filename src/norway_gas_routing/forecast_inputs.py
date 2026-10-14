@@ -190,6 +190,11 @@ def prepare_current_inputs(root,model,registry,request):
     """
     inventory,components,contract=forecast_requirements(root,model,registry,request)
     output=Path(request['_provenance_dir'])
+    if request.get('snohvit_method')=='seasonal_two_year':
+        sn=inventory.key.eq('snohvit_net_prod')
+        inventory.loc[sn,'classification']='not_selected'
+        inventory.loc[sn,'status']='Not consumed: explicit seasonal_two_year historical assumption; archive coverage validated separately'
+        inventory.loc[sn,'blocked']=False
     if request.get('physical_input_contract')=='core_f24':
         scope=inventory.classification.eq('essential_population')
         inventory.loc[scope,'classification']='historical_scope_reference'
@@ -202,7 +207,8 @@ def prepare_current_inputs(root,model,registry,request):
     inventory.to_csv(output/'forecast_requirements.csv',index=False)
     dates=pd.period_range(request['start'],request['end'],freq='M').to_timestamp()
     keys=[key for group in components.values() for key in group if contract['sources'][key].get('provider_contract')!='npd_historical']
-    keys+=['norway_prod','snohvit_net_prod']
+    seasonal=request.get('snohvit_method','sid_forecast')=='seasonal_two_year'
+    keys+=['norway_prod']+([] if seasonal else ['snohvit_net_prod'])
     if len(set(keys))!=len(keys) or len({registry.at[k,'sid'] for k in keys})!=len(keys):
         raise ValueError('Duplicate forecast production key/SID; no double counting.')
     records,failures=[],[]
@@ -213,6 +219,12 @@ def prepare_current_inputs(root,model,registry,request):
     for key in keys+['kollsnes_maint_d']:
         selected=pd.date_range(dates.min(),dates.max().to_period('M').end_time.normalize()) if key=='kollsnes_maint_d' else dates
         try: candidates[key]=inspect_forecast_source(root,key,selected,registry,contract,records,output,request['origin'],client)
+        except (ValueError,OSError,KeyError) as error: failures.append(str(error))
+    if seasonal:
+        from .seasonal_snohvit import retrieve_seasonal_snohvit
+        try:
+            candidates['snohvit_seasonal_bcm']=retrieve_seasonal_snohvit(
+                dates.to_period('M'),request['origin'],records,output,client)
         except (ValueError,OSError,KeyError) as error: failures.append(str(error))
     if request.get('physical_input_contract')=='core_f24':
         if failures:

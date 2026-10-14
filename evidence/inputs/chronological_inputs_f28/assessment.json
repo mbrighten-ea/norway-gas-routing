@@ -1,0 +1,74 @@
+{
+  "status": "Historical comparison not ready; seasonal current-origin assumption verified",
+  "origins": {
+    "current": "2026-10-13T16:59:13Z",
+    "historical": "2024-12-31T23:59:59Z"
+  },
+  "protected_actuals_queried": false,
+  "forecasts_scored": false,
+  "operational_weights_changed": false,
+  "current_seasonal_years": [
+    2024,
+    2025
+  ],
+  "seasonal_totals": {
+    "seasonal_bcm": 16.85562479433497,
+    "sid_forecast_bcm": 17.555712985703572,
+    "difference_bcm": -0.7000881913685962
+  },
+  "retained_input_plausibility_check": {
+    "basis": "Immutable F2.7 national/16-field forecasts at the same origin; diagnostic only, no new routing forecast",
+    "pipeline_min_bcm": 6.523290190892947,
+    "residual_min_bcm": 1.6005436217541158,
+    "forecast_min_bcm": 0.245791,
+    "forecast_max_bcm": 0.5583579999999999
+  },
+  "annual_2025_accounting": {
+    "national_EA_bcm": 121.77179999999998,
+    "native_lng_bcm": 4.113130999999999,
+    "explicit16_bcm": 97.64835099999999,
+    "residual_denominator_bcm": 20.010317999999998,
+    "observed_residual_owners_bcm": 18.842865999999983,
+    "unassigned_before_halten_bcm": 1.1674520000000137,
+    "halten_ost_observed_bcm": 1.167452,
+    "halten_monthly_match_max_bcm": 5.10702591327572e-15,
+    "complete_monthly_ledger": false
+  },
+  "indicative_share_sum": 0.9999999999999993,
+  "retained_future_residual_basis_bcm": 95.91553513202736,
+  "limitations": [
+    "Observed subtotals are not complete annual observations. Missing values remain missing; no operational shares are written.",
+    "The 2024 physical certificate is used to audit known identities, not certified as historically available in December 2024.",
+    "Verdande observed December volume is 0.017290 bcm. EA Norne equals native Norne, not Norne plus Verdande. Adding Verdande breaks the matching EA identity; earlier/newer revisions require a bridge.",
+    "NPD national 2025 is 121.839 bcm, EA is 121.771800; the 0.067200 bcm difference is documented only and never redistributed."
+  ],
+  "historical_owner_archive_counts": {
+    "BLOCKED": 76,
+    "EXACT_COVERAGE": 16
+  },
+  "kollsnes": {
+    "status": "Numeric historical rating pending; approved live contract unchanged",
+    "candidate_rule": "Applicable origin-known technical rating * calendar days / 1000; no additional assumed forecast maintenance",
+    "availability_assumption": "Full technical availability, not actual observed availability",
+    "evidence": [
+      {
+        "url": "https://gassco.eu/wp-content/uploads/2024/03/Gassco-aarsrapport-2023-ENGELSK.pdf",
+        "page": 2,
+        "known_before_origin": true,
+        "fact": "Autumn-2023 compressor upgrade completed; approximately 8 percent/46 TWh annual increase. No exact numeric daily post-upgrade rating in the report."
+      },
+      {
+        "url": "https://gassco.eu/wp-content/uploads/2023/04/091540-Kollsnes_NORSK_spreads_22.10.2019-1-1.pdf",
+        "known_before_origin": true,
+        "fact": "2019 brochure: 144.5 MSm3/day export capacity; predates upgrade, not proof of December-2024 applicable technical ceiling."
+      },
+      {
+        "url": "https://www.equinor.com/news/20250106-troll-highest-natural-gas-production-ever",
+        "known_before_origin": false,
+        "fact": "6 January 2025 explicitly states increase from 144.5 to 156; after December-2024 information origin, so not used retrospectively."
+      }
+    ],
+    "minimum_missing_fact": "An origin-available numeric post-upgrade technical daily rating and applicable gas/processing boundary; do not infer an exact rating from rounded 8 percent."
+  },
+  "minimum_next_action": "Obtain one December-2024 archived net-saleable Sn\u00f8hvit/owner ledger bundle (candidate Dec2023-Nov2024 owners and two complete LNG years) with contemporaneous ownership/definition evidence and one dated Kollsnes technical rating; Core approves the chronological-weight contract before an untuned 2025 comparison."
+}

@@ -1,5 +1,50 @@
 # Current implementation state
 
+## Seasonal history and chronological allocation readiness
+
+F2.8 uses isolated `feature/seasonal-inputs-f28`, based on clean F2.7 `d4e3f57`
+containing F2.6 `b8d8e03`; no investigation merges. `snohvit_method:
+seasonal_two_year` is an explicit optional historical assumption in the existing
+fresh Core current-input workflow. The SID-backed default and approved live
+weights/capacities/optimiser remain unchanged. No historical runner was unlocked.
+
+The [input comparison](outputs/chronological_inputs_f28/report.html) retains fresh
+exact-origin SID responses and hashes at October 13, 2026 and December 31, 2024.
+2024/2025 native net-saleable history yields 38 seasonal forecast months totalling
+16.855625 bcm versus 17.555713 bcm from the selected SID. Signed history, selected
+years, rates, information cutoff and monthly values are retained. The unchanged
+same-origin F2.7 supply basis remains nonnegative under the seasonal assumption.
+December-2024 native and selected Snøhvit archives are unavailable; this cannot yet
+be a genuine historical forecast input. No protected actuals or scoring occurred.
+
+The 2025 residual denominator is 20.010318 bcm. Existing owners' observed subtotal
+18.842866 plus Halten Øst's observed 1.167452 matches it; missing Rev Oct-Dec and
+Halten Øst January are not zeros. Balder/Urd contribute 0.047575 bcm with unknown
+entries. Halten Øst group ownership/entry needs approval, and Verdande/national
+revision differences remain separate. Indicative UK-direct share is 25.746%, versus
+approved 2024 31.775%; its same-residual-basis supply difference is -5.782919 bcm.
+These are observed-subtotal diagnostics, not complete or activated rolling weights.
+The December-2024 candidate Dec2023-Nov2024 ledger cannot be certified because
+native residual owner archives are unavailable; the 2026 certificate is not reused
+as an origin-correct calibration.
+
+Historical Kollsnes fallback is full applicable technical capacity with no invented
+planned outages. The 2023 report proves a pre-origin upgrade but supplies only an
+approximate 8% increment; the precise 156 statement is January 2025. One dated
+pre-origin numeric/boundary contract is still needed. Live Kollsnes is unchanged.
+
+Next: obtain one December-2024 archive bundle of eligible LNG history, owner ledger
+and contemporaneous mappings, plus the dated technical rating; Core must approve
+the rolling-weight contract. Existing F2.5 archived production/legacy forecasts
+and origin-available preferences provide the other starting inputs for an untuned
+2025 comparison. Do not start scoring or apply diagnostic shares automatically.
+
+Validation: 634 ordinary regressions passed; 14 retained-public-evidence tests
+were explicitly deselected because this clean worktree lacks their external
+bundle. One existing pandas warning remains. The 31 focused method/package
+checks passed, and strict F2.7 package verification preserves all four released
+totals. No source mapping, network, capacity, objective or holdout policy changed.
+
 ## Live forecast acceptance
 
 [Live scenario Excel](outputs/forward_scenarios/20261013T165915778836Z/results.xlsx)

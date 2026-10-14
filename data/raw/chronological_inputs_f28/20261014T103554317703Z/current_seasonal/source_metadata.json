@@ -1,0 +1,254 @@
+[
+  {
+    "key": "snohvit_seasonal_baseline",
+    "sid": "NPD\\monthly_by_field\\marketed_production\\snohvit\\gas-saleable",
+    "kind": "seasonal_historical_baseline",
+    "method": "seasonal_two_year",
+    "asof": "2026-10-13T16:59:13+00:00",
+    "query": "sid=\"NPD\\monthly_by_field\\marketed_production\\snohvit\\gas-saleable\"@asof:2026-10-13T16:59:13",
+    "start": "2021-01-01",
+    "end": "2025-12-31",
+    "status": "VERIFIED_SEASONAL_ASSUMPTION",
+    "retrieved_at": "2026-10-14T10:37:06.636064+00:00",
+    "information_date_basis": "Exact archived service state; asof is an availability upper bound, not an individual publication date",
+    "target_unit": "bcm/month",
+    "transformation": "Signed net-saleable bcm / calendar days * 1000; mean rate by calendar month across latest two complete eligible years; rate * forecast days / 1000",
+    "metadata": {
+      "row_level": "field",
+      "country": "Norway",
+      "unit_long": "billion cubic metres",
+      "series_id_name": "marketed_production\\snohvit\\gas-saleable",
+      "ea_field_name_standardised": "snohvit",
+      "lifecycle_stage": "actual",
+      "energy_product": "natural_gas",
+      "economic_property": "production",
+      "description": "NPD: Norway monthly marketed production for natural gas from field Snohvit in bcm",
+      "source": "Norwegian Petroleum Directorate",
+      "github_repo_url": "https://github.com/energyaspects/norway_od_etl",
+      "ea_terrain": "offshore",
+      "source_url": "https://factpages.npd.no/en/field/TableView/Production/Saleable",
+      "frequency": "monthly",
+      "unit": "bcm",
+      "source_short": "NPD",
+      "analyst_owner": "Shubhranshu Agrahari",
+      "source_obj": {
+        "npdid_information_carrier": "2053062.0",
+        "aspect": "gas-saleable",
+        "units": "bill Sm3",
+        "discovery_field_name": "SN\u00d8HVIT"
+      },
+      "ea_production_type": "marketed_production",
+      "region": "EUR",
+      "country_iso": "NO",
+      "airflow_dag": "https://airflow.v3.energyaspects.com/dags/npd_norway_all_crude_gas"
+    },
+    "raw_file": "current_seasonal/raw/snohvit_seasonal_history.csv",
+    "sha256": "c4a62bd4ed10cae6337da6c093331529a02defb260806e5872c120d9a84ce47a",
+    "selected_years": [
+      2024,
+      2025
+    ],
+    "incomplete_year_gaps": {},
+    "selected_observations": [
+      {
+        "date": "2024-01-01 00:00:00",
+        "monthly_bcm": 0.563181,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 18.167129032258067
+      },
+      {
+        "date": "2024-02-01 00:00:00",
+        "monthly_bcm": 0.501446,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 17.291241379310343
+      },
+      {
+        "date": "2024-03-01 00:00:00",
+        "monthly_bcm": 0.556521,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 17.952290322580648
+      },
+      {
+        "date": "2024-04-01 00:00:00",
+        "monthly_bcm": 0.467439,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 15.5813
+      },
+      {
+        "date": "2024-05-01 00:00:00",
+        "monthly_bcm": 0.55711,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 17.971290322580646
+      },
+      {
+        "date": "2024-06-01 00:00:00",
+        "monthly_bcm": 0.494326,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 16.477533333333334
+      },
+      {
+        "date": "2024-07-01 00:00:00",
+        "monthly_bcm": 0.55528,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 17.912258064516127
+      },
+      {
+        "date": "2024-08-01 00:00:00",
+        "monthly_bcm": 0.552437,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 17.820548387096775
+      },
+      {
+        "date": "2024-09-01 00:00:00",
+        "monthly_bcm": 0.543992,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 18.133066666666668
+      },
+      {
+        "date": "2024-10-01 00:00:00",
+        "monthly_bcm": 0.553443,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 17.852999999999998
+      },
+      {
+        "date": "2024-11-01 00:00:00",
+        "monthly_bcm": 0.51352,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 17.11733333333333
+      },
+      {
+        "date": "2024-12-01 00:00:00",
+        "monthly_bcm": 0.548047,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 17.678935483870966
+      },
+      {
+        "date": "2025-01-01 00:00:00",
+        "monthly_bcm": 0.243327,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 7.849258064516129
+      },
+      {
+        "date": "2025-02-01 00:00:00",
+        "monthly_bcm": 0.49479,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 17.67107142857143
+      },
+      {
+        "date": "2025-03-01 00:00:00",
+        "monthly_bcm": 0.455177,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 14.683129032258066
+      },
+      {
+        "date": "2025-04-01 00:00:00",
+        "monthly_bcm": 0.357015,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 11.900500000000001
+      },
+      {
+        "date": "2025-05-01 00:00:00",
+        "monthly_bcm": -0.00144,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": -0.04645161290322581
+      },
+      {
+        "date": "2025-06-01 00:00:00",
+        "monthly_bcm": -0.002744,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": -0.09146666666666665
+      },
+      {
+        "date": "2025-07-01 00:00:00",
+        "monthly_bcm": -0.008911,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": -0.28745161290322585
+      },
+      {
+        "date": "2025-08-01 00:00:00",
+        "monthly_bcm": 0.373753,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 12.056548387096774
+      },
+      {
+        "date": "2025-09-01 00:00:00",
+        "monthly_bcm": 0.549747,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 18.3249
+      },
+      {
+        "date": "2025-10-01 00:00:00",
+        "monthly_bcm": 0.545442,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 17.59490322580645
+      },
+      {
+        "date": "2025-11-01 00:00:00",
+        "monthly_bcm": 0.538306,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 17.94353333333333
+      },
+      {
+        "date": "2025-12-01 00:00:00",
+        "monthly_bcm": 0.568669,
+        "available_at": "2026-10-13T16:59:13+00:00",
+        "historical_rate_mcmd": 18.34416129032258
+      }
+    ],
+    "seasonal_rates_mcmd": {
+      "1": 13.008193548387098,
+      "2": 17.481156403940886,
+      "3": 16.31770967741936,
+      "4": 13.7409,
+      "5": 8.96241935483871,
+      "6": 8.193033333333334,
+      "7": 8.81240322580645,
+      "8": 14.938548387096773,
+      "9": 18.228983333333332,
+      "10": 17.723951612903225,
+      "11": 17.53043333333333,
+      "12": 18.011548387096774
+    },
+    "monthly_forecast_bcm": {
+      "2026-11": 0.5259129999999999,
+      "2026-12": 0.5583579999999999,
+      "2027-01": 0.403254,
+      "2027-02": 0.4894723793103448,
+      "2027-03": 0.5058490000000001,
+      "2027-04": 0.41222699999999995,
+      "2027-05": 0.27783500000000005,
+      "2027-06": 0.24579100000000004,
+      "2027-07": 0.27318449999999994,
+      "2027-08": 0.463095,
+      "2027-09": 0.5468695,
+      "2027-10": 0.5494425,
+      "2027-11": 0.5259129999999999,
+      "2027-12": 0.5583579999999999,
+      "2028-01": 0.403254,
+      "2028-02": 0.5069535357142857,
+      "2028-03": 0.5058490000000001,
+      "2028-04": 0.41222699999999995,
+      "2028-05": 0.27783500000000005,
+      "2028-06": 0.24579100000000004,
+      "2028-07": 0.27318449999999994,
+      "2028-08": 0.463095,
+      "2028-09": 0.5468695,
+      "2028-10": 0.5494425,
+      "2028-11": 0.5259129999999999,
+      "2028-12": 0.5583579999999999,
+      "2029-01": 0.403254,
+      "2029-02": 0.4894723793103448,
+      "2029-03": 0.5058490000000001,
+      "2029-04": 0.41222699999999995,
+      "2029-05": 0.27783500000000005,
+      "2029-06": 0.24579100000000004,
+      "2029-07": 0.27318449999999994,
+      "2029-08": 0.463095,
+      "2029-09": 0.5468695,
+      "2029-10": 0.5494425,
+      "2029-11": 0.5259129999999999,
+      "2029-12": 0.5583579999999999
+    },
+    "qualification": "Historical seasonal assumption, not an archived EA Sn\u00f8hvit forecast; no accuracy score or demand calibration"
+  }
+]

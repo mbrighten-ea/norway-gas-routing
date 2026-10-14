@@ -1,0 +1,28 @@
+{
+  "query": "sid=\"NPD\\monthly_total\\Gas - saleable\"@asof:2026-10-13T16:59:13",
+  "metadata": {
+    "country": "Norway",
+    "frequency_short": "M",
+    "series_id_name": "Gas - saleable",
+    "lifecycle_stage": "actual",
+    "energy_product": "natural_gas",
+    "economic_property": "production",
+    "description": "NPD Monthly Production Total natural_gas in bcm",
+    "country_code_iso3166_alpha2": "NO",
+    "source": "Norwegian Petroleum Directorate",
+    "units": "billion cubic metres",
+    "source_url": "https://factpages.sodir.no/en/field/TableView/Production/Saleable/TotalNcsMonth",
+    "frequency": "monthly",
+    "units_short": "bcm",
+    "unit": "bcm",
+    "source_short": "NPD",
+    "source_obj": {
+      "aspect": "Gas - saleable",
+      "units": "bill Sm3"
+    },
+    "country_iso": "NO"
+  },
+  "start": "2025-01-01",
+  "end": "2025-12-31",
+  "sha256": "615b06ff2a263f6591e0f15af587c359c69980ace36b9b5b377cb49783f540f1"
+}

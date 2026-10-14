@@ -52,6 +52,39 @@ the four controlled scenarios. Small unresolved scope does not automatically blo
 the POC; missing essential points, duplicate ownership, changed annual certificate,
 negative residual or invalid maintenance do.
 
+## Optional seasonal Snøhvit assumption
+
+The operational default remains `snohvit_method: sid_forecast` (also the default
+when omitted). Select `snohvit_method: seasonal_two_year` explicitly with fresh
+`core_f24` current inputs for the seasonal historical assumption. No automatic
+fallback occurs when either method is missing inputs. The supported runner and
+12-month/explicit-endpoint settings are unchanged.
+
+At each origin, query the native monthly net-saleable SID
+`NPD\monthly_by_field\marketed_production\snohvit\gas-saleable` at that exact
+`@asof`, with historical point bounds ending by December 2025. Select the latest
+two complete eligible calendar years within the bounded five-year history.
+Each observation must belong to a completed month and be available by the origin.
+An archived service state supplies an availability upper bound, not an individual
+publication date. An incomplete year is excluded with its gap recorded; fewer
+than two complete years blocks the method. No revised-history substitution occurs.
+
+Convert signed monthly bcm to mcm/day using that month's calendar days, average
+the two rates for each calendar month, then repeat the seasonal rates over the
+delivery horizon and multiply by delivery calendar days/1000. Historical negatives
+remain signed; nonfinite/missing history cannot form a complete year and a negative
+resulting physical profile is rejected, never clipped. Existing nonnegative LNG,
+pipeline/residual supply, ownership and national-balance gates still apply.
+Provenance retains selected observations/information dates, years, rates and every
+forecast month. This is a historical assumption, not an archived EA forecast or
+an accuracy score. It does not unlock retrospective runner modes, change live
+Kollsnes or activate rolling weights; historical bundles still need certification.
+
+The [F2.8 comparison](outputs/chronological_inputs_f28/report.html) uses 2024/2025
+history at the October 2026 origin. December 2024 remains blocked by missing native
+archive history. Candidate rolling shares are diagnostic only, with missing Rev
+months and unowned/unmapped production retained separately.
+
 ## F2.2 complete-population activation gate
 
 `production_population.py` validates exhaustive component identities, unique SID

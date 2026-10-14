@@ -38,6 +38,9 @@ def write_summary_workbook(summary,manifest):
         ('Capacity','156 minus net unavailability once; stress is 143/156 times that availability. Other envelopes provisional; monthly feasibility does not prove daily dispatch.'),
         ('Scenarios','A reference: no extra domestic deduction. B: forecast Heidrun outside-network bound. C: proportional capacity stress. D: both bounds.'),
         ('Validation-only','No country forecast is produced when status is VALIDATED_ONLY.')]
+    if manifest.get('snohvit_method')=='seasonal_two_year':
+        notes=[(key,value.replace('Mixed Snøhvit/national vintages accepted provisionally.','Seasonal Snøhvit is a historical assumption.')) for key,value in notes]
+        notes.append(('Snøhvit','Explicit two-year seasonal net-saleable historical assumption, not the EA field forecast. See each case provenance for archived observations, rates and selected years.'))
     for label,relative in manifest['outputs'].items():
         notes.append((label+' detailed Excel','../../'+relative.removeprefix('outputs/')+'/results.xlsx'))
     frames['Read me']=pd.DataFrame(notes,columns=['item','meaning'])
@@ -84,7 +87,8 @@ def render_summary(summary,manifest):
         weights=pd.read_csv(a/'provenance/frozen_residual_weights.csv')
         content+='<h2>Accounting and coverage</h2><p>Every month closes nationally. Frozen 2024 denominator: 18.785806 bcm. The following mutually exclusive node numerators include separate external Trym. Unknown owners remain UNMAPPED. '+f'{proxy:.2f}'+'% of forward pipeline supply is allocated through this residual proxy, not individual field forecast SIDs. Zero UNMAPPED under the approved annual certificate does not certify the future project mix. Heidrun remains explicit; B/D are outside-network boundary bounds, not modelled offtakes or estimated domestic consumption.</p>'
         content+=table(weights.groupby('node')[['annual_bcm','weight']].sum().reset_index())
-        content+='<p>Snøhvit uses the approved calendar-day rate conversion, with older LNG versus newer national/component vintage disclosed. Kollsnes is 156 minus net unavailability once, or its proportional 143 stress. Other envelopes and prospective availability remain provisional; monthly feasibility is not daily dispatch. DE/NL are shared landing-pool allocation proxies. DK/PL are corridor outputs, not comparable signed DK-net or Nybro-entry observations. UK legacy comparison removes only evidenced non-Gassco UK packets once; legacy duplicate Rev is disclosed without changing operational supply.</p>'
+        sn_definition='Snøhvit uses the explicit two-year seasonal historical assumption, not the EA field forecast. ' if manifest.get('snohvit_method')=='seasonal_two_year' else 'Snøhvit uses the approved calendar-day rate conversion, with older LNG versus newer national/component vintage disclosed. '
+        content+='<p>'+sn_definition+'Kollsnes is 156 minus net unavailability once, or its proportional 143 stress. Other envelopes and prospective availability remain provisional; monthly feasibility is not daily dispatch. DE/NL are shared landing-pool allocation proxies. DK/PL are corridor outputs, not comparable signed DK-net or Nybro-entry observations. UK legacy comparison removes only evidenced non-Gassco UK packets once; legacy duplicate Rev is disclosed without changing operational supply.</p>'
         content+='<p><a href="provenance/manifest.json">Batch provenance</a> | <a href="provenance/validation.json">Accounting, raw-data, workbook and output verification</a>. No protected 2026 actuals loaded; no commercial validation.</p>'
     (summary/'report.html').write_text('<!doctype html><html lang="en"><meta charset="utf-8"><style>'+STYLE+'</style>'+content+'</html>',encoding='utf-8')
 
@@ -141,10 +145,12 @@ def main(config='config/run_f24.yaml', *, validate_only=False, solver_name=None)
         comparable[label]={f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in (p/'provenance/raw').glob('*')}
     consistent=bool(comparable) and all(v==next(iter(comparable.values())) for v in comparable.values())
     if not consistent: failures['consistency']='Fresh raw sources changed between scenarios; do not interpret differences as controlled sensitivities.'
-    manifest=dict(origin=settings['origin'],outputs=outputs,failures=failures,controlled_sources_identical=consistent,
+    manifest=dict(origin=settings['origin'],snohvit_method=settings.get('snohvit_method','sid_forecast'),outputs=outputs,failures=failures,controlled_sources_identical=consistent,
         status=('VALIDATED_ONLY' if validate_only else 'PROVISIONAL_PARTIAL_COVERAGE_PHYSICAL_ROUTING') if not failures else 'PARTIAL_SCENARIO_RESULTS',
         interpretation='No commercial validation. A/C no additional domestic deduction; B/D hypothetical whole-Heidrun outside-network boundary, not an offtake or domestic forecast. Unknown future field mix approximated by Core-approved frozen 2024 residual weights.',
         holdout_actuals_loaded=False,source_query_policy='Every scenario freshly queried 2024 owners, 2023 preferences and prospective origin-matched SIDs; no workbook numerical inputs')
+    if settings.get('snohvit_method')=='seasonal_two_year':
+        manifest['interpretation']+=' Snøhvit uses the explicitly selected two-year seasonal historical assumption, not the EA field forecast.'
     (summary/'provenance/manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
     write_summary_workbook(summary,manifest)
     if not failures and not validate_only:

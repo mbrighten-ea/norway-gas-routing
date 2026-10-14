@@ -57,7 +57,14 @@ def load_run_config(root, path):
         raise RunBlocked('Invalid run YAML: '+str(exc)+'; fix the indicated line in '+str(path)) from exc
     keys = {'model', 'registry', 'evaluation', 'mode', 'input_source', 'start',
             'end', 'origin', 'solver', 'capacity_scenario', 'price_enabled'}
-    check_keys(request, 'run configuration', keys, {'horizon_months','forecast_end_month','physical_input_contract','heidrun_treatment','compare_scenarios'})
+    check_keys(request, 'run configuration', keys, {'horizon_months','forecast_end_month','physical_input_contract','heidrun_treatment','compare_scenarios','snohvit_method'})
+    request['snohvit_method']=request.get('snohvit_method','sid_forecast')
+    if request['snohvit_method'] not in ('sid_forecast','seasonal_two_year'):
+        raise RunBlocked('snohvit_method must be sid_forecast or seasonal_two_year.')
+    if request['snohvit_method']=='seasonal_two_year' and (
+            request.get('physical_input_contract')!='core_f24' or request['mode']!='current_forecast'
+            or request['input_source']!='fresh_sid'):
+        raise RunBlocked('Seasonal Snøhvit requires fresh Core current inputs; it does not unlock historical forecast bundles or synthetic runs.')
     if not isinstance(request.get('compare_scenarios',False),bool):
         raise RunBlocked('compare_scenarios must be a YAML boolean.')
     if request.get('compare_scenarios') and request.get('physical_input_contract')!='core_f24':
@@ -528,5 +535,7 @@ def print_completion(output, manifest):
         print('SYNTHETIC demonstration; manufactured inputs, not an EA forecast.')
     elif settings.get('physical_input_contract')=='core_f24':
         print('Provisional partial-coverage physical routing; frozen residual mix, mixed LNG vintage and technical capacities. No commercial validation; DE/NL and DK/PL are allocation proxies.')
+        if settings.get('snohvit_method')=='seasonal_two_year':
+            print('Snøhvit: two-year seasonal historical assumption, not the EA field forecast; see provenance for eligible years and rates.')
     if manifest['status']=='VALIDATED_ONLY':
         print('Inputs validated only; no optimisation or country forecast was produced.')

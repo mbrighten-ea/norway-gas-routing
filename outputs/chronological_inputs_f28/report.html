@@ -1,0 +1,170 @@
+<!doctype html><html><meta charset="utf-8"><title>Chronological input readiness</title><style>body{font:16px/1.55 system-ui;margin:40px auto;max-width:1100px;padding:0 24px;color:#192c38}
+h1,h2{line-height:1.2}table{border-collapse:collapse;font-size:14px;width:100%;margin:20px 0}
+th,td{padding:8px 12px;border-bottom:1px solid #ccd6dd;text-align:left}th{background:#eef3f6}
+img{max-width:100%;height:auto}a{color:#17659b}.scroll{overflow:auto}.note{background:#fff3da;padding:16px}
+details{margin:20px 0}code{background:#edf2f5;padding:2px 5px}</style><body><h1>Seasonal Snøhvit and chronological allocation readiness</h1><p>F2.8 input assumptions and readiness only. No accuracy scoring, weight activation, protected actual retrieval or optimisation changes.</p><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>contract</th>
+      <th>decision</th>
+      <th>remaining</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Seasonal Snøhvit / October 2026</td>
+      <td>PASS: 2024 and 2025 archived net-saleable history; 38 positive forecast months</td>
+      <td>Optional historical assumption; SID forecast remains default</td>
+    </tr>
+    <tr>
+      <td>Seasonal Snøhvit / December 2024</td>
+      <td>BLOCKED: native and selected SID archives unavailable</td>
+      <td>Origin-available complete net-saleable observations for latest eligible two years, expected 2022/2023</td>
+    </tr>
+    <tr>
+      <td>Kollsnes / December 2024</td>
+      <td>FALLBACK RULE READY; numeric post-upgrade rating not certified</td>
+      <td>Dated pre-origin numeric technical rating/boundary; no assumed maintenance; no later 156 applied</td>
+    </tr>
+    <tr>
+      <td>Rolling 2025 weights / October 2026</td>
+      <td>NOT ACTIVATION-READY</td>
+      <td>Rev Oct-Dec missing; Halten Øst Jan missing/group ownership/entry unresolved; Balder/Urd unmapped; separate Verdande/NPD revision bridge</td>
+    </tr>
+    <tr>
+      <td>Earlier rolling weights / December 2024</td>
+      <td>BLOCKED: native residual owner archives unavailable</td>
+      <td>Origin-correct ledger and mapping evidence; candidate window Dec 2023-Nov 2024 not certified</td>
+    </tr>
+  </tbody>
+</table></div><h2>Current-origin seasonal assumption</h2><p>Two complete archived years: 2024/2025. Signed historical values are retained in daily-rate averages. November 2026–December 2029: seasonal 16.855625 bcm versus SID 17.555713 bcm, difference −0.700088 bcm (−3.99%). This is an assumption comparison.</p><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>seasonal_bcm</th>
+      <th>sid_forecast_bcm</th>
+      <th>difference_bcm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2026</td>
+      <td>1.084</td>
+      <td>1.085</td>
+      <td>-0.001</td>
+    </tr>
+    <tr>
+      <td>2027</td>
+      <td>5.251</td>
+      <td>5.328</td>
+      <td>-0.076</td>
+    </tr>
+    <tr>
+      <td>2028</td>
+      <td>5.269</td>
+      <td>4.808</td>
+      <td>0.461</td>
+    </tr>
+    <tr>
+      <td>2029</td>
+      <td>5.251</td>
+      <td>6.335</td>
+      <td>-1.084</td>
+    </tr>
+  </tbody>
+</table></div><h2>2025 accounting and indicative shares</h2><p>121.771800 = 4.113131 LNG + 97.648351 explicit fields + 18.842866 observed residual owners + 1.167452 observed Halten Øst bcm. Observed-subtotal identity closes but missing Rev/Halten Øst months are not zero-filled. Balder 0.047496 and Urd 0.000079 bcm stay unmapped. Verdande 0.017290 is not added; native/EA national revisions remain separate. Oseberg aggregate matches its three native members.</p><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>node</th>
+      <th>approved_2024_weight</th>
+      <th>observed_2025_subtotal_bcm</th>
+      <th>indicative_2025_share</th>
+      <th>complete_owner_coverage</th>
+      <th>implied_delta_on_retained_residual_bcm</th>
+      <th>status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>EKOFISK_FEED</td>
+      <td>0.141</td>
+      <td>3.080</td>
+      <td>0.154</td>
+      <td>True</td>
+      <td>1.267</td>
+      <td>Diagnostic observed-subtotal ratio only; not certified rolling weights</td>
+    </tr>
+    <tr>
+      <td>EXTERNAL_TRYM</td>
+      <td>0.001</td>
+      <td>0.201</td>
+      <td>0.010</td>
+      <td>True</td>
+      <td>0.859</td>
+      <td>Diagnostic observed-subtotal ratio only; not certified rolling weights</td>
+    </tr>
+    <tr>
+      <td>KARSTO_FEED</td>
+      <td>0.394</td>
+      <td>7.919</td>
+      <td>0.396</td>
+      <td>True</td>
+      <td>0.172</td>
+      <td>Diagnostic observed-subtotal ratio only; not certified rolling weights</td>
+    </tr>
+    <tr>
+      <td>KOLLSNES_FEED</td>
+      <td>0.085</td>
+      <td>1.451</td>
+      <td>0.073</td>
+      <td>True</td>
+      <td>-1.180</td>
+      <td>Diagnostic observed-subtotal ratio only; not certified rolling weights</td>
+    </tr>
+    <tr>
+      <td>OSEBERG</td>
+      <td>0.011</td>
+      <td>0.200</td>
+      <td>0.010</td>
+      <td>True</td>
+      <td>-0.068</td>
+      <td>Diagnostic observed-subtotal ratio only; not certified rolling weights</td>
+    </tr>
+    <tr>
+      <td>SLEIPNER</td>
+      <td>0.051</td>
+      <td>0.792</td>
+      <td>0.040</td>
+      <td>True</td>
+      <td>-1.092</td>
+      <td>Diagnostic observed-subtotal ratio only; not certified rolling weights</td>
+    </tr>
+    <tr>
+      <td>UK_DIRECT</td>
+      <td>0.318</td>
+      <td>5.152</td>
+      <td>0.257</td>
+      <td>False</td>
+      <td>-5.783</td>
+      <td>Diagnostic observed-subtotal ratio only; not certified rolling weights</td>
+    </tr>
+    <tr>
+      <td>UNMAPPED</td>
+      <td>0.000</td>
+      <td>0.048</td>
+      <td>0.002</td>
+      <td>True</td>
+      <td>0.228</td>
+      <td>Diagnostic observed-subtotal ratio only; not certified rolling weights</td>
+    </tr>
+    <tr>
+      <td>UNMAPPED_HALTEN_OST</td>
+      <td>0.000</td>
+      <td>1.167</td>
+      <td>0.058</td>
+      <td>False</td>
+      <td>5.596</td>
+      <td>Known group SID matches missing EA boundary; membership/coverage/physical entry require Core approval; unrouted</td>
+    </tr>
+  </tbody>
+</table></div><p>The indicated UK-direct change (−5.782919 bcm on the retained 95.915535 bcm residual basis) is a source-input sensitivity, not a solver forecast or change in actual UK deliveries. No complete candidate weights are approved.</p><h2>December 2024</h2><p>Sixteen explicit EA field archives and national history cover January 2023–November 2024. Native residual and LNG archives are unavailable. December 2023–November 2024 is only a candidate window; latest common eligible 12 months cannot be certified. Earlier routing mappings/weights require contemporaneous evidence; the 2026-certified 2024 ledger is not origin-correct.</p><h2>Historical Kollsnes</h2><p>Fallback: use the origin-known technical ceiling with no additional forecast-maintenance deduction, labelled assumed full technical availability. The <a href="https://gassco.eu/wp-content/uploads/2024/03/Gassco-aarsrapport-2023-ENGELSK.pdf">2023 Gassco report</a> establishes a pre-origin upgrade but not its exact daily rating. The explicit 156 statement is January 2025. One dated numeric post-upgrade contract is required; the live model is unchanged.</p><h2>Smallest next step</h2><p>Obtain one December-2024 archived net-saleable Snøhvit/owner ledger bundle (candidate Dec2023-Nov2024 owners and two complete LNG years) with contemporaneous ownership/definition evidence and one dated Kollsnes technical rating; Core approves the chronological-weight contract before an untuned 2025 comparison.</p><p><a href="results.csv">Monthly Snøhvit comparison</a>; <a href="../../evidence/inputs/chronological_inputs_f28/assessment.json">Evidence assessment</a>; <a href="provenance/manifest.json">Capture hashes</a>.</p></body></html>

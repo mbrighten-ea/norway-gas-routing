@@ -1,0 +1,18 @@
+[
+  {
+    "key": "snohvit_seasonal_baseline",
+    "sid": "NPD\\monthly_by_field\\marketed_production\\snohvit\\gas-saleable",
+    "kind": "seasonal_historical_baseline",
+    "method": "seasonal_two_year",
+    "asof": "2024-12-31T23:59:59+00:00",
+    "query": "sid=\"NPD\\monthly_by_field\\marketed_production\\snohvit\\gas-saleable\"@asof:2024-12-31T23:59:59",
+    "start": "2019-01-01",
+    "end": "2023-12-31",
+    "status": "REJECTED",
+    "retrieved_at": "2026-10-14T10:37:51.978195+00:00",
+    "information_date_basis": "Exact archived service state; asof is an availability upper bound, not an individual publication date",
+    "target_unit": "bcm/month",
+    "transformation": "Signed net-saleable bcm / calendar days * 1000; mean rate by calendar month across latest two complete eligible years; rate * forecast days / 1000",
+    "validation_error": "'fields'"
+  }
+]

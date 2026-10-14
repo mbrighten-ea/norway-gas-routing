@@ -192,10 +192,15 @@ def prepare_approved_inputs(root,model,registry,request,candidates,records,compo
                 if contract['sources'][key].get('provider_contract')!='npd_historical'}
     fields=pd.DataFrame({key:candidates[key].set_axis(months) for key in membership})
     national=candidates['norway_prod'].set_axis(months)
-    snohvit=monthly_rate_diagnostic(candidates['snohvit_net_prod'],months)
-    next(r for r in records if r['key']=='snohvit_net_prod').update(
-        status='CORE_APPROVED_FORECAST_CONVERSION',target_unit='bcm/month',
-        transformation='Core-approved monthly-average mcm/day * calendar days / 1000; declared bcm label retained in raw metadata; mixed vintage disclosed')
+    if request.get('snohvit_method','sid_forecast')=='seasonal_two_year':
+        snohvit=candidates['snohvit_seasonal_bcm']
+        if not snohvit.index.equals(months):
+            raise ValueError('Seasonal Snøhvit delivery grid differs from the run horizon.')
+    else:
+        snohvit=monthly_rate_diagnostic(candidates['snohvit_net_prod'],months)
+        next(r for r in records if r['key']=='snohvit_net_prod').update(
+            status='CORE_APPROVED_FORECAST_CONVERSION',target_unit='bcm/month',
+            transformation='Core-approved monthly-average mcm/day * calendar days / 1000; declared bcm label retained in raw metadata; mixed vintage disclosed')
     nodes=[n for n,e in model['routing']['nodes'].items() if e['kind']=='source']
     supply,reconciliation=allocate_forward(fields,national,snohvit,weights,membership,nodes,request['heidrun_treatment'])
     excluded_uk_ids=['EB','FD','FF','CK','FS','CG']
@@ -220,9 +225,13 @@ def prepare_approved_inputs(root,model,registry,request,candidates,records,compo
         except (ValueError,OSError,KeyError) as exc:
             legacy_status[group]='Unavailable: '+str(exc)
     records.append(dict(key='core_f24',kind='approved_provisional_contract',status='CORE_APPROVED_PROVISIONAL',
-        historical_accounting=observed,raw_unit='selected Snohvit mislabelled bcm; approved interpretation monthly-average mcm/day',
-        transformation='Snohvit rate*calendar_days/1000; frozen annual mutually exclusive residual owners; external Trym separate; no NPD national adjustment',
-        mixed_vintage_limitation='Selected LNG October-2025 import versus current national/component forecast snapshot; Core-approved provisional compatibility, not identical publication vintages',
+        historical_accounting=observed,raw_unit='native historical net-saleable bcm' if request.get('snohvit_method')=='seasonal_two_year' else
+            'selected Snohvit mislabelled bcm; approved interpretation monthly-average mcm/day',
+        snohvit_method=request.get('snohvit_method','sid_forecast'),
+        transformation=('Seasonal native net-saleable assumption; ' if request.get('snohvit_method')=='seasonal_two_year' else 'Snohvit rate*calendar_days/1000; ')+
+            'frozen annual mutually exclusive residual owners; external Trym separate; no NPD national adjustment',
+        mixed_vintage_limitation='Seasonal LNG assumption from archived historical observations, not an EA field forecast' if request.get('snohvit_method')=='seasonal_two_year' else
+            'Selected LNG October-2025 import versus current national/component forecast snapshot; Core-approved provisional compatibility, not identical publication vintages',
         heidrun_treatment=request['heidrun_treatment'],capacity_scenario=request['capacity_scenario'],
         capacity_status='156 provisional technical availability; dry-export reference not fully verified; other envelopes unchanged; no upstream subtraction',
         boundary_status='Partial-coverage physical routing experiment; frozen residual proxy is not field-specific future certification'))
