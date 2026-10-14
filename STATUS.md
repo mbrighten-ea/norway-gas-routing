@@ -1,5 +1,45 @@
 # Current implementation state
 
+## First revision-tolerant 2025 accuracy comparison
+
+[Excel comparison](outputs/revision_tolerant_2025/results.xlsx) and
+[analytical report](outputs/revision_tolerant_2025/report.html) are available for
+the December-31-2024 origin and all twelve 2025 deliveries. Branch
+`feature/revision-tolerant-2025-f210` starts from clean `3313de7`, containing F2.7–F2.9.
+The user approved revised pre-origin histories and provisional input assumptions;
+the exercise is explicitly not a verified real-time backtest.
+
+Current SIDs provide 24 native Snøhvit observations for 2022/2023 and the 2023
+production-owner cohort. Monthly national accounting closes below 6e-15 bcm. Residual
+denominator 19.346535 bcm; UK-direct share 34.911735%; 0.120104 bcm is UNMAPPED
+(0.620804% of residual: Vale 0.093766, Atla 0.026338 bcm) and remains unrouted.
+Missing Tommeliten/Hanz/Trym source
+months are explicit observed-subtotal limitations, never filled. Core routes are
+applied to the pilot only with unique ownership; Balder/Urd each have twelve
+explicit zero observations, Rev twelve observations, Halten Øst no 2023 addend.
+Oseberg's three-child aggregate and Åsgard's native ownership reconcile.
+
+Reference 156 and predeclared 143 Kollsnes planning cases each solved twelve
+months before any target actual retrieval. No historical planned outages were
+invented. Reference exports 119.675641 bcm; unrouted 0.148967 bcm is the unmapped
+packet. Stress exports 118.575710 bcm; additional disposal 1.099932 bcm. No
+capacity violations or operational model changes occurred. No 2025 production
+in weights, source sensitivity, parameter tuning or protected actual retrieval.
+
+Raw WAPE model/EA: UK 16.25/10.07%; FR+BE 16.23/10.43%; NL+DE 3.84/5.90%;
+common adjusted three-group total 4.13/4.37%. These are mixed sample rankings,
+not overall superiority. After removing common-volume error for scoring, EA has
+lower destination-share MAE for all three groups. The apparent physical NL+DE
+raw advantage partly reflects error cancellation. Shared national forecast bias
+is +2.840609 bcm; seasonal LNG bias +0.674669; pipeline bias +2.165940 bcm.
+Individual DE/NL and DK/PL remain proxies; wider export total is unscored.
+
+Next analytical review: source-mix and static-preference contributions to UK/FR+BE
+overallocation and NL+DE conditional underallocation, using the frozen comparison.
+Do not change parameters based on this small sample or activate 2025 weights.
+639 ordinary regression tests passed, 14 external-evidence tests explicitly
+deselected, one existing pandas warning. F2.7 strict package verification still passes.
+
 ## Minimum December-2024 backtest package
 
 F2.9's [single focused attempt](outputs/minimum_backtest_f29/report.html) returns

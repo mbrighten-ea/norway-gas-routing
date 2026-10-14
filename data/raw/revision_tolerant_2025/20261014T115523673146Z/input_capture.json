@@ -1,0 +1,18 @@
+{
+  "origin": "2024-12-31T23:59:59Z",
+  "target": "2025-01 through 2025-12",
+  "revision_tolerant": true,
+  "actual2025_queried": false,
+  "protected_actuals_queried": false,
+  "kollsnes_planning_mcmd": 156,
+  "capacity_sensitivity_predeclared_mcmd": 143,
+  "maintenance_forecast_deduction": 0,
+  "core_routes": {
+    "GK": "KARSTO_FEED",
+    "EB": "UK_DIRECT",
+    "CI": "KARSTO_FEED",
+    "EU": "KARSTO_FEED"
+  },
+  "weights_requested_window": "2023-01 through 2023-12; newer gap checks retained",
+  "mapping_policy": "Retroactive existing memberships plus Core approved routes, subject to unique ownership; uncertain production stays unmapped"
+}

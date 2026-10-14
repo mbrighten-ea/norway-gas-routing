@@ -85,6 +85,42 @@ history at the October 2026 origin. December 2024 remains blocked by missing nat
 archive history. Candidate rolling shares are diagnostic only, with missing Rev
 months and unowned/unmapped production retained separately.
 
+## Revision-tolerant 2025 diagnostic
+
+The separately labelled [2025 comparison](outputs/revision_tolerant_2025/report.html)
+uses current/revised production observations only from periods before the
+December 2024 origin. It is not a verified real-time backtest. Archived EA
+production/legacy forecasts and origin-eligible preferences remain origin-matched.
+Target-2025 actuals are retrieved only after inputs, capacities and predictions
+freeze, and are used exclusively for evaluation. The locked 2026 holdout is unchanged.
+
+The existing `seasonal_profile` helper accepts explicit diagnostic flags
+`allow_partial=True, revision_tolerant=True`. It selects up to two recent eligible
+years, averages available daily rates by calendar month, uses a single rate where
+only one exists, and uses the overall eligible daily-rate mean for a calendar
+month with no observation. Some genuine finite history is required. Counts,
+selected values and imputed months are retained; signed values are not clipped.
+Revised information dates do not admit target-period production. Default flags
+retain the original strict archived-history rule; the SID-backed operational
+forecast default is unchanged. The pilot has 24 observations for 2022/2023 and
+needs no imputation.
+
+Pilot source weights use the explicitly requested 2023 window and summed signed
+residual production by node. All national/LNG/explicit owners are counted once;
+unresolved production remains unrouted. Current physical memberships are applied
+retrospectively with the approved Rev/Balder/Urd routes, without claiming their
+2026 certification was available in 2024. Missing source months remain missing;
+observed-subtotal accounting closes nationally each month. Newer Trym-window gaps
+are retained; no newer or indicative 2025 weights are activated. Kollsnes uses a
+declared 156 planning ceiling with no assumed maintenance and a predeclared 143
+capacity bound. Neither is claimed verified as the December-2024 operating rating.
+The operational capacities, weights, topology and optimiser are unchanged.
+
+Scores compare adjusted UK, FR+BE and NL+DE. Their sum is the **common subset**,
+not all Norwegian exports; DK/PL and the wider total are unranked. Conditional
+diagnostics rescale frozen group shares to observed common volume only for scoring
+decomposition. They are not extra issued forecasts or actual-supply LP runs.
+
 ## F2.2 complete-population activation gate
 
 `production_population.py` validates exhaustive component identities, unique SID

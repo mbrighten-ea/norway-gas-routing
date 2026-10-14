@@ -108,3 +108,55 @@ def test_recorded_seasonal_package_recomputed_and_cutoff_guarded(tmp_path,monkey
     record['end']='2026-09-30';raw.unlink()
     with pytest.raises(ValueError,match='holdout is locked'):
         seasonal_snohvit_snapshot(tmp_path,manifest,origin,months)
+
+
+def test_revision_tolerant_partial_seasonal_counts_and_imputation():
+    h=pd.DataFrame(dict(date=pd.to_datetime(['2022-01-01','2023-01-01','2023-02-01']),
+        monthly_bcm=[.031,.093,.056],available_at=['2026-10-01T00:00:00Z']*3))
+    f,selected,rates,years,_=sn.seasonal_profile(h,pd.period_range('2025-01','2025-12',freq='M'),
+        '2024-12-31T23:59:59Z',allow_partial=True,revision_tolerant=True)
+    assert years==[2022,2023] and len(selected)==3
+    assert rates.loc[1]==2 and rates.loc[2]==2 and rates.loc[3]==2
+    assert rates.attrs['observation_counts'][1]==2 and rates.attrs['observation_counts'][2]==1
+    assert rates.attrs['imputed_calendar_months']==list(range(3,13))
+    assert f.loc['2025-02']==pytest.approx(.056)
+    with pytest.raises(ValueError):
+        sn.seasonal_profile(h,f.index,'2024-12-31T23:59:59Z')
+
+
+def test_revision_tolerant_profile_rejects_target_actuals():
+    h=history((2023,2024),'2026-10-01T00:00:00Z')
+    h.loc[len(h)]=[pd.Timestamp('2025-01-01'),1.,'2026-10-01T00:00:00Z']
+    with pytest.raises(ValueError,match='pre-origin production'):
+        sn.seasonal_profile(h,pd.period_range('2025-01','2025-12',freq='M'),'2024-12-31T23:59:59Z',
+            allow_partial=True,revision_tolerant=True)
+
+
+def test_partial_profile_preserves_signed_values_and_needs_observations():
+    h=pd.DataFrame(dict(date=pd.to_datetime(['2022-01-01','2023-01-01']),monthly_bcm=[-.031,.093],
+        available_at=['2026-10-01T00:00:00Z']*2))
+    _,selected,rates,_,_=sn.seasonal_profile(h,pd.period_range('2025-01','2025-12',freq='M'),
+        '2024-12-31T23:59:59Z',allow_partial=True,revision_tolerant=True)
+    assert selected.iloc[0].monthly_bcm==-.031 and rates.loc[1]==pytest.approx(1.)
+    h.monthly_bcm=float('nan')
+    with pytest.raises(ValueError,match='some genuine'):
+        sn.seasonal_profile(h,pd.period_range('2025-01','2025-12',freq='M'),'2024-12-31T23:59:59Z',
+            allow_partial=True,revision_tolerant=True)
+
+
+def test_partial_profile_can_use_completed_months_in_origin_year():
+    h=pd.DataFrame(dict(date=pd.to_datetime(['2022-01-01','2023-12-01','2024-11-01']),
+        monthly_bcm=[.031,.031,.09],available_at=['2026-10-01T00:00:00Z']*3))
+    _,selected,rates,years,_=sn.seasonal_profile(h,pd.period_range('2025-01','2025-12',freq='M'),
+        '2024-12-31T23:59:59Z',allow_partial=True,revision_tolerant=True)
+    assert years==[2023,2024] and len(selected)==2
+    assert rates.loc[11]==pytest.approx(3.) and rates.loc[12]==pytest.approx(1.)
+
+
+def test_partial_profile_selects_years_with_genuine_observations():
+    h=pd.DataFrame(dict(date=pd.to_datetime(['2021-01-01','2022-01-01','2023-01-01']),
+        monthly_bcm=[.031,.093,float('nan')],available_at=['2026-10-01T00:00:00Z']*3))
+    _,selected,rates,years,_=sn.seasonal_profile(h,pd.period_range('2025-01','2025-12',freq='M'),
+        '2024-12-31T23:59:59Z',allow_partial=True,revision_tolerant=True)
+    assert years==[2021,2022] and len(selected)==2
+    assert rates.loc[1]==pytest.approx(2.) and rates.attrs['observation_counts'][1]==2

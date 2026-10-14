@@ -1,0 +1,80 @@
+{
+  "origin": "2024-12-31T23:59:59Z",
+  "revision_policy": "Currently revised histories allowed only for pre-origin production periods",
+  "weights_window": "2023-01 through 2023-12 as requested; newer-window Trym has 11 missing months and is not activated",
+  "national_historical_bcm": 117.311014,
+  "residual_denominator_bcm": 19.346534999999996,
+  "monthly_ledger_max_bcm": 5.329070518200751e-15,
+  "source_weights_sum": 0.999999999999999,
+  "unmapped_historical_bcm": 0.12010399999999932,
+  "missing_owner_observations": [
+    {
+      "component_id": "FY",
+      "field": "TOMMELITEN A",
+      "observed_months": 3,
+      "missing_months": "2023-01;2023-02;2023-03;2023-04;2023-05;2023-06;2023-07;2023-08;2023-09"
+    },
+    {
+      "component_id": "GI",
+      "field": "HANZ",
+      "observed_months": 0,
+      "missing_months": "2023-01;2023-02;2023-03;2023-04;2023-05;2023-06;2023-07;2023-08;2023-09;2023-10;2023-11;2023-12"
+    },
+    {
+      "component_id": "EQ",
+      "field": "TRYM",
+      "observed_months": 0,
+      "missing_months": "2023-01;2023-02;2023-03;2023-04;2023-05;2023-06;2023-07;2023-08;2023-09;2023-10;2023-11;2023-12"
+    }
+  ],
+  "missing_owner_policy": "Observed subtotals only; blank observations retained. National/known cohort closes every month; no missing-to-zero or arbitrary routing.",
+  "core_routes": {
+    "Halten \u00d8st": "KARSTO_FEED",
+    "Rev": "UK_DIRECT",
+    "Balder": "KARSTO_FEED",
+    "Urd": "KARSTO_FEED"
+  },
+  "oseberg_max_gap_bcm": 2.220446049250313e-16,
+  "asgard_max_gap_bcm": 1.1102230246251565e-16,
+  "snohvit_method": "seasonal_two_year",
+  "selected_years": [
+    2022,
+    2023
+  ],
+  "imputed_calendar_months": [],
+  "seasonal_total_bcm": 4.7878005,
+  "preferences": {
+    "UK": 0.2091237002271977,
+    "FR": 0.12545104312383654,
+    "BE": 0.13544266786802284,
+    "NL": 0.09193108451758447,
+    "DE": 0.3553315930266153,
+    "DK": 0.013438399723190718,
+    "PL": 0.06928151151355252
+  },
+  "excluded_preference_months": [
+    "2023-07",
+    "2023-08"
+  ],
+  "capacity_reference_mcmd": 156,
+  "capacity_stress_mcmd": 143,
+  "capacity_status": "Declared planning assumptions; not verified December-2024 operating ratings; zero assumed planned-maintenance deductions",
+  "heidrun_treatment": "No additional domestic deduction, as operational reference",
+  "unknown_future_availability": "Other existing engineering envelopes held constant; no actual outage information",
+  "actual2025_inputs_used": false,
+  "protected_actuals_queried": false,
+  "created_at": "2026-10-14T12:02:41.779065+00:00",
+  "input_files_sha256": {
+    "provenance/inputs/capacities.csv": "9e4f3a341b7634683decbe9bf551ecb560660f7c557ec4bba668afcf35a7ae81",
+    "provenance/inputs/fields.csv": "9eab216f0fcf3f690f4c0491d34b011054c9c7c0ab0bf921f23c343b9c82fbee",
+    "provenance/inputs/historical_owner_observations.csv": "729e88413cd3e93b9a796a41ec6b8cbcad4df019788e5164b609444ccd73d0a4",
+    "provenance/inputs/legacy_forecasts.csv": "d90736b2ee625d980cebb0c607e2db12a1e7862562219a883a7b2d18403a3be9",
+    "provenance/inputs/owners_2023.csv": "c5c0ab3d517fcb898f6a696bf33cc68cc424e9e13f52c1cb9d100db93a7cf185",
+    "provenance/inputs/preferences.json": "bb12485aecf261f3572af8e91236ea889551d31995ec7bc7441793a0014791f3",
+    "provenance/inputs/reconciliation.csv": "553f4a851d7e9e280f8f016c0b1b69fde312cb93ef1983b1931bdf5ff482b2e7",
+    "provenance/inputs/seasonal_observations.csv": "f92cbf73340a6bc334bc0e3c3b04de53423431f4690fb8cc5714d7dede08d737",
+    "provenance/inputs/seasonal_profile.csv": "237acbfc176365ebc9999e48a21a543261fe6fa0d20c2913d56abaa528ceffba",
+    "provenance/inputs/supply.csv": "16390ff9870feca0fe436e6238c5cdd64d7142d2aa9f6e279f086b210cbed828",
+    "provenance/inputs/weights_2023.csv": "c761cb01e988f569dbcf49148154365b923cf0c09c8bd6b889b6aded6a662800"
+  }
+}

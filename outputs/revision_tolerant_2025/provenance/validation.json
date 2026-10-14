@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "checked_at": "2026-10-14T12:30:34.149109+00:00",
+  "source_records": 131,
+  "evaluation_records": 6,
+  "monthly_solutions": 24,
+  "max_mass_balance_residual_bcm": 1.691355389077387e-15,
+  "max_capacity_violation_bcm": 4.440892098500626e-16,
+  "uk_direct_disposal_bcm": 0,
+  "ledger_weights_and_source_ownership_checked": true,
+  "pre_origin_history_bounds_checked": true,
+  "archived_forecast_origins_checked": true,
+  "actual_retrieval_after_freeze_checked": true,
+  "protected_actuals_queried": false,
+  "score_formula_and_conditional_identity_checked": true,
+  "excel_cells_and_month_order_checked": true,
+  "ordinary_regression_tests": {
+    "passed": 639,
+    "external_evidence_deselected": 14,
+    "existing_warnings": 1,
+    "command": "Approved workspace interpreter -m pytest -q"
+  },
+  "focused_seasonal_tests": {
+    "passed": 20,
+    "command": "Approved workspace interpreter -m pytest tests/unit/test_seasonal_snohvit.py -q"
+  },
+  "f27_strict_package_verification": "PASS; all four totals unchanged"
+}

@@ -162,3 +162,19 @@ tests implement only the agreed subset, leaving unresolved controls explicit.
 
 Use the retained dashboard Reuters day-ahead price SIDs for historical NBP, TTF, THE, ZTP and PEG prices. EA monthly price series, including teams\natural_gas\price\THE, are forecasts and are kept separately; they are not actual-price sources. Market configuration distinguishes price_series from forecast_price_series. Selection does not resolve live validation, NBP FX/therm conversion, monthly aggregation, forecast extension or Danish pricing. No commercial optimiser is implemented.
 
+## Revision-tolerant December-2024 pilot and Core ownership approval
+
+F2.10 explicitly permits currently revised historical production from pre-origin
+periods, the seasonal historical LNG assumption and a declared historical capacity
+planning case. This approval does not permit target-year actuals in model inputs,
+recalibration from scores, holdout access or alteration of the live forward model.
+
+Core approved Halten Øst→KARSTO_FEED, Rev→UK_DIRECT, Balder→KARSTO_FEED and
+Urd→KARSTO_FEED, conditional on unique ownership. Core also approved origin-frozen
+weights from the latest sufficiently complete twelve consecutive eligible months,
+including external/unresolved production and retaining the last complete window
+when newer data have material gaps. The first diagnostic retains the specifically
+requested 2023 window; newer-window gaps are documented and no operational
+chronological selector or indicative 2025 weight sensitivity is activated.
+The pilot records retrospective mapping assumptions and leaves unknown production
+unrouted. The working F2.7 operational contract remains unchanged.

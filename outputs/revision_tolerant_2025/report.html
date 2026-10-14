@@ -1,0 +1,351 @@
+<!doctype html><html><meta charset="utf-8"><title>2025 accuracy comparison</title><style>body{font:16px/1.55 system-ui;margin:40px auto;max-width:1100px;padding:0 24px;color:#192c38}
+h1,h2{line-height:1.2}table{border-collapse:collapse;font-size:14px;width:100%;margin:20px 0}
+th,td{padding:8px 12px;border-bottom:1px solid #ccd6dd;text-align:left}th{background:#eef3f6}
+img{max-width:100%;height:auto}a{color:#17659b}.scroll{overflow:auto}.note{background:#fff3da;padding:16px}
+details{margin:20px 0}code{background:#edf2f5;padding:2px 5px}</style><body><h1>First 2025 accuracy diagnostic</h1><p><strong>Revision-tolerant historical reconstruction, not a verified real-time backtest.</strong> Twelve independent months; no tuning. <a href="results.xlsx">Open the Excel comparison</a>.</p><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Group</th>
+      <th>Model MAE bcm/month</th>
+      <th>EA MAE bcm/month</th>
+      <th>Model WAPE %</th>
+      <th>EA WAPE %</th>
+      <th>Model signed bias bcm</th>
+      <th>EA signed bias bcm</th>
+      <th>n months</th>
+      <th>Lower sample error</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>UK</td>
+      <td>0.348</td>
+      <td>0.216</td>
+      <td>16.247</td>
+      <td>10.066</td>
+      <td>1.292</td>
+      <td>-0.193</td>
+      <td>12</td>
+      <td>EA legacy</td>
+    </tr>
+    <tr>
+      <td>FR+BE</td>
+      <td>0.401</td>
+      <td>0.258</td>
+      <td>16.232</td>
+      <td>10.430</td>
+      <td>3.183</td>
+      <td>2.155</td>
+      <td>12</td>
+      <td>EA legacy</td>
+    </tr>
+    <tr>
+      <td>NL+DE</td>
+      <td>0.158</td>
+      <td>0.243</td>
+      <td>3.838</td>
+      <td>5.897</td>
+      <td>-1.628</td>
+      <td>2.178</td>
+      <td>12</td>
+      <td>Physical routing</td>
+    </tr>
+    <tr>
+      <td>Common total</td>
+      <td>0.360</td>
+      <td>0.382</td>
+      <td>4.129</td>
+      <td>4.372</td>
+      <td>2.847</td>
+      <td>4.140</td>
+      <td>12</td>
+      <td>Physical routing</td>
+    </tr>
+  </tbody>
+</table></div><p>Mixed ranking: physical routing has lower sample errors for NL+DE and the common subset; EA is better for UK and FR+BE. Planning-capacity sensitivity and source-mix assumptions limit any overall conclusion.</p><img src="details/comparison.png" style="max-width:100%"><h2>Volume and routing contributions</h2><p>Both use the same archived EA national forecast. Its 2025 bias is +2.840609 bcm. Seasonal LNG is +0.674669 bcm versus revised actual net-saleable LNG, yielding +2.165940 bcm pipeline-production bias. Common subset export bias is +2.847400 bcm for routing and +4.139609 bcm for EA; their boundaries exclude DK/PL and non-Gassco UK packets.</p><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>method</th>
+      <th>group</th>
+      <th>n</th>
+      <th>conditional_MAE_bcm</th>
+      <th>conditional_WAPE_pct</th>
+      <th>conditional_bias_bcm</th>
+      <th>total_volume_error_component_bcm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Capacity143</td>
+      <td>FR+BE</td>
+      <td>12</td>
+      <td>0.415</td>
+      <td>16.791</td>
+      <td>2.943</td>
+      <td>0.507</td>
+    </tr>
+    <tr>
+      <td>Capacity143</td>
+      <td>NL+DE</td>
+      <td>12</td>
+      <td>0.202</td>
+      <td>4.921</td>
+      <td>-2.429</td>
+      <td>0.801</td>
+    </tr>
+    <tr>
+      <td>Capacity143</td>
+      <td>UK</td>
+      <td>12</td>
+      <td>0.343</td>
+      <td>15.978</td>
+      <td>-0.514</td>
+      <td>0.439</td>
+    </tr>
+    <tr>
+      <td>EA legacy</td>
+      <td>FR+BE</td>
+      <td>12</td>
+      <td>0.191</td>
+      <td>7.712</td>
+      <td>0.949</td>
+      <td>1.205</td>
+    </tr>
+    <tr>
+      <td>EA legacy</td>
+      <td>NL+DE</td>
+      <td>12</td>
+      <td>0.139</td>
+      <td>3.388</td>
+      <td>0.203</td>
+      <td>1.974</td>
+    </tr>
+    <tr>
+      <td>EA legacy</td>
+      <td>UK</td>
+      <td>12</td>
+      <td>0.244</td>
+      <td>11.382</td>
+      <td>-1.153</td>
+      <td>0.960</td>
+    </tr>
+    <tr>
+      <td>Physical156</td>
+      <td>FR+BE</td>
+      <td>12</td>
+      <td>0.366</td>
+      <td>14.807</td>
+      <td>2.354</td>
+      <td>0.828</td>
+    </tr>
+    <tr>
+      <td>Physical156</td>
+      <td>NL+DE</td>
+      <td>12</td>
+      <td>0.241</td>
+      <td>5.856</td>
+      <td>-2.890</td>
+      <td>1.262</td>
+    </tr>
+    <tr>
+      <td>Physical156</td>
+      <td>UK</td>
+      <td>12</td>
+      <td>0.318</td>
+      <td>14.847</td>
+      <td>0.536</td>
+      <td>0.757</td>
+    </tr>
+  </tbody>
+</table></div><p><strong>EA has lower conditional destination-share MAE in all three groups.</strong> NL+DE conditional MAE is 0.240837 bcm/month for the physical model versus 0.139335 for EA. The physical raw-volume advantage partly arises from error cancellation: its conditional NL+DE underallocation (-2.890048 bcm) is offset by +1.262403 bcm from overprediction of the common total. This is not evidence of superior destination-routing skill.</p><h2>Capacity sensitivity, declared before scoring</h2><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>destination</th>
+      <th>n</th>
+      <th>mae_bcm_month</th>
+      <th>wape_pct</th>
+      <th>bias_total_bcm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Common total</td>
+      <td>12</td>
+      <td>0.342</td>
+      <td>3.921</td>
+      <td>1.747</td>
+    </tr>
+    <tr>
+      <td>FR+BE</td>
+      <td>12</td>
+      <td>0.423</td>
+      <td>17.134</td>
+      <td>3.450</td>
+    </tr>
+    <tr>
+      <td>NL+DE</td>
+      <td>12</td>
+      <td>0.158</td>
+      <td>3.838</td>
+      <td>-1.628</td>
+    </tr>
+    <tr>
+      <td>UK</td>
+      <td>12</td>
+      <td>0.368</td>
+      <td>17.165</td>
+      <td>-0.075</td>
+    </tr>
+  </tbody>
+</table></div><p>The 143 planning bound reduces exports by 1.099932 bcm and increases disposal by the same amount. NL+DE flows and scores do not change; UK and FR+BE errors remain above EA. This is sensitivity, not a capacity selection based on the scores.</p><h2>Binding corridors and source uncertainty</h2><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>asset</th>
+      <th>binding_months</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>EUROPIPE_I</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>EUROPIPE_II</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <td>FRANPIPE</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>LANGELED_SOUTH</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>NORPIPE</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <td>ZEEPIPE_EXPORT</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <td>ZEEPIPE_IIB</td>
+      <td>12</td>
+    </tr>
+  </tbody>
+</table></div><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>node</th>
+      <th>annual_bcm</th>
+      <th>weight</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>EKOFISK_FEED</td>
+      <td>1.597</td>
+      <td>0.083</td>
+    </tr>
+    <tr>
+      <td>KARSTO_FEED</td>
+      <td>8.225</td>
+      <td>0.425</td>
+    </tr>
+    <tr>
+      <td>KOLLSNES_FEED</td>
+      <td>1.401</td>
+      <td>0.072</td>
+    </tr>
+    <tr>
+      <td>OSEBERG</td>
+      <td>0.000</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <td>SLEIPNER</td>
+      <td>1.249</td>
+      <td>0.065</td>
+    </tr>
+    <tr>
+      <td>UK_DIRECT</td>
+      <td>6.754</td>
+      <td>0.349</td>
+    </tr>
+    <tr>
+      <td>UNMAPPED</td>
+      <td>0.120</td>
+      <td>0.006</td>
+    </tr>
+  </tbody>
+</table></div><p>Zero slack on an individual parallel arc such as Zeepipe IIB is not independent proof of an economically material bottleneck. These limits are physical/planning assumptions; allocation among feasible exits also follows the fixed historical preferences.</p><p>Residual denominator: 19.346535 bcm; UK-direct weight 34.911735%. Unknown production stays unmapped: 0.120104 bcm, 0.620804% of historical residual. Core routes do not imply field-specific future forecasts: new projects/external production can differ from this historical mix. Balder and Urd each explicitly return twelve zero observations for 2023, Rev returns twelve observations totaling 0.001760 bcm; no overlapping addends were created. Halten Øst has no observations in this calibration year and no volume was added to Åsgard.</p><h2>Assumptions and safeguards</h2><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>item</th>
+      <th>meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Status</td>
+      <td>Revision-tolerant historical reconstruction; 31 December 2024 origin, January-December 2025; preliminary 12-month diagnostic, not a verified real-time backtest.</td>
+    </tr>
+    <tr>
+      <td>Result</td>
+      <td>Mixed sample ranking: routing lower error for NL+DE/common subset; EA lower error for UK/FR+BE. No claim of overall superiority.</td>
+    </tr>
+    <tr>
+      <td>Conditional result</td>
+      <td>After removing common-volume error for scoring, EA has lower destination-share MAE in all three groups. The physical NL+DE raw gain partly reflects cancellation between routing underallocation and total-volume overprediction.</td>
+    </tr>
+    <tr>
+      <td>Revision policy</td>
+      <td>Current/revised historical production periods before the origin accepted; retrieval vintages retained. 2025 actuals retrieved only after forecast freeze and used for scoring.</td>
+    </tr>
+    <tr>
+      <td>Snøhvit</td>
+      <td>Existing seasonal_two_year method: available month-specific daily-rate mean, one observation if needed, overall historical daily-rate mean only for missing calendar months. This pilot has all 24 observations for 2022/2023, two per calendar month, no imputation.</td>
+    </tr>
+    <tr>
+      <td>Weights</td>
+      <td>Requested 2023 calibration window; summed signed residual owners by node, including UNMAPPED. Newer Dec2023-Nov2024 Trym window has eleven missing observations and is not activated. No indicative 2025 weights or 2026-certified 2024 quantities used.</td>
+    </tr>
+    <tr>
+      <td>Ownership</td>
+      <td>Existing routes used retrospectively with Core Balder/Urd/Rev decisions. Halten Øst has no 2023 observations and no invented volume; Åsgard equals its native field. Oseberg owns Oseberg/Sør/Øst exactly; Heidrun is explicit once.</td>
+    </tr>
+    <tr>
+      <td>Missing observations</td>
+      <td>Tommeliten A has three observed months; Hanz/Trym have no 2023 observations. Source blanks remain blank, not filled. Observed cohort/national identity closes every month; this is aggregate reconciliation, not independent proof of every absent component or future mix.</td>
+    </tr>
+    <tr>
+      <td>Coverage</td>
+      <td>0.120104 bcm historical residual production remains UNMAPPED (0.620804% of residual denominator). It is unrouted in forecast. External Trym has no observed calibration numerator; no positive external packet is fabricated. Future external/new-field mix remains uncertain.</td>
+    </tr>
+    <tr>
+      <td>Capacity</td>
+      <td>156 mcm/day Kollsnes declared planning ceiling, no assumed maintenance; 143 predeclared capacity bound. Neither is claimed verified as the December-2024 rating. Other existing engineering envelopes unchanged. No 2025 outage data used.</td>
+    </tr>
+    <tr>
+      <td>UK comparison</td>
+      <td>Gross model UK minus explicit Martin Linge forecast and the frozen supported non-Gassco UK residual cohort, once. UK_DIRECT has no capacity limit and no disposal. Raw gross UK remains on Physical flows.</td>
+    </tr>
+    <tr>
+      <td>Common total</td>
+      <td>Sum of compatible adjusted UK + FR/BE + NL/DE. Excludes DK/PL; not total Norwegian exports. Wider Gassco total remains unscored because boundary/actual-segment contracts do not permit ranking.</td>
+    </tr>
+    <tr>
+      <td>Conditional diagnostics</td>
+      <td>Predicted group shares rescaled to observed common total only after freeze for error decomposition. This removes common-volume error for scoring; it is not another issued forecast or an actual-supply LP solve.</td>
+    </tr>
+    <tr>
+      <td>Physical limits</td>
+      <td>NL/DE jointly has corridor bounds; individual DE/NL and DK/PL are allocation proxies. Destination choices also depend on unchanged 2023 preferences, not commercial demand or prices.</td>
+    </tr>
+    <tr>
+      <td>No tuning</td>
+      <td>All inputs, planning capacities and two LP forecasts froze before target actual retrieval. No parameter changes after scoring. January-September 2026 actuals remain locked.</td>
+    </tr>
+  </tbody>
+</table></div><p><a href="results.csv">Monthly score table</a> | <a href="provenance/input_freeze.json">Input freeze</a> | <a href="provenance/evaluation.json">Evaluation-only policy</a> | <a href="provenance/manifest.json">Hashes and source captures</a>.</p></body></html>

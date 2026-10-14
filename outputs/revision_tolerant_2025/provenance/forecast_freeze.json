@@ -1,0 +1,7 @@
+{
+  "created_at": "2026-10-14T12:02:42.341171+00:00",
+  "forecast_file_sha256": "4b42f5cf0d00cf74148467e59bc0186d56f8a39fa4b5f7990a74845a81a893c4",
+  "solver": "HiGHS",
+  "monthly_solves": 24,
+  "actual2025_queried": false
+}

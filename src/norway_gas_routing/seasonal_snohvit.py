@@ -13,12 +13,17 @@ from .routing import finite_nonnegative
 HISTORICAL_SID = r'NPD\monthly_by_field\marketed_production\snohvit\gas-saleable'
 
 
-def seasonal_profile(observations, months, origin):
+def seasonal_profile(observations, months, origin, *, allow_partial=False, revision_tolerant=False):
     """Use the latest two complete eligible years; retain signed source values.
 
     available_at is the observation's information date, or the conservative
     upper bound supplied by an exact archived service-state query. It must never
     be inferred from the delivery month or a latest-revised response.
+
+    Explicit diagnostic flags permit revised pre-origin observations and an
+    incomplete seasonal history. A missing calendar month then uses the mean of
+    eligible historical daily rates; counts/imputed months are returned in the
+    rates attributes. Defaults preserve the strict operational archive contract.
     """
     origin = pd.to_datetime(origin, utc=True)
     if pd.isna(origin):
@@ -30,14 +35,17 @@ def seasonal_profile(observations, months, origin):
     available = pd.to_datetime(observations.available_at, utc=True)
     if available.isna().any():
         raise ValueError('Missing historical information dates; no latest-revised substitution.')
+    if revision_tolerant and (dates.to_period('M') >= origin.tz_localize(None).to_period('M')).any():
+        raise ValueError('Revision-tolerant inputs require pre-origin production periods; target-period actuals are forbidden.')
     history = observations.copy()
     history['date'] = dates
     history['monthly_bcm'] = pd.to_numeric(history.monthly_bcm, errors='raise')
     complete_before = dates.to_period('M').end_time < origin.tz_localize(None)
-    history = history.loc[(available <= origin).to_numpy() & complete_before].copy()
+    eligible_information = pd.Series(True,index=observations.index) if revision_tolerant else available <= origin
+    history = history.loc[eligible_information.to_numpy() & complete_before].copy()
     complete, gaps = [], {}
     for year in sorted(set(history.date.dt.year), reverse=True):
-        if year >= origin.year:
+        if year >= origin.year and not allow_partial:
             continue
         group = history.loc[history.date.dt.year.eq(year)]
         expected = pd.date_range(f'{year}-01-01', f'{year}-12-01', freq='MS')
@@ -47,13 +55,23 @@ def seasonal_profile(observations, months, origin):
             complete.append(year)
         else:
             gaps[str(year)] = missing.strftime('%Y-%m').tolist()
-    if len(complete) < 2:
+    if not allow_partial and len(complete) < 2:
         raise ValueError('Seasonal Snøhvit requires two complete origin-eligible calendar years; '
                          f'complete years={complete}; missing months={gaps}; no filling.')
-    years = sorted(complete[:2])
+    if allow_partial:
+        history = history.loc[history.monthly_bcm.map(lambda v: pd.notna(v) and abs(v) != float('inf'))].copy()
+        if history.empty:
+            raise ValueError('Seasonal Snøhvit requires some genuine historical observations; no manufactured profile.')
+    years = sorted(sorted(set(history.date.dt.year), reverse=True)[:2]) if allow_partial else sorted(complete[:2])
     selected = history.loc[history.date.dt.year.isin(years)].sort_values('date').copy()
     selected['historical_rate_mcmd'] = selected.monthly_bcm * 1000 / selected.date.dt.days_in_month
     rates = selected.groupby(selected.date.dt.month).historical_rate_mcmd.mean()
+    counts = selected.groupby(selected.date.dt.month).size().reindex(range(1,13),fill_value=0)
+    imputed = counts.index[counts.eq(0)].tolist()
+    if allow_partial:
+        rates = rates.reindex(range(1,13)).fillna(selected.historical_rate_mcmd.mean())
+    rates.attrs.update(observation_counts=counts.to_dict(),imputed_calendar_months=imputed,
+        revision_tolerant=revision_tolerant,allow_partial=allow_partial)
     # Negative accounting observations survive averaging; a negative resulting
     # physical assumption is rejected, not clipped or replaced by another method.
     finite_nonnegative(rates, 'Seasonal Snøhvit average rates; signed history retained')

@@ -1,0 +1,145 @@
+target_month,origin,level,destination,method,prediction_bcm,actual_bcm,error_bcm,share_error_pp,analysis_type
+2025-01,2024-12-31T23:59:59Z,compatible_groups,UK,Physical156,2.8665185104630484,3.1877914396654075,-0.32127292920235906,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-01,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Physical156,2.9884000000000004,2.0679054007318767,0.9204945992681237,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-01,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Physical156,4.068114279114486,4.204827551253094,-0.13671327213860796,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-01,2024-12-31T23:59:59Z,compatible_groups,Common total,Physical156,9.923032789577537,9.460524391650377,0.46250839792715936,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-02,2024-12-31T23:59:59Z,compatible_groups,UK,Physical156,2.950069956499428,2.509478695262365,0.44059126123706305,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-02,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Physical156,2.431854013980545,2.098168659499044,0.33368535448150105,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-02,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Physical156,3.674425800490504,3.846840139751553,-0.17241433926104888,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-02,2024-12-31T23:59:59Z,compatible_groups,Common total,Physical156,9.056349770970476,8.454487494512962,0.6018622764575134,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-03,2024-12-31T23:59:59Z,compatible_groups,UK,Physical156,2.5643403773858147,2.411254962181678,0.15308541520413677,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-03,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Physical156,2.9884000000000004,2.6826096552149608,0.30579034478503964,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-03,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Physical156,4.068114279114486,4.323535247024905,-0.25542096791041935,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-03,2024-12-31T23:59:59Z,compatible_groups,Common total,Physical156,9.6208546565003,9.417399864421544,0.20345479207875705,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-04,2024-12-31T23:59:59Z,compatible_groups,UK,Physical156,1.909943984984389,1.7957385717385768,0.11420541324581235,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-04,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Physical156,2.892,2.834305437046755,0.05769456295324504,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-04,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Physical156,3.936884786239825,4.311497283115223,-0.3746124968753981,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-04,2024-12-31T23:59:59Z,compatible_groups,Common total,Physical156,8.738828771224213,8.941541291900554,-0.20271252067634116,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-05,2024-12-31T23:59:59Z,compatible_groups,UK,Physical156,2.086450694408522,1.367816232017141,0.718634462391381,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-05,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Physical156,2.532194037763219,2.7844422234522415,-0.25224818568902263,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-05,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Physical156,4.068114279114486,4.1298768400014625,-0.061762560886976736,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-05,2024-12-31T23:59:59Z,compatible_groups,Common total,Physical156,8.686759011286227,8.282135295470844,0.4046237158153829,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-06,2024-12-31T23:59:59Z,compatible_groups,UK,Physical156,1.8918174083630448,1.1464042292490118,0.745413179114033,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-06,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Physical156,2.43251622028258,2.667172984189723,-0.23465676390714307,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-06,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Physical156,3.936884786239825,3.9533562845849803,-0.01647149834515549,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-06,2024-12-31T23:59:59Z,compatible_groups,Common total,Physical156,8.26121841488545,7.766933498023715,0.49428491686173537,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-07,2024-12-31T23:59:59Z,compatible_groups,UK,Physical156,1.9408024058277047,1.9605416666666664,-0.019739260838961714,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-07,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Physical156,2.9884000000000004,2.898483333333334,0.08991666666666642,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-07,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Physical156,4.068114279114486,4.32629,-0.25817572088551444,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-07,2024-12-31T23:59:59Z,compatible_groups,Common total,Physical156,8.997316684942192,9.185315000000001,-0.1879983150578095,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-08,2024-12-31T23:59:59Z,compatible_groups,UK,Physical156,2.0628455428519,1.819515,0.24333054285190014,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-08,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Physical156,2.5270070986102326,2.8559500000000004,-0.3289429013897678,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-08,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Physical156,4.068114279114486,4.1904900000000005,-0.12237572088551474,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-08,2024-12-31T23:59:59Z,compatible_groups,Common total,Physical156,8.657966920576618,8.865955000000001,-0.2079880794233837,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-09,2024-12-31T23:59:59Z,compatible_groups,UK,Physical156,1.4951427061183753,1.7904399999999998,-0.2952972938816245,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-09,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Physical156,2.1929604045823243,1.29548,0.8974804045823244,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-09,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Physical156,3.759497837540848,3.7905599999999997,-0.031062162459151832,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-09,2024-12-31T23:59:59Z,compatible_groups,Common total,Physical156,7.447600948241547,6.876479999999999,0.571120948241548,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-10,2024-12-31T23:59:59Z,compatible_groups,UK,Physical156,2.4581729570723496,2.1375400000000004,0.3206329570723492,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-10,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Physical156,2.9884000000000004,2.6199799999999995,0.36842000000000086,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-10,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Physical156,4.068114279114486,3.934859999999999,0.13325427911448662,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-10,2024-12-31T23:59:59Z,compatible_groups,Common total,Physical156,9.514687236186836,8.692379999999998,0.8223072361868375,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-11,2024-12-31T23:59:59Z,compatible_groups,UK,Physical156,2.278115318493517,2.5697,-0.2915846815064831,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-11,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Physical156,2.892,2.4663,0.42569999999999997,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-11,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Physical156,3.936884786239825,4.04519,-0.10830521376017499,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-11,2024-12-31T23:59:59Z,compatible_groups,Common total,Physical156,9.10700010473334,9.08119,0.02581010473334011,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-12,2024-12-31T23:59:59Z,compatible_groups,UK,Physical156,2.5127221137480604,3.02843,-0.5157078862519398,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-12,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Physical156,2.9884000000000004,2.38898,0.5994200000000003,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-12,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Physical156,4.068114279114486,4.2917000000000005,-0.22358572088551476,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-12,2024-12-31T23:59:59Z,compatible_groups,Common total,Physical156,9.569236392862546,9.70911,-0.13987360713745467,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-01,2024-12-31T23:59:59Z,compatible_groups,UK,Capacity143,2.544485579718098,3.1877914396654075,-0.6433058599473096,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-01,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Capacity143,2.9884000000000004,2.0679054007318767,0.9204945992681237,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-01,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Capacity143,4.068114279114486,4.204827551253094,-0.13671327213860796,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-01,2024-12-31T23:59:59Z,compatible_groups,Common total,Capacity143,9.600999858832584,9.460524391650377,0.14047546718220616,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-02,2024-12-31T23:59:59Z,compatible_groups,UK,Capacity143,2.38265958929295,2.509478695262365,-0.12681910596941526,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-02,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Capacity143,2.6992000000000003,2.098168659499044,0.6010313405009562,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-02,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Capacity143,3.674425800490504,3.846840139751553,-0.17241433926104888,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-02,2024-12-31T23:59:59Z,compatible_groups,Common total,Capacity143,8.756285389783454,8.454487494512962,0.30179789527049117,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-03,2024-12-31T23:59:59Z,compatible_groups,UK,Capacity143,2.5643403773858147,2.411254962181678,0.15308541520413677,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-03,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Capacity143,2.9884000000000004,2.6826096552149608,0.30579034478503964,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-03,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Capacity143,4.068114279114486,4.323535247024905,-0.25542096791041935,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-03,2024-12-31T23:59:59Z,compatible_groups,Common total,Capacity143,9.6208546565003,9.417399864421544,0.20345479207875705,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-04,2024-12-31T23:59:59Z,compatible_groups,UK,Capacity143,1.7531681101867118,1.7957385717385768,-0.042570461551864947,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-04,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Capacity143,2.892,2.834305437046755,0.05769456295324504,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-04,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Capacity143,3.936884786239825,4.311497283115223,-0.3746124968753981,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-04,2024-12-31T23:59:59Z,compatible_groups,Common total,Capacity143,8.582052896426536,8.941541291900554,-0.3594883954740187,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-05,2024-12-31T23:59:59Z,compatible_groups,UK,Capacity143,2.086450694408522,1.367816232017141,0.718634462391381,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-05,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Capacity143,2.532194037763219,2.7844422234522415,-0.25224818568902263,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-05,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Capacity143,4.068114279114486,4.1298768400014625,-0.061762560886976736,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-05,2024-12-31T23:59:59Z,compatible_groups,Common total,Capacity143,8.686759011286227,8.282135295470844,0.4046237158153829,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-06,2024-12-31T23:59:59Z,compatible_groups,UK,Capacity143,1.8918174083630448,1.1464042292490118,0.745413179114033,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-06,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Capacity143,2.43251622028258,2.667172984189723,-0.23465676390714307,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-06,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Capacity143,3.936884786239825,3.9533562845849803,-0.01647149834515549,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-06,2024-12-31T23:59:59Z,compatible_groups,Common total,Capacity143,8.26121841488545,7.766933498023715,0.49428491686173537,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-07,2024-12-31T23:59:59Z,compatible_groups,UK,Capacity143,1.9408024058277047,1.9605416666666664,-0.019739260838961714,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-07,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Capacity143,2.9884000000000004,2.898483333333334,0.08991666666666642,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-07,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Capacity143,4.068114279114486,4.32629,-0.25817572088551444,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-07,2024-12-31T23:59:59Z,compatible_groups,Common total,Capacity143,8.997316684942192,9.185315000000001,-0.1879983150578095,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-08,2024-12-31T23:59:59Z,compatible_groups,UK,Capacity143,2.0628455428519,1.819515,0.24333054285190014,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-08,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Capacity143,2.5270070986102326,2.8559500000000004,-0.3289429013897678,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-08,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Capacity143,4.068114279114486,4.1904900000000005,-0.12237572088551474,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-08,2024-12-31T23:59:59Z,compatible_groups,Common total,Capacity143,8.657966920576618,8.865955000000001,-0.2079880794233837,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-09,2024-12-31T23:59:59Z,compatible_groups,UK,Capacity143,1.4951427061183753,1.7904399999999998,-0.2952972938816245,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-09,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Capacity143,2.1929604045823243,1.29548,0.8974804045823244,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-09,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Capacity143,3.759497837540848,3.7905599999999997,-0.031062162459151832,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-09,2024-12-31T23:59:59Z,compatible_groups,Common total,Capacity143,7.447600948241547,6.876479999999999,0.571120948241548,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-10,2024-12-31T23:59:59Z,compatible_groups,UK,Capacity143,2.4473487255270605,2.1375400000000004,0.30980872552706007,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-10,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Capacity143,2.9884000000000004,2.6199799999999995,0.36842000000000086,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-10,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Capacity143,4.068114279114486,3.934859999999999,0.13325427911448662,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-10,2024-12-31T23:59:59Z,compatible_groups,Common total,Capacity143,9.503863004641548,8.692379999999998,0.8114830046415502,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-11,2024-12-31T23:59:59Z,compatible_groups,UK,Capacity143,2.122019433926006,2.5697,-0.447680566073994,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-11,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Capacity143,2.892,2.4663,0.42569999999999997,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-11,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Capacity143,3.936884786239825,4.04519,-0.10830521376017499,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-11,2024-12-31T23:59:59Z,compatible_groups,Common total,Capacity143,8.95090422016583,9.08119,-0.13028577983416945,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-12,2024-12-31T23:59:59Z,compatible_groups,UK,Capacity143,2.358584136595367,3.02843,-0.6698458634046331,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-12,2024-12-31T23:59:59Z,compatible_groups,FR+BE,Capacity143,2.9884000000000004,2.38898,0.5994200000000003,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-12,2024-12-31T23:59:59Z,compatible_groups,NL+DE,Capacity143,4.068114279114486,4.2917000000000005,-0.22358572088551476,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-12,2024-12-31T23:59:59Z,compatible_groups,Common total,Capacity143,9.415098415709853,9.70911,-0.29401158429014806,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-01,2024-12-31T23:59:59Z,compatible_groups,UK,EA legacy,2.7693546408591283,3.1877914396654075,-0.41843679880627915,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-01,2024-12-31T23:59:59Z,compatible_groups,FR+BE,EA legacy,2.6425898625304884,2.0679054007318767,0.5746844617986118,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-01,2024-12-31T23:59:59Z,compatible_groups,NL+DE,EA legacy,4.372374206489551,4.204827551253094,0.16754665523645773,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-01,2024-12-31T23:59:59Z,compatible_groups,Common total,EA legacy,9.784318709879168,9.460524391650377,0.32379431822879035,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-02,2024-12-31T23:59:59Z,compatible_groups,UK,EA legacy,2.5069059117677863,2.509478695262365,-0.0025727834945787897,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-02,2024-12-31T23:59:59Z,compatible_groups,FR+BE,EA legacy,2.475673977479664,2.098168659499044,0.3775053179806198,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-02,2024-12-31T23:59:59Z,compatible_groups,NL+DE,EA legacy,4.00658427439379,3.846840139751553,0.1597441346422368,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-02,2024-12-31T23:59:59Z,compatible_groups,Common total,EA legacy,8.98916416364124,8.454487494512962,0.5346766691282774,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-03,2024-12-31T23:59:59Z,compatible_groups,UK,EA legacy,2.589915787624609,2.411254962181678,0.17866082544293116,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-03,2024-12-31T23:59:59Z,compatible_groups,FR+BE,EA legacy,2.6772278260187314,2.6826096552149608,-0.005381829196229315,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-03,2024-12-31T23:59:59Z,compatible_groups,NL+DE,EA legacy,4.211097511309268,4.323535247024905,-0.11243773571563676,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-03,2024-12-31T23:59:59Z,compatible_groups,Common total,EA legacy,9.478241124952609,9.417399864421544,0.06084126053106509,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-04,2024-12-31T23:59:59Z,compatible_groups,UK,EA legacy,2.0091848945389046,1.7957385717385768,0.21344632280032783,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-04,2024-12-31T23:59:59Z,compatible_groups,FR+BE,EA legacy,2.6549839922168847,2.834305437046755,-0.1793214448298701,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-04,2024-12-31T23:59:59Z,compatible_groups,NL+DE,EA legacy,4.0576457168383016,4.311497283115223,-0.2538515662769214,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-04,2024-12-31T23:59:59Z,compatible_groups,Common total,EA legacy,8.72181460359409,8.941541291900554,-0.2197266883064639,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-05,2024-12-31T23:59:59Z,compatible_groups,UK,EA legacy,1.6457066672098644,1.367816232017141,0.2778904351927234,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-05,2024-12-31T23:59:59Z,compatible_groups,FR+BE,EA legacy,2.5901919268169187,2.7844422234522415,-0.19425029663532278,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-05,2024-12-31T23:59:59Z,compatible_groups,NL+DE,EA legacy,4.195053773614286,4.1298768400014625,0.06517693361282362,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-05,2024-12-31T23:59:59Z,compatible_groups,Common total,EA legacy,8.43095236764107,8.282135295470844,0.14881707217022466,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-06,2024-12-31T23:59:59Z,compatible_groups,UK,EA legacy,1.4677623605368877,1.1464042292490118,0.32135813128787594,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-06,2024-12-31T23:59:59Z,compatible_groups,FR+BE,EA legacy,2.5767096049977765,2.667172984189723,-0.09046337919194647,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-06,2024-12-31T23:59:59Z,compatible_groups,NL+DE,EA legacy,4.343316887403557,3.9533562845849803,0.38996060281857625,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-06,2024-12-31T23:59:59Z,compatible_groups,Common total,EA legacy,8.387788852938222,7.766933498023715,0.6208553549145073,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-07,2024-12-31T23:59:59Z,compatible_groups,UK,EA legacy,1.7322398106544243,1.9605416666666664,-0.22830185601224207,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-07,2024-12-31T23:59:59Z,compatible_groups,FR+BE,EA legacy,2.954050388870076,2.898483333333334,0.05556705553674224,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-07,2024-12-31T23:59:59Z,compatible_groups,NL+DE,EA legacy,4.549937945205479,4.32629,0.22364794520547893,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-07,2024-12-31T23:59:59Z,compatible_groups,Common total,EA legacy,9.23622814472998,9.185315000000001,0.050913144729978654,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-08,2024-12-31T23:59:59Z,compatible_groups,UK,EA legacy,1.5979761641916248,1.819515,-0.2215388358083752,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-08,2024-12-31T23:59:59Z,compatible_groups,FR+BE,EA legacy,2.8760497361057045,2.8559500000000004,0.020099736105704036,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-08,2024-12-31T23:59:59Z,compatible_groups,NL+DE,EA legacy,4.494662945205479,4.1904900000000005,0.30417294520547866,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-08,2024-12-31T23:59:59Z,compatible_groups,Common total,EA legacy,8.968688845502808,8.865955000000001,0.10273384550280618,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-09,2024-12-31T23:59:59Z,compatible_groups,UK,EA legacy,1.6570010754914808,1.7904399999999998,-0.13343892450851902,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-09,2024-12-31T23:59:59Z,compatible_groups,FR+BE,EA legacy,2.224399999999996,1.29548,0.9289199999999962,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-09,2024-12-31T23:59:59Z,compatible_groups,NL+DE,EA legacy,3.873532134313145,3.7905599999999997,0.08297213431314532,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-09,2024-12-31T23:59:59Z,compatible_groups,Common total,EA legacy,7.754933209804622,6.876479999999999,0.8784532098046229,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-10,2024-12-31T23:59:59Z,compatible_groups,UK,EA legacy,2.3445016687278093,2.1375400000000004,0.20696166872780886,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-10,2024-12-31T23:59:59Z,compatible_groups,FR+BE,EA legacy,2.9946,2.6199799999999995,0.3746200000000006,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-10,2024-12-31T23:59:59Z,compatible_groups,NL+DE,EA legacy,4.549937945205479,3.934859999999999,0.61507794520548,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-10,2024-12-31T23:59:59Z,compatible_groups,Common total,EA legacy,9.889039613933289,8.692379999999998,1.1966596139332903,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-11,2024-12-31T23:59:59Z,compatible_groups,UK,EA legacy,2.383204489437265,2.5697,-0.18649551056273506,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-11,2024-12-31T23:59:59Z,compatible_groups,FR+BE,EA legacy,2.612361714225876,2.4663,0.14606171422587622,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-11,2024-12-31T23:59:59Z,compatible_groups,NL+DE,EA legacy,4.403165753424656,4.04519,0.3579757534246566,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-11,2024-12-31T23:59:59Z,compatible_groups,Common total,EA legacy,9.398731957087797,9.08119,0.31754195708779775,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-12,2024-12-31T23:59:59Z,compatible_groups,UK,EA legacy,2.828204242578066,3.02843,-0.20022575742193416,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-12,2024-12-31T23:59:59Z,compatible_groups,FR+BE,EA legacy,2.535485586953377,2.38898,0.1465055869533769,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-12,2024-12-31T23:59:59Z,compatible_groups,NL+DE,EA legacy,4.469469079680084,4.2917000000000005,0.17776907968008349,,Revision-tolerant historical reconstruction; no parameter changes after scoring
+2025-12,2024-12-31T23:59:59Z,compatible_groups,Common total,EA legacy,9.833158909211527,9.70911,0.12404890921152578,,Revision-tolerant historical reconstruction; no parameter changes after scoring

@@ -37,3 +37,7 @@ outputs/chronological_inputs_f28/** -text whitespace=cr-at-eol
 # One bounded December-2024 historical-input attempt, including empty responses.
 data/raw/minimum_backtest_f29/** -text whitespace=cr-at-eol
 outputs/minimum_backtest_f29/** -text whitespace=cr-at-eol
+
+# Frozen revision-tolerant 2025 pilot inputs, forecasts and scoring evidence.
+data/raw/revision_tolerant_2025/** -text whitespace=cr-at-eol
+outputs/revision_tolerant_2025/** -text whitespace=cr-at-eol

@@ -1,0 +1,19 @@
+{
+  "status": "COMPLETED_REVISION_TOLERANT_DIAGNOSTIC",
+  "compatible_groups": [
+    "UK adjusted for evidenced non-Gassco packets",
+    "FR+BE",
+    "NL+DE",
+    "Common total of those three groups"
+  ],
+  "full_gassco_total_scored": false,
+  "total_boundary": "Common subset only; DK/PL and wider total remain unranked",
+  "actual_inputs_used": false,
+  "forecast_file_sha256": "4b42f5cf0d00cf74148467e59bc0186d56f8a39fa4b5f7990a74845a81a893c4",
+  "protected_actuals_queried": false,
+  "observed_national_total_bcm": 121.77179999999998,
+  "forecast_national_total_bcm": 124.61240904693601,
+  "national_bias_total_bcm": 2.840609046936015,
+  "pipeline_bias_total_bcm": 2.165939546936018,
+  "realised_data_policy": "2025 actuals were retrieved after all inputs and forecasts were frozen; evaluation only"
+}
