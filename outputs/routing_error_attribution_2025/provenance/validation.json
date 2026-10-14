@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "F210_frozen_package": "PASS",
+  "diagnostic_queries": 54,
+  "max_balance_bcm": 4.000000172581231e-08,
+  "max_capacity_violation_bcm": 0.0,
+  "share_identities": true,
+  "saved_solution_in_ranges": true,
+  "no_actual_LP_inputs": true,
+  "focused_tests": "143 passed in 13.95s"
+}

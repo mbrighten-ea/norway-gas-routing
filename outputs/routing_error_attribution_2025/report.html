@@ -1,0 +1,537 @@
+<!doctype html><html><meta charset="utf-8"><title>2025 routing-error attribution</title><style>body{font:16px/1.55 system-ui;margin:40px auto;max-width:1100px;padding:0 24px;color:#192c38}
+h1,h2{line-height:1.2}table{border-collapse:collapse;font-size:14px;width:100%;margin:20px 0}
+th,td{padding:8px 12px;border-bottom:1px solid #ccd6dd;text-align:left}th{background:#eef3f6}
+img{max-width:100%;height:auto}a{color:#17659b}.scroll{overflow:auto}.note{background:#fff3da;padding:16px}
+details{margin:20px 0}code{background:#edf2f5;padding:2px 5px}</style><body><h1>Why 2025 destination allocation underperformed EA</h1>
+<p>December 2024 origin; twelve 2025 deliveries. This uses immutable F2.10 forecasts and evaluation data, not fresh source queries or a new backtest. It remains a revision-tolerant reconstruction. The forward model and all F2.10 files are unchanged. The common basket is boundary-adjusted UK plus France/Belgium plus Germany/Netherlands; it excludes non-Gassco UK packets and DK/PL, and is not the full Norwegian export total.</p>
+<p><strong>Conclusion:</strong> the network modestly improves on static 2023 shares overall, but EA allocates the common volume substantially better. The largest errors reflect static historical preferences and weak identification of flexible UK/France allocation, alongside continental corridor constraints. UK-direct supply and Kollsnes alone do not explain them.</p>
+<p><a href="../revision_tolerant_2025/results.xlsx">Original F2.10 Excel</a> | <a href="results.csv">Monthly attribution CSV</a></p>
+<h2>Volume-independent allocation accuracy</h2>
+<p>For group g, forecast share p = forecast_g / forecast_common. Share error is 100(p - actual_g/actual_common), in percentage points. The conditional prediction p × actual_common is a post-forecast diagnostic only. Volume shifted = ½ Σ |p × actual_common − actual_g|; the division by two prevents counting both origin and destination of a shift. It is an error distance, not physically observed gas movement.</p><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Method</th>
+      <th>Months</th>
+      <th>Mean allocation error bcm/month</th>
+      <th>Sum over 2025 bcm</th>
+      <th>Mean allocation error pp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Physical156</td>
+      <td>12</td>
+      <td>0.463</td>
+      <td>5.551</td>
+      <td>5.429</td>
+    </tr>
+    <tr>
+      <td>EA legacy</td>
+      <td>12</td>
+      <td>0.287</td>
+      <td>3.444</td>
+      <td>3.413</td>
+    </tr>
+    <tr>
+      <td>2023 shares</td>
+      <td>12</td>
+      <td>0.526</td>
+      <td>6.311</td>
+      <td>6.088</td>
+    </tr>
+    <tr>
+      <td>Capacity143</td>
+      <td>12</td>
+      <td>0.480</td>
+      <td>5.760</td>
+      <td>5.620</td>
+    </tr>
+  </tbody>
+</table></div><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>method</th>
+      <th>Group</th>
+      <th>Model share MAE pp</th>
+      <th>EA share MAE pp</th>
+      <th>2023 share MAE pp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th></th>
+      <td>FR+BE</td>
+      <td>4.284</td>
+      <td>2.355</td>
+      <td>3.984</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>NL+DE</td>
+      <td>2.815</td>
+      <td>1.652</td>
+      <td>3.080</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>UK</td>
+      <td>3.760</td>
+      <td>2.818</td>
+      <td>5.113</td>
+    </tr>
+  </tbody>
+</table></div><p>Both issued forecasts use their own predicted shares; 2023 benchmark shares use all twelve retained positive compatible-group observations: UK 22.259%, FR/BE 28.821%, DE/NL 48.920%. The unchanged optimiser uses ten valid seven-market months, excluding July/August for negative Danish net accounting. Its normalised common-group shares are 22.798%, 28.442%, 48.760%. This sample choice changes mean shifted error by only about 0.01 bcm/month; it does not explain the EA gap.</p>
+<p>Raw common-total MAE remains 0.360 bcm/month for the model versus 0.382 for EA. The model's NL/DE raw advantage partly cancels conditional underallocation against total overprediction. After normalisation EA has lower group MAE for every destination.</p>
+<h2>Monthly error attribution</h2><p>All volumes below are bcm. Routing errors sum to zero each month; common-volume error is shown separately. Full group forecast error = routing error + predicted group share × common-volume error.</p><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>month</th>
+      <th>Model shifted bcm</th>
+      <th>EA shifted bcm</th>
+      <th>2023 shifted bcm</th>
+      <th>Model minus EA</th>
+      <th>Common-volume error</th>
+      <th>UK routing error</th>
+      <th>FR/BE routing error</th>
+      <th>DE/NL routing error</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2025-01</td>
+      <td>0.781</td>
+      <td>0.510</td>
+      <td>1.082</td>
+      <td>0.271</td>
+      <td>0.463</td>
+      <td>-0.455</td>
+      <td>0.781</td>
+      <td>-0.326</td>
+    </tr>
+    <tr>
+      <td>2025-02</td>
+      <td>0.417</td>
+      <td>0.230</td>
+      <td>0.628</td>
+      <td>0.186</td>
+      <td>0.602</td>
+      <td>0.245</td>
+      <td>0.172</td>
+      <td>-0.417</td>
+    </tr>
+    <tr>
+      <td>2025-03</td>
+      <td>0.341</td>
+      <td>0.162</td>
+      <td>0.315</td>
+      <td>0.179</td>
+      <td>0.203</td>
+      <td>0.099</td>
+      <td>0.243</td>
+      <td>-0.341</td>
+    </tr>
+    <tr>
+      <td>2025-04</td>
+      <td>0.283</td>
+      <td>0.264</td>
+      <td>0.257</td>
+      <td>0.019</td>
+      <td>-0.203</td>
+      <td>0.159</td>
+      <td>0.125</td>
+      <td>-0.283</td>
+    </tr>
+    <tr>
+      <td>2025-05</td>
+      <td>0.621</td>
+      <td>0.249</td>
+      <td>0.476</td>
+      <td>0.373</td>
+      <td>0.405</td>
+      <td>0.621</td>
+      <td>-0.370</td>
+      <td>-0.251</td>
+    </tr>
+    <tr>
+      <td>2025-06</td>
+      <td>0.632</td>
+      <td>0.281</td>
+      <td>0.582</td>
+      <td>0.351</td>
+      <td>0.494</td>
+      <td>0.632</td>
+      <td>-0.380</td>
+      <td>-0.252</td>
+    </tr>
+    <tr>
+      <td>2025-07</td>
+      <td>0.173</td>
+      <td>0.238</td>
+      <td>0.251</td>
+      <td>-0.065</td>
+      <td>-0.188</td>
+      <td>0.021</td>
+      <td>0.152</td>
+      <td>-0.173</td>
+    </tr>
+    <tr>
+      <td>2025-08</td>
+      <td>0.293</td>
+      <td>0.253</td>
+      <td>0.301</td>
+      <td>0.040</td>
+      <td>-0.208</td>
+      <td>0.293</td>
+      <td>-0.268</td>
+      <td>-0.025</td>
+    </tr>
+    <tr>
+      <td>2025-09</td>
+      <td>0.729</td>
+      <td>0.677</td>
+      <td>0.686</td>
+      <td>0.052</td>
+      <td>0.571</td>
+      <td>-0.410</td>
+      <td>0.729</td>
+      <td>-0.319</td>
+    </tr>
+    <tr>
+      <td>2025-10</td>
+      <td>0.218</td>
+      <td>0.077</td>
+      <td>0.317</td>
+      <td>0.142</td>
+      <td>0.822</td>
+      <td>0.108</td>
+      <td>0.110</td>
+      <td>-0.218</td>
+    </tr>
+    <tr>
+      <td>2025-11</td>
+      <td>0.418</td>
+      <td>0.267</td>
+      <td>0.548</td>
+      <td>0.150</td>
+      <td>0.026</td>
+      <td>-0.298</td>
+      <td>0.418</td>
+      <td>-0.119</td>
+    </tr>
+    <tr>
+      <td>2025-12</td>
+      <td>0.643</td>
+      <td>0.236</td>
+      <td>0.867</td>
+      <td>0.407</td>
+      <td>-0.140</td>
+      <td>-0.479</td>
+      <td>0.643</td>
+      <td>-0.164</td>
+    </tr>
+  </tbody>
+</table></div><h2>Largest model-versus-EA routing gaps: December, May and June</h2>
+<p>Selected by largest model minus EA shifted-volume error, not by raw total errors. These three gaps total 1.131 bcm, about half the annual difference. Model/EA columns retain issued volumes. The 2023 column uses actual common total for post-forecast normalisation only. The unconstrained operational target is the original seven-market preference × gross model exports, with the UK boundary packet removed once.</p><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Month</th>
+      <th>Group</th>
+      <th>Actual bcm</th>
+      <th>Model issued bcm</th>
+      <th>EA issued bcm</th>
+      <th>2023 share on actual total bcm</th>
+      <th>Unconstrained model target bcm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2025-12</td>
+      <td>UK</td>
+      <td>3.028</td>
+      <td>2.513</td>
+      <td>2.828</td>
+      <td>2.161</td>
+      <td>1.942</td>
+    </tr>
+    <tr>
+      <td>2025-12</td>
+      <td>FR+BE</td>
+      <td>2.389</td>
+      <td>2.988</td>
+      <td>2.535</td>
+      <td>2.798</td>
+      <td>2.764</td>
+    </tr>
+    <tr>
+      <td>2025-12</td>
+      <td>NL+DE</td>
+      <td>4.292</td>
+      <td>4.068</td>
+      <td>4.469</td>
+      <td>4.750</td>
+      <td>4.739</td>
+    </tr>
+    <tr>
+      <td>2025-05</td>
+      <td>UK</td>
+      <td>1.368</td>
+      <td>2.086</td>
+      <td>1.646</td>
+      <td>1.844</td>
+      <td>1.723</td>
+    </tr>
+    <tr>
+      <td>2025-05</td>
+      <td>FR+BE</td>
+      <td>2.784</td>
+      <td>2.532</td>
+      <td>2.590</td>
+      <td>2.387</td>
+      <td>2.545</td>
+    </tr>
+    <tr>
+      <td>2025-05</td>
+      <td>NL+DE</td>
+      <td>4.130</td>
+      <td>4.068</td>
+      <td>4.195</td>
+      <td>4.052</td>
+      <td>4.364</td>
+    </tr>
+    <tr>
+      <td>2025-06</td>
+      <td>UK</td>
+      <td>1.146</td>
+      <td>1.892</td>
+      <td>1.468</td>
+      <td>1.729</td>
+      <td>1.635</td>
+    </tr>
+    <tr>
+      <td>2025-06</td>
+      <td>FR+BE</td>
+      <td>2.667</td>
+      <td>2.433</td>
+      <td>2.577</td>
+      <td>2.238</td>
+      <td>2.426</td>
+    </tr>
+    <tr>
+      <td>2025-06</td>
+      <td>NL+DE</td>
+      <td>3.953</td>
+      <td>3.937</td>
+      <td>4.343</td>
+      <td>3.800</td>
+      <td>4.159</td>
+    </tr>
+  </tbody>
+</table></div><p><strong>May/June:</strong> actual UK shares were 16.52%/14.76%, while the annual benchmark assumes 22.26% and the model allocates 24.02%/22.90%. France/Belgium was 33.62%/34.34% of the actual common basket, versus model 29.15%/29.45%. France remains approximately at its static gross preference target while UK absorbs surplus. This is a preference outcome; it is not evidence of an unavoidable UK-direct delivery floor.</p>
+<p><strong>December:</strong> actual UK share was 31.19%, model 26.26%, EA 28.76%. UK was at its forecast-supply cut minimum; France/Belgium was at both outlet ceilings, but those outlets need not be full. There is substantial spare Langeled capacity to divert core gas from France to UK. Actual shares are used for comparison only, not to choose a new optimal point.</p><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>month</th>
+      <th>KOLLSNES_FEED</th>
+      <th>KARSTO_FEED</th>
+      <th>UK_DIRECT</th>
+      <th>excluded_UK_bcm</th>
+      <th>UK_direct_comparable_floor_bcm</th>
+      <th>model_UK_comparable_bcm</th>
+      <th>UK_cut_lower_bound_bcm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2025-12</td>
+      <td>4.587</td>
+      <td>2.472</td>
+      <td>0.945</td>
+      <td>0.273</td>
+      <td>0.671</td>
+      <td>2.513</td>
+      <td>2.513</td>
+    </tr>
+    <tr>
+      <td>2025-05</td>
+      <td>4.181</td>
+      <td>2.439</td>
+      <td>1.009</td>
+      <td>0.318</td>
+      <td>0.691</td>
+      <td>2.086</td>
+      <td>1.630</td>
+    </tr>
+    <tr>
+      <td>2025-06</td>
+      <td>3.783</td>
+      <td>2.253</td>
+      <td>0.959</td>
+      <td>0.309</td>
+      <td>0.650</td>
+      <td>1.892</td>
+      <td>1.432</td>
+    </tr>
+  </tbody>
+</table></div><p>UK-direct comparable floor is only 0.65–0.69 bcm/month, well below the saved UK allocation. Frozen 2023 residual ownership, revised histories, missing Tommeliten/Hanz/Trym observations, retrospective routes and unknown new-field mix remain limitations. They may alter routing pressure but this audit has no evidence that they are the leading explanation. UNMAPPED remains unrouted.</p>
+<h2>What the constraints actually identify</h2>
+<p>Europipe I (48), Europipe II (73.5) and Norpipe (34) together bound DE/NL plus DK/PL at 155.5 mcm/day in this network. The saved DK/PL allocation consumes 0.752 bcm in May/December and 0.728 in June, leaving DE/NL at 4.068/3.937 bcm. All three corridors bind in these months. The DE/NL maximum over physically feasible maximum-export solutions is higher: 4.821/4.665 bcm, by reducing Nordic allocation. Thus the reported DE/NL ceiling mixes physical corridor limits with preference-selected DK/PL deliveries. Individual DE/NL splits are proxies.</p>
+<p>France/Belgium jointly has a 96.4 mcm/day envelope (Franpipe 54.2 + Zeepipe 42.2). At fixed forecast supply, minimum UK follows total exports minus these five continental capacities, corrected for non-Gassco UK production. Those cuts are mathematically necessary in the stated model; their capacity vintages and common gas-volume conditions remain provisional. No retained evidence here proves a wrong topology or a real operating bottleneck in 2025.</p>
+<p><strong>Non-unique final allocations:</strong> the ranges below preserve maximum exports, minimum L1 deviation and the saved minimax-shortfall optimum. UK/France-Belgium can exchange 0.351 bcm in December, 0.364 in May and 0.263 in June without worsening any objective or violating physical limits. Saved UK is at the minimum in December and near/at the maximum in May/June. The numerical solver selects a point that the approved objectives do not uniquely identify. No alternative point is scored or selected as a forecast.</p><details><summary>Equally optimal destination ranges (bcm)</summary><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>bound</th>
+      <th>Month</th>
+      <th>Group</th>
+      <th>Maximum bcm</th>
+      <th>Minimum bcm</th>
+      <th>Saved forecast bcm</th>
+      <th>Range width bcm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th></th>
+      <td>2025-05</td>
+      <td>FR+BE</td>
+      <td>2.896</td>
+      <td>2.532</td>
+      <td>2.532</td>
+      <td>0.364</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>2025-05</td>
+      <td>NL+DE</td>
+      <td>4.068</td>
+      <td>4.068</td>
+      <td>4.068</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>2025-05</td>
+      <td>UK</td>
+      <td>2.086</td>
+      <td>1.723</td>
+      <td>2.086</td>
+      <td>0.364</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>2025-06</td>
+      <td>FR+BE</td>
+      <td>2.689</td>
+      <td>2.426</td>
+      <td>2.433</td>
+      <td>0.263</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>2025-06</td>
+      <td>NL+DE</td>
+      <td>3.937</td>
+      <td>3.937</td>
+      <td>3.937</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>2025-06</td>
+      <td>UK</td>
+      <td>1.898</td>
+      <td>1.635</td>
+      <td>1.892</td>
+      <td>0.263</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>2025-12</td>
+      <td>FR+BE</td>
+      <td>2.988</td>
+      <td>2.637</td>
+      <td>2.988</td>
+      <td>0.351</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>2025-12</td>
+      <td>NL+DE</td>
+      <td>4.068</td>
+      <td>4.068</td>
+      <td>4.068</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>2025-12</td>
+      <td>UK</td>
+      <td>2.864</td>
+      <td>2.513</td>
+      <td>2.513</td>
+      <td>0.351</td>
+    </tr>
+  </tbody>
+</table></div></details><p>Ranges are individual extrema, not a rectangular joint feasible set. Fifty-four small bound queries use unchanged source supplies/capacities and the existing optimal-face diagnostic pattern. No target actual enters an LP, and no forecast is reissued. Zeepipe IIB alone being full is not proof of a joint bottleneck: its parallel IIA route retains headroom. UK-direct injection is necessary; additional Langeled/Vesterled allocations depend on other constraints and preferences.</p>
+<h2>Predeclared Kollsnes sensitivity</h2><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>quantity</th>
+      <th>stress_minus_reference_bcm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>UK comparable</td>
+      <td>-1.367</td>
+    </tr>
+    <tr>
+      <td>FR+BE</td>
+      <td>0.267</td>
+    </tr>
+    <tr>
+      <td>NL+DE</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <td>All modelled exports</td>
+      <td>-1.100</td>
+    </tr>
+    <tr>
+      <td>Disposal</td>
+      <td>1.100</td>
+    </tr>
+  </tbody>
+</table></div><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>scenario</th>
+      <th>asset</th>
+      <th>Physical156</th>
+      <th>Capacity143</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th></th>
+      <td>FRANPIPE</td>
+      <td>7</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>KOLLSNES_EXPORT</td>
+      <td>0</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>LANGELED_SOUTH</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div><p>The 143 planning case binds Kollsnes in January, February, April, October, November and December (the 156 case never binds there). May/June forecasts are identical. In December it disposes of an additional 0.154 bcm and reduces UK by that amount, leaving both continental groups unchanged and worsening the UK underallocation. Across the year it reduces exports 1.100 bcm and adds the same disposal. DE/NL absolute volumes never change; their better conditional score comes from a smaller comparable denominator. Overall misallocated volume worsens from 0.463 to 0.480 bcm/month. This is not evidence to select either rating from realised accuracy.</p>
+<h2>Recommendation to Core</h2>
+<p><strong>Investigate first the assumption that the annual 2023 preference rule meaningfully identifies the flexible UK-versus-France allocation.</strong> It misses the observed seasonal share pattern and permits materially different, equally optimal final allocations. Establish what pre-origin physical or historical evidence should determine that allocation and how unresolved ties should be disclosed. Do not fit a preferred point to 2025, change weights or pick a Kollsnes rating from this sample.</p>
+<p>Priorities by evidence: (1) static monthly preferences and unresolved final-objective ties; (2) the combined continental envelope and preference-selected Nordic diversion; (3) revision-tolerant production/source mix and missing maintenance information. The last two remain provisional inputs, not demonstrated specification errors. This audit cannot attribute realised outages or demand changes without new evidence, and does not initiate such an investigation.</p>
+<p>Validation: F2.10 hashes and all frozen accounting checks pass; 54 bound queries are optimal and satisfy node/capacity checks. Independent share/error identities, monthly ordering, baseline derivation and selected-month ranking are checked. Focused regression results are retained in provenance. No code, configuration, network, objective, weights or protected 2026 actuals changed.</p><details><summary>Technical tables and reproduction evidence</summary><ul><li><a href="details/binding_counts.csv">details/binding_counts.csv</a></li><li><a href="details/capacity_changes.csv">details/capacity_changes.csv</a></li><li><a href="details/capacity_summary.csv">details/capacity_summary.csv</a></li><li><a href="details/feasible_ranges.csv">details/feasible_ranges.csv</a></li><li><a href="details/normalised_group_errors.csv">details/normalised_group_errors.csv</a></li><li><a href="details/representative_months.csv">details/representative_months.csv</a></li><li><a href="details/share_metrics.csv">details/share_metrics.csv</a></li><li><a href="details/source_nodes.csv">details/source_nodes.csv</a></li><li><a href="provenance/code/analyse.py">provenance/code/analyse.py</a></li><li><a href="provenance/code/ranges.py">provenance/code/ranges.py</a></li><li><a href="provenance/code/report.py">provenance/code/report.py</a></li><li><a href="provenance/manifest.json">provenance/manifest.json</a></li><li><a href="provenance/validation.json">provenance/validation.json</a></li></ul></details></body></html>

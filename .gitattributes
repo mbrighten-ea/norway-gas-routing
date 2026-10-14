@@ -41,3 +41,6 @@ outputs/minimum_backtest_f29/** -text whitespace=cr-at-eol
 # Frozen revision-tolerant 2025 pilot inputs, forecasts and scoring evidence.
 data/raw/revision_tolerant_2025/** -text whitespace=cr-at-eol
 outputs/revision_tolerant_2025/** -text whitespace=cr-at-eol
+
+# Frozen F2.11 error-attribution tables and reproducible diagnostic provenance.
+outputs/routing_error_attribution_2025/** -text whitespace=cr-at-eol

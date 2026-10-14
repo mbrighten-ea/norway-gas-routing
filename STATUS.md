@@ -1,5 +1,33 @@
 # Current implementation state
 
+## 2025 routing-error attribution
+
+[F2.11 report](outputs/routing_error_attribution_2025/report.html) and its
+[monthly attribution](outputs/routing_error_attribution_2025/results.csv) use the
+unchanged F2.10 package `a676910`. Branch `analysis/routing-errors-2025-f211` adds
+analysis only: no retrieval, model/configuration change, new forecast or holdout read.
+
+At a common actual export volume, mean misallocated volume is 0.463 bcm/month
+for physical routing, 0.287 for EA and 0.526 for all-twelve-month 2023 shares.
+The network improves static shares overall, especially UK, but worsens FR/BE.
+December, May and June explain 1.131 bcm of the 2.107 bcm annual model-minus-EA
+routing-error distance. Static preferences miss seasonal destination changes;
+UK-direct floors are only 0.65–0.69 bcm in these months and do not pin total UK.
+
+Fifty-four bounded LP queries, using only frozen forecast inputs, preserve the
+original physical constraints and optionally all three saved objective optima.
+The final optimal set still permits UK/FR-BE exchanges of 0.351, 0.364 and
+0.263 bcm in those months. DE/NL is pinned by the combined corridor envelope
+and preference-selected Nordic allocation, not independently by physical exits.
+The 143 Kollsnes case slightly worsens normalised allocation error (0.480 bcm/month).
+Capacity applicability remains provisional; this audit proves no topology error.
+
+Next Core decision: investigate whether annual-2023 preferences and unresolved
+final-objective ties meaningfully identify flexible UK versus France/Belgium.
+Do not select a new optimal point from 2025 scores or change weights/capacities.
+143 focused regression tests passed; frozen-package hashes, score identities and
+all diagnostic node/capacity checks pass. The original Excel and forward model remain intact.
+
 ## First revision-tolerant 2025 accuracy comparison
 
 [Excel comparison](outputs/revision_tolerant_2025/results.xlsx) and

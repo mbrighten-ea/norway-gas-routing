@@ -1,0 +1,38 @@
+{
+  "base_revision": "a676910e1447e1383fdbb68735a7d932d6c45b51",
+  "created_at": "2026-10-14T13:22:27.423851+00:00",
+  "analysis_type": "Frozen 2025 routing-error attribution; not forecast calibration",
+  "frozen_input_manifest": "outputs/revision_tolerant_2025/provenance/manifest.json",
+  "input_manifest_sha256": "476cc5434bd507a7bdcb72060a0410dd36b5df5811f8db760c020c8e81d8dec7",
+  "raw_data_retrieval": false,
+  "protected_actuals_queried": false,
+  "model_changes": false,
+  "diagnostic_bound_queries": 54,
+  "actual_total_usage": "Post-forecast share scoring only; no actuals enter bound-query LPs",
+  "baseline_policy": "All twelve retained compatible 2023 group observations; unchanged ten-month operational shares shown separately",
+  "selected_months": [
+    "2025-12",
+    "2025-05",
+    "2025-06"
+  ],
+  "selection_metric": "Largest conditional half-L1 volume-error gap Physical156 minus EA",
+  "range_policy": "Existing optimal-face pattern; sources/capacities fixed; saved stage optima preserved with 1e-8 bcm tolerance; individual extrema",
+  "focused_regression_result": "143 passed in 13.95s",
+  "reproduction": "Run retained provenance/code/analyse.py, then ranges.py, then report.py from repository root with approved interpreter; no source services are called. Diagnostics regenerate in ignored .scratch; recorded focused tests remain recorded unless explicitly rerun.",
+  "files_sha256": {
+    "outputs/routing_error_attribution_2025/details/binding_counts.csv": "1a04180e0edbf091f0bf65282b735a0bde99b05b34cf106647d45d0f6c5abcad",
+    "outputs/routing_error_attribution_2025/details/capacity_changes.csv": "05880db0ed470a60368743720d054190c584ea9cd4ff5e31286b8c2506aaaa0f",
+    "outputs/routing_error_attribution_2025/details/capacity_summary.csv": "14f063d2a42b3790d1f4aea9649f54971d98a19c2c0f375eeca39f0301c0e19d",
+    "outputs/routing_error_attribution_2025/details/feasible_ranges.csv": "e0d44a3055508e826baf8ad9a7a8b153136067fe870f6b7053c8bf9ba9b93462",
+    "outputs/routing_error_attribution_2025/details/normalised_group_errors.csv": "8b1bb9fc621fa673bb3fb3d02ced0ff5a1b0b10167dde277d73842852c387ece",
+    "outputs/routing_error_attribution_2025/details/representative_months.csv": "08ddc30880816d57aeb751f2b10479e2a1d5cca501ca2589e4d95d93d68aacc6",
+    "outputs/routing_error_attribution_2025/details/share_metrics.csv": "255abe63b389fc5032017a4d7975f30d5112c04c206de7d9376be1b466fb8352",
+    "outputs/routing_error_attribution_2025/details/source_nodes.csv": "e0ba2f2237092487c35efff466bf8a2eaf4dbb8cddb3ff3c70ea5294adb80afe",
+    "outputs/routing_error_attribution_2025/provenance/code/analyse.py": "c49f04b88299e4779fa6e03153e4f21ff498dd1f9996fffccc5c4e2ef7f6c79b",
+    "outputs/routing_error_attribution_2025/provenance/code/ranges.py": "eca25f60c79a6ee9ca13e86d9c8a10b51ae16e37a84ece59448a0a0616c68d85",
+    "outputs/routing_error_attribution_2025/provenance/code/report.py": "73efa91d3a4240332f751e5f52adfde59f89bebe7463a7295d24568038865c46",
+    "outputs/routing_error_attribution_2025/provenance/validation.json": "b7d068a63f515099ea536aa81ae19257fda8bc14056c6cc7a323c65af13676e9",
+    "outputs/routing_error_attribution_2025/report.html": "02678f2b983d9e1b6c41b6d8844ff0978e106527e108789bdd025c17169f2733",
+    "outputs/routing_error_attribution_2025/results.csv": "c2e936b81226e9b73306c8942eb1e677f9452f97f11200a41f941b2c5e927101"
+  }
+}
