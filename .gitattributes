@@ -44,3 +44,7 @@ outputs/revision_tolerant_2025/** -text whitespace=cr-at-eol
 
 # Frozen F2.11 error-attribution tables and reproducible diagnostic provenance.
 outputs/routing_error_attribution_2025/** -text whitespace=cr-at-eol
+
+# Frozen F2.13 origin-price capture and physical-gate diagnostics.
+data/raw/physical_commercial_gate_f213/** -text whitespace=cr-at-eol
+outputs/physical_commercial_gate_f213/** -text whitespace=cr-at-eol

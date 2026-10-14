@@ -1,0 +1,261 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Physical gate and commercial-choice design</title><style>body{font:16px/1.55 system-ui;margin:40px auto;max-width:1100px;padding:0 24px;color:#192c38}
+h1,h2{line-height:1.2}table{border-collapse:collapse;font-size:14px;width:100%;margin:20px 0}
+th,td{padding:8px 12px;border-bottom:1px solid #ccd6dd;text-align:left}th{background:#eef3f6}
+img{max-width:100%;height:auto}a{color:#17659b}.scroll{overflow:auto}.note{background:#fff3da;padding:16px}
+details{margin:20px 0}code{background:#edf2f5;padding:2px 5px}</style><h1>Physical gate and commercial-choice design</h1><p class="note"><strong>Decision: physical validation remains unresolved; the smallest economic pilot is designed, not implemented.</strong>
+Observed aggregate deliveries are feasible under the declared envelopes, but that does not verify capacity definitions, actual source injections or commercial access.
+No active model, preferences, weights, capacities, forecasts or historical scoring changed. F2.12 cleanup was completed first at <code>1e88049</code>.</p>
+<h2>Physical-validation gate</h2><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Gate</th>
+      <th>Decision</th>
+      <th>Verified evidence</th>
+      <th>Remaining limit</th>
+      <th>Required action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2025 ratings / dates</td>
+      <td>UNRESOLVED; boundary contradiction</td>
+      <td>14 pipes match retained 2024 map; Kollsnes upgrade evidenced; Nyhamna 84 export.</td>
+      <td>2025 effective dates/reference conditions unverified. Karsto 95 is rich inlet, not certified net dry export; Kollsnes 143/144.5/156 differ in date/boundary.</td>
+      <td>Obtain dated dry/export definitions or approve declared sensitivity; no numeric correction justified.</td>
+    </tr>
+    <tr>
+      <td>Maintenance compatibility</td>
+      <td>UNRESOLVED</td>
+      <td>Historical pilot explicitly assumes no planned deductions; live 156-minus-unavailable is unchanged.</td>
+      <td>No origin-available 2025 outage contract; net UMM effects, overlapping revisions and volume bases not fully reconciled.</td>
+      <td>Retain full-availability planning assumption, not observed availability; no synthetic outages.</td>
+    </tr>
+    <tr>
+      <td>Shared plant / corridor / terminal constraints</td>
+      <td>PARTIAL PASS; unresolved coverage</td>
+      <td>Asset users summed once; Europipe II shared before DK/PL split; Zeepipe IIA/IIB not additional exits.</td>
+      <td>Collapsed CORE lacks separate Sleipner-Draupner segment; receiver cluster/end-terminal limits not independently validated.</td>
+      <td>Do not add terminal/pipe capacities or Faxe sides. Validate material UK/France end-to-end limits before commercial certification.</td>
+    </tr>
+    <tr>
+      <td>Connections / destination boundaries</td>
+      <td>PARTIAL PASS; proxy limits</td>
+      <td>Existing supported routes and accounting retained; UK scope correction explicit.</td>
+      <td>DE/NL split is accounting, not independently tradable routing; DK/PL boundaries and Sm3/Nm3/GCV basis incomplete.</td>
+      <td>Restrict initial choice to physical Easington versus Dunkerque; hold proxy and Nordic allocations fixed.</td>
+    </tr>
+    <tr>
+      <td>Observed 2025 joint feasibility</td>
+      <td>PARTIAL PASS, not full certification</td>
+      <td>48/48 physical-only monthly cases optimal under 156 and 143, with no preference or maximum-export optimum restriction.</td>
+      <td>Only UK, FR+BE, DE+NL jointly imposed; no observed node ledger, DK/PL, individual terminal or daily feasibility claim.</td>
+      <td>No observed aggregate topology contradiction. Keep full physical-validation gate unresolved.</td>
+    </tr>
+  </tbody>
+</table></div>
+<p>Evidence: <a href="../../evidence/inputs/public_capacity_findings.md">retained capacity findings</a>,
+<a href="../../evidence/inputs/public_capacity_database.md">capacity database assessment</a>,
+<a href="../../evidence/inputs/physical_contract_f23/README.md">physical input contract evidence</a>.
+No network-wide audit or new infrastructure search was performed. The older findings' detailed public-audit CSVs/raw archive are not part of this tracked checkout;
+this gate relies on the retained findings and their operator citations, not a new independent verification of those absent files.</p>
+<p><strong>Material definition issue:</strong> Karsto's 95 mcm/day rich inlet rating is not a certified dry-gas export limit.
+The 97 generic processing figure does not correct that mismatch. Obtain an operator-supported rich/dry conversion or net-export rating before changing it.
+F2.10 peak Karsto utilisation is 86.004% of the assumed ceiling (about 81.704 mcm/day), so the current cap does not bind that reference.
+Any sensitivity must use independently evidenced conversion bounds, not a capacity chosen to fit observed country flows.</p>
+<p>Kollsnes' autumn-2023 upgrade was documented in a report published in 2024; the explicit 144.5-to-156 announcement is dated 6 January 2025.
+Exact effective day, baseline and upgraded dry-export boundary remain unresolved. Retain the predeclared 156 planning and 143 sensitivity cases without claiming either was a verified December-2024 rating.
+No independent correction to the live approved capacity or maintenance formula is justified here.</p>
+<h2>Observed-flow feasibility, without routing preferences</h2>
+<p>All twelve months pass jointly for UK, France+Belgium and Germany+Netherlands: two declared Kollsnes envelopes times two source treatments = 48 feasible cases.
+The objective is zero/existence; neither destination preferences nor a maximum-export optimum is imposed.
+The first case allows unknown nonnegative injections at existing Gassco feeds, with UK_DIRECT and UNMAPPED set to zero, bounded by retained revised actual national production minus Snøhvit.
+Those injections are existence witnesses, not reconstructed actual sources or calibrated weights.</p>
+<p>The second case fixes the original forecast source vector and adds its forecast non-Gassco UK scope packet to the observed UK target.
+That packet is not an observed reconstruction. DK/PL and the within-group country splits remain free in both cases; aggregate month feasibility does not prove daily or terminal feasibility.
+Observed 2025 production is used only as a physical-diagnostic upper bound, never a forecast input. No protected 2026 actuals were read.</p>
+<h2>Smallest fourth-stage experiment</h2>
+<p>Allow only a CORE-feed exchange between Langeled South → Easington → UK/NBP and Franpipe → Dunkerque → France/PEG.
+Hold all upstream flows, source weights, UK_DIRECT, Vesterled, Belgium/Zeepipe, DE/NL and Nordic allocations fixed.
+This deliberately tests a subset of optimal routing freedom, not the full UK/France-Belgium range found in F2.11.</p>
+<p>First preserve export/disposal optimum, absolute destination-preference deviation optimum, and minimax fractional-shortfall optimum.
+Then propose the fourth criterion, with δ the additional UK bcm and equal reduction in France:</p>
+<p><code>max δ × [(NBP_origin − PEG_origin) − (incremental_UK_cost − incremental_FR_cost)]</code></p>
+<p>Prices and incremental costs are EUR/MWh for the same delivery month. A common positive MWh/bcm factor cancels for selection only under an explicit compatible energy/volume assumption;
+no calorific value, realised FX or numerical profit is invented. δ must satisfy the saved three optima, physical envelopes and separately approved commercial switching rights.
+If the net difference is zero, retain δ=0 deterministically. No commercial objective was solved in this task.</p>
+<p>The analytic forecast-input-only domains below preserve all three optima and every physical constraint at both endpoints (1e-7 bcm verification tolerance).
+They are not commercial availability. September has no such exchange freedom.</p><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>month</th>
+      <th>UK_increment_min_bcm</th>
+      <th>UK_increment_max_bcm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2025-01</td>
+      <td>0.000</td>
+      <td>0.308</td>
+    </tr>
+    <tr>
+      <td>2025-02</td>
+      <td>-0.267</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <td>2025-03</td>
+      <td>0.000</td>
+      <td>0.349</td>
+    </tr>
+    <tr>
+      <td>2025-04</td>
+      <td>0.000</td>
+      <td>0.407</td>
+    </tr>
+    <tr>
+      <td>2025-05</td>
+      <td>-0.364</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <td>2025-06</td>
+      <td>-0.257</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <td>2025-07</td>
+      <td>0.000</td>
+      <td>0.418</td>
+    </tr>
+    <tr>
+      <td>2025-08</td>
+      <td>-0.336</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <td>2025-09</td>
+      <td>0.000</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <td>2025-10</td>
+      <td>0.000</td>
+      <td>0.361</td>
+    </tr>
+    <tr>
+      <td>2025-11</td>
+      <td>0.000</td>
+      <td>0.359</td>
+    </tr>
+    <tr>
+      <td>2025-12</td>
+      <td>0.000</td>
+      <td>0.351</td>
+    </tr>
+  </tbody>
+</table></div>
+<h2>December-2024 commercial input availability</h2>
+<p>Seven existing registered candidates were queried once with <code>@asof:2024-12-31T23:59:59</code>, delivery dates January–December 2025.
+The four EA monthly price forecasts have 12/12 observations in the archived service view, labelled EUR/MWh and forecast start December 2024.
+These are provider forecasts, not demonstrated traded forward settlement strips. As-of service availability is evidenced; independent publication/import time and NBP EUR conversion/FX/therm and energy-reference conventions remain uncertified.</p><div class="scroll"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>key</th>
+      <th>points</th>
+      <th>complete_monthly_grid</th>
+      <th>unit</th>
+      <th>role</th>
+      <th>forecast_start_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>nbp_forecast_eur</td>
+      <td>12</td>
+      <td>True</td>
+      <td>eur_MWh</td>
+      <td>forecast</td>
+      <td>2024-12-01T00:00:00</td>
+    </tr>
+    <tr>
+      <td>peg_forecast</td>
+      <td>12</td>
+      <td>True</td>
+      <td>eur_MWh</td>
+      <td>forecast</td>
+      <td>2024-12-01T00:00:00</td>
+    </tr>
+    <tr>
+      <td>ztp_forecast</td>
+      <td>12</td>
+      <td>True</td>
+      <td>eur_MWh</td>
+      <td>forecast</td>
+      <td>2024-12-01T00:00:00</td>
+    </tr>
+    <tr>
+      <td>ttf_forecast</td>
+      <td>12</td>
+      <td>True</td>
+      <td>eur_MWh</td>
+      <td>forecast</td>
+      <td>2024-12-01T00:00:00</td>
+    </tr>
+    <tr>
+      <td>nbp_eex_curve</td>
+      <td>5</td>
+      <td>False</td>
+      <td>p_therm</td>
+      <td>actual</td>
+      <td>Not supplied</td>
+    </tr>
+    <tr>
+      <td>peg_eex_curve</td>
+      <td>6</td>
+      <td>False</td>
+      <td>eur_MWh</td>
+      <td>actual</td>
+      <td>Not supplied</td>
+    </tr>
+    <tr>
+      <td>ztp_eex_curve</td>
+      <td>3</td>
+      <td>False</td>
+      <td>eur_MWh</td>
+      <td>actual</td>
+      <td>Not supplied</td>
+    </tr>
+  </tbody>
+</table></div>
+<p>The EEX candidates supply only 5 NBP, 6 PEG and 3 ZTP points; their delivery-strip valuation/freshness contract is incomplete.
+Do not fill missing months or substitute them silently. Full SIDs, queries, dates, source metadata and byte hashes are retained.
+The minimal pilot needs only NBP-EUR and PEG. Belgium is fixed; extending it requires a separate ZTP contract, not a France+Belgium invented price.
+TTF may only be an explicitly approved common landing-pool value proxy later; DE/NL accounting arcs cannot be treated as separately tradable routes.</p>
+<h2>Incremental costs and commercial access</h2>
+<p>Required costs are the route-dependent offshore transport/commodity or fuel charges, receiving entry/hub/balancing costs and genuinely incremental capacity-acquisition or independently supported opportunity costs.
+Retain their delivery period, currency, energy basis, effective date and origin availability. Exclude unavoidable sunk/precontracted payments from marginal cash selection;
+capacity rights still constrain the switch. Do not deduct physical fuel volumes again or equate a published average/full tariff with a marginal cost.</p>
+<p>No retained twelve-month UK/France end-to-end incremental-tariff or shipper-rights contract was established.
+Spare engineering headroom and unsold technical/firm capacity do not prove a producer can switch nominated gas between markets.
+Document held rights, receiving entry access, resale/nomination flexibility and relevant portfolio ownership, or obtain explicit Core approval for hypothetical bounds.
+Unknown rights imply no verified switch. A δ=0 no-access case and full-physical-access upper case may be declared assumptions, never certified commercial forecasts.</p>
+<p>Unknown costs must not silently become zero. The saved NBP-minus-PEG value gap is a break-even incremental-cost difference, not net profit.
+Core must approve any cost assumption before allocation; do not select tariffs or access fractions using 2025 errors.</p>
+<h2>Twelve-month historical testing specification</h2>
+<ol><li>Preserve the unchanged <a href="../revision_tolerant_2025/results.xlsx">F2.10 genuine forecast-volume output</a> and its revision-tolerant provenance.</li>
+<li>Keep conditional allocation scoring separate: normalise forecast shares to common observed export volume after forecasting only. Actual totals are not commercial-forecast LP inputs.</li>
+<li>After freezing the origin price, cost, rights and unit contract, produce the optional economic tie-selection forecast for all twelve 2025 months using December-2024 information only.
+It retains revision-tolerant pre-origin production histories, so is not a fully vintage-correct real-time backtest.</li></ol>
+<p>Use the existing UK, FR+BE, DE+NL and comparable-total boundaries and MAE, WAPE, signed bias and share diagnostics.
+Total export volume stays unchanged in this two-route experiment. Do not retrieve realised 2025 hub prices or tune the commercial score to deliveries.
+The examined 2025 sample is development evidence; it is not untouched validation. Preserve the locked January–September 2026 holdout.
+No UK regression is introduced, and no ex-ante UK accuracy improvement is promised. A negative result does not authorise retuning physics or historical preferences.</p>
+<h2>Minimum Core decision and next task</h2>
+<p><strong>Design ready; implementation conditional, commercially verified forecast not ready.</strong>
+Approve the narrowly declared physical envelopes and common energy/provider-EUR basis, plus a documented or explicitly hypothetical UK/France rights and incremental-cost contract.
+Then implement one optional fourth-stage selector in the existing workflow, preserving the three existing optima and retaining a δ=0 baseline and qualifications.
+Do not reuse the old realised-price experiment that alters stage two; no new framework, grouped-market price, general commercial optimiser or capacity calibration is needed.</p>
+<p>Focused regression checks: 123 passed. Physical-only cases: 48/48 optimal; analytic domains: 12 months with endpoint checks.
+F2.10 independent accounting/scoring verification and both original-package hash checks pass. Inputs and original forecasts are unchanged.</p>
+<details><summary>Technical tables and reproduction evidence</summary><ul><li><a href="details/feasibility.csv">details/feasibility.csv</a></li><li><a href="details/origin_price_view.csv">details/origin_price_view.csv</a></li><li><a href="details/physical_witnesses.json">details/physical_witnesses.json</a></li><li><a href="details/price_availability.csv">details/price_availability.csv</a></li><li><a href="details/source_witnesses.csv">details/source_witnesses.csv</a></li><li><a href="details/two_route_domains.csv">details/two_route_domains.csv</a></li><li><a href="provenance/code/physical_checks.py">provenance/code/physical_checks.py</a></li><li><a href="provenance/code/query_prices.py">provenance/code/query_prices.py</a></li><li><a href="provenance/code/report.py">provenance/code/report.py</a></li><li><a href="provenance/validation.json">provenance/validation.json</a></li></ul></details></html>

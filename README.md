@@ -114,6 +114,7 @@ branch containing them. The older main checkout remains on an investigation bran
 | F2.8 seasonal inputs and rolling-weight evidence | [Assumption comparison](outputs/chronological_inputs_f28/report.html) |
 | F2.10 first 2025 accuracy comparison | [Excel](outputs/revision_tolerant_2025/results.xlsx); [report](outputs/revision_tolerant_2025/report.html) |
 | F2.11 routing-error attribution | [Report and monthly table](outputs/routing_error_attribution_2025/report.html) |
+| F2.13 physical validation and commercial-choice design | [Decision report](outputs/physical_commercial_gate_f213/report.html) |
 
 The 2025 comparison is a revision-tolerant historical reconstruction, not a verified
 real-time backtest. No target-year actuals entered forecast inputs; normalisation

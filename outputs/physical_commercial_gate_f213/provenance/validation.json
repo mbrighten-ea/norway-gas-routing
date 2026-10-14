@@ -1,0 +1,13 @@
+{
+  "focused_tests": "123 passed in 12.55s",
+  "physical_cases": 48,
+  "optimal_cases": 48,
+  "maximum_balance_residual_bcm": 1.7763568394002505e-15,
+  "maximum_capacity_violation_bcm": 0.0,
+  "analytic_domains": 12,
+  "all_three_objectives_preserved": true,
+  "prior_manifest_files_verified": 192,
+  "original_forecasts_changed": false,
+  "commercial_optimisation_implemented": false,
+  "protected_actuals_queried": false
+}

@@ -1,0 +1,385 @@
+month,scenario,case,node,bcm,interpretation
+2025-01,Reference156,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-01,Reference156,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-01,Reference156,free Gassco feeds,KARSTO_FEED,2.2785,Existence witness only; never a calibrated source vector
+2025-01,Reference156,free Gassco feeds,OSEBERG,0.8999914396654076,Existence witness only; never a calibrated source vector
+2025-01,Reference156,free Gassco feeds,SLEIPNER,5.843705400731876,Existence witness only; never a calibrated source vector
+2025-01,Reference156,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-01,Reference156,free Gassco feeds,EKOFISK_FEED,1.054,Existence witness only; never a calibrated source vector
+2025-01,Reference156,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-01,Reference156,frozen forecast feeds,KOLLSNES_FEED,4.75503293074495,Frozen forecast input
+2025-01,Reference156,frozen forecast feeds,NYHAMNA_FEED,1.4246710592179372,Frozen forecast input
+2025-01,Reference156,frozen forecast feeds,KARSTO_FEED,2.532815380482593,Frozen forecast input
+2025-01,Reference156,frozen forecast feeds,OSEBERG,0.7855589577117762,Frozen forecast input
+2025-01,Reference156,frozen forecast feeds,SLEIPNER,0.361116564004912,Frozen forecast input
+2025-01,Reference156,frozen forecast feeds,UK_DIRECT,0.9102521670579844,Frozen forecast input
+2025-01,Reference156,frozen forecast feeds,EKOFISK_FEED,0.1676916034994669,Frozen forecast input
+2025-01,Reference156,frozen forecast feeds,UNMAPPED,0.012613075198805,Frozen forecast input
+2025-01,Planning143,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-01,Planning143,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-01,Planning143,free Gassco feeds,KARSTO_FEED,2.2785,Existence witness only; never a calibrated source vector
+2025-01,Planning143,free Gassco feeds,OSEBERG,0.8999914396654076,Existence witness only; never a calibrated source vector
+2025-01,Planning143,free Gassco feeds,SLEIPNER,5.843705400731876,Existence witness only; never a calibrated source vector
+2025-01,Planning143,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-01,Planning143,free Gassco feeds,EKOFISK_FEED,1.054,Existence witness only; never a calibrated source vector
+2025-01,Planning143,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-01,Planning143,frozen forecast feeds,KOLLSNES_FEED,4.75503293074495,Frozen forecast input
+2025-01,Planning143,frozen forecast feeds,NYHAMNA_FEED,1.4246710592179372,Frozen forecast input
+2025-01,Planning143,frozen forecast feeds,KARSTO_FEED,2.532815380482593,Frozen forecast input
+2025-01,Planning143,frozen forecast feeds,OSEBERG,0.7855589577117762,Frozen forecast input
+2025-01,Planning143,frozen forecast feeds,SLEIPNER,0.361116564004912,Frozen forecast input
+2025-01,Planning143,frozen forecast feeds,UK_DIRECT,0.9102521670579844,Frozen forecast input
+2025-01,Planning143,frozen forecast feeds,EKOFISK_FEED,0.1676916034994669,Frozen forecast input
+2025-01,Planning143,frozen forecast feeds,UNMAPPED,0.012613075198805,Frozen forecast input
+2025-02,Reference156,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-02,Reference156,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-02,Reference156,free Gassco feeds,KARSTO_FEED,2.058,Existence witness only; never a calibrated source vector
+2025-02,Reference156,free Gassco feeds,OSEBERG,0.4430786952623653,Existence witness only; never a calibrated source vector
+2025-02,Reference156,free Gassco feeds,SLEIPNER,5.508568659499044,Existence witness only; never a calibrated source vector
+2025-02,Reference156,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-02,Reference156,free Gassco feeds,EKOFISK_FEED,0.952,Existence witness only; never a calibrated source vector
+2025-02,Reference156,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-02,Reference156,frozen forecast feeds,KOLLSNES_FEED,4.304064381187022,Frozen forecast input
+2025-02,Reference156,frozen forecast feeds,NYHAMNA_FEED,1.299405359187285,Frozen forecast input
+2025-02,Reference156,frozen forecast feeds,KARSTO_FEED,2.255219331106021,Frozen forecast input
+2025-02,Reference156,frozen forecast feeds,OSEBERG,0.710102548715894,Frozen forecast input
+2025-02,Reference156,frozen forecast feeds,SLEIPNER,0.4488790464634725,Frozen forecast input
+2025-02,Reference156,frozen forecast feeds,UK_DIRECT,0.8008366353938826,Frozen forecast input
+2025-02,Reference156,frozen forecast feeds,EKOFISK_FEED,0.1475637870993499,Frozen forecast input
+2025-02,Reference156,frozen forecast feeds,UNMAPPED,0.0110991433349283,Frozen forecast input
+2025-02,Planning143,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-02,Planning143,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-02,Planning143,free Gassco feeds,KARSTO_FEED,2.058,Existence witness only; never a calibrated source vector
+2025-02,Planning143,free Gassco feeds,OSEBERG,0.4430786952623653,Existence witness only; never a calibrated source vector
+2025-02,Planning143,free Gassco feeds,SLEIPNER,5.508568659499044,Existence witness only; never a calibrated source vector
+2025-02,Planning143,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-02,Planning143,free Gassco feeds,EKOFISK_FEED,0.952,Existence witness only; never a calibrated source vector
+2025-02,Planning143,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-02,Planning143,frozen forecast feeds,KOLLSNES_FEED,4.304064381187022,Frozen forecast input
+2025-02,Planning143,frozen forecast feeds,NYHAMNA_FEED,1.299405359187285,Frozen forecast input
+2025-02,Planning143,frozen forecast feeds,KARSTO_FEED,2.255219331106021,Frozen forecast input
+2025-02,Planning143,frozen forecast feeds,OSEBERG,0.710102548715894,Frozen forecast input
+2025-02,Planning143,frozen forecast feeds,SLEIPNER,0.4488790464634725,Frozen forecast input
+2025-02,Planning143,frozen forecast feeds,UK_DIRECT,0.8008366353938826,Frozen forecast input
+2025-02,Planning143,frozen forecast feeds,EKOFISK_FEED,0.1475637870993499,Frozen forecast input
+2025-02,Planning143,frozen forecast feeds,UNMAPPED,0.0110991433349283,Frozen forecast input
+2025-03,Reference156,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-03,Reference156,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-03,Reference156,free Gassco feeds,KARSTO_FEED,2.2785,Existence witness only; never a calibrated source vector
+2025-03,Reference156,free Gassco feeds,OSEBERG,0.12345496218167806,Existence witness only; never a calibrated source vector
+2025-03,Reference156,free Gassco feeds,SLEIPNER,6.45840965521496,Existence witness only; never a calibrated source vector
+2025-03,Reference156,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-03,Reference156,free Gassco feeds,EKOFISK_FEED,1.054,Existence witness only; never a calibrated source vector
+2025-03,Reference156,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-03,Reference156,frozen forecast feeds,KOLLSNES_FEED,4.4235417432318505,Frozen forecast input
+2025-03,Reference156,frozen forecast feeds,NYHAMNA_FEED,1.408388042316004,Frozen forecast input
+2025-03,Reference156,frozen forecast feeds,KARSTO_FEED,2.470240889127988,Frozen forecast input
+2025-03,Reference156,frozen forecast feeds,OSEBERG,0.8088973014318216,Frozen forecast input
+2025-03,Reference156,frozen forecast feeds,SLEIPNER,0.4721624322302545,Frozen forecast input
+2025-03,Reference156,frozen forecast feeds,UK_DIRECT,0.8640994957664654,Frozen forecast input
+2025-03,Reference156,frozen forecast feeds,EKOFISK_FEED,0.1623060586827706,Frozen forecast input
+2025-03,Reference156,frozen forecast feeds,UNMAPPED,0.0122079965881771,Frozen forecast input
+2025-03,Planning143,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-03,Planning143,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-03,Planning143,free Gassco feeds,KARSTO_FEED,2.2785,Existence witness only; never a calibrated source vector
+2025-03,Planning143,free Gassco feeds,OSEBERG,0.12345496218167806,Existence witness only; never a calibrated source vector
+2025-03,Planning143,free Gassco feeds,SLEIPNER,6.45840965521496,Existence witness only; never a calibrated source vector
+2025-03,Planning143,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-03,Planning143,free Gassco feeds,EKOFISK_FEED,1.054,Existence witness only; never a calibrated source vector
+2025-03,Planning143,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-03,Planning143,frozen forecast feeds,KOLLSNES_FEED,4.4235417432318505,Frozen forecast input
+2025-03,Planning143,frozen forecast feeds,NYHAMNA_FEED,1.408388042316004,Frozen forecast input
+2025-03,Planning143,frozen forecast feeds,KARSTO_FEED,2.470240889127988,Frozen forecast input
+2025-03,Planning143,frozen forecast feeds,OSEBERG,0.8088973014318216,Frozen forecast input
+2025-03,Planning143,frozen forecast feeds,SLEIPNER,0.4721624322302545,Frozen forecast input
+2025-03,Planning143,frozen forecast feeds,UK_DIRECT,0.8640994957664654,Frozen forecast input
+2025-03,Planning143,frozen forecast feeds,EKOFISK_FEED,0.1623060586827706,Frozen forecast input
+2025-03,Planning143,frozen forecast feeds,UNMAPPED,0.0122079965881771,Frozen forecast input
+2025-04,Reference156,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-04,Reference156,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-04,Reference156,free Gassco feeds,KARSTO_FEED,2.205,Existence witness only; never a calibrated source vector
+2025-04,Reference156,free Gassco feeds,OSEBERG,-0.0,Existence witness only; never a calibrated source vector
+2025-04,Reference156,free Gassco feeds,SLEIPNER,6.070044008785331,Existence witness only; never a calibrated source vector
+2025-04,Reference156,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-04,Reference156,free Gassco feeds,EKOFISK_FEED,1.02,Existence witness only; never a calibrated source vector
+2025-04,Reference156,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-04,Reference156,frozen forecast feeds,KOLLSNES_FEED,4.4467758747976776,Frozen forecast input
+2025-04,Reference156,frozen forecast feeds,NYHAMNA_FEED,0.7579890384142434,Frozen forecast input
+2025-04,Reference156,frozen forecast feeds,KARSTO_FEED,2.3443892446593515,Frozen forecast input
+2025-04,Reference156,frozen forecast feeds,OSEBERG,0.7369733799376602,Frozen forecast input
+2025-04,Reference156,frozen forecast feeds,SLEIPNER,0.436085902577528,Frozen forecast input
+2025-04,Reference156,frozen forecast feeds,UK_DIRECT,0.8403522008188957,Frozen forecast input
+2025-04,Reference156,frozen forecast feeds,EKOFISK_FEED,0.1530034862978226,Frozen forecast input
+2025-04,Reference156,frozen forecast feeds,UNMAPPED,0.0115082952162235,Frozen forecast input
+2025-04,Planning143,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-04,Planning143,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-04,Planning143,free Gassco feeds,KARSTO_FEED,2.205,Existence witness only; never a calibrated source vector
+2025-04,Planning143,free Gassco feeds,OSEBERG,-0.0,Existence witness only; never a calibrated source vector
+2025-04,Planning143,free Gassco feeds,SLEIPNER,6.070044008785331,Existence witness only; never a calibrated source vector
+2025-04,Planning143,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-04,Planning143,free Gassco feeds,EKOFISK_FEED,1.02,Existence witness only; never a calibrated source vector
+2025-04,Planning143,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-04,Planning143,frozen forecast feeds,KOLLSNES_FEED,4.4467758747976776,Frozen forecast input
+2025-04,Planning143,frozen forecast feeds,NYHAMNA_FEED,0.7579890384142434,Frozen forecast input
+2025-04,Planning143,frozen forecast feeds,KARSTO_FEED,2.3443892446593515,Frozen forecast input
+2025-04,Planning143,frozen forecast feeds,OSEBERG,0.7369733799376602,Frozen forecast input
+2025-04,Planning143,frozen forecast feeds,SLEIPNER,0.436085902577528,Frozen forecast input
+2025-04,Planning143,frozen forecast feeds,UK_DIRECT,0.8403522008188957,Frozen forecast input
+2025-04,Planning143,frozen forecast feeds,EKOFISK_FEED,0.1530034862978226,Frozen forecast input
+2025-04,Planning143,frozen forecast feeds,UNMAPPED,0.0115082952162235,Frozen forecast input
+2025-05,Reference156,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-05,Reference156,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-05,Reference156,free Gassco feeds,KARSTO_FEED,2.2785,Existence witness only; never a calibrated source vector
+2025-05,Reference156,free Gassco feeds,OSEBERG,-0.0,Existence witness only; never a calibrated source vector
+2025-05,Reference156,free Gassco feeds,SLEIPNER,5.640258455469382,Existence witness only; never a calibrated source vector
+2025-05,Reference156,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-05,Reference156,free Gassco feeds,EKOFISK_FEED,1.054,Existence witness only; never a calibrated source vector
+2025-05,Reference156,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-05,Reference156,frozen forecast feeds,KOLLSNES_FEED,4.180508414981357,Frozen forecast input
+2025-05,Reference156,frozen forecast feeds,NYHAMNA_FEED,0.7427190492641402,Frozen forecast input
+2025-05,Reference156,frozen forecast feeds,KARSTO_FEED,2.438513111530047,Frozen forecast input
+2025-05,Reference156,frozen forecast feeds,OSEBERG,0.7330403865007122,Frozen forecast input
+2025-05,Reference156,frozen forecast feeds,SLEIPNER,0.4746650133474406,Frozen forecast input
+2025-05,Reference156,frozen forecast feeds,UK_DIRECT,1.0086226489505457,Frozen forecast input
+2025-05,Reference156,frozen forecast feeds,EKOFISK_FEED,0.1786779698321266,Frozen forecast input
+2025-05,Reference156,frozen forecast feeds,UNMAPPED,0.0134394246511549,Frozen forecast input
+2025-05,Planning143,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-05,Planning143,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-05,Planning143,free Gassco feeds,KARSTO_FEED,2.2785,Existence witness only; never a calibrated source vector
+2025-05,Planning143,free Gassco feeds,OSEBERG,-0.0,Existence witness only; never a calibrated source vector
+2025-05,Planning143,free Gassco feeds,SLEIPNER,5.640258455469382,Existence witness only; never a calibrated source vector
+2025-05,Planning143,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-05,Planning143,free Gassco feeds,EKOFISK_FEED,1.054,Existence witness only; never a calibrated source vector
+2025-05,Planning143,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-05,Planning143,frozen forecast feeds,KOLLSNES_FEED,4.180508414981357,Frozen forecast input
+2025-05,Planning143,frozen forecast feeds,NYHAMNA_FEED,0.7427190492641402,Frozen forecast input
+2025-05,Planning143,frozen forecast feeds,KARSTO_FEED,2.438513111530047,Frozen forecast input
+2025-05,Planning143,frozen forecast feeds,OSEBERG,0.7330403865007122,Frozen forecast input
+2025-05,Planning143,frozen forecast feeds,SLEIPNER,0.4746650133474406,Frozen forecast input
+2025-05,Planning143,frozen forecast feeds,UK_DIRECT,1.0086226489505457,Frozen forecast input
+2025-05,Planning143,frozen forecast feeds,EKOFISK_FEED,0.1786779698321266,Frozen forecast input
+2025-05,Planning143,frozen forecast feeds,UNMAPPED,0.0134394246511549,Frozen forecast input
+2025-06,Reference156,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-06,Reference156,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-06,Reference156,free Gassco feeds,KARSTO_FEED,2.205,Existence witness only; never a calibrated source vector
+2025-06,Reference156,free Gassco feeds,OSEBERG,-0.0,Existence witness only; never a calibrated source vector
+2025-06,Reference156,free Gassco feeds,SLEIPNER,5.253577213438735,Existence witness only; never a calibrated source vector
+2025-06,Reference156,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-06,Reference156,free Gassco feeds,EKOFISK_FEED,1.02,Existence witness only; never a calibrated source vector
+2025-06,Reference156,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-06,Reference156,frozen forecast feeds,KOLLSNES_FEED,3.7829275478962754,Frozen forecast input
+2025-06,Reference156,frozen forecast feeds,NYHAMNA_FEED,1.0054186790364046,Frozen forecast input
+2025-06,Reference156,frozen forecast feeds,KARSTO_FEED,2.252657654262369,Frozen forecast input
+2025-06,Reference156,frozen forecast feeds,OSEBERG,0.6818106664120537,Frozen forecast input
+2025-06,Reference156,frozen forecast feeds,SLEIPNER,0.4489565492484847,Frozen forecast input
+2025-06,Reference156,frozen forecast feeds,UK_DIRECT,0.9588395098777178,Frozen forecast input
+2025-06,Reference156,frozen forecast feeds,EKOFISK_FEED,0.167966680751472,Frozen forecast input
+2025-06,Reference156,frozen forecast feeds,UNMAPPED,0.0126337653824076,Frozen forecast input
+2025-06,Planning143,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-06,Planning143,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-06,Planning143,free Gassco feeds,KARSTO_FEED,2.205,Existence witness only; never a calibrated source vector
+2025-06,Planning143,free Gassco feeds,OSEBERG,-0.0,Existence witness only; never a calibrated source vector
+2025-06,Planning143,free Gassco feeds,SLEIPNER,5.253577213438735,Existence witness only; never a calibrated source vector
+2025-06,Planning143,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-06,Planning143,free Gassco feeds,EKOFISK_FEED,1.02,Existence witness only; never a calibrated source vector
+2025-06,Planning143,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-06,Planning143,frozen forecast feeds,KOLLSNES_FEED,3.7829275478962754,Frozen forecast input
+2025-06,Planning143,frozen forecast feeds,NYHAMNA_FEED,1.0054186790364046,Frozen forecast input
+2025-06,Planning143,frozen forecast feeds,KARSTO_FEED,2.252657654262369,Frozen forecast input
+2025-06,Planning143,frozen forecast feeds,OSEBERG,0.6818106664120537,Frozen forecast input
+2025-06,Planning143,frozen forecast feeds,SLEIPNER,0.4489565492484847,Frozen forecast input
+2025-06,Planning143,frozen forecast feeds,UK_DIRECT,0.9588395098777178,Frozen forecast input
+2025-06,Planning143,frozen forecast feeds,EKOFISK_FEED,0.167966680751472,Frozen forecast input
+2025-06,Planning143,frozen forecast feeds,UNMAPPED,0.0126337653824076,Frozen forecast input
+2025-07,Reference156,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-07,Reference156,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-07,Reference156,free Gassco feeds,KARSTO_FEED,2.2785,Existence witness only; never a calibrated source vector
+2025-07,Reference156,free Gassco feeds,OSEBERG,-0.0,Existence witness only; never a calibrated source vector
+2025-07,Reference156,free Gassco feeds,SLEIPNER,6.347025,Existence witness only; never a calibrated source vector
+2025-07,Reference156,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-07,Reference156,free Gassco feeds,EKOFISK_FEED,1.054,Existence witness only; never a calibrated source vector
+2025-07,Reference156,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-07,Reference156,frozen forecast feeds,KOLLSNES_FEED,4.059072395446092,Frozen forecast input
+2025-07,Reference156,frozen forecast feeds,NYHAMNA_FEED,1.2514560561747594,Frozen forecast input
+2025-07,Reference156,frozen forecast feeds,KARSTO_FEED,2.3641764694259053,Frozen forecast input
+2025-07,Reference156,frozen forecast feeds,OSEBERG,0.7307869085104544,Frozen forecast input
+2025-07,Reference156,frozen forecast feeds,SLEIPNER,0.4711562844331756,Frozen forecast input
+2025-07,Reference156,frozen forecast feeds,UK_DIRECT,1.0046626622330868,Frozen forecast input
+2025-07,Reference156,frozen forecast feeds,EKOFISK_FEED,0.1793673582308952,Frozen forecast input
+2025-07,Reference156,frozen forecast feeds,UNMAPPED,0.0134912776213298,Frozen forecast input
+2025-07,Planning143,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-07,Planning143,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-07,Planning143,free Gassco feeds,KARSTO_FEED,2.2785,Existence witness only; never a calibrated source vector
+2025-07,Planning143,free Gassco feeds,OSEBERG,-0.0,Existence witness only; never a calibrated source vector
+2025-07,Planning143,free Gassco feeds,SLEIPNER,6.347025,Existence witness only; never a calibrated source vector
+2025-07,Planning143,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-07,Planning143,free Gassco feeds,EKOFISK_FEED,1.054,Existence witness only; never a calibrated source vector
+2025-07,Planning143,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-07,Planning143,frozen forecast feeds,KOLLSNES_FEED,4.059072395446092,Frozen forecast input
+2025-07,Planning143,frozen forecast feeds,NYHAMNA_FEED,1.2514560561747594,Frozen forecast input
+2025-07,Planning143,frozen forecast feeds,KARSTO_FEED,2.3641764694259053,Frozen forecast input
+2025-07,Planning143,frozen forecast feeds,OSEBERG,0.7307869085104544,Frozen forecast input
+2025-07,Planning143,frozen forecast feeds,SLEIPNER,0.4711562844331756,Frozen forecast input
+2025-07,Planning143,frozen forecast feeds,UK_DIRECT,1.0046626622330868,Frozen forecast input
+2025-07,Planning143,frozen forecast feeds,EKOFISK_FEED,0.1793673582308952,Frozen forecast input
+2025-07,Planning143,frozen forecast feeds,UNMAPPED,0.0134912776213298,Frozen forecast input
+2025-08,Reference156,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-08,Reference156,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-08,Reference156,free Gassco feeds,KARSTO_FEED,2.2785,Existence witness only; never a calibrated source vector
+2025-08,Reference156,free Gassco feeds,OSEBERG,-0.0,Existence witness only; never a calibrated source vector
+2025-08,Reference156,free Gassco feeds,SLEIPNER,6.163465,Existence witness only; never a calibrated source vector
+2025-08,Reference156,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-08,Reference156,free Gassco feeds,EKOFISK_FEED,1.054,Existence witness only; never a calibrated source vector
+2025-08,Reference156,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-08,Reference156,frozen forecast feeds,KOLLSNES_FEED,4.047461374440108,Frozen forecast input
+2025-08,Reference156,frozen forecast feeds,NYHAMNA_FEED,1.0603251047582654,Frozen forecast input
+2025-08,Reference156,frozen forecast feeds,KARSTO_FEED,2.3395302228208843,Frozen forecast input
+2025-08,Reference156,frozen forecast feeds,OSEBERG,0.7378373795113726,Frozen forecast input
+2025-08,Reference156,frozen forecast feeds,SLEIPNER,0.3530679874893104,Frozen forecast input
+2025-08,Reference156,frozen forecast feeds,UK_DIRECT,0.9980006221316466,Frozen forecast input
+2025-08,Reference156,frozen forecast feeds,EKOFISK_FEED,0.1791775818227157,Frozen forecast input
+2025-08,Reference156,frozen forecast feeds,UNMAPPED,0.0134770034176287,Frozen forecast input
+2025-08,Planning143,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-08,Planning143,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-08,Planning143,free Gassco feeds,KARSTO_FEED,2.2785,Existence witness only; never a calibrated source vector
+2025-08,Planning143,free Gassco feeds,OSEBERG,-0.0,Existence witness only; never a calibrated source vector
+2025-08,Planning143,free Gassco feeds,SLEIPNER,6.163465,Existence witness only; never a calibrated source vector
+2025-08,Planning143,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-08,Planning143,free Gassco feeds,EKOFISK_FEED,1.054,Existence witness only; never a calibrated source vector
+2025-08,Planning143,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-08,Planning143,frozen forecast feeds,KOLLSNES_FEED,4.047461374440108,Frozen forecast input
+2025-08,Planning143,frozen forecast feeds,NYHAMNA_FEED,1.0603251047582654,Frozen forecast input
+2025-08,Planning143,frozen forecast feeds,KARSTO_FEED,2.3395302228208843,Frozen forecast input
+2025-08,Planning143,frozen forecast feeds,OSEBERG,0.7378373795113726,Frozen forecast input
+2025-08,Planning143,frozen forecast feeds,SLEIPNER,0.3530679874893104,Frozen forecast input
+2025-08,Planning143,frozen forecast feeds,UK_DIRECT,0.9980006221316466,Frozen forecast input
+2025-08,Planning143,frozen forecast feeds,EKOFISK_FEED,0.1791775818227157,Frozen forecast input
+2025-08,Planning143,frozen forecast feeds,UNMAPPED,0.0134770034176287,Frozen forecast input
+2025-09,Reference156,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-09,Reference156,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-09,Reference156,free Gassco feeds,KARSTO_FEED,2.205,Existence witness only; never a calibrated source vector
+2025-09,Reference156,free Gassco feeds,OSEBERG,-0.0,Existence witness only; never a calibrated source vector
+2025-09,Reference156,free Gassco feeds,SLEIPNER,4.525919999999999,Existence witness only; never a calibrated source vector
+2025-09,Reference156,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-09,Reference156,free Gassco feeds,EKOFISK_FEED,0.14556000000000013,Existence witness only; never a calibrated source vector
+2025-09,Reference156,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-09,Reference156,frozen forecast feeds,KOLLSNES_FEED,3.2148715752984804,Frozen forecast input
+2025-09,Reference156,frozen forecast feeds,NYHAMNA_FEED,1.0595086214925111,Frozen forecast input
+2025-09,Reference156,frozen forecast feeds,KARSTO_FEED,2.119684071894804,Frozen forecast input
+2025-09,Reference156,frozen forecast feeds,OSEBERG,0.7587406252574994,Frozen forecast input
+2025-09,Reference156,frozen forecast feeds,SLEIPNER,0.3331194647572811,Frozen forecast input
+2025-09,Reference156,frozen forecast feeds,UK_DIRECT,0.7846695996726345,Frozen forecast input
+2025-09,Reference156,frozen forecast feeds,EKOFISK_FEED,0.1349762496827108,Frozen forecast input
+2025-09,Reference156,frozen forecast feeds,UNMAPPED,0.0101523603553956,Frozen forecast input
+2025-09,Planning143,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-09,Planning143,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-09,Planning143,free Gassco feeds,KARSTO_FEED,2.205,Existence witness only; never a calibrated source vector
+2025-09,Planning143,free Gassco feeds,OSEBERG,-0.0,Existence witness only; never a calibrated source vector
+2025-09,Planning143,free Gassco feeds,SLEIPNER,4.525919999999999,Existence witness only; never a calibrated source vector
+2025-09,Planning143,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-09,Planning143,free Gassco feeds,EKOFISK_FEED,0.14556000000000013,Existence witness only; never a calibrated source vector
+2025-09,Planning143,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-09,Planning143,frozen forecast feeds,KOLLSNES_FEED,3.2148715752984804,Frozen forecast input
+2025-09,Planning143,frozen forecast feeds,NYHAMNA_FEED,1.0595086214925111,Frozen forecast input
+2025-09,Planning143,frozen forecast feeds,KARSTO_FEED,2.119684071894804,Frozen forecast input
+2025-09,Planning143,frozen forecast feeds,OSEBERG,0.7587406252574994,Frozen forecast input
+2025-09,Planning143,frozen forecast feeds,SLEIPNER,0.3331194647572811,Frozen forecast input
+2025-09,Planning143,frozen forecast feeds,UK_DIRECT,0.7846695996726345,Frozen forecast input
+2025-09,Planning143,frozen forecast feeds,EKOFISK_FEED,0.1349762496827108,Frozen forecast input
+2025-09,Planning143,frozen forecast feeds,UNMAPPED,0.0101523603553956,Frozen forecast input
+2025-10,Reference156,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-10,Reference156,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-10,Reference156,free Gassco feeds,KARSTO_FEED,2.2785,Existence witness only; never a calibrated source vector
+2025-10,Reference156,free Gassco feeds,OSEBERG,-0.0,Existence witness only; never a calibrated source vector
+2025-10,Reference156,free Gassco feeds,SLEIPNER,6.24552,Existence witness only; never a calibrated source vector
+2025-10,Reference156,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-10,Reference156,free Gassco feeds,EKOFISK_FEED,0.16835999999999895,Existence witness only; never a calibrated source vector
+2025-10,Reference156,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-10,Reference156,frozen forecast feeds,KOLLSNES_FEED,4.443824231545289,Frozen forecast input
+2025-10,Reference156,frozen forecast feeds,NYHAMNA_FEED,1.2290568800488395,Frozen forecast input
+2025-10,Reference156,frozen forecast feeds,KARSTO_FEED,2.426499353456623,Frozen forecast input
+2025-10,Reference156,frozen forecast feeds,OSEBERG,0.8131971363797381,Frozen forecast input
+2025-10,Reference156,frozen forecast feeds,SLEIPNER,0.4901093528025125,Frozen forecast input
+2025-10,Reference156,frozen forecast feeds,UK_DIRECT,0.9332067754388228,Frozen forecast input
+2025-10,Reference156,frozen forecast feeds,EKOFISK_FEED,0.1775864745991615,Frozen forecast input
+2025-10,Reference156,frozen forecast feeds,UNMAPPED,0.0133573268527844,Frozen forecast input
+2025-10,Planning143,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-10,Planning143,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-10,Planning143,free Gassco feeds,KARSTO_FEED,2.2785,Existence witness only; never a calibrated source vector
+2025-10,Planning143,free Gassco feeds,OSEBERG,-0.0,Existence witness only; never a calibrated source vector
+2025-10,Planning143,free Gassco feeds,SLEIPNER,6.24552,Existence witness only; never a calibrated source vector
+2025-10,Planning143,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-10,Planning143,free Gassco feeds,EKOFISK_FEED,0.16835999999999895,Existence witness only; never a calibrated source vector
+2025-10,Planning143,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-10,Planning143,frozen forecast feeds,KOLLSNES_FEED,4.443824231545289,Frozen forecast input
+2025-10,Planning143,frozen forecast feeds,NYHAMNA_FEED,1.2290568800488395,Frozen forecast input
+2025-10,Planning143,frozen forecast feeds,KARSTO_FEED,2.426499353456623,Frozen forecast input
+2025-10,Planning143,frozen forecast feeds,OSEBERG,0.8131971363797381,Frozen forecast input
+2025-10,Planning143,frozen forecast feeds,SLEIPNER,0.4901093528025125,Frozen forecast input
+2025-10,Planning143,frozen forecast feeds,UK_DIRECT,0.9332067754388228,Frozen forecast input
+2025-10,Planning143,frozen forecast feeds,EKOFISK_FEED,0.1775864745991615,Frozen forecast input
+2025-10,Planning143,frozen forecast feeds,UNMAPPED,0.0133573268527844,Frozen forecast input
+2025-11,Reference156,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-11,Reference156,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-11,Reference156,free Gassco feeds,KARSTO_FEED,2.205,Existence witness only; never a calibrated source vector
+2025-11,Reference156,free Gassco feeds,OSEBERG,0.3557000000000001,Existence witness only; never a calibrated source vector
+2025-11,Reference156,free Gassco feeds,SLEIPNER,6.1203,Existence witness only; never a calibrated source vector
+2025-11,Reference156,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-11,Reference156,free Gassco feeds,EKOFISK_FEED,1.02,Existence witness only; never a calibrated source vector
+2025-11,Reference156,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-11,Reference156,frozen forecast feeds,KOLLSNES_FEED,4.446095884567511,Frozen forecast input
+2025-11,Reference156,frozen forecast feeds,NYHAMNA_FEED,1.0862866854191813,Frozen forecast input
+2025-11,Reference156,frozen forecast feeds,KARSTO_FEED,2.3265136776365374,Frozen forecast input
+2025-11,Reference156,frozen forecast feeds,OSEBERG,0.7588342335238081,Frozen forecast input
+2025-11,Reference156,frozen forecast feeds,SLEIPNER,0.4454646703556217,Frozen forecast input
+2025-11,Reference156,frozen forecast feeds,UK_DIRECT,0.8800637614297036,Frozen forecast input
+2025-11,Reference156,frozen forecast feeds,EKOFISK_FEED,0.1585895429560539,Frozen forecast input
+2025-11,Reference156,frozen forecast feeds,UNMAPPED,0.0119284555058547,Frozen forecast input
+2025-11,Planning143,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-11,Planning143,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-11,Planning143,free Gassco feeds,KARSTO_FEED,2.205,Existence witness only; never a calibrated source vector
+2025-11,Planning143,free Gassco feeds,OSEBERG,0.3557000000000001,Existence witness only; never a calibrated source vector
+2025-11,Planning143,free Gassco feeds,SLEIPNER,6.1203,Existence witness only; never a calibrated source vector
+2025-11,Planning143,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-11,Planning143,free Gassco feeds,EKOFISK_FEED,1.02,Existence witness only; never a calibrated source vector
+2025-11,Planning143,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-11,Planning143,frozen forecast feeds,KOLLSNES_FEED,4.446095884567511,Frozen forecast input
+2025-11,Planning143,frozen forecast feeds,NYHAMNA_FEED,1.0862866854191813,Frozen forecast input
+2025-11,Planning143,frozen forecast feeds,KARSTO_FEED,2.3265136776365374,Frozen forecast input
+2025-11,Planning143,frozen forecast feeds,OSEBERG,0.7588342335238081,Frozen forecast input
+2025-11,Planning143,frozen forecast feeds,SLEIPNER,0.4454646703556217,Frozen forecast input
+2025-11,Planning143,frozen forecast feeds,UK_DIRECT,0.8800637614297036,Frozen forecast input
+2025-11,Planning143,frozen forecast feeds,EKOFISK_FEED,0.1585895429560539,Frozen forecast input
+2025-11,Planning143,frozen forecast feeds,UNMAPPED,0.0119284555058547,Frozen forecast input
+2025-12,Reference156,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-12,Reference156,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-12,Reference156,free Gassco feeds,KARSTO_FEED,2.2785,Existence witness only; never a calibrated source vector
+2025-12,Reference156,free Gassco feeds,OSEBERG,0.7406300000000003,Existence witness only; never a calibrated source vector
+2025-12,Reference156,free Gassco feeds,SLEIPNER,6.16478,Existence witness only; never a calibrated source vector
+2025-12,Reference156,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-12,Reference156,free Gassco feeds,EKOFISK_FEED,1.054,Existence witness only; never a calibrated source vector
+2025-12,Reference156,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-12,Reference156,frozen forecast feeds,KOLLSNES_FEED,4.587137977152693,Frozen forecast input
+2025-12,Reference156,frozen forecast feeds,NYHAMNA_FEED,1.1372867499561266,Frozen forecast input
+2025-12,Reference156,frozen forecast feeds,KARSTO_FEED,2.472256309886975,Frozen forecast input
+2025-12,Reference156,frozen forecast feeds,OSEBERG,0.7931565304591491,Frozen forecast input
+2025-12,Reference156,frozen forecast feeds,SLEIPNER,0.4866991753377037,Frozen forecast input
+2025-12,Reference156,frozen forecast feeds,UK_DIRECT,0.944767409294029,Frozen forecast input
+2025-12,Reference156,frozen forecast feeds,EKOFISK_FEED,0.1736211961673666,Frozen forecast input
+2025-12,Reference156,frozen forecast feeds,UNMAPPED,0.0130590748592396,Frozen forecast input
+2025-12,Planning143,free Gassco feeds,KOLLSNES_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-12,Planning143,free Gassco feeds,NYHAMNA_FEED,-0.0,Existence witness only; never a calibrated source vector
+2025-12,Planning143,free Gassco feeds,KARSTO_FEED,2.2785,Existence witness only; never a calibrated source vector
+2025-12,Planning143,free Gassco feeds,OSEBERG,0.7406300000000003,Existence witness only; never a calibrated source vector
+2025-12,Planning143,free Gassco feeds,SLEIPNER,6.16478,Existence witness only; never a calibrated source vector
+2025-12,Planning143,free Gassco feeds,UK_DIRECT,0.0,Existence witness only; never a calibrated source vector
+2025-12,Planning143,free Gassco feeds,EKOFISK_FEED,1.054,Existence witness only; never a calibrated source vector
+2025-12,Planning143,free Gassco feeds,UNMAPPED,0.0,Existence witness only; never a calibrated source vector
+2025-12,Planning143,frozen forecast feeds,KOLLSNES_FEED,4.587137977152693,Frozen forecast input
+2025-12,Planning143,frozen forecast feeds,NYHAMNA_FEED,1.1372867499561266,Frozen forecast input
+2025-12,Planning143,frozen forecast feeds,KARSTO_FEED,2.472256309886975,Frozen forecast input
+2025-12,Planning143,frozen forecast feeds,OSEBERG,0.7931565304591491,Frozen forecast input
+2025-12,Planning143,frozen forecast feeds,SLEIPNER,0.4866991753377037,Frozen forecast input
+2025-12,Planning143,frozen forecast feeds,UK_DIRECT,0.944767409294029,Frozen forecast input
+2025-12,Planning143,frozen forecast feeds,EKOFISK_FEED,0.1736211961673666,Frozen forecast input
+2025-12,Planning143,frozen forecast feeds,UNMAPPED,0.0130590748592396,Frozen forecast input

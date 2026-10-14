@@ -1,0 +1,8 @@
+key,points,complete_monthly_grid,unit,role,forecast_start_date,origin,sid,missing_months,qualification
+nbp_forecast_eur,12,True,eur_MWh,forecast,2024-12-01T00:00:00,2024-12-31T23:59:59Z,teams\natural_gas\price\NBP_EUR_MWh,,Service as-of view; independent publication/FX/energy basis not certified
+peg_forecast,12,True,eur_MWh,forecast,2024-12-01T00:00:00,2024-12-31T23:59:59Z,teams\natural_gas\price\peg,,Service as-of view; independent publication/FX/energy basis not certified
+ztp_forecast,12,True,eur_MWh,forecast,2024-12-01T00:00:00,2024-12-31T23:59:59Z,teams\natural_gas\price\ZTP,,Service as-of view; independent publication/FX/energy basis not certified
+ttf_forecast,12,True,eur_MWh,forecast,2024-12-01T00:00:00,2024-12-31T23:59:59Z,teams\natural_gas\price\ttf,,Service as-of view; independent publication/FX/energy basis not certified
+nbp_eex_curve,5,False,p_therm,actual,Not supplied,2024-12-31T23:59:59Z,eex2\future\month\nbp\settlement_price\future_curve,"2025-06,2025-07,2025-08,2025-09,2025-10,2025-11,2025-12",Service as-of view; independent publication/FX/energy basis not certified
+peg_eex_curve,6,False,eur_MWh,actual,Not supplied,2024-12-31T23:59:59Z,eex2\future\month\peg\settlement_price\future_curve,"2025-07,2025-08,2025-09,2025-10,2025-11,2025-12",Service as-of view; independent publication/FX/energy basis not certified
+ztp_eex_curve,3,False,eur_MWh,actual,Not supplied,2024-12-31T23:59:59Z,eex2\future\month\ztp\settlement_price\future_curve,"2025-04,2025-05,2025-06,2025-07,2025-08,2025-09,2025-10,2025-11,2025-12",Service as-of view; independent publication/FX/energy basis not certified

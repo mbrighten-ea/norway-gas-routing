@@ -1,5 +1,34 @@
 # Current implementation state
 
+## Physical gate and commercial-choice design
+
+Branch `analysis/physical-commercial-gate-f213` starts from completed F2.12
+`1e88049`, retaining F2.10/F2.11 unchanged. The [decision report](outputs/physical_commercial_gate_f213/report.html)
+records an unresolved full physical-validation gate: historical rating dates,
+rich/dry boundaries, outage provenance and terminal/access definitions remain
+incomplete. Karsto 95 is rich inlet, not a certified net-dry export rating;
+no independently justified numerical correction was established.
+
+All 48 physical-only joint UK/FR+BE/DE+NL feasibility cases pass under the
+predeclared 156 and 143 Kollsnes envelopes, without preference or maximum-export
+optimum requirements. This is partial aggregate feasibility, not actual source,
+DK/PL, terminal or daily certification. Unknown source injections are existence
+witnesses only; no operational weights or forecasts changed.
+
+Origin-matched December-2024 EA NBP-EUR, PEG, ZTP and TTF forecast views cover
+all twelve 2025 months; independent publication and EUR/energy conventions
+remain qualified. The smallest proposed pilot holds every other flow fixed and
+selects between UK/Easington and France/Dunkerque using destination value less
+incremental route cost, after preserving all three existing objective optima.
+No commercial optimisation was implemented. Next exact action: Core approve a
+two-route physical/basis, commercial-rights and incremental-cost contract before
+one optional fourth-stage implementation. Physical headroom is not access.
+
+123 focused tests, 48 existence cases and twelve analytic-domain endpoint
+checks pass; original F2.10/F2.11 manifests and F2.10 independent verification
+pass. Protected 2026 actuals remain unqueried. This branch is retained locally;
+no external publication is authorised by this design task.
+
 ## Project cleanup and supported workflow
 
 Branch `maintenance/project-cleanup-f212` starts from retained F2.11 `da10771`.
