@@ -1,5 +1,33 @@
 # Current implementation state
 
+## Project cleanup and supported workflow
+
+Branch `maintenance/project-cleanup-f212` starts from retained F2.11 `da10771`.
+Use `config/run.yaml` and `scripts/run/run_routing.py`; the redundant F2.4 example
+and implicit standalone scenario entry were retired. The unchanged 12-month
+default still requires explicit Core opt-in for a provisional forecast.
+README now contains one workflow and the committed release index (182 lines,
+previously 452). Old cleanup plan/verifier are under the existing cleanup archive;
+the CSV verifier imports its library directly rather than importing the runner.
+New timestamped output is ignored until deliberately verified and retained.
+
+Recovered the exact missing F2.3 `f23-live.yaml` from its original worktree;
+its SHA matches the existing manifest. No existing release bytes were changed.
+Seventeen hash manifests, 2,415 files and 51 report links resolve. F2.4/F2.6 and
+F2.7 all-four-case saved-input replays pass with unchanged monthly results;
+F2.10 independent accounting/scoring verification passes. F2.8 historical code
+hashes resolve to its original Git revision, rather than the later helper version.
+The ordinary suite passes in a fresh tracked-file export: 639 passed, 14
+evidence-dependent tests deselected, one existing warning; focused checks: 62 passed.
+The supported CLI's source-free synthetic `--validate-only` smoke check passes
+for the normal 12-month window without constructing an LP.
+
+Top-level source groups/foundation validation still have live consumers, so remain
+intact; only `model.yaml.routing` feeds the executable LP. Broader I/O/reporting
+refactors, pinned output deletion, untracked evidence and other unpushed worktrees
+were deliberately deferred. No physical, supply, preference, scenario, historical
+comparison or holdout behaviour changed. Next work remains the Core review below.
+
 ## 2025 routing-error attribution
 
 [F2.11 report](outputs/routing_error_attribution_2025/report.html) and its
@@ -193,7 +221,9 @@ non-material blockers for this experiment. One worker, isolated worktree
 `2335831 -> a34bc72 -> f4a742e`; no investigation merges or retained evidence edits.
 Approval is recorded in DECISIONS.md; source equations and exclusions in INPUTS.md.
 The unmodified `config/run.yaml` retains the ordinary 12-month default. F2.4 opts
-in through `config/run_f24.yaml` / `scripts/run/run_forward_scenarios.py`.
+in through the explicit Core settings in `config/run.yaml` and the supported
+`scripts/run/run_routing.py` command. Original F2.4 run requests remain in the
+released packages; the redundant standalone example has been retired.
 
 [Released POC and scenario links](outputs/forward_scenarios/20261013T134952692166Z/report.html):
 all four scenarios completed 38 monthly solves OPTIMAL (152 total), based on
@@ -755,7 +785,7 @@ The 2026 holdout remains locked and unscored. Evidence and exact input identitie
 [price-response feasibility](evidence/inputs/price_response_feasibility.md).
 
 Structure rules/file gate are in AGENTS.md; implemented roles/commands in README.
-The optional full plan remains REPOSITORY_CLEANUP_PLAN.txt. Historical STATUS,
+The optional full plan is now `archive/20261009-01_repository-cleanup/REPOSITORY_CLEANUP_PLAN.txt`. Historical STATUS,
 README, configuration and code remain in the cleanup snapshot, with a relocation
 map. Existing Git index (staged config/sids.py addition, working deletion) is
 preserved; no commits, staging, remote operations or package changes were made.

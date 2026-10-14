@@ -1,4 +1,4 @@
-"""Fresh four-scenario F2.4 run, preserving the existing operational packages."""
+"""Four-scenario implementation called by the supported run_routing command."""
 from datetime import datetime,timezone
 from pathlib import Path
 import json,sys,os
@@ -93,7 +93,7 @@ def render_summary(summary,manifest):
     (summary/'report.html').write_text('<!doctype html><html lang="en"><meta charset="utf-8"><style>'+STYLE+'</style>'+content+'</html>',encoding='utf-8')
 
 
-def main(config='config/run_f24.yaml', *, validate_only=False, solver_name=None):
+def main(config, *, validate_only=False, solver_name=None):
     settings,_,_,_=load_run_config(ROOT,config)
     if settings.get('physical_input_contract')!='core_f24':
         raise ValueError('Four-scenario comparison requires core_f24.')
@@ -167,4 +167,5 @@ def main(config='config/run_f24.yaml', *, validate_only=False, solver_name=None)
     return 0 if not failures else 2
 
 
-if __name__=='__main__': sys.exit(main())
+if __name__=='__main__':
+    sys.exit('Use scripts/run/run_routing.py --config config/run.yaml with compare_scenarios: true.')

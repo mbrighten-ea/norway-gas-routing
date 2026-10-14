@@ -162,6 +162,10 @@ structured coverage failures are separate from physical-decision blockers.
 Selected Snøhvit's absent 2030 observations block the extended request; published
 zero maintenance points do not certify absence of future outages.
 
+The following legacy paragraph applies when `physical_input_contract` is omitted.
+The approved `core_f24` contract at the top of this file replaces those physical
+decision blockers while preserving coverage, accounting and holdout checks.
+
 The real adapter checks sixteen known fields, national total, Snøhvit and Kollsnes
 maintenance, then fails on the [specific unapproved physical contract](evidence/inputs/forecast_viability_f1/current_forecast_supply_contract.md).
 Historical NPD identities are not future forecasts. Snøhvit remains native raw

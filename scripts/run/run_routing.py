@@ -8,8 +8,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT/'src'))
 os.environ.setdefault('MPLCONFIGDIR', str(ROOT/'.scratch/cache/matplotlib'))
 
-# Keep the historical verifier's save_csv import compatible.
-from norway_gas_routing.operational import execute_run, save_csv, load_run_config
+from norway_gas_routing.operational import execute_run, load_run_config
 
 
 def main(argv=None):
@@ -26,7 +25,7 @@ def main(argv=None):
         _, code = execute_run(ROOT, args.config, validate_only=args.validate_only, solver_name=args.solver)
         return code
     except (ValueError, OSError, RuntimeError) as exc:
-        print('BLOCKED: '+str(exc)+'\nReview config/run.yaml and README.md operator guide.', file=sys.stderr)
+        print('BLOCKED: '+str(exc)+'\nReview config/run.yaml and README.md.', file=sys.stderr)
         return 2
 
 

@@ -21,6 +21,12 @@ venv/
 *.pfx
 credentials.json
 
+# New timestamped forecasts are local until explicitly verified and retained.
+# Existing committed release packages remain tracked. Curated releases must
+# stage their exact complete package with git add -f, including YAML snapshots.
+outputs/routing_runs/
+outputs/forward_scenarios/
+
 # Immutable run-request snapshots must survive even when the request was temporary.
 !outputs/routing_runs/*/provenance/configuration/.scratch/
 !outputs/routing_runs/*/provenance/configuration/.scratch/**

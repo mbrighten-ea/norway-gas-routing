@@ -1,4 +1,11 @@
 # Paths are relative to the repository, not the current shell directory.
+# The only analyst run configuration. Existing default values are preserved.
+# For the approved provisional reference, change capacity_scenario below to
+# core_f24_156 and add these two fields (remove their comment markers):
+# physical_input_contract: core_f24
+# heidrun_treatment: export_eligible
+# Set compare_scenarios: true for A/B/C/D in one Excel workbook.
+# For capacity stress use core_f24_proportional_143; domestic_bound excludes Heidrun.
 model: config/model.yaml
 registry: config/data_series.csv
 evaluation: config/evaluation.yaml

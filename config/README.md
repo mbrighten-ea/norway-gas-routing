@@ -1,9 +1,15 @@
-# Minimal routing config
+# Configuration
 
-This folder has two canonical configuration files.
+Analysts edit **`run.yaml`** and use `scripts/run/run_routing.py --config config/run.yaml`.
+It selects the information origin, monthly horizon and explicitly approved scenario;
+it does not duplicate source ownership or the physical network. The unchanged
+12-month default retains the older blocked contract. The commented Core options
+in that file select the approved provisional forecast. See [README.md](../README.md).
 
-1. `data_series.csv` - the only sourcing registry. Fill SIDs/status for raw production, physical exits, prices and maintenance/availability series here. Rows marked `TODO` are the data-sourcing queue.
-2. `model.yaml` - the model definition. It contains source aggregation, junctions, assets, arcs, markets, derived-series formulae, reconciliation rules, solver controls and calibration settings.
+Developers maintain `model.yaml` (structure and controls), `data_series.csv`
+(the only SID registry) and `evaluation.yaml` (the locked historical policy).
+Do not change physical assumptions or source mappings as an operational run choice.
+Original release run requests are retained in each package's provenance.
 
 The `routing` section is the executable seven-destination historical network. Its
 provisional sourced capacities, nodes/arcs and 2023/2024 baseline/run windows are
@@ -13,6 +19,11 @@ generated evidence, not a third canonical configuration. Plots use exactly the
 same definitions. Optional `technical_series_file` on a routing model asset accepts a
 repository-local CSV with `date,technical_capacity_mcm_d`; it is forward-filled
 on calendar days without backward filling. Maintenance must remain complete.
+
+The top-level source groups still supply input membership. The six-market network,
+market metadata and validation remain consumers of foundation/capacity diagnostics;
+they are not another network for the PuLP forecast. Only `model.yaml.routing`
+provides the executable nodes, arcs and engineering envelopes.
 
 Do not maintain separate node, arc, asset, market, field-mapping, derived-series or sourcing-checklist CSVs. Those should be generated from these two files if a tabular view is needed.
 

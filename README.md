@@ -1,112 +1,49 @@
 # Norwegian gas routing
 
-## Core-approved provisional forward routing (F2.4)
-
-[Released four-scenario POC](outputs/forward_scenarios/20261013T134952692166Z/report.html)
-contains 152 OPTIMAL monthly solves with identical freshly queried sources at
-2026-10-13 13:49:52 UTC. Open its scenario workbook or the four individual packages
-for all 38 monthly country/corridor allocations, accounting and sensitivities.
-The [package verification](outputs/forward_scenarios/20261013T134952692166Z/provenance/validation.json)
-checks source identity/ownership, national closure, capacities, holdout exclusion,
-Excel cells/charts and artifact hashes. The [hardened primary Excel](outputs/forward_scenarios/20261013_f26/results.xlsx)
-combines all scenarios, accounting, source nodes and capacity utilisation. Four exact
-original YAML snapshots omitted by a nested `.scratch` Git ignore are now restored;
-the original F2.4 results, manifests and workbook bytes remain unchanged.
-
-To verify the retained release without changing it or querying SIDs:
-
-```powershell
-& 'C:\Users\martell.brighten\Documents\repos\.envs\env1.0\python.exe' scripts/verify/verify_forward_scenarios.py outputs/forward_scenarios/20261013_f26 --replay
-```
-
-This replays immutable inputs with the installed recorded solver and checks monthly
-country flows, disposal, objective and all arc flows to 1e-7 bcm, plus every package
-hash, ownership, accounting and capacity check. It is numerical reproduction, not a
-fresh operational forecast. `--write-validation` is only for a newly created package.
-
-Ordinary offline regressions run with `python -m pytest -q`. Fourteen tests explicitly
-marked `retained_evidence` are reported as deselected; they require the original
-public-capacity audit, not forecast data or a synthetic replacement. Run them with
-`python -m pytest --run-evidence -m retained_evidence -q`. Missing prerequisites
-produce an explicit error. Restore `evidence/inputs/public_capacity_audit_manifest.json`,
-`public_capacity_verification.json`, their referenced evidence/raw files and
-`archive/20261009-17_public-capacity-database/database/capacity.sqlite` from the retained
-public bundle. Existing checks verify the original hashes, including configuration
-and archived byte serialization; do not regenerate or edit evidence to fit a test.
-The SQLite SHA-256 is `5e6e2b14c76a0afb94aa487e316c617f37fd78f95f117d96ec30232b180721a4`.
-Use the approved workspace interpreter for both test commands.
-
-For all four scenarios, set `compare_scenarios: true` in the run YAML and use the
-normal `scripts/run/run_routing.py --config ...` command below. The existing runner
-produces fresh November 2026–December 2029 results for A reference, B whole-Heidrun domestic
-bound, C proportional Kollsnes stress and D combined stress. Each scenario uses fresh
-SIDs at one shared October information origin, the unchanged monthly price-free LP
-and 2023 historical preferences. `outputs/forward_scenarios/<run>/report.html` links
-the four established Excel/CSV/HTML/chart/provenance packages and contains annual
-allocations; `details/scenario_differences.csv` reports monthly bcm and percentage
-changes against A. January–September 2026 actuals remain locked.
-
-For one scenario, use `scripts/run/run_routing.py --config config/run_f24.yaml`.
-The explicit options are `physical_input_contract: core_f24`,
-`heidrun_treatment: export_eligible` or `domestic_bound`, and
-`capacity_scenario: core_f24_156` or `core_f24_proportional_143`.
-`forecast_end_month: '2029-12'` resolves 38 deliveries. These options must be selected
-together; they do not change `config/run.yaml` or its ordinary 12-month default.
-`--validate-only` checks and packages inputs without constructing an LP.
+A monthly, price-free physical routing model for Norwegian pipeline gas. It uses
+EA/Shooju production forecasts, supported source-node ownership, capacity envelopes
+and historical destination preferences to allocate gas to UK, France, Belgium,
+Germany, Netherlands, Denmark and Poland. Each month solves independently with
+the existing PuLP/HiGHS optimiser.
 
 Results are a **provisional partial-coverage physical-routing POC**, not a commercial
-or complete Norwegian export forecast. Frozen net annual 2024 residual weights are
-a proxy for future residual field mix. Trym is excluded separately; unknown owners
-stay UNMAPPED. B/D are an outside-network boundary bound, not a domestic-demand
-estimate or a simulated withdrawal before processing. National balances and coverage
-are reported every month. Kollsnes 156 is provisional technical availability;
-other envelopes and uncertain prospective availability are unchanged.
+forecast or a complete Norwegian export forecast. DE/NL are allocation proxies;
+DK/PL are corridor allocations. Unknown production stays unmapped and unrouted.
 
-The workbook adds Accounting, Source nodes, Annual flows, Binding limits and
-same-export-basis Share comparison; A additionally includes three representative
-Physical ranges with historical preferences released. Individual range endpoints
-are not jointly attainable. DE/NL remain allocation proxies; DK/PL are corridor
-allocations. Legacy groups are descriptive forecast comparisons, not accuracy
-scores; known non-Gassco UK packets are excluded once for the UK comparison and
-the legacy duplicate Rev deduction is disclosed, never applied to model supply.
+## Run a forecast
 
-The earlier F2.2 blockers below apply to the original contract. Core's explicit
-F2.4 approval is recorded in [DECISIONS.md](DECISIONS.md) and [INPUTS.md](INPUTS.md).
+Edit **[config/run.yaml](config/run.yaml)**. It is the only analyst run request.
+`config/model.yaml` defines the model, `config/data_series.csv` is the SID registry,
+and `config/evaluation.yaml` protects historical evaluation. Do not edit these
+developer inputs to select a run scenario.
 
-Monthly Norwegian pipeline gas routing to UK, France, Belgium, Netherlands,
-Germany, Denmark and Poland. The historical reconstruction solves with HiGHS;
-forecast validity and production readiness remain unresolved.
-
-## Operational operator guide
-
-The active opt-in prospective contract is `core_f24`, documented in INPUTS.md.
-The unmodified default retains the original blocked F2.2 contract and 12-month view.
-It must not be confused with Core's approved provisional POC. Choose the approved
-contract explicitly in the same run YAML:
+The shipped run request preserves the original 12-month default and older blocked
+input contract. To use the approved provisional reference, select these existing
+options in that same file:
 
 ```yaml
 physical_input_contract: core_f24
-heidrun_treatment: export_eligible  # domestic_bound for the hypothetical exclusion
-capacity_scenario: core_f24_156     # core_f24_proportional_143 for stress
-forecast_end_month: '2029-12'       # null retains rolling 12 months
-compare_scenarios: true            # false/omitted runs the selected single scenario
+heidrun_treatment: export_eligible
+capacity_scenario: core_f24_156
+forecast_end_month: null
+compare_scenarios: false
 ```
 
-`compare_scenarios: true` uses the existing runner for A/B/C/D at one shared origin,
-with the selected period. The same command prints one primary Excel location containing
-monthly/annual scenarios, differences, accounting, source nodes, capacity utilisation
-and qualifications. Each scenario's complete CSV/HTML/chart/provenance package remains
-available. `--validate-only` validates all requested cases without solving.
+The commented recipe is also in `run.yaml`. Set `compare_scenarios: true` for all
+four approved cases in one combined Excel workbook:
 
-Use `config/run.yaml` as the single run request. Its repository-relative paths
-reference the canonical model, registry and locked evaluation policy without
-duplicating network/source mappings. The default is `current_forecast`, with
-`origin: null`, `horizon_months: 12`, `forecast_end_month: null`, `start: null`, `end: null`,
-`input_source: fresh_sid`, `capacity_scenario: provisional_kollsnes_143` and
-`price_enabled: false`. It retrieves/checks candidates, then reports the pending
-physical-input decisions; it cannot yet issue a complete EA routing forecast.
+| Case | Heidrun | Kollsnes |
+|---|---|---|
+| A reference | No additional domestic deduction | 156 minus verified unavailability |
+| B domestic bound | Forecast component outside the network | Same reference |
+| C capacity stress | No additional domestic deduction | 143/156 times reference availability |
+| D combined stress | Forecast component outside the network | Same stress |
 
-From this repository, prepare the local process environment once:
+For a single stress case use `core_f24_proportional_143`; for the hypothetical
+Heidrun exclusion use `domestic_bound`. These are existing assumptions, not fitted
+alternatives or best-estimate domestic consumption.
+
+From the repository root, prepare the approved workspace interpreter's local scratch:
 
 ```powershell
 New-Item -ItemType Directory -Force .scratch/tmp | Out-Null
@@ -116,337 +53,130 @@ $env:TMP = $env:TEMP
 $env:MPLCONFIGDIR = Join-Path $env:TEMP 'matplotlib'
 ```
 
-The single execution command is:
+Validate inputs before solving:
+
+```powershell
+& 'C:\Users\martell.brighten\Documents\repos\.envs\env1.0\python.exe' scripts/run/run_routing.py --config config/run.yaml --validate-only
+```
+
+Run the forecast with the same command, omitting `--validate-only`:
 
 ```powershell
 & 'C:\Users\martell.brighten\Documents\repos\.envs\env1.0\python.exe' scripts/run/run_routing.py --config config/run.yaml
 ```
 
-Append `--validate-only` to prepare/check inputs and write an unsolved package
-without constructing an LP, checking solver availability or optimising.
-`--solver HiGHS` optionally overrides the configured installed solver.
-Exit 0 means complete or validated-only; exit 2 means blocked/failed. Configuration
-errors stop before package creation. Later failures retain an explanatory package.
+The command prints status, delivery period, scenario, the primary Excel path and
+qualifications. Exit 0 means completed or validated-only; exit 2 means blocked or
+failed. Validation-only produces no country forecast and never constructs an LP.
+Do not invoke the internal four-scenario implementation as another runner.
 
-**Current forecast settings:** null origin records this execution's UTC timestamp;
-an explicit quoted timestamp within the current UTC month selects that same
-`@asof` state for every candidate source. Future origins and older replay origins
-are rejected. Deliveries start with the next complete calendar month: currently
-November 2026–October 2027. Set integer `horizon_months` (default 12; maximum 60)
-or a quoted `forecast_end_month`. **A non-null endpoint takes precedence over
-the length setting.** Start/end must stay null or match the resolved window;
-the endpoint must include at least one delivery month and cannot exceed December
-2030. Settings and provenance record the resolved start, end and actual month
-count. Historical reconstruction uses start/end and requires a null endpoint.
+## Period, inputs and results
 
-To request the full extended horizon, edit these settings in the run YAML:
+`origin: null` captures this execution's UTC origin. An explicit origin must be in
+the current UTC month, no later than execution. Deliveries start with the first
+complete month after the origin. Keep `start` and `end` null for current forecasts.
+`horizon_months: 12` is the default; a non-null quoted `forecast_end_month` takes
+precedence. October 2026 to `'2029-12'` gives 38 months; `'2030-12'` gives 50.
+The existing maximum is 60 months and the endpoint cannot exceed December 2030.
 
-```yaml
-mode: current_forecast
-origin: null
-start: null
-end: null
-horizon_months: 12
-forecast_end_month: '2030-12'
-```
+Fresh, origin-matched SIDs supply operational inputs. Workbook caches and saved
+release snapshots are not operational fallbacks. Missing coverage, duplicate
+ownership, negative residuals or invalid maintenance retain `BLOCKED_INPUTS`.
+The selected Snøhvit source was verified through December 2029; missing 2030
+observations block longer live runs. No source or maintenance is extrapolated.
 
-For any October 2026 information origin this resolves to November 2026–December
-2030, exactly **50 monthly deliveries**. With `forecast_end_month: null` the
-unchanged default is November 2026–October 2027, **12 deliveries**. Later origins
-produce shorter endpoint-based windows; they always start in the first complete
-month after the UTC information origin. Run the same command with
-`--validate-only` first. This requests fresh origin-matched SID observations
-over the entire delivery window and does not construct an LP.
+Open the Excel path printed by the runner:
 
-Changing horizon never fills source months. The approved selected Snøhvit source
-ends December 2029, so missing 2030 deliveries retain `BLOCKED_INPUTS`. In `core_f24`,
-the approved LNG conversion/mixed-vintage and frozen residual contracts replace the
-old physical-decision blockers; source gaps and accounting failures still block.
-Other prospective envelopes retain unverified future availability.
+- Single case: `outputs/routing_runs/<run>/results.xlsx`.
+- Four cases: `outputs/forward_scenarios/<run>/results.xlsx`, combining monthly and
+  annual country flows, scenario differences, accounting, coverage and constraints.
 
-Excel, CSV, HTML, charts and provenance retain every chronological monthly row
-across calendar years and use monthly bcm units. For an explicit manufactured
-50-month demonstration, additionally set `input_source: synthetic_demo` and
-`capacity_scenario: synthetic_fixture`. It is labelled SYNTHETIC throughout and
-queries no EA data; these fixture values cannot substitute for blocked live inputs.
+CSV, HTML and charts support the workbook. Each case retains resolved requests,
+SID metadata/raw responses, supply/capacity tables, solver results and hashes in
+`provenance/`. Original YAML snapshots remain inside released packages. All four
+cases use the same source boundary and approved scenario definitions.
 
-The national and sixteen field forecasts are monthly bcm. In `core_f24`, selected
-Snøhvit rates convert using calendar days/1000; Kollsnes uses 156 minus verified net
-unavailability once, or proportional 143 stress. Read the workbook's qualifications
-before treating proxies or assumed residual coverage as physically identified flows.
-No protected actuals or forecast accuracy scores are requested.
+Frozen 2024 residual shares approximate future field mix. Snøhvit's rate conversion
+and mixed vintage, external Trym exclusion, unmapped production and provisional
+technical capacities remain disclosed. See [INPUTS.md](INPUTS.md) for contracts,
+[DECISIONS.md](DECISIONS.md) for approvals and [STATUS.md](STATUS.md) for limitations.
 
-**Historical reconstruction:** set mode to `historical_reconstruction`, start to
-`'2024-01'`, end to `'2024-12'`, origin to null and capacity_scenario to `baseline`.
-Use the same command and validation flag. B2 completed the real-data 2024 run.
-All 46 NPD identities are registered; Hanz's absent January/February alone are
-explicit structural zeros justified by its 20 April 2024 production start. March's
-returned zero and all later observations remain unchanged. The raw response and
-[Hanz evidence](evidence/inputs/routing_sources_b1/hanz_preproduction.json) are
-retained in provenance. Other missing observations fail; no workbook substitution
-or general missing-to-zero rule applies. Inspect `results.xlsx` (Read me, Input
-sources, Diagnostics) and `provenance/source_metadata.json` in the printed package.
-The [source ledger](evidence/inputs/routing_sources_b1/README.md) records identities,
-units, transformations, coverage and hashes.
+## Retained outputs
 
-**F1 historical forecast readiness:** historical origin bundles remain blocked
-by specific vintage dependencies. The current `core_f24` POC is separately approved. See the [readiness report and 2024 monthly matrix](evidence/inputs/forecast_viability_f1/README.md).
-`scripts/audit/assess_forecast_viability.py` and `--supplement` inspect bounded
-forecasts/archives without solving or scoring. Prospective inspection has its own
-forecast-only access path; historical guards and the 2026 holdout stay locked.
+These packages are committed, including their inputs and provenance; they do not
+depend on a temporary worktree or local untracked fixtures. Use the integrated
+branch containing them. The older main checkout remains on an investigation branch.
 
-On every fresh run, the adapter queries EA/Shooju through
-the existing helper, validates source identity, units/frequency, complete dates,
-historical/forecast boundaries, signs and production import cohort, and retains
-original responses and metadata before preparing model inputs. Incorrect essential
-inputs stop optimisation with a failure package. Optional current comparisons are
-queried separately; their failures remain visibly unavailable. Earlier observations
-required for static preferences are essential and cannot use current outcomes.
-Price-free routing, Snøhvit's historical conversion guard, existing provisional
-capacities and the locked holdout are unchanged. A live full-model 2024
-reconstruction has been demonstrated; it is revised history, not a forecast.
-
-For an offline demonstration, copy `config/run.yaml` to a repository-local
-`.scratch/demo-run.yaml`, change `input_source` to `synthetic_demo` and
-`capacity_scenario` to `synthetic_fixture` for current mode, and pass
-that path to the same command. This explicitly manufactures supply, capacity and
-earlier training fixtures on the existing network. Every output says SYNTHETIC;
-it is neither an EA reconstruction nor a forecast. No actual/legacy values or
-forecast scores are invented.
-
-Each invocation reserves a new `outputs/routing_runs/<UTC timestamp>_<unique id>/`;
-existing packages, reconstructions and archives are never promoted or overwritten.
-Open **results.xlsx** first. Read me defines every sheet and boundary; monthly
-destination flows, group comparisons, capacities, arc flows, preferences, source
-inventory, settings and diagnostics follow. The workbook is a typed numeric/date
-snapshot with filters, frozen headers and a monthly flow chart after a solve.
-Editing it does not rerun the optimiser. “Unavailable” means missing, unsolved or
-incompatible, never assumed zero. EA actuals and forecasts remain unavailable in
-synthetic packages. Future real comparisons must retain original groups, origins
-and historical-segment checks; Poland/Nybro and signed Danish net values cannot
-score gross physical exports.
-
-For SID inputs, `provenance/raw/` contains exact returned observations, and
-`source_metadata.json` retains query bounds, timestamps, raw/reported units,
-transformations, provider vintages and validation status, including rejected
-responses. The reviewed source contract and mapping ledger are copied into the
-package. Compatible actual allocation proxies may appear alongside model flows;
-forecast references remain unavailable. Failed optional queries never supply
-training inputs or zero comparisons. Tests label manufactured SID responses as
-MOCK, and use a fixture-specific topology/contract rather than altering the live
-model. Run focused offline integration checks with the workspace interpreter and
-`-m pytest tests/integration/test_fresh_routing_inputs.py` using the documented
-repository-local temporary environment.
-
-`results.csv` is one target month with seven destination bcm columns, exports,
-supply, disposal and status. `details/` contains comparison/arc CSVs, independent
-solver checks and charts; `report.html` explains the package. `input_sources.csv`
-identifies required/consumed sources, dates, units and transformations.
-`provenance/inputs/` retains exact prepared tables and preferences. Provenance also
-contains source metadata, resolved settings, original code/configuration
-snapshots, solver results/statistics and Git identity. `run_manifest.json` hashes
-every package file except itself. CSV snapshots use 17 significant digits; Excel
-shows six decimal places while retaining numeric precision.
-
-Troubleshooting: inspect “Action required”, workbook Diagnostics and the manifest
-blocker. Missing mappings need source review; empty/incompatible vintages must stop
-the future adapter. A missing solver needs an approved installed backend. Permission
-errors need the workspace path/ACL/file-lock diagnosis. No environment/package
-change is automatic. Current mode permits only bounded prospective forecast
-deliveries and matching-origin forecast responses; ordinary historical reads,
-exports, fitting and scoring still reject dates after 2025 and the locked holdout.
-The original F2.2 contract remains blocked on its physical decisions. Core F2.4
-permits the labelled prospective POC subject to strict source/accounting gates. Historical replay and
-walk-forward scoring are not implemented; their origin-bundle guards remain.
-
-## Git baseline
-
-The initial baseline retains code, tests, configuration, instructions and selected
-lightweight evidence and registry migration metadata. Raw observations, workbooks,
-generated results and historical archive bundles remain local and are not part of
-the Git baseline. Links to those retained artifacts require the original local
-workspace. Tests that consume retained historical evidence need those local files;
-synthetic tests do not authorise new model runs or live data retrieval.
-
-**Current sourcing rule:** new real-data runs must query EA/Shooju SIDs directly
-each time; workbooks are formula/SID references only. The operational command
-blocks incomplete real-source preparation. Older cached diagnostic commands are
-retained for context and need separate explicit authorisation. The visual-report
-command now uses fresh SID references; saved model results remain historical
-evidence. Existing outputs remain available.
-Historical retrieval is supported by
-`project_data.get_registered_series(key, start, end, asof='2024-12-31T23:59:59Z')`.
-Missing SIDs/origin values stop the affected run; there is no workbook fallback.
-
-Start with [the output index](outputs/README.md). Each current assessment has
-one HTML report and one main results CSV, with technical detail below them.
-
-| Location | Contents |
+| Package | Primary result |
 |---|---|
-| `config/` | Active model and series configuration |
-| `src/norway_gas_routing/` | Reusable model, data and reporting code |
-| `src/norway_gas_routing/capacity/` | Capacity inputs, constraints, conversions, maintenance and public evidence |
-| `src/norway_gas_routing/reporting/` | Assessment reports, dashboard, figures, SID references and legacy adapters |
-| `scripts/run/` | Reconstruction driver |
-| `scripts/verify/` | Saved-evidence checks and routing diagnosis |
-| `scripts/audit/` | Maintained input/source investigations |
-| `tests/unit/`, `tests/integration/` | Synthetic behaviour and workflow tests |
-| `data/raw/` | Original retained inputs; workbooks in `legacy/` |
-| `evidence/inputs/`, `evidence/legacy/` | Reusable audit findings and workbook investigations |
-| `outputs/reconstruction/`, `outputs/benchmark/` | Current successful assessments |
-| `archive/YYYYMMDD-NN_description/` | Meaningful frozen milestones and original identities |
-| `.scratch/` | Disposable experiments, test outputs and caches; ignored by Git |
+| Original F2.4 and hardened F2.6 | [Combined Excel](outputs/forward_scenarios/20261013_f26/results.xlsx); [original report](outputs/forward_scenarios/20261013T134952692166Z/report.html) |
+| F2.7 fresh October-origin acceptance | [Combined Excel](outputs/forward_scenarios/20261013T165915778836Z/results.xlsx); [report](outputs/forward_scenarios/20261013T165915778836Z/report.html) |
+| F2.8 seasonal inputs and rolling-weight evidence | [Assumption comparison](outputs/chronological_inputs_f28/report.html) |
+| F2.10 first 2025 accuracy comparison | [Excel](outputs/revision_tolerant_2025/results.xlsx); [report](outputs/revision_tolerant_2025/report.html) |
+| F2.11 routing-error attribution | [Report and monthly table](outputs/routing_error_attribution_2025/report.html) |
 
-Create processed inputs, shared fixtures or notebooks only when actually used.
-The compact new-file gate and naming rules are in [AGENTS.md](AGENTS.md).
+The 2025 comparison is a revision-tolerant historical reconstruction, not a verified
+real-time backtest. No target-year actuals entered forecast inputs; normalisation
+in the error diagnostic is post-forecast only. January–September 2026 actuals remain
+locked. Historical preferences, approved forward weights and all released results
+are unchanged by cleanup.
 
-The executable model is `routing.py`; input preparation is `routing_inputs.py`,
-and its configuration section is `routing`. Install the solver dependencies with
-the `routing` extra when setting up an approved environment. Archived code,
-historical manifest keys and persisted database identifiers retain their original
-names for provenance; they are not active module names.
-
-Run from this repository with the approved workspace interpreter. Prepare scratch
-parents first; pytest creates its basetemp directory but not missing parents:
+Verify/replay the retained forward release without source retrieval:
 
 ```powershell
-New-Item -ItemType Directory -Force .scratch/tmp, .scratch/tests | Out-Null
-$env:PYTHONDONTWRITEBYTECODE = '1'
-$env:TEMP = (Resolve-Path '.scratch/tmp').Path
-$env:TMP = $env:TEMP
-$env:MPLCONFIGDIR = Join-Path $env:TEMP 'matplotlib'
-& 'C:\Users\martell.brighten\Documents\repos\.envs\env1.0\python.exe' -m pytest -q -p no:cacheprovider --basetemp=.scratch/tests/current
+& 'C:\Users\martell.brighten\Documents\repos\.envs\env1.0\python.exe' scripts/verify/verify_forward_scenarios.py outputs/forward_scenarios/20261013_f26 --replay
 ```
 
-Supported commands (append to that interpreter):
+Use the F2.7 summary path instead to verify that release. This checks hashes,
+ownership, accounting, capacity limits and monthly replay to 1e-7 bcm. Do not use
+`--write-validation` on a frozen package. Verify the historical comparison with:
 
-| Command | Purpose |
+```powershell
+& 'C:\Users\martell.brighten\Documents\repos\.envs\env1.0\python.exe' outputs/revision_tolerant_2025/provenance/code/verify_results.py
+```
+
+## Tests and project layout
+
+Ordinary regressions run offline using synthetic fixtures:
+
+```powershell
+& 'C:\Users\martell.brighten\Documents\repos\.envs\env1.0\python.exe' -m pytest -q
+```
+
+Fourteen `retained_evidence` tests are reported separately as deselected. They
+require the original public-capacity audit and SQLite bundle; run with
+`--run-evidence -m retained_evidence` only after restoring those prerequisites.
+Missing prerequisites produce an explicit error. Required paths are
+`evidence/inputs/public_capacity_audit_manifest.json`,
+`evidence/inputs/public_capacity_verification.json`, their referenced raw/evidence
+files and `archive/20261009-17_public-capacity-database/database/capacity.sqlite`.
+The database SHA-256 is `5e6e2b14c76a0afb94aa487e316c617f37fd78f95f117d96ec30232b180721a4`.
+Do not regenerate historical evidence to fit a test or change the shared environment.
+
+| Directory | Purpose |
 |---|---|
-| `scripts/run/run_routing.py --config config/run.yaml` | Unique Excel-first operational package; explicit fresh-SID blocker; synthetic demonstration available |
-| `scripts/run/run_snohvit_sensitivity.py` | Explicit full-year 2025 official/selected Snøhvit diagnostics in a new named experiment; no baseline promotion |
-| `scripts/run/run_routing_flexibility.py` | Individual physical destination min/max at fixed 2025 stage-1 exports; no preference or price objective |
-| `scripts/verify/diagnose_routing.py` | Cached before/after scenarios and physical/scoring checks |
-| `scripts/verify/verify_initial_benchmark.py` | Read-only original forecast/archive verification |
-| `scripts/verify/verify_repository.py` | Preserved source/result hashes, report links and layout audit |
-| `scripts/audit/build_public_capacity.py` | Offline public SQLite capacity database and CSVs in a fresh experiment; no optimiser integration |
-| `scripts/audit/build_capacity_candidates.py --output <new-directory>` | Read-only public capacity candidate layer, monthly preparation, identity and coverage exports; no production inputs or solver |
-| `scripts/run/run_capacity_scenarios.py --help` | Explicit optional capacity comparisons; frozen-input mode requires a separately authorised SID-only exception |
+| `config/` | One analyst run request; developer model, SID registry and evaluation policy |
+| `src/norway_gas_routing/` | Optimiser, source accounting and input preparation; `capacity/` and `reporting/` retain their existing roles |
+| `scripts/run/` | Supported runner and explicitly authorised specialist diagnostics |
+| `scripts/verify/`, `scripts/audit/` | Release checks and bounded source investigations |
+| `tests/unit/`, `tests/integration/` | Offline regression and workflow checks |
+| `data/raw/`, `evidence/` | Original source captures and reusable evidence |
+| `outputs/` | Committed releases and meaningful current assessments, indexed above |
+| `archive/` | Frozen earlier milestones; optional old cleanup plan/verifier under `20261009-01_repository-cleanup/` |
+| `.scratch/` | Ignored experiments, disposable logs, plots, test output and local worktrees |
 
-The standalone [public capacity database](evidence/inputs/public_capacity_database.md)
-retains source snapshots, separate Danish/Polish point histories and unknown
-engineering availability. Its optional retrieval-only refresh command never
-replaces pinned audit evidence or supplies active optimiser limits.
+New timestamped run/comparison packages are ignored by Git until deliberately
+retained. Validate every manifest reference and hash, then stage the exact complete
+release paths with `git add -f`, including configuration snapshots. Already committed
+packages remain tracked and unchanged. Do not stage all generated output by default.
 
-The initial benchmark is frozen. Its scoring/vintage functions remain
-in `src/norway_gas_routing/benchmark.py`; the obsolete full replay driver is
-retained inside the cleanup snapshot. Current refined configuration must not
-silently replace the original assessment.
-A new forecast assessment needs a reviewed contemporaneous input bundle.
-The fixed protocol is in `config/evaluation.yaml`: development through 2024-12,
-validation 2025-01–2025-12 for candidate comparison only, and locked final holdout
-2026-01–2026-09. `evaluation.py` guards fitting, retrieval, cached reads, scores,
-plots and assessment publication. Parameters cannot use 2025/2026 outcomes.
-There is no routine holdout unlock flag. Explicit approval and a frozen model
-identity are prerequisites for a separately implemented final evaluation.
-Run manifests contain the split/hash, experiment identity, parameters/hash and
-input vintages. The current routing model reader permits revised-input reconstructions;
-it rejects genuine-forecast mode without a complete verified origin bundle.
-Archive queries alone do not verify public release timing. The frozen benchmark
-predates this protocol; its partial 2025 coverage is not a full validation run.
-Audit commands may retrieve data or write proposals; cleanup does not authorise
-new sourcing. Completed registry migrations are frozen inside the cleanup snapshot.
+Only `config/model.yaml.routing` defines the executable seven-destination LP
+network. Top-level source groups remain input memberships; the retained six-market
+foundation supports metadata, diagnostics and public-capacity validation. It is not
+another operational optimiser. See [config/README.md](config/README.md).
 
-Temporary experiments use `.scratch/runs/YYYYMMDD-NN_short-description/`, such as
-`20261009-02_capacity-review`. Describe what was tested, not the result. Sequence
-considers existing scratch experiments and retained archives; never overwrite one.
-Current successful assessment paths remain stable. Retain only meaningful
-milestones under `archive/` and add them to the output index.
-
-Authoritative records: [INPUTS.md](INPUTS.md) for data contracts,
-[DECISIONS.md](DECISIONS.md) for accepted modelling choices,
-[STATUS.md](STATUS.md) for current limitations and verification.
-Original code/configuration/manifests and historical documents are frozen in the
-cleanup milestone; path relocation is recorded without rewriting old evidence.
-The full [cleanup plan](REPOSITORY_CLEANUP_PLAN.txt) is optional historical context.
-
-The standalone retrieval helpers are in `src/norway_gas_routing/data_functions.py`;
-project-aware registry helpers are in `project_data.py`. Preserve raw units,
-timestamps, negatives and missing values before analytical validation.
-Within this package both retrieval interfaces bound `MAX` to 2025-12-31 and
-reject explicit later/relative requests. Old raw caches and pre-protocol findings
-may contain later dates; they remain preserved, while routine Parquet readers
-filter them before loading values. The historical sourcing-inventory writer is
-disabled because its embedded findings include reserved-period observations.
-
-## Reusable routing visual reports
-
-The command below describes the previously generated offline graphics package.
-It still reads retained comparison sources and must be migrated to fresh SID
-queries before a new run under the current sourcing rule. It does not execute
-the requested same-origin forecast backtest. See
-[December 2024 origin readiness](archive/20261009-20_forecast-origin-readiness/report.md).
-
-Build presentation graphics and CSV tables from saved solver results, without running
-the optimiser, retrieving observations or recalculating Excel:
-
-```powershell
-New-Item -ItemType Directory -Force .scratch/tmp | Out-Null
-$env:PYTHONDONTWRITEBYTECODE = '1'
-$env:TEMP = (Resolve-Path '.scratch/tmp').Path
-$env:TMP = $env:TEMP
-$env:MPLCONFIGDIR = Join-Path $env:TEMP 'matplotlib'
-& 'C:\Users\martell.brighten\Documents\repos\.envs\env1.0\python.exe' scripts/run/build_routing_visuals.py
-```
-
-Open `outputs/routing_graphics/details/` for the PNG/SVG graphics, organised
-by model run, scenario and year. `outputs/routing_graphics/figures.csv` lists
-every graphic's relative path. `results.csv` contains the supply/export totals;
-`details/*.csv` contains comparisons, map flows, capacities and allocation shares.
-Source ledgers and verification are in `provenance/`. The default package
-includes the saved 2024 reconstruction and official-net-production 2025 diagnostic,
-both retained legacy forecast origins, cached workbook history as separate context,
-PNG/SVG figures and one-page visual briefings. No dashboard is generated by default.
-The earlier dashboard in `outputs/routing_visuals/` is preserved. Use `--html`
-only if an optional self-contained dashboard is wanted alongside the graphics.
-
-Rerun this command at any time to regenerate from the selected saved results.
-It does not run the optimiser or automatically select a newer archive. Use
-`--run` for a new saved result and `--output` for a separate dated export folder.
-Rerunning into the same folder replaces generated files of the same name.
-
-Select an individual archive, scenario, period and comparison source:
-
-```powershell
-& 'C:\Users\martell.brighten\Documents\repos\.envs\env1.0\python.exe' scripts/run/build_routing_visuals.py --run archive/20261009-13_snohvit-sensitivity --scenario official-net-production --legacy-source retained:2024-06-30 --legacy-source workbook --start 2025-01 --end 2025-12 --output outputs/routing_graphics_2025
-```
-
-Repeat `--run` to compare multiple saved runs. If `--scenario` is supplied,
-provide one per `--run`, in matching order. Available sources are `workbook`
-and `retained:YYYY-MM-DD` for an origin in the frozen benchmark. Optional
-`--legacy-archive` chooses a retained forecast folder using the benchmark export
-and verification schema. `--legacy-workbook` chooses another workbook with the same verified cached-cell
-contract. A changed formula path or unit fails closed. The selected mixed-vintage
-2025 diagnostic is also supported; it retains its diagnostic label. Unsupported
-archive schemas or new topology nodes need a reviewed adapter/layout, rather than
-guessing a connection. No new package installation is required in the current
-workspace environment.
-
-Run the focused reporting tests with the workspace interpreter:
-`-m pytest -q -p no:cacheprovider --basetemp=.scratch/tests/visual_reporting tests/unit/test_visual_reporting.py`.
-Checks reconcile countries/groups, saved graph/flows, capacities, disposal and
-annual sums. Source cell and forecast-point ledgers record exact values, original
-units, formula ranges, vintages and hashes. Missing values remain missing.
-Charts are regenerated from these data; no figures are hardcoded from an experiment.
-
-The workbook's historical Poland-labelled upload is total Nybro entry, so direct
-Polish comparisons are withheld. Individual FR/BE/NL/DE legacy forecasts and a
-full-year 2025 legacy forecast are unavailable. Matched partial periods are shown
-separately, with no extrapolation or observation substitution. Named legacy totals
-retain their original difference from the sum of destination allocations.
-See [the source definitions and exact ranges](evidence/legacy/visual_reporting_sources.md).
-
-This pipeline reports revised reconstructions and diagnostics, not genuine current
-forecasts. Its adapters reuse saved output tables and producer identities. The
-fixed evaluation policy currently blocks dates after 2025. Future forecast reports
-through December 2030 require real origin-bundle outputs and a separately approved
-forward-reporting policy; there is no bypass flag and no holdout access.
+Current input preparation is `forecast_inputs.py`/`operational.py`; the historical
+workbook adapter in `routing_inputs.py` is retained for explicitly authorised older
+diagnostics. Other specialist commands may retrieve data or need local archive
+bundles; they are not the normal forecasting workflow. Do not delete untracked
+source evidence, historical snapshots or unpushed worktrees during housekeeping.

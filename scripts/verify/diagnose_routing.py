@@ -26,8 +26,7 @@ from norway_gas_routing.routing import (DESTINATIONS, available_solver, build_mo
                                    solve_month, validate_solution)
 from norway_gas_routing.routing_inputs import prepare_inputs, file_hash
 import shutil
-sys.path.insert(0, str(ROOT / "scripts/run"))
-from run_routing import save_csv
+from norway_gas_routing.operational import save_csv
 from norway_gas_routing.artifacts import (new_experiment, publish_assessment, first_solve_file, verify_first_solve, original_bytes)
 from norway_gas_routing.reporting.assessment import render_report
 from norway_gas_routing.evaluation import check_table, check_dates, reconstruction_evaluation
